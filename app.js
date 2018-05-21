@@ -10,14 +10,11 @@ var usersRouter = require('./routes/users');
 var express = require('express');
 var app = express();
 var router = express.Router();
-//var path = __dirname + 'OOAProject/views/';
-app.use('/',router);
+
+app.use('/',indexRouter);
 
 
 
-router.get('/index',function(req, res){
-  res.sendFile(path + 'index.html');
-});
 
 app.get('/home',function(req,res){
   
@@ -36,52 +33,52 @@ app.get('/Manage',function(req,res){
 
 app.listen(3000);
 
-const Sequelize = require('sequelize');
-const sequelize = new Sequelize('database', 'kiahzuo', 'kiahzuo123', {
-  host: 'localhost',
-  dialect: 'mssql',
-  operatorsAliases: false,
-  dialectOptions:{
-    instanceName : 'sqlexpress'
-  },
+// const Sequelize = require('sequelize');
+// const sequelize = new Sequelize('database', 'kiahzuo', 'kiahzuo123', {
+//   host: 'localhost',
+//   dialect: 'mssql',
+//   operatorsAliases: false,
+//   dialectOptions:{
+//     instanceName : 'sqlexpress'
+//   },
   
 
-  pool: {
-    max: 5,
-    min: 0,
-    acquire: 30000,
-    idle: 10000
-  }
-});
+//   pool: {
+//     max: 5,
+//     min: 0,
+//     acquire: 30000,
+//     idle: 10000
+//   }
+// });
 
-  const User = sequelize.define('user', {
-    firstName: {
-      type: Sequelize.STRING
-    },
-    lastName: {
-      type: Sequelize.STRING
-    }
-  });
+//   const User = sequelize.define('user', {
+//     firstName: {
+//       type: Sequelize.STRING
+//     },
+//     lastName: {
+//       type: Sequelize.STRING
+//     }
+//   });
   
-  // force: true will drop the table if it already exists
-  User.sync({force: true}).then(() => {
-    // Table created
-    return User.create({
-      firstName: 'John',
-      lastName: 'Hancock'
-    });
-  });
+//   // force: true will drop the table if it already exists
+//   User.sync({force: true}).then(() => {
+//     // Table created
+//     return User.create({
+//       firstName: 'John',
+//       lastName: 'Hancock'
+//     });
+//   });
   
 
   
-  // force: true will drop the table if it already exists
-  User.sync({force: true}).then(() => {
-    // Table created
-    return User.create({
-      firstName: 'John',
-      lastName: 'Hancock'
-    });
-  }); 
+//   // force: true will drop the table if it already exists
+//   User.sync({force: true}).then(() => {
+//     // Table created
+//     return User.create({
+//       firstName: 'John',
+//       lastName: 'Hancock'
+//     });
+//   }); 
 
 
 
