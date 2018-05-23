@@ -8,6 +8,7 @@ var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
 var aboutRouter = require('./routes/about');
 var productsRouter = require('./routes/products');
+var storeRouter = require('./routes/store');
 
 var express = require('express');
 var app = express();
@@ -18,20 +19,7 @@ var router = express.Router();
 
 
 
-app.get('/home',function(req,res){
-  
-  res.send("home");
-});
 
-app.get('/store',function(req,res){
-  
-  res.send("store page");
-});
-
-app.get('/Manage',function(req,res){
-  
-  res.send("Manage Page");
-});
 
 app.listen(3000);
 
@@ -98,6 +86,7 @@ app.use('/', indexRouter);
 app.use('/about', aboutRouter);
 app.use('/users', usersRouter);
 app.use('/products', productsRouter);
+app.use('/store', storeRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
