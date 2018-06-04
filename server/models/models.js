@@ -25,6 +25,9 @@ const Bookitem = sequelize.define('Bookitem', {
     },
     meetup1: {
         type: Sequelize.STRING
+    },
+    seller: {
+        type: Sequelize.STRING
     }
 });
 

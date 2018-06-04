@@ -14,6 +14,7 @@ router.post('/',(req,res,next) =>{
   var condition = req.body.condition;
   var description = req.body.description;
   var meetup = req.body.meetup;
+  var seller = req.user.name;
 
   Bookitem.create({
     bookname1 : bookname,
@@ -21,7 +22,7 @@ router.post('/',(req,res,next) =>{
     condition1 : condition,
     description1 : description,
     meetup1 : meetup,
-
+    seller:seller,
   });
 
   res.redirect('/')
@@ -36,6 +37,9 @@ router.get('/products',(req,res,next)=>{
   
   }); 
 });
+
+
+
 
 
 exports.hasAuthorization = function(req,res,next){
