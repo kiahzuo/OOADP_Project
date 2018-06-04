@@ -23,8 +23,26 @@ router.post('/',(req,res,next) =>{
     meetup1 : meetup,
 
   });
+
   res.redirect('/')
-})
+})  
+
+
+router.get('/products',(req,res,next)=>{
+  Bookitem.findAll()
+  .then(retrievebook=>{
+    console.log(retrievebook);
+    res.render('products', {retrievebook: retrievebook});
+  
+  }); 
+});
+
+
+exports.hasAuthorization = function(req,res,next){
+  if(req.isAuthenticated())
+      return next();
+  res.redirect('/login');
+};
 
 module.exports = router;
 
