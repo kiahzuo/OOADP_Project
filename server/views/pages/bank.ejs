@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+
+  <head>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>Definitely not a Bank</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Custom fonts for this template -->
+    <link href="https://fonts.googleapis.com/css?family=Raleway:100,100i,200,200i,300,300i,400,400i,500,500i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Lora:400,400i,700,700i" rel="stylesheet">
+
+    <!-- Custom styles for this template -->
+    <link href="stylesheets/business-casual.css" rel="stylesheet">
+
+    <!-- My own css (kheehing) -->
+    <link href="#" rel="stylesheet">
+
+    <!-- BootStrap -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" integrity="sha384-WskhaSGFgHYWDcbwN70/dfYBj47jz9qbsMId/iRN3ewGhXQFZCSftd1LZCfmhktB" crossorigin="anonymous">
+
+  </head>
+
+  <body>
+    <div class="container">
+        <h3>Welcome to KHEE-BANK</h3>
+        <p id="test"></p>
+            <!-- login toggle-modal-->
+            <button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#login_modal">User Info</button>
+    
+        <!-- login Modal -->
+        <div class="modal fade" id="login_modal" role="dialog">
+            <div class="modal-dialog">
+                    
+                <!-- login Modal content-->
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h4 class="modal-title">Login</h4>
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    </div>
+                    <div class="modal-body">
+                        <form>
+                            <div class="container row">
+                                <label for="InputFirstName" class="col">First Name</label>
+                                <label for="InputLastName" class="col">Last Name</label>
+                            </div>
+                            <div class="container row">
+                                <input id="InputFirstName" class="form-control col" type="text" placeholder="First Name">
+                                <input id="InputLastName " class="form-control col" type="text" placeholder="Last Name">
+                            </div>
+                            
+                            <div class="form-group">
+                                    <label for="AccountType">Account Type</label>
+                                    <select class="form-control" id="AccountType">
+                                      <option>Basic Checking Accounts</option>
+                                      <option>Savings Accounts</option>
+                                      <option>Interest Bearing Checking Accounts</option>
+                                      <option>Money Market Account</option>
+                                      <option>Marketed Linked Certificate of Deposit (CD/MLCD)</option>
+                                      <option>Investment retirement accounts</option>
+                                      <option>Brokerage Accounts</option>
+                                    </select>
+                            </div>
+                            <label for="AccountNumber">Account Number</label>
+                            <input id="AccountNumber" class="form-control" type="text" placeholder="Account Number">
+                            <label for="AvailableBalance">Available Balance</label>
+                            <input id="AvailableBalance" class="form-control" type="text" placeholder="Available Balance">
+                            <div class="form-group">
+                                    <label for="CreditCardType">CreditCard Type</label>
+                                    <select class="form-control" id="CreditCardType">
+                                      <option>VISA</option>
+                                      <option>Mastercard</option>
+                                      <option>AmericanExpress</option>
+                                    </select>
+                            </div>
+                            <label for="CreditcardNumber">Creditcard Number</label>
+                            <input id="CreditcardNumber" class="form-control" type="text" placeholder="Creditcard Number">
+                            <div class="form-group">
+                                    <label for="ExpireDay">Day</label>
+                                    <select class="form-control" id="ExpireDay">
+                                      <option>1</option>
+                                      <option>2</option>
+                                      <option>3</option>
+                                      <option>4</option>
+                                      <option>5</option>
+                                      <option>6</option>
+                                      <option>7</option>
+                                      <option>8</option>
+                                      <option>9</option>
+                                      <option>10</option>
+                                      <option>11</option>
+                                      <option>12</option>
+                                      <option>13</option>
+                                      <option>14</option>
+                                      <option>15</option>
+                                      <option>16</option>
+                                      <option>17</option>
+                                      <option>18</option>
+                                      <option>19</option>
+                                      <option>20</option>
+                                      <option>21</option>
+                                      <option>22</option>
+                                      <option>23</option>
+                                      <option>24</option>
+                                      <option>25</option>
+                                      <option>26</option>
+                                      <option>27</option>
+                                      <option>28</option>
+                                      <option>29</option>
+                                      <option>30</option>
+                                      <option>31</option>
+                                    </select>
+                            </div>
+                            <div class="form-group">
+                                    <label for="ExpireMonth">Month</label>
+                                    <select class="form-control" id="ExpireMonth">
+                                        <option>1</option>
+                                        <option>2</option>
+                                        <option>3</option>
+                                        <option>4</option>
+                                        <option>5</option>
+                                        <option>6</option>
+                                        <option>7</option>
+                                        <option>8</option>
+                                        <option>9</option>
+                                        <option>10</option>
+                                        <option>11</option>
+                                        <option>12</option>
+                                    </select>
+                            </div>
+                            <label for="CreditCardSC">Security Code</label>
+                            <input id="CreditCardSC" class="form-control" type="text" placeholder="Security Code">
+                        
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                            <input type="submit" class="btn btn-default" onclick="writeUserData()" placeholder="Submit">
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+  </body>
+
+  <footer>
+      
+  </footer>
+
+    
+    <!-- Firebase -->
+    <script src="https://www.gstatic.com/firebasejs/5.0.4/firebase.js"></script>
+    <script>
+        // Initialize Firebase
+        var config = {
+            apiKey: "AIzaSyC49wuB3NGxO8KmH_9E1uG1LLzDceYGIVI",
+            authDomain: "ooadp-2018-sem1.firebaseapp.com",
+            databaseURL: "https://ooadp-2018-sem1.firebaseio.com",
+            projectId: "ooadp-2018-sem1",
+            storageBucket: "ooadp-2018-sem1.appspot.com",
+            messagingSenderId: "759422311263"
+        };
+        firebase.initializeApp(config);
+    </script>
+    <script src="bank.js"></script>
+    <!-- BootStrap -->
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js" integrity="sha384-smHYKdLADwkXOn1EmN1qk/HfnUcbVRZyYmZ4qpPea6sjB/pTJ0euyQp0Mk8ck+5T" crossorigin="anonymous"></script>
+    
+</html>

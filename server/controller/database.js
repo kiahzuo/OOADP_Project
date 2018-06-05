@@ -1,7 +1,7 @@
 var Sequelize = require('sequelize');
 var sequelizeTransforms = require('sequelize-transforms');
 
-const sequelize =new Sequelize({
+const sequelize = new Sequelize({
     dialect: 'mssql',
     dialectModulePath: 'tedious',
     dialectOptions: {
