@@ -14,7 +14,7 @@ var storeRouter = require('./routes/store');
 var loginRouter = require('./routes/login');
 var profileRouter = require('./routes/profile');
 var signupRouter = require('./routes/signup');
-
+var editRouter = require('./routes/edit');
 
 // Import login controller
 var auth = require('./server/controller/auth');
@@ -123,6 +123,7 @@ app.use('/store', auth.isLoggedIn, storeRouter);
 app.use('/login',loginRouter);
 app.use('/profile',profileRouter);
 app.use('/signup',signupRouter);
+app.use('/edit',editRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

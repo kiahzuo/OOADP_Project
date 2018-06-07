@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+
+  <head>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>Business Casual - Start Bootstrap Theme</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="../../vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Custom fonts for this template -->
+    <link href="https://fonts.googleapis.com/css?family=Raleway:100,100i,200,200i,300,300i,400,400i,500,500i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Lora:400,400i,700,700i" rel="stylesheet">
+
+    <!-- Custom styles for this template -->
+    <link href="../../stylesheets/business-casual.min.css" rel="stylesheet">
+
+
+    <script src="../../../public/javascripts/jquery.min.js"></script>
+    <script src="../../../public/javascripts/bootstrap.min.js"></script>
+    <script src="http://code.jquery.com/jquery-1.11.3.min.js"></script>
+    
+
+  </head>
+<body>
+
+        <h1 class="site-heading text-center text-white d-none d-lg-block">
+      
+                <span class="site-heading-lower">BookTrade</span>
+              </h1>
+            
+              <!-- Navigation -->
+              <nav class="navbar navbar-expand-lg navbar-dark py-lg-4" id="mainNav">
+                <div class="container">
+                  <a class="navbar-brand text-uppercase text-expanded font-weight-bold d-lg-none" href="#">Start Bootstrap</a>
+                  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                  </button>
+                  <div class="collapse navbar-collapse" id="navbarResponsive">
+                    <ul class="navbar-nav mx-auto">
+                      <li class="nav-item active px-lg-4">
+                        <a class="nav-link text-uppercase text-expanded" href="index">Home
+                          <span class="sr-only">(current)</span>
+                        </a>
+                      </li>
+                      <li class="nav-item px-lg-4">
+                        <a class="nav-link text-uppercase text-expanded" href="about">About</a>
+                      </li>
+                      <li class="nav-item px-lg-4">
+                        <a class="nav-link text-uppercase text-expanded" href="products">Products</a>
+                      </li>
+                      <li class="nav-item px-lg-4">
+                        <a class="nav-link text-uppercase text-expanded" href="store">Store</a>
+                      </li>
+                      <li class="nav-item px-lg-4">
+                        <a class="nav-link text-uppercase text-expanded" href="login">Login</a>
+                      </li>
+                      <li class="nav-item px-lg-4">
+                          <a class="nav-link text-uppercase text-expanded" href="profile">Profile</a>
+                        </li>
+                    </ul>
+                  </div>
+                </div>
+              </nav>
+              <br>
+
+<body>
+    <div class="modal-header">
+        <h4 class="modal-title" id="myModalLabel">Edit Student Record</h4>
+    </div>
+    <div class="modal-body">
+        <fieldset class="form-group">
+            <label for="inputStudentID">Student ID</label>
+            <input type="text" id="BookName" name="BookName" class="form-control" placeholder="Student Id" required="true" value="<%= retrievebook.bookname1 %>">
+        </fieldset>
+        <fieldset class="form-group">
+            <label for="inputName">Student Name</label>
+            <input type="text" id="price" name="price" class="form-control" placeholder="Student Name" required="true" value="<%= retrievebook.price1 %>">
+        </fieldset>
+        <fieldset class="form-group">
+            <label for="inputGroup">Group</label>
+            <input type="text" id="condition" name="condition" class="form-control" placeholder="Group" required="true" value="<%= retrievebook.condition1 %>">
+        </fieldset>
+        <fieldset class="form-group">
+            <label for="inputHobby">Hobby</label>
+            <input type="text" id="description" name="description" class="form-control" placeholder="Hobby" required="true" value="<%= retrievebook.description1 %>">
+        </fieldset>
+        <fieldset class="form-group">
+            <label for="inputHobby">Hobby</label>
+            <input type="text" id="meetup" name="meetup" class="form-control" placeholder="Hobby" required="true" value="<%= retrievebook.meetup1 %>">
+        </fieldset>
+    </div>
+    <div class="modal-footer">
+        <button type="submit" class="btn btn-primary" onclick=saveChanges()>Save Changes</button>
+        <button type="button" class="btn btn-secondary" onclick=discardChanges()>Cancel</button>
+
+     
+    </div>
+    <script>
+      function saveChanges() {
+          var url = "<%=hostPath%>/edit/<%=retrievebook.id%>";
+          var newValues = {
+              bookname: $("#BookName").val(),
+              price: $("#price").val(),
+              condition: $("#condition").val(),
+              description: $("#description").val(),
+              meetup: $("#meetup").val()
+          }
+          $.ajax({
+              url: url,
+              type: "POST",
+              data: JSON.stringify(newValues),
+              dataType: "json",
+              contentType: "application/json",
+              success: function(result){
+                  alert("Student record updated successfully");
+                  location.href = "<%=hostPath%>"
+              },
+              // error: function(result){
+              //     alert("Error updating student record");
+              //     discardChanges();
+              // }
+          })
+      }
+
+      function discardChanges() {
+          location.href = "<%=hostPath%>"
+      }
+  </script>
+    </body>

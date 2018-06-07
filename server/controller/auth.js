@@ -1,6 +1,7 @@
 // get gravatar icon from email
 var gravatar = require('gravatar');
 var passport = require('passport');
+var Bookitem = require('../models/models');
 
 // Signin GET
 exports.signin = function(req, res) {
@@ -16,7 +17,9 @@ exports.signup = function(req, res) {
 // Profile GET
 exports.profile = function(req, res) {
     // List all Users and sort by Date
-    res.render('profile', { title: 'Profile Page', user : req.user, avatar: gravatar.url(req.user.email ,  {s: '100', r: 'x', d: 'retro'}, true) });
+    Bookitem.findAll()
+  .then(retrievebook=>{ res.render('profile', { title: 'Profile Page', retrievebook:retrievebook, user : req.user, avatar: gravatar.url(req.user.email ,  {s: '100', r: 'x', d: 'retro'}, true) });})
+   
 };
 // Logout function
 exports.logout = function () {

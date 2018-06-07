@@ -38,6 +38,34 @@ router.get('/products',(req,res,next)=>{
   }); 
 });
 
+// router.get('/edit/:id',function (req,res) {
+//   var booknumber = req.params.id;
+//   Bookitem.findById(booknumber).then(function (retrievebook) {
+//       res.render('edit', {
+//           title: "Practical 5 Database Node JS - Edit Student Records",
+//           item: retrievebook,
+//           // hostPath: req.protocol + "://" + req.get("host")
+//       });
+//   }).catch((err) => {
+//       return res.status(400).send({
+//           message: err
+//       });
+//   });
+// });
+
+// router.post('/:id',function (req,res) {
+//   var booknumber = req.params.id;
+//   console.log("deleting" + booknumber);
+//   Bookitem.destroy({ where: { id: booknumber } }).then((deletedRecord) => {
+//       if(!deletedRecord) {
+//           return res.send(400, {
+//               message: "error"
+//           });
+//       }
+//       res.status(200).send({ message: "Deleted student record: " + record_num });
+//   });
+// }
+// )
 
 
 

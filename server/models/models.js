@@ -31,6 +31,10 @@ const Bookitem = sequelize.define('Bookitem', {
     }
 });
 
+
+
+
+
 sequelize.sync({ force: false, logging: console.log}).then(() => {
     // Table created
     console.log("books table synced");
