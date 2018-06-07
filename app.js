@@ -14,11 +14,10 @@ var storeRouter = require('./routes/store');
 var loginRouter = require('./routes/login');
 var profileRouter = require('./routes/profile');
 var signupRouter = require('./routes/signup');
-<<<<<<< HEAD
 var editRouter = require('./routes/edit');
-=======
+
 var bankRouter = require('./routes/bank');
->>>>>>> 402a7991a87ee291bb01437768824b77d770bf98
+
 
 // Import login controller
 var auth = require('./server/controller/auth');
@@ -124,11 +123,11 @@ app.use('/store', auth.isLoggedIn, storeRouter);
 app.use('/login',loginRouter);
 app.use('/profile',profileRouter);
 app.use('/signup',signupRouter);
-<<<<<<< HEAD
+
 app.use('/edit',editRouter);
-=======
+
 app.use('/bank',bankRouter);
->>>>>>> 402a7991a87ee291bb01437768824b77d770bf98
+
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
