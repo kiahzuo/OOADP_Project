@@ -25,7 +25,7 @@ router.post('/',(req,res,next) =>{
     seller:seller,
   });
 
-  res.redirect('/')
+  res.redirect('/store')
 })  
 
 

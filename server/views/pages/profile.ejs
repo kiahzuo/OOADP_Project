@@ -20,8 +20,10 @@
     <!-- Custom styles for this template -->
     <link href="../../stylesheets/business-casual.min.css" rel="stylesheet">
 
-    <script src='/javascripts/jquery.min.js'></script>
-    <script src='/javascripts/bootstrap.min.js'></script>
+    <script src="../../../public/javascripts/jquery.min.js"></script>
+    <script src="../../../public/javascripts/bootstrap.min.js"></script>
+    <script src="http://code.jquery.com/jquery-1.11.3.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 
   </head>
 <body>
@@ -67,7 +69,7 @@
               <br>
 
 <style>
-  .card-img-top {height: 250px;
+  .card-img-top1 {height: 250px;
         width: 50%;
         margin: auto}
 </style>
@@ -77,7 +79,7 @@
 
             <div class="card text-xs-center">
                 <br>
-                <img class="card-img-top" src="<%= avatar %>" alt="Card image cap">
+                <img class="card-img-top1" src="<%= avatar %>" alt="Card image cap">
                 <div class="card-block">
                     <h4 class="card-title">User Details</h4>
                     <p class="card-text">
@@ -91,48 +93,84 @@
     </div>
 <br><br>
 
-    <style>
-         #display1 {display: inline-block;
-                  margin-left: 0%;
-                  margin-right: 8%;}  
-       #display2class {display: inline-block;
-                       margin-left: 4.5%;
-                       margin-right: 0%;}
-     </style>
 
-                  <div id="display1"></div>
-                  <% if (typeof retrievebook != "undefined") { %>
-                    <% for (i =0; i < retrievebook.length; i++) {%>
-                      <% if (user.name == retrievebook[i].seller) { %>
-                      
-                  <div class="col-lg-3 col-md-8 mb-3" id="display2class">
-                    <div class="card h-100">
-                      <a href="#"><img class="card-img-top" src="http://placehold.it/700x400" alt=""></a>
-                      <div class="card-body">
-                        <h4 class="card-title">
-                          <a href="#"><%= retrievebook[i].bookname1 %></a>
-                        </h4>
-                        <h5>$<%= retrievebook[i].price1 %></h5>
-                        <p class="card-text"><%= retrievebook[i].description1 %></p>
-                        <p><%= retrievebook[i].seller%></p>
-                      </div>
+     
 
-                      <a class = 'button button-default' href="/edit/<%= retrievebook[i].id%>">Click Me!</a>
-                      <input type="button" class="deleteBtn"  value="Delete">
-                      <div class="card-footer">
-                        <small class="text-muted">&#9733; &#9733; &#9733; &#9733; &#9734;</small>
-                      </div>
-                    </div>
-                  </div>
-                  
-                  <% } %>
-                  <% } %>
-                  <% } %>
-                  </div>
+<div class="container">
+
+    <div class="row">
+
+            <% if (typeof retrievebook != "undefined") { %>
+              <% for (i =0; i < retrievebook.length; i++) {%>
+                <% if (user.name == retrievebook[i].seller) { %>
+            <div class="col-lg-4 col-md-6 mb-4">
+              <div class="card h-100">
+                  <div data-id="<%= retrievebook[i].id %>" class="rowRecord" >
+                <a href="#"><img class="card-img-top" src="http://placehold.it/700x400" alt=""></a>
+                <div class="card-body">
+                  <h4 class="card-title">
+                    <a href="#"><%= retrievebook[i].bookname1 %></a>
+                  </h4>
+                  <h5>$<%= retrievebook[i].price1 %></h5>
+                  <p class="card-text"><%= retrievebook[i].description1 %></p>
+                  <p><%= retrievebook[i].seller%></p>
+                </div>
+
+                <a class = 'button button-default' href="/edit/<%= retrievebook[i].id%>">Click Me!</a>
+                <input type="button" class="deleteBtn"  value="Delete">
+      
+           
+              
+            </div>
+          </div>
+          </div>
+            
+            <% } %>
+            <% } %>
+            <% } %>
+            <script>
+
+                $('.deleteBtn').click(function () {
+                  var booknumber = $(this).closest("div").data('id');
+                  $.ajax({
+                    url: '<%-urlPath%>/' + booknumber,
+                    type: 'DELETE',
+                    success: function (result) {
+                      console.log(result.message);
+                      var itemToRemove = '.rowRecord[data-id=' + booknumber + ']';
+                      $(itemToRemove).remove();
+                      alert("Record Deleted Successfully.");
+                    },
+                    error: function (result) {
+                      alert("Unable to delete record.");
+                      console.log(result.message);
+                    }
+                  });
+                });
+              </script>
+
+        
+
+
+
+    </div>
+    <!-- /.row -->
+
+  </div>
+  <!-- /.container -->
+
+  <!-- Footer -->
+  <footer class="py-5 bg-dark">
+    <div class="container">
+      <p class="m-0 text-center text-white">Copyright &copy; Your Website 2017</p>
+    </div>
+    <!-- /.container -->
+  </footer>
                 </ul> 
+
+               
 
     
 
 
     </body>
-    </html>

@@ -18,9 +18,33 @@ exports.signup = function(req, res) {
 exports.profile = function(req, res) {
     // List all Users and sort by Date
     Bookitem.findAll()
-  .then(retrievebook=>{ res.render('profile', { title: 'Profile Page', retrievebook:retrievebook, user : req.user, avatar: gravatar.url(req.user.email ,  {s: '100', r: 'x', d: 'retro'}, true) });})
+  .then(retrievebook=>{ res.render('profile', { 
+      title: 'Profile Page', 
+      retrievebook:retrievebook,
+      user : req.user, 
+      avatar: gravatar.url(req.user.email ,  {s: '100', r: 'x', d: 'retro'}, true),
+      urlPath: req.protocol + "://" + req.get("host") + req.url
+
+      
+    });})
+
+    
    
 };
+
+exports.delete=(function (req,res) {
+    var booknumber = req.params.id;
+    console.log("deleting" + booknumber);
+    Bookitem.destroy({ where: { id: booknumber } }).then((deletedRecord) => {
+        if(!deletedRecord) {
+            return res.send(400, {
+                message: "error"
+            });
+        }
+        res.status(200).send({ message: "Deleted student record: " + booknumber });
+    });
+  }
+  )
 // Logout function
 exports.logout = function () {
     req.logout();

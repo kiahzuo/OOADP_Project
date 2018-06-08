@@ -13,7 +13,7 @@ router.get('/', function(req, res, next) {
 });
 
 
-router.post('/',function (req,res) {
+router.delete('/:id',function (req,res) {
   var booknumber = req.params.id;
   console.log("deleting" + booknumber);
   Bookitem.destroy({ where: { id: booknumber } }).then((deletedRecord) => {

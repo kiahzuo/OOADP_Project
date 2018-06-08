@@ -94,6 +94,7 @@ app.post('/signup', passport.authenticate('local-signup', {
 }));
 
 app.get('/profile', auth.isLoggedIn, auth.profile);
+app.delete("/profile", auth.delete);
 
 // Logout Page
 app.get('/logout', function (req, res) {
