@@ -36,7 +36,7 @@ exports.create = function (req, res){
             });
         }
 
-        res.redirect('/comments');
+        res.redirect('/products');
     })
 };
 

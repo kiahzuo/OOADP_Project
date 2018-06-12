@@ -116,22 +116,67 @@
         <div class="row">
             <% if (typeof retrievebook != "undefined") { %>
               <% for (i =0; i < retrievebook.length; i++) {%>
+                <% if ( retrievebook[i].avaliable != "Mark As Sold") { %>
 
           <div class="col-lg-4 col-md-6 mb-4">
             <div class="card h-100">
               <a href="#"><img class="card-img-top" src="http://placehold.it/700x400" alt=""></a>
               <div class="card-body">
                 <h4 class="card-title">
-                  <a href="#"><%= retrievebook[i].bookname1 %></a>
+                    <a class = 'button button-default' href="/viewbook/<%= retrievebook[i].id%>"><%= retrievebook[i].bookname1 %></a>
                 </h4>
-                <h5>$<%= retrievebook[i].price1 %></h5>
-                <p class="card-text"><%= retrievebook[i].seller%></p>
+                <h5>Price : $<%= retrievebook[i].price1 %></h5>
+                <h5 class="card-text">Seller : <%= retrievebook[i].seller%></h5>
+                
               </div>
+              
               <div class="card-footer">
-                <small class="text-muted">&#9733; &#9733; &#9733; &#9733; &#9734;</small>
+                <div class="col-lg-6">
+                  <button type="button" class="btn btn-secondary pull-right" data-toggle="modal" data-target="#createPost">
+                      Create Comment
+                  </button>
+              </div>
+          </div>
               </div>
             </div>
-          </div>
+
+
+          
+          
+    <!-- Modal -->
+    <div class="modal fade" id="createPost" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <form action="/products" method="post">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                        <h4 class="modal-title" id="myModalLabel">Create Comment</h4>
+                    </div>
+
+                    <div class="modal-body">
+
+                        <fieldset class="form-group">
+                            <label for="inputitle">Title</label>
+                        </fieldset>
+                        <fieldset class="form-group">
+          
+                            <input type="text" id="inputitle" name="title" class="form-control" placeholder="Comment Title" readonly="readonly" required="" value ="<%= retrievebook[i].bookname1 %>"><br> 
+                            <label for="inputContent">Content</label>
+                            <textarea id="inputContent" name="content" rows="8" cols="40" class="form-control" placeholder="Comment Description" required=""></textarea>
+                        </fieldset>
+
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-primary">Save changes</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+      </div>
+          <% } %>
           <% } %>
           <% } %>
 

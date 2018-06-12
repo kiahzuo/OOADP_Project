@@ -15,12 +15,26 @@ var loginRouter = require('./routes/login');
 var profileRouter = require('./routes/profile');
 var signupRouter = require('./routes/signup');
 var editRouter = require('./routes/edit');
+var viewbookRouter = require('./routes/viewbook');
 
 var bankRouter = require('./routes/bank');
 
 
+//import multer
+var multer = require('multer');
+var upload = multer({dest:'./public/uploads/',limits:{fileSize: 1500000, files:1} });
+
 // Import login controller
 var auth = require('./server/controller/auth');
+
+//Import images controller
+var images = require('./server/controller/images');
+
+
+//Import comments controller
+var comments = require('./server/controller/comments');
+
+
 
 // Modules to store session
 var myDatabase = require('./server/controller/database');
@@ -93,8 +107,11 @@ app.post('/signup', passport.authenticate('local-signup', {
     failureFlash: true
 }));
 
+// Delete function For Items
 app.get('/profile', auth.isLoggedIn, auth.profile);
 app.delete("/profile", auth.delete);
+
+
 
 // Logout Page
 app.get('/logout', function (req, res) {
@@ -124,10 +141,16 @@ app.use('/store', auth.isLoggedIn, storeRouter);
 app.use('/login',loginRouter);
 app.use('/profile',profileRouter);
 app.use('/signup',signupRouter);
+app.use('/viewbook',viewbookRouter);
 
 app.use('/edit',editRouter);
 
 app.use('/bank',bankRouter);
+
+//set up routes for images
+app.get('/images-gallery', images.hasAuthorization, images.show);
+app.post('/images', images.hasAuthorization, upload.single('image'), images.uploadImage);
+
 
 
 // catch 404 and forward to error handler

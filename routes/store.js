@@ -15,6 +15,10 @@ router.post('/',(req,res,next) =>{
   var description = req.body.description;
   var meetup = req.body.meetup;
   var seller = req.user.name;
+  var avaliable = req.body.avaliable;
+
+
+  
 
   Bookitem.create({
     bookname1 : bookname,
@@ -23,6 +27,9 @@ router.post('/',(req,res,next) =>{
     description1 : description,
     meetup1 : meetup,
     seller:seller,
+    avaliable:avaliable,
+
+
   });
 
   res.redirect('/store')

@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+
+  <head>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>Business Casual - Start Bootstrap Theme</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="../../vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Custom fonts for this template -->
+    <link href="https://fonts.googleapis.com/css?family=Raleway:100,100i,200,200i,300,300i,400,400i,500,500i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Lora:400,400i,700,700i" rel="stylesheet">
+
+    <!-- Custom styles for this template -->
+    <link href="../../stylesheets/business-casual.min.css" rel="stylesheet">
+
+
+    <script src="../../../public/javascripts/jquery.min.js"></script>
+    <script src="../../../public/javascripts/bootstrap.min.js"></script>
+    <script src="http://code.jquery.com/jquery-1.11.3.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
+    
+
+  </head>
+<body>
+
+        <h1 class="site-heading text-center text-white d-none d-lg-block">
+      
+                <span class="site-heading-lower">BookTrade</span>
+              </h1>
+            
+
+
+              <nav class="navbar navbar-expand-lg navbar-dark py-lg-4" id="mainNav">
+                <div class="container">
+                  <a class="navbar-brand text-uppercase text-expanded font-weight-bold d-lg-none" href="#">Start Bootstrap</a>
+                  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                  </button>
+                  <div class="collapse navbar-collapse" id="navbarResponsive">
+                    <ul class="navbar-nav mx-auto">
+                      <li class="nav-item px-lg-4">
+                        <a class="nav-link text-uppercase text-expanded" href="/">Home
+                          <span class="sr-only">(current)</span>
+                        </a>
+                      </li>
+                      <li class="nav-item px-lg-4">
+                        <a class="nav-link text-uppercase text-expanded" href="about">About</a>
+                      </li>
+                      <li class="nav-item active px-lg-4">
+                        <a class="nav-link text-uppercase text-expanded" href="products">Products</a>
+                      </li>
+                      <li class="nav-item px-lg-4">
+                        <a class="nav-link text-uppercase text-expanded" href="store">Store</a>
+                      </li>
+                      <li class="nav-item px-lg-4">
+                        <a class="nav-link text-uppercase text-expanded" href="login">Login</a>
+                      </li>
+                      <li class="nav-item px-lg-4">
+                          <a class="nav-link text-uppercase text-expanded" href="profile">Profile</a>
+                        </li>
+                    </ul>
+                  </div>
+                </div>
+              </nav>
+              <br>
+
+    <div class="container">
+
+        <div class="row">
+  
+                <div class="col-lg-3">
+                        <h1 class="my-4"><%= retrievebook.bookname1 %> 's Description</h1>
+                        <div class="list-group">
+                          <a href="http://localhost:3000/products" class="list-group-item active">Back To Products</a>
+                  
+                        </div>
+                      </div>
+                      <!-- /.col-lg-3 -->
+         
+          <!-- /.col-lg-3 -->
+  
+          <div class="col-lg-9">
+  
+            <div class="card mt-4">
+              <img class="card-img-top img-fluid" src="http://placehold.it/900x400" alt="">
+              <div class="card-body">
+                <h3 class="card-title"><%= retrievebook.bookname1 %></h3>
+                <h4>$<%= retrievebook.price1 %></h4>
+                <p class="card-text"><%= retrievebook.description1 %></p>
+                <p class="card-text">Meet up : <%= retrievebook.meetup1 %></p>
+
+                <span class="text-warning">&#9733; &#9733; &#9733; &#9733; &#9734;</span>
+                4.0 stars<br><br>
+                <button class="btn btn-lg btn-primary btn-block" type="submit">Chat</button>
+                <button class="btn btn-lg btn-primary btn-block" type="submit">Add to Cart</button>
+              </div>
+            </div>
+            <!-- /.card -->
+  
+            <div class="card card-outline-secondary my-4">
+              <div class="card-header">
+                Product Comments
+              </div>
+              <div class="card-body">
+                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Omnis et enim aperiam inventore, similique necessitatibus neque non! Doloribus, modi sapiente laboriosam aperiam fugiat laborum. Sequi mollitia, necessitatibus quae sint natus.</p>
+                <small class="text-muted">Posted by Anonymous on 3/1/17</small>
+                <hr>
+                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Omnis et enim aperiam inventore, similique necessitatibus neque non! Doloribus, modi sapiente laboriosam aperiam fugiat laborum. Sequi mollitia, necessitatibus quae sint natus.</p>
+                <small class="text-muted">Posted by Anonymous on 3/1/17</small>
+                <hr>
+                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Omnis et enim aperiam inventore, similique necessitatibus neque non! Doloribus, modi sapiente laboriosam aperiam fugiat laborum. Sequi mollitia, necessitatibus quae sint natus.</p>
+                <small class="text-muted">Posted by Anonymous on 3/1/17</small>
+                <hr>
+                <a href="#" class="btn btn-success">Leave a Review</a>
+              </div>
+            </div>
+            <!-- /.card -->
+  
+          </div>
+          <!-- /.col-lg-9 -->
+  
+        </div>
+  
+      </div>
+      <!-- /.container -->
+
+  </script>
+    </body>

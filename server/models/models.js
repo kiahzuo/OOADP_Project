@@ -11,6 +11,7 @@ const Bookitem = sequelize.define('Bookitem', {
         autoIncrement: true,
         primaryKey: true
     },
+   
     bookname1: {
         type: Sequelize.STRING
     },
@@ -28,7 +29,13 @@ const Bookitem = sequelize.define('Bookitem', {
     },
     seller: {
         type: Sequelize.STRING
-    }
+    },
+    avaliable: {
+        type: Sequelize.STRING
+    },
+
+ 
+    
 });
 
 

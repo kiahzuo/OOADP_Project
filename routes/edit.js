@@ -27,14 +27,15 @@ router.post('/:id',function (req,res) {
         condition1 : req.body.condition,
         description1 : req.body.description,
         meetup1 : req.body.meetup,
+        avaliable : req.body.avaliable,
     }
     Bookitem.update(updateData, { where: { id: booknumber } }).then((updatedRecord) => {
-        // if(!updatedRecord || updatedRecord == 0) {
-            // return res.send(400, {
-            //     message: "error"
-            // });
-        //}
-        // res.status(200).send({ message: "Updated student record: " + booknumber });
+        if(!updatedRecord || updatedRecord == 0) {
+            return res.send(400, {
+                message: "error"
+            });
+        }
+        res.status(200).send({ message: "Updated student record: " + booknumber });
         res.redirect("/profile")
     })
 })
