@@ -142,6 +142,8 @@ app.use('/login',loginRouter);
 app.use('/profile',profileRouter);
 app.use('/signup',signupRouter);
 app.use('/viewbook',viewbookRouter);
+app.get('/about', comments.list);
+app.delete('/about/:comments_id',comments.delete);
 
 app.use('/edit',editRouter);
 

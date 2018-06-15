@@ -7,7 +7,7 @@ var sequelize = myDatabase.sequelize;
 exports.list = function(req, res){
     sequelize.query('select c.id, c.title, c.content, u.email AS [user_id] from Comments c join Users u on c.user_id = u.id', {model: Comments}).then((comments) => {
 
-        res.render('comments', {
+        res.render('about', {
             title: 'Comments Page',
             comments: comments,
             gravatar: gravatar.url(comments.user_id, {s: '80', r: 'x', d: 'retro'}, true),

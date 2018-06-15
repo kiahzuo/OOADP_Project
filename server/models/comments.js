@@ -26,9 +26,9 @@ const Comments = sequelize.define('Comments', {
     },
     user_id:{
         type: Sequelize.STRING,
-        }
+      
     }
-);
+});
 
 // force: true will drop the table if it already exists
 Comments.sync({ force: false, logging: console.log}).then(() => {
