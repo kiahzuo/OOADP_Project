@@ -90,18 +90,16 @@
           <ol class="carousel-indicators">
             <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
             <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
-            <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
+
           </ol>
           <div class="carousel-inner" role="listbox">
             <div class="carousel-item active">
-              <img class="d-block img-fluid" src="http://placehold.it/900x350" alt="First slide">
+              <img class="d-block img-fluid" src="https://static1.squarespace.com/static/5416fadde4b07676831441f5/5420a03ce4b09cb1a8ef58f8/58bb387e86e6c0c5a70297ba/1488664736862/Purling+Road+Season+3+Banner.jpg" alt="First slide">
             </div>
             <div class="carousel-item">
-              <img class="d-block img-fluid" src="http://placehold.it/900x350" alt="Second slide">
+              <img class="d-block img-fluid" src="https://3.bp.blogspot.com/-Hz4KZy1tC9w/WNgiqGIhd-I/AAAAAAAAKmE/mcccvggsqrIfVfcn_g9d_E7_iHl7VbEdQCPcB/s1600/More%2BThan%2Ba%2BFeeling%2BFB%2BBanner.jpg" alt="Second slide">
             </div>
-            <div class="carousel-item">
-              <img class="d-block img-fluid" src="http://placehold.it/900x350" alt="Third slide">
-            </div>
+ 
           </div>
           <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
             <span class="carousel-control-prev-icon" aria-hidden="true"></span>
@@ -113,26 +111,35 @@
           </a>
         </div>
 
+
+        <style>
+  
+            .card-img-top{
+                 width:100%;
+                 height:200px;
+               }
+          
+            
+          </style>
         <div class="row">
-            <% if (typeof retrievebook != "undefined") { %>
-              <% for (i =0; i < retrievebook.length; i++) {%>
-                <% if ( retrievebook[i].avaliable != "Mark As Sold") { %>
+              <% for (i =0; i < images.length; i++) {%>
+                <% if ( images[i].avaliable != "Mark As Sold") { %>
 
           <div class="col-lg-4 col-md-6 mb-4">
             <div class="card h-100">
-              <a href="#"><img class="card-img-top" src="http://placehold.it/700x400" alt=""></a>
+              <a href="#"><img class="card-img-top" src="images/<%= images[i].imageName %>" alt=""></a>
               <div class="card-body">
                 <h4 class="card-title">
-                    <a class = 'button button-default' href="/viewbook/<%= retrievebook[i].id%>"><%= retrievebook[i].bookname1 %></a>
+                    <a class = 'button button-default' href="/viewbook/<%= images[i].id%>"><%= images[i].title %></a>
                 </h4>
-                <h5>Price : $<%= retrievebook[i].price1 %></h5>
-                <h5 class="card-text">Seller : <%= retrievebook[i].seller%></h5>
+                <h5>Price : $<%= images[i].price1 %></h5>
+                <h5>Genre : <%= images[i].genre1 %></h5>
+                <h5 class="card-text">Seller : <%= images[i].seller%></h5>
                 
               </div>
               
  </div>
  </div>
-          <% } %>
           <% } %>
           <% } %>
 

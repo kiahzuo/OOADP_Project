@@ -94,35 +94,47 @@
     </div>
 <br><br>
 
+<style>
+  
+  .card-img-top{
+       width:100%;
+       height:250px;
+     }
 
-     
+  
+</style>
+
 
 <div class="container">
 
     <div class="row">
 
-            <% if (typeof retrievebook != "undefined") { %>
-              <% for (i =0; i < retrievebook.length; i++) {%>
-                <% if (user.name == retrievebook[i].seller) { %>
+              <% for (i =0; i < images.length; i++) {%>
+                <% if (user.name == images[i].seller) { %>
+           
             <div class="col-lg-4 col-md-6 mb-4">
    
-              <div class="card h-100" data-id="<%= retrievebook[i].id %>"  >
+              <div class="card h-100" data-id="<%= images[i].id %>"  >
                   
-                <a href="#"><img class="card-img-top" src="http://placehold.it/700x400" alt=""></a>
+                <a href="#"><img class="card-img-top" src="images/<%= images[i].imageName %>" alt=""></a>
                 <div class="card-body">
                   <h4 class="card-title">
-                    <a href="#"><%= retrievebook[i].bookname1 %></a>
+
                   </h4>
-                  <h5>Price : $<%= retrievebook[i].price1 %></h5>
+                  <h5>Price : $<%= images[i].price1 %></h5>
                   <br>
-                  <h5 class="card-text">Description : <%= retrievebook[i].description1 %></h5>
+                  <h5 class="card-text">Description : <%= images[i].description1 %></h5>
                   <br>
-                  <h5>Seller : <%= retrievebook[i].seller%></h5>
+                  <h5>Seller : <%= images[i].seller%></h5>
                   <br>
-                  <h5>Availability : <%= retrievebook[i].avaliable%></h5>
+                  <h5>Genre : <%= images[i].genre1%></h5>
+                  <br>
+                  <h5>Availability : <%= images[i].avaliable%></h5>
+                  <br>
+                  <a class = 'button button-default' href="/edit/<%= images[i].id%>">Edit Book</a>
                 </div>
 
-                <a class = 'button button-default' href="/edit/<%= retrievebook[i].id%>">Edit Book</a>
+                
                 <br><br>
                 <input type="button" class="deleteBtn"  value="Delete">
       
@@ -130,8 +142,7 @@
             </div>
           
           </div>
-          
-            <% } %>
+
             <% } %>
             <% } %>
             <script>

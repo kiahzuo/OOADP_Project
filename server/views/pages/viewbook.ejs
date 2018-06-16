@@ -80,7 +80,7 @@
             
   
                 <div class="col-lg-3">
-                        <h1 class="my-4"><%= retrievebook.bookname1 %> 's Description</h1>
+                        <h1 class="my-4"><%= images.title %> 's Description</h1>
                         <div class="list-group">
                           <a href="http://localhost:3000/products" class="list-group-item active">Back To Products</a>
                   
@@ -93,12 +93,13 @@
           <div class="col-lg-9">
   
             <div class="card mt-4">
-              <img class="card-img-top img-fluid" src="http://placehold.it/900x400" alt="">
+              <img class="card-img-top img-fluid" src="images/images.imageName %>"  alt="">
+              <img src="images/<%= images.imageName %>">
               <div class="card-body">
-                <h3 class="card-title"><%= retrievebook.bookname1 %></h3>
-                <h4>$<%= retrievebook.price1 %></h4>
-                <p class="card-text"><%= retrievebook.description1 %></p>
-                <p class="card-text">Meet up : <%= retrievebook.meetup1 %></p>
+                <h3 class="card-title"><%= images.title %></h3>
+                <h4>$<%= images.price1 %></h4>
+                <p class="card-text"><%= images.description1 %></p>
+                <p class="card-text">Meet up : <%= images.meetup1 %></p>
 
                 <span class="text-warning">&#9733; &#9733; &#9733; &#9733; &#9734;</span>
                 4.0 stars<br><br>
@@ -116,13 +117,14 @@
                   <div class="list-group">
                       <h2>Comment Section</h2>
                       <% for (i =0; i < comments.length; i++) {%>
-                        <% if ( comments[i].title == retrievebook.bookname1) { %>
+                        <% if ( comments[i].title == images.title) { %>
                           <div class="list-group-item" data-id="<%= comments[i].id%>">
             
                               <form action="/comments" method="delete">
                                       <h4 class="list-group-item-heading">
                                           <%= comments[i].title %>
-                                          <button class="btn btn-secondary pull-right deleteBtn" type="button" data-id="<%= comments[i].id%>">Delete</button>
+
+                                          <button ng-show= "<%= comments[i].user_id %> ==<%= user.name %>" class="btn btn-secondary pull-right deleteBtn" type="button" data-id="<%= comments[i].id%>">Delete</button>
                                       </h4>
                                       <p class="list-group-item-text">
                                           <%= comments[i].content %>
@@ -187,7 +189,7 @@
                                 </fieldset>
                                 <fieldset class="form-group">
                   
-                                    <input type="text" id="inputitle" name="title" class="form-control" placeholder="Comment Title" readonly="readonly" required="" value ="<%= retrievebook.bookname1 %>"><br> 
+                                    <input type="text" id="inputitle" name="title" class="form-control" placeholder="Comment Title" readonly="readonly" required="" value ="<%= images.title %>"><br> 
                                     <label for="inputContent">Content</label>
                                     <textarea id="inputContent" name="content" rows="8" cols="40" class="form-control" placeholder="Comment Description" required=""></textarea>
                                 </fieldset>

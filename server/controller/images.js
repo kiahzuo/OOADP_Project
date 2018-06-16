@@ -12,8 +12,8 @@ var sequelize = myDatabase.sequelize;
 
 //show images gallery
 exports.show = function(req,res){
-
-    sequelize.query('select i.id, i.title, i.imageName, u.email AS [user_id] from Images i join Users u on i.user_id = u.id',{model: Images}).then((images) =>{
+    Images.findAll()
+    .then(images=>{
         res.render('images-gallery',{       //render the images-gallery.ejs file
             title: 'Images Gallery',
             images: images,
@@ -72,7 +72,16 @@ exports.uploadImage = function(req,res){
         var imageData = {
             title: req.body.title,
             imageName: req.file.originalname,
-            user_id: req.user.id
+            user_id: req.user.id,
+            price1:req.body.price,
+            condition1:req.body.condition,
+            description1 : req.body.description,
+            genre1 : req.body.genre,
+            meetup1 : req.body.meetup,
+            seller: req.user.name,
+            avaliable:req.body.avaliable,
+        
+
         }
 
         //save to database

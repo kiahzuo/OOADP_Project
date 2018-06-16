@@ -1,14 +1,15 @@
 var express = require('express');
 var router = express.Router();
 var Bookitem = require('../server/models/models');
+var Images = require('../server/models/images');
 
 // Retrieve update 1 by 1
 router.get('/:id', function(req, res, next) {
     var booknumber = req.params.id;
-    Bookitem.findById(booknumber).then(function (retrievebook) {
+    Images.findById(booknumber).then(function (images) {
         res.render('edit', {
             title: "Practical 5 Database Node JS - Edit Student Records",
-            retrievebook: retrievebook,
+            images: images,
             hostPath: req.protocol + "://" + req.get("host")
         });
     }).catch((err) => {
@@ -22,14 +23,15 @@ router.post('/:id',function (req,res) {
     
     var booknumber = req.params.id;
     var updateData = {
-        bookname1 : req.body.bookname,
+        title : req.body.title,
         price1 : req.body.price,
         condition1 : req.body.condition,
         description1 : req.body.description,
+        genre1: req.body.genre,
         meetup1 : req.body.meetup,
         avaliable : req.body.avaliable,
     }
-    Bookitem.update(updateData, { where: { id: booknumber } }).then((updatedRecord) => {
+    Images.update(updateData, { where: { id: booknumber } }).then((updatedRecord) => {
         if(!updatedRecord || updatedRecord == 0) {
             return res.send(400, {
                 message: "error"

@@ -3,13 +3,14 @@ var router = express.Router();
 var gravatar = require ('gravatar');
 var Bookitem = require('../server/models/models');
 var Comments = require ('../server/models/comments');
+var Images = require('../server/models/images');
 
 /* GET about page. */
 router.get('/', function(req, res, next) {
-  Bookitem.findAll()
-  .then(retrievebook=>{
-    console.log(retrievebook);
-    res.render('products', {retrievebook: retrievebook});
+  Images.findAll()
+  .then(images=>{
+    console.log(images);
+    res.render('products', {images: images});
   
   }); 
 });

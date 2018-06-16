@@ -2,6 +2,7 @@
 var gravatar = require('gravatar');
 var passport = require('passport');
 var Bookitem = require('../models/models');
+var Images = require('../models/images');
 
 // Signin GET
 exports.signin = function(req, res) {
@@ -17,10 +18,10 @@ exports.signup = function(req, res) {
 // Profile GET
 exports.profile = function(req, res) {
     // List all Users and sort by Date
-    Bookitem.findAll()
-  .then(retrievebook=>{ res.render('profile', { 
+    Images.findAll()
+  .then(images=>{ res.render('profile', { 
       title: 'Profile Page', 
-      retrievebook:retrievebook,
+      images:images,
       user : req.user, 
       avatar: gravatar.url(req.user.email ,  {s: '100', r: 'x', d: 'retro'}, true),
       urlPath: req.protocol + "://" + req.get("host") + req.url

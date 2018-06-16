@@ -45,27 +45,36 @@
     <div class="modal-body">
         <fieldset class="form-group">
             <label for="inputStudentID">BookName</label>
-            <input type="text" id="BookName" name="BookName" class="form-control" placeholder="Student Id" required="true" value="<%= retrievebook.bookname1 %>">
+            <input type="text" id="title" name="title" class="form-control" placeholder="Student Id" required="true" value="<%= images.title %>">
         </fieldset>
         <fieldset class="form-group">
             <label for="inputName">Price</label>
-            <input type="text" id="price" name="price" class="form-control" placeholder="Student Name" required="true" value="<%= retrievebook.price1 %>">
+            <input type="text" id="price" name="price" class="form-control" placeholder="Student Name" required="true" value="<%= images.price1 %>">
         </fieldset>
         <fieldset class="form-group">
             <label for="inputGroup">Condition</label>
-            <input type="text" id="condition" name="condition" class="form-control" placeholder="Group" required="true" value="<%= retrievebook.condition1 %>">
+            <input type="text" id="condition" name="condition" class="form-control" placeholder="Group" required="true" value="<%= images.condition1 %>">
         </fieldset>
         <fieldset class="form-group">
             <label for="inputHobby">Description</label>
-            <input type="text" id="description" name="description" class="form-control" placeholder="Hobby" required="true" value="<%= retrievebook.description1 %>">
+            <input type="text" id="description" name="description" class="form-control" placeholder="Hobby" required="true" value="<%= images.description1 %>">
         </fieldset>
         <fieldset class="form-group">
             <label for="inputHobby">MeetUp</label>
-            <input type="text" id="meetup" name="meetup" class="form-control" placeholder="Hobby" required="true" value="<%= retrievebook.meetup1 %>">
+            <input type="text" id="meetup" name="meetup" class="form-control" placeholder="Hobby" required="true" value="<%= images.meetup1 %>">
         </fieldset>
+        <label for="inputHobby">Genre</label>
+        <select id="genre"name="genre" class="form-control" placeholder="genre" required="" selected="<%= images.avaliable %>"><br>
+            <option value="Horror">Horror</option>
+            <option value="Action">Action</option>
+            <option value="Science Fiction">Science Fiction</option>
+            <option value="Non-Fiction">Non-Fiction</option>
+            <option value="Adventure">Adventure</option>
+            <option value="Comedy">Comedy</option>
+          </select>     <br>
         <fieldset class="form-group">
             <label for="inputHobby">Avaliability</label>
-            <select id="avaliable"name="avaliable" class="form-control" required="true" selected="<%= retrievebook.avaliable %>"><br>
+            <select id="avaliable"name="avaliable" class="form-control" required="true" selected="<%= images.avaliable %>"><br>
                 <option value="Avaliable">Avaliable</option>
                 <option value="Mark As Sold">Mark As Sold</option>
               </select>
@@ -81,12 +90,13 @@
     
     <script>
       function saveChanges() {
-          var url = "<%=hostPath%>/edit/<%=retrievebook.id%>";
+          var url = "<%=hostPath%>/edit/<%=images.id%>";
           var newValues = {
-              bookname: $("#BookName").val(),
+              title: $("#title").val(),
               price: $("#price").val(),
               condition: $("#condition").val(),
               description: $("#description").val(),
+              genre:$("#genre").val(),
               meetup: $("#meetup").val(),
               avaliable:$("#avaliable").val()
           }

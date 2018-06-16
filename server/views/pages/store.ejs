@@ -65,35 +65,70 @@
 
     <section class="page-section cta">
      
-      <div class="container">
-        
-        <div class="row">
-          <div class="col-xl-9 mx-auto">
-            <div class="cta-inner text-center rounded">
-                <h1>Create a Listing</h1>
-              <h2 class="section-heading mb-5">
-              
-                
-              </h2>
-              </div>
-              <br>
-              <form action = "/store" method="post">
-              
-            <input type="text" id="Book Name" name="Book_Name" class="form-control" placeholder="Book Name" required="">
-            <label for="inputPassword" class="sr-only">Password</label><br>
-            <input type="text" id="price" name="price" class="form-control" placeholder="Price" required=""><br>
-            <input type="text" id="condition" name="condition" class="form-control" placeholder="Condition" required=""><br>
-            <input type="text" id="description" name="description" class="form-control" placeholder="Description" required=""><br>
-            <input type="text" id="meetup" name="meetup" class="form-control" placeholder="Meetup Details" required=""><br>
-            <select id="avaliable"name="avaliable" class="form-control" placeholder="avaliable" required=""><br>
-              <option value="Avaliable">Avaliable</option>
-              <option value="Mark As Sold">Mark As Sold</option>
-            </select>     <br>
-                
-
-            <button class="btn btn-lg btn-primary btn-block" type="submit">List it !</button>
-            </form>
-            <br>
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-6">
+                    <h4 class="text-muted">Images</h4>
+                </div>
+                <div class="col-lg-6">
+                    <button type="button" class="btn btn-secondary pull-right" data-toggle="modal" data-target="#createImage">
+                        Image Upload
+                    </button>
+                </div>
+            </div>
+            <!-- Modal -->
+            <div class="modal fade" id="createImage" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <form action="/images" method="post" enctype="multipart/form-data">
+                            <div class="modal-header">
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                                <h4 class="modal-title" id="myModalLabel">Upload a image file</h4>
+                            </div>
+    
+                            <div class="modal-body">
+                                <fieldset class="form-group">
+                                    <label  for="itle">Title</label>
+                                    <input type="text" id="itle" name="title" class="form-control" placeholder="Image Title" required="">
+                                    <label  for="itle">Price</label>
+                                    <input type="text" id="price" name="price" class="form-control" placeholder="Price" required=""><br>
+                                    <label  for="itle">Condition</label>
+                                    <input type="text" id="condition" name="condition" class="form-control" placeholder="Condition" required=""><br>
+                                    <label  for="itle">Description</label>
+                                    <input type="text" id="description" name="description" class="form-control" placeholder="Description" required=""><br>
+                                    <label  for="itle">Genre</label>
+                                    <select id="genre"name="genre" class="form-control" placeholder="genre" required=""><br>
+                                      <option value="Horror">Horror</option>
+                                      <option value="Action">Action</option>
+                                      <option value="Science Fiction">Science Fiction</option>
+                                      <option value="Non-Fiction">Non-Fiction</option>
+                                      <option value="Adventure">Adventure</option>
+                                      <option value="Comedy">Comedy</option>
+                                    </select>     <br>
+                                    <label  for="itle">Meetup</label>
+                                    <input type="text" id="meetup" name="meetup" class="form-control" placeholder="Meetup Details" required=""><br>
+                                    <label  for="itle">Avaliability</label>
+                                    <select id="avaliable"name="avaliable" class="form-control" placeholder="avaliable" required=""><br>
+                                      <option value="Avaliable">Avaliable</option>
+                                      <option value="Mark As Sold">Mark As Sold</option>
+                                    </select>     <br>
+                                </fieldset>
+                                <label class="file" style="width: 100%">
+                                    <input type="file" id="image" name="image">
+                                    <span class="file-custom"></span>
+                                </label>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                <button type="submit" class="btn btn-primary">Save changes</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <hr>
           
        
               </p>

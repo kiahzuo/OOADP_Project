@@ -4,6 +4,7 @@ var gravatar = require ('gravatar');
 var Bookitem = require('../server/models/models');
 var Comments = require ('../server/models/comments');
 var myDatabase = require('../server/controller/database');
+var Images = require('../server/models/images');
 
 var sequelize = myDatabase.sequelize;
 
@@ -13,11 +14,12 @@ var sequelize = myDatabase.sequelize;
 // Retrieve update 1 by 1
 router.get('/:id', function(req, res, next) {
     var booknumber = req.params.id;
-    Bookitem.findById(booknumber).then(function (retrievebook) {
+    Images.findById(booknumber).then(function (images) {
         Comments.findAll().then(function(comments){
         res.render('viewbook', {
             title: "Practical 5 Database Node JS - Edit Student Records",
-            retrievebook: retrievebook,
+            images: images,
+            user : req.user,
             comments: comments,
             hostPath: req.protocol + "://" + req.get("host"),
             urlPath: req.protocol + '://' + req.get('host') + req.originalUrl,

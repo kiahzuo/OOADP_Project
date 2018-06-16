@@ -14,6 +14,7 @@ router.post('/',(req,res,next) =>{
   var condition = req.body.condition;
   var description = req.body.description;
   var meetup = req.body.meetup;
+  var genre = req.body.genre;
   var seller = req.user.name;
   var avaliable = req.body.avaliable;
 
@@ -25,6 +26,7 @@ router.post('/',(req,res,next) =>{
     price1 : price,
     condition1 : condition,
     description1 : description,
+    genre1 : genre,
     meetup1 : meetup,
     seller:seller,
     avaliable:avaliable,
