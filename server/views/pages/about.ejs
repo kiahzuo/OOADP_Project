@@ -51,9 +51,7 @@
             <li class="nav-item px-lg-4">
               <a class="nav-link text-uppercase text-expanded" href="products">Products</a>
             </li>
-            <li class="nav-item px-lg-4">
-              <a class="nav-link text-uppercase text-expanded" href="store">Store</a>
-            </li>
+      
             <li class="nav-item px-lg-4">
               <a class="nav-link text-uppercase text-expanded" href="login">Login</a>
             </li>
@@ -85,49 +83,7 @@
       </div>
     </section>
 
-    <div class="lead">
-      <div class="list-group">
-          <% comments.forEach(function(comments){ %>
-              <a  class="list-group-item" data-id="<%= comments.id%>">
-                  <img src="<%= gravatar %>" alt="" style="float: left; margin-right: 10px">
-                  <div class="comments">
-                      <form action="/comments" method="delete">
-                          <h4 class="list-group-item-heading">
-                              <%= comments.title %>
-                                  <button class="btn btn-secondary pull-right deleteBtn" type="button" data-id="<%= comments.id%>">Delete</button>
-                          </h4>
-                          <p class="list-group-item-text">
-                              <%= comments.content %>
-                          </p>
-                          <small class="text-muted">By:
-                              <%= comments.user_id %>
-                          </small>
-                      </form>
-                  </div>
-              </a>
-              <% }); %>
-      </div>
-  </div>
 
-  <script>
-    $('.deleteBtn').click(function() {
-        var comments_id = $(this).data('id');      
-        $.ajax({
-                url: '<%-urlPath%>'+'/'+comments_id,
-                type: 'DELETE',
-                success: function(result) {
-                    console.log(result.message);
-                    var itemToRemove = '.list-group-item[data-id='+comments_id+']';
-                    $(itemToRemove).remove();
-                },
-                error: function(result){
-                    alert("Unable to delete comment.");
-                    console.log(result.message);
-                } 
-            });  
-    });
-   
-</script>
 
     <footer class="footer text-faded text-center py-5">
       <div class="container">

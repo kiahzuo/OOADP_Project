@@ -52,9 +52,7 @@
             <li class="nav-item active px-lg-4">
               <a class="nav-link text-uppercase text-expanded" href="products">Products</a>
             </li>
-            <li class="nav-item px-lg-4">
-              <a class="nav-link text-uppercase text-expanded" href="store">Store</a>
-            </li>
+      
             <li class="nav-item px-lg-4">
               <a class="nav-link text-uppercase text-expanded" href="login">Login</a>
             </li>
@@ -65,20 +63,20 @@
         </div>
       </div>
     </nav>
-    <br>
 
  <!-- Page Content -->
+ <div class="coloring">
  <div class="container">
 
     <div class="row">
 
       <div class="col-lg-3">
 
-        <h1 class="my-4">Shop Name</h1>
+        <h1 class="my-4">MarketPlace</h1>
         <div class="list-group">
-          <a href="#" class="list-group-item">Category 1</a>
-          <a href="#" class="list-group-item">Category 2</a>
-          <a href="#" class="list-group-item">Category 3</a>
+          <a href="#" class="list-group-item">Action</a>
+          <a href="#" class="list-group-item">Comedy</a>
+          <a href="#" class="list-group-item">History</a>
         </div>
 
       </div>
@@ -113,6 +111,9 @@
 
 
         <style>
+          .coloring{
+            background-color: burlywood; 
+          }
   
             .card-img-top{
                  width:100%;
@@ -127,7 +128,7 @@
 
           <div class="col-lg-4 col-md-6 mb-4">
             <div class="card h-100">
-              <a href="#"><img class="card-img-top" src="images/<%= images[i].imageName %>" alt=""></a>
+              <a href="/viewbook/<%= images[i].id%>"><img class="card-img-top" src="images/<%= images[i].imageName %>" alt=""></a>
               <div class="card-body">
                 <h4 class="card-title">
                     <a class = 'button button-default' href="/viewbook/<%= images[i].id%>"><%= images[i].title %></a>
@@ -156,7 +157,7 @@
 
   </div>
   <!-- /.container -->
-
+</div>
   <!-- Footer -->
   <footer class="py-5 bg-dark">
     <div class="container">

@@ -14,8 +14,7 @@ var sequelize = myDatabase.sequelize;
 exports.show = function(req,res){
     Images.findAll()
     .then(images=>{
-        res.render('images-gallery',{       //render the images-gallery.ejs file
-            title: 'Images Gallery',
+        res.render('store',{       //render the images-gallery.ejs file
             images: images,
             gravatar:gravatar.url(images.user_id,{s:'80',r:'x',d:'retro'}, true)
         });
@@ -92,7 +91,7 @@ exports.uploadImage = function(req,res){
                     message: error
                 });
             }
-            res.redirect('images-gallery');
+            res.redirect('profile');
         })
 
         //remove from temp folder
@@ -101,7 +100,7 @@ exports.uploadImage = function(req,res){
                 return res.status(500).send('Something bad happened here');
             }
             //redirect to gallery page
-            res.redirect('images-gallery');
+            res.redirect('profile');
         });
     });
 };

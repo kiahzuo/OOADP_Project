@@ -137,7 +137,7 @@ app.use('/', indexRouter);
 app.use('/about', aboutRouter);
 app.use('/users', usersRouter);
 app.use('/products', productsRouter);
-app.use('/store', auth.isLoggedIn, storeRouter);
+app.use('/store', auth.isLoggedIn, storeRouter,images.hasAuthorization, upload.single('image'), images.uploadImage);
 app.use('/login',loginRouter);
 app.use('/profile',profileRouter);
 app.use('/signup',signupRouter);
@@ -151,7 +151,7 @@ app.use('/bank',bankRouter);
 
 //set up routes for images
 app.get('/images-gallery', images.hasAuthorization, images.show);
-app.post('/images', images.hasAuthorization, upload.single('image'), images.uploadImage);
+app.post('/store', images.hasAuthorization, upload.single('image'), images.uploadImage);
 
 
 

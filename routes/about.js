@@ -9,7 +9,9 @@ var sequelize = myDatabase.sequelize;
 
 
 
-
+router.get('/', function(req, res, next) {
+    res.render('about', { title: 'Express' });
+  });
 
 
 //   router.get ('/' ,function(req, res){

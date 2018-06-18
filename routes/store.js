@@ -8,44 +8,44 @@ router.get('/', function(req, res, next) {
   res.render('store', { title: 'Express' });
 });
 
-router.post('/',(req,res,next) =>{
-  var bookname = req.body.Book_Name;
-  var price = req.body.price;
-  var condition = req.body.condition;
-  var description = req.body.description;
-  var meetup = req.body.meetup;
-  var genre = req.body.genre;
-  var seller = req.user.name;
-  var avaliable = req.body.avaliable;
+// router.post('/',(req,res,next) =>{
+//   var bookname = req.body.Book_Name;
+//   var price = req.body.price;
+//   var condition = req.body.condition;
+//   var description = req.body.description;
+//   var meetup = req.body.meetup;
+//   var genre = req.body.genre;
+//   var seller = req.user.name;
+//   var avaliable = req.body.avaliable;
 
 
   
 
-  Bookitem.create({
-    bookname1 : bookname,
-    price1 : price,
-    condition1 : condition,
-    description1 : description,
-    genre1 : genre,
-    meetup1 : meetup,
-    seller:seller,
-    avaliable:avaliable,
+//   Bookitem.create({
+//     bookname1 : bookname,
+//     price1 : price,
+//     condition1 : condition,
+//     description1 : description,
+//     genre1 : genre,
+//     meetup1 : meetup,
+//     seller:seller,
+//     avaliable:avaliable,
 
 
-  });
+//   });
 
-  res.redirect('/store')
-})  
+//   res.redirect('/store')
+// })  
 
 
-router.get('/products',(req,res,next)=>{
-  Bookitem.findAll()
-  .then(retrievebook=>{
-    console.log(retrievebook);
-    res.render('products', {retrievebook: retrievebook});
+// router.get('/products',(req,res,next)=>{
+//   Bookitem.findAll()
+//   .then(retrievebook=>{
+//     console.log(retrievebook);
+//     res.render('products', {retrievebook: retrievebook});
   
-  }); 
-});
+//   }); 
+// });
 
 // router.get('/edit/:id',function (req,res) {
 //   var booknumber = req.params.id;
