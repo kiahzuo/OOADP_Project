@@ -146,15 +146,15 @@
                         <div class="card card-shadow text-center">
                           <div class="card-body">
                               <a href="/viewbook/<%= images[i].id%>"><img class="card-img-top" src="images/<%= images[i].imageName %>" alt=""></a>
-                            <a class="card-title" href="/viewbook/<%= images[i].id%>"><h4><%= images[i].title %></h4></a>
+                            <h4 class="card-title"><%= images[i].title %></h4>
                             <p class="card-text">Price : $<%= images[i].price1 %></p>
                             <div class="dropdown-divider"></div>
                             <p class="card-text"><small class="text-muted">Genre : <%= images[i].genre1 %></small></p>
-                            <a href="#"><button type="button" class="btn btn-outline-primary">Seller : <%= images[i].seller%></button></a>
+                            <a href="/viewbook/<%= images[i].id%>"><button type="button" class="btn btn-outline-primary">More Info</button></a>
                           </div>
                         </div>
                         </div>
-                        </div>
+                      </div>
           <% } %>
           <% } %>
 

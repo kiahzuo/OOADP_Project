@@ -279,11 +279,14 @@
                   <br>
                   <h5><%= images[i].description1 %></h5>
                   <br>
-                  <a class = 'btn btn-primary' href="/edit/<%= images[i].id%>">Edit Book</a>
+                  <h5>Avaliability : <%= images[i].avaliable %></h5>
+                      <br>
+                  
                 </div>
 
                 
                 <br>
+                <a class = 'btn btn-primary' href="/edit/<%= images[i].id%>">Edit Book</a>
                 <input type="button" class="deleteBtn"  value="Delete" onclick="return confirm('Are you sure you want to delete this item?')">
       
 
@@ -305,6 +308,8 @@
                       <h5>$<%= images[i].price1 %></h5>
                       <br>
                       <h5><%= images[i].description1 %></h5>
+                      <br>
+                      <h5>Avaliability : <%= images[i].avaliable %></h5>
                       <br>
                       <a class = 'btn btn-primary' href="/edit/<%= images[i].id%>">Edit Book</a>
                     </div>
@@ -337,7 +342,7 @@
                                   <div class="modal-body">
                                       <fieldset class="form-group">
                                           <label  for="itle">Title</label>
-                                          <input type="text" id="itle" name="title" class="form-control" placeholder="Image Title" required="">
+                                          <input type="text" id="itle" name="title" class="form-control" placeholder="Image Title" required=""><br>
                                           <label  for="itle">Price</label>
                                           <input type="text" id="price" name="price" class="form-control" placeholder="Price" required=""><br>
                                           <label  for="itle">Condition</label>
