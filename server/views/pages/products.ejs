@@ -142,19 +142,20 @@
               <% for (i =0; i < images.length; i++) {%>
                 <% if ( images[i].avaliable != "Mark As Sold") { %>
                   <div class="col-lg-4 col-md-6 mb-4">
-                      <div class="card-deck">
-                        <div class="card card-shadow text-center">
-                          <div class="card-body">
-                              <a href="/viewbook/<%= images[i].id%>"><img class="card-img-top" src="images/<%= images[i].imageName %>" alt=""></a>
-                            <a class="card-title" href="/viewbook/<%= images[i].id%>"><h4><%= images[i].title %></h4></a>
-                            <p class="card-text">Price : $<%= images[i].price1 %></p>
-                            <div class="dropdown-divider"></div>
-                            <p class="card-text"><small class="text-muted">Genre : <%= images[i].genre1 %></small></p>
-                            <a href="#"><button type="button" class="btn btn-outline-primary">Seller : <%= images[i].seller%></button></a>
-                          </div>
+                    <div class="card-deck">
+                      <div class="card card-shadow text-center">
+                        <div class="card-body">
+                            <a href="/viewbook/<%= images[i].id%>"><img class="card-img-top" src="images/<%= images[i].imageName %>" alt=""></a>
+                          <h4 class="card-title"><%= images[i].title %></h4>
+                          <p class="card-text">Price : $<%= images[i].price1 %></p>
+                          <div class="dropdown-divider"></div>
+                          <p class="card-text"><small class="text-muted">Genre : <%= images[i].genre1 %></small></p>
+                          <a href="/viewbook/<%= images[i].id%>"><button type="button" class="btn btn-outline-primary">More Info</button></a>
                         </div>
-                        </div>
-                        </div>
+                      </div>
+                      </div>
+                    </div>
+             
           <% } %>
           <% } %>
 
@@ -168,11 +169,14 @@
 
   
   <script>
-      $('#search').keyup(function (){
-      $('.card').removeClass('d-none');
-      var filter = $(this).val(); // get the value of the input, which we filter on
-      $('.card-deck').find('.card .card-body h4:not(:contains("'+filter+'"))').parent().parent().addClass('d-none');
+$('#search').keyup(function (){
+    $('.card').removeClass('d-none');
+    var filter = $(this).val(); // get the value of the input, which we filter on
+    $('.card-deck').find('.card .card-body h4:not(:contains("'+filter+'"))').parent().parent().addClass('d-none');
+
   })</script>
+
+
     <!-- Footer -->
     <footer class="py-5 bg-dark">
         <div class="container">
