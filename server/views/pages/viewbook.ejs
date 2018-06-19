@@ -97,8 +97,9 @@
                               <form action="/comments" method="delete">
                                       <h4 class="list-group-item-heading">
                                           <%= comments[i].title %>
-
-                                          <button ng-show= "<%= comments[i].user_id %> ==<%= user.name %>" class="btn btn-secondary pull-right deleteBtn" type="button" data-id="<%= comments[i].id%>">Delete</button>
+                                          <% if ( user.name ==  comments[i].user_id ) { %>
+                                          <button class="btn btn-secondary pull-right deleteBtn" type="button" data-id="<%= comments[i].id%>">Delete</button>
+                                          <% } %>
                                       </h4>
                                       <p class="list-group-item-text">
                                           <%= comments[i].content %>
