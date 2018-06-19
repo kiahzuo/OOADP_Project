@@ -58,35 +58,19 @@
                       <li class="nav-item px-lg-4">
                         <a class="nav-link text-uppercase text-expanded" href="login">Login</a>
                       </li>
+            
                       <li class="nav-item px-lg-4">
                           <a class="nav-link text-uppercase text-expanded" href="profile">Profile</a>
                         </li>
+                
+
                     </ul>
                   </div>
                 </div>
               </nav>
   <br>
 
-<style>
-  .card-title{
-    margin-left: 2%;
-  }
-  .card-text{
-    margin-left: 2%;
-  }
-  .card-img-top1 {height: 250px;
-        width: 50%;
-        margin: auto}
 
-        a.button {
-    -webkit-appearance: button;
-    -moz-appearance: button;
-    appearance: button;
-
-    text-decoration: none;
-    color: initial;
-}
-</style>
 
     <div class="container">
 
@@ -215,6 +199,12 @@
 <br><br>
 
 <style>
+
+  
+  .card{
+    background-color: lightgray;
+
+  }
   .btn{
     display: inline-block;
   }
@@ -241,8 +231,27 @@
 }
 .padding-bottom-7{
 	padding-bottom:7px;
-}
 
+  
+}
+.card-title{
+    margin-left: 2%;
+  }
+  .card-text{
+    margin-left: 2%;
+  }
+  .card-img-top1 {height: 250px;
+        width: 50%;
+        margin: auto}
+
+        a.button {
+    -webkit-appearance: button;
+    -moz-appearance: button;
+    appearance: button;
+
+    text-decoration: none;
+    color: initial;
+        }
 
 
 
@@ -282,6 +291,32 @@
           
           </div>
 
+            <% } %>
+                <% if (user.name == "ADMIN") { %>
+              <div class="col-lg-4 col-md-6 mb-4">
+   
+                  <div class="card h-100" data-id="<%= images[i].id %>"  >
+                      
+                    <a href="#"><img class="card-img-top" src="images/<%= images[i].imageName %>" alt=""></a>
+                    <div class="card-body">
+                      <h4 class="card-title">
+                          <h5><strong><%= images[i].title %></strong></h5>
+                      </h4>
+                      <h5>$<%= images[i].price1 %></h5>
+                      <br>
+                      <h5><%= images[i].description1 %></h5>
+                      <br>
+                      <a class = 'btn btn-primary' href="/edit/<%= images[i].id%>">Edit Book</a>
+                    </div>
+    
+                    
+                    <br>
+                    <input type="button" class="deleteBtn"  value="Delete" onclick="return confirm('Are you sure you want to delete this item?')">
+          
+    
+                </div>
+              
+              </div>
             <% } %>
             <% } %>
           

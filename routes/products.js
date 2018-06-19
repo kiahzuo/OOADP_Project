@@ -16,25 +16,25 @@ router.get('/', function(req, res, next) {
 });
 
 
-router.post ('/', function (req, res){
-  console.log("Creating comments")
+// router.post ('/', function (req, res){
+//   console.log("Creating comments")
 
-  var commentData = {
-      title: req.body.title,
-      content: req.body.content,
-      user_id: req.user.name
-  }
+//   var commentData = {
+//       title: req.body.title,
+//       content: req.body.content,
+//       user_id: req.user.name
+//   }
 
-  Comments.create(commentData).then((newComment, created) => {
-      if (!newComment) {
-          return res.send(400, {
-              message: "error"
-          });
-      }
+//   Comments.create(commentData).then((newComment, created) => {
+//       if (!newComment) {
+//           return res.send(400, {
+//               message: "error"
+//           });
+//       }
 
-      res.redirect('/products');
-  })
-});
+//       res.redirect('/products');
+//   })
+// });
 
 router.get('/:id', function(req, res, next) {
   var booknumber = req.params.id;

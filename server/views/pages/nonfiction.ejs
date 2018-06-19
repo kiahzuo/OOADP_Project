@@ -81,13 +81,13 @@
         <input class="form-control mr-sm-2" type="search" placeholder="Type a bookname..." aria-label="Search" id="search"><br>
 
         <div class="list-group">
-            <a href="http://localhost:3000/products" class="list-group-item">View All Books</a>
-            <a href="http://localhost:3000/action" class="list-group-item">Action</a>
-            <a href="http://localhost:3000/horror" class="list-group-item">Horror</a>
-            <a href="http://localhost:3000/sciencefiction" class="list-group-item">Science Fiction</a>
-            <a href="http://localhost:3000/adventure" class="list-group-item">Adventure</a>
-            <a href="http://localhost:3000/comedy" class="list-group-item">Comedy</a>
-            <a href="http://localhost:3000/nonfiction" class="list-group-item">Non-fiction</a>
+                <a href="http://localhost:3000/products" class="list-group-item">View All Books</a>
+                <a href="http://localhost:3000/action" class="list-group-item">Action</a>
+                <a href="http://localhost:3000/horror" class="list-group-item">Horror</a>
+                <a href="http://localhost:3000/sciencefiction" class="list-group-item">Science Fiction</a>
+                <a href="http://localhost:3000/adventure" class="list-group-item">Adventure</a>
+                <a href="http://localhost:3000/comedy" class="list-group-item">Comedy</a>
+                <a href="http://localhost:3000/nonfiction" class="list-group-item">Non-fiction</a>
         </div>
 
       </div>
@@ -140,7 +140,7 @@
  
         <div class="row">
               <% for (i =0; i < images.length; i++) {%>
-                <% if ( images[i].avaliable != "Mark As Sold") { %>
+                <% if ( images[i].genre1 == "Non-Fiction") { %>
                   <div class="col-lg-4 col-md-6 mb-4">
                       <div class="card-deck">
                         <div class="card card-shadow text-center">

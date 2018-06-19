@@ -84,16 +84,59 @@
     </section>
 
 
+    <nav class="navbar navbar-light justify-content-center mt-4">
+        <form class="form-inline">
+          <input class="form-control mr-sm-2" type="search" placeholder="Type a name" aria-label="Search" id="search">
+          <!-- <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button> -->
+        </form>
+      </nav>
+  
+      <!-- Cards -->
+      <div class="layout-margin-8 mt-5">
+        <div class="card-deck">
+          <div class="card card-shadow text-center">
+            <div class="card-body">
+              <h4 class="card-title">Rob Doe</h4>
+              <p class="card-text">UX Designer</p>
+              <div class="dropdown-divider"></div>
+              <p class="card-text"><small class="text-muted">Team A</small></p>
+              <a href="#"><button type="button" class="btn btn-outline-primary">Email</button></a>
+            </div>
+          </div>
+          <div class="card card-shadow text-center">
+            <div class="card-body">
+              <h4 class="card-title">Scott Doe</h4>
+              <p class="card-text">UX Designer</p>
+              <div class="dropdown-divider"></div>
+              <p class="card-text"><small class="text-muted">Team B</small></p>
+              <a href="#"><button type="button" class="btn btn-outline-primary">Email</button></a>
+            </div>
+          </div>
+          <div class="card card-shadow text-center">
+            <div class="card-body">
+              <h4 class="card-title">John Doe Vasile</h4>
+              <p class="card-text">Product Designer</p>
+              <div class="dropdown-divider"></div>
+              <p class="card-text"><small class="text-muted">Team C</small></p>
+              <a href="#"><button type="button" class="btn btn-outline-primary">Email</button></a>
+            </div>
+          </div>
+          </div>
+        </div>
 
     <footer class="footer text-faded text-center py-5">
       <div class="container">
         <p class="m-0 small">Copyright &copy; Your Website 2018</p>
       </div>
     </footer>
+    <script>
+        $('#search').keyup(function (){
+        $('.card').removeClass('d-none');
+        var filter = $(this).val(); // get the value of the input, which we filter on
+        $('.card-deck').find('.card .card-body h4:not(:contains("'+filter+'"))').parent().parent().addClass('d-none');
+    })</script>
 
-    <!-- Bootstrap core JavaScript -->
-    <script src="../public/vendor/jquery/jquery.min.js"></script>
-    <script src="../public/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+
 
   </body>
 

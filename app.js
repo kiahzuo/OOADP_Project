@@ -15,6 +15,12 @@ var loginRouter = require('./routes/login');
 var profileRouter = require('./routes/profile');
 var signupRouter = require('./routes/signup');
 var editRouter = require('./routes/edit');
+var actionRouter = require('./routes/action');
+var horrorRouter = require('./routes/horror');
+var nonfictionRouter = require('./routes/nonfiction');
+var comedyRouter = require('./routes/comedy');
+var adventureRouter = require('./routes/adventure');
+var sciencefictionRouter = require('./routes/sciencefiction')
 var viewbookRouter = require('./routes/viewbook');
 
 var bankRouter = require('./routes/bank');
@@ -136,12 +142,18 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use('/', indexRouter);
 app.use('/about', aboutRouter);
 app.use('/users', usersRouter);
-app.use('/products', productsRouter);
+app.use('/products', auth.isLoggedIn,productsRouter,);
 app.use('/store', auth.isLoggedIn, storeRouter,images.hasAuthorization, upload.single('image'), images.uploadImage);
 app.use('/login',loginRouter);
 app.use('/profile',profileRouter);
 app.use('/signup',signupRouter);
 app.use('/viewbook',viewbookRouter);
+app.use('/action',actionRouter);
+app.use('/horror',horrorRouter);
+app.use('/comedy',comedyRouter);
+app.use('/nonfiction',nonfictionRouter);
+app.use('/adventure',adventureRouter);
+app.use('/sciencefiction',sciencefictionRouter);
 app.get('/about', comments.list);
 app.delete('/about/:comments_id',comments.delete);
 
