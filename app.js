@@ -156,9 +156,7 @@ app.use('/adventure',adventureRouter);
 app.use('/sciencefiction',sciencefictionRouter);
 app.get('/about', comments.list);
 app.delete('/about/:comments_id',comments.delete);
-
 app.use('/edit',editRouter);
-
 app.use('/bank',bankRouter);
 
 //set up routes for images
