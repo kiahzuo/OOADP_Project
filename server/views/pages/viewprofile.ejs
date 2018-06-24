@@ -3,8 +3,8 @@
 
   <head>
 
-      <% include ../partials/head %>
 
+    <% include ../partials/head %>
   </head>
 <body>
 
@@ -126,8 +126,8 @@
                             </div>
                           </div>			
                         </div>
-                        </div>			
-
+                        </div><br>			
+                        <a href="http://localhost:3000/products" class="btn btn-success">Back To Products</a><br>
           
                         
 
@@ -212,7 +212,7 @@
                
                           <div class="card h-100" data-id="<%= images[i].id %>"  >
                               
-                            <a href="#"><img class="card-img-top" src="http://localhost:3000/images/<%=images[i].imageName%>" alt=""></a>
+                            <a href="/viewbook/<%= images[i].id%>"><img class="card-img-top" src="http://localhost:3000/images/<%=images[i].imageName%>" alt=""></a>
                             <div class="card-body">
                               <h4 class="card-title">
                                   <h5><strong><%= images[i].title %></strong></h5>
