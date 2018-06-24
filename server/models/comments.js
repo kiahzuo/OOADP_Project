@@ -19,6 +19,10 @@ const Comments = sequelize.define('Comments', {
         defaultValue: '',
         trim: true
     },
+    rating: {
+        type: Sequelize.INTEGER,
+     
+    },
     content: {
         type: Sequelize.STRING,
         defaultValue: '',

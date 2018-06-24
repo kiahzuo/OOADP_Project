@@ -34,37 +34,7 @@
       <span class="site-heading-lower">Business Casual</span>
     </h1>
 
-    <!-- Navigation -->
-    <nav class="navbar navbar-expand-lg navbar-dark py-lg-4" id="mainNav">
-      <div class="container">
-        <a class="navbar-brand text-uppercase text-expanded font-weight-bold d-lg-none" href="#">Start Bootstrap</a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
-          <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarResponsive">
-          <ul class="navbar-nav mx-auto">
-            <li class="nav-item px-lg-4">
-              <a class="nav-link text-uppercase text-expanded" href="/">Home
-                <span class="sr-only">(current)</span>
-              </a>
-            </li>
-            <li class="nav-item px-lg-4">
-              <a class="nav-link text-uppercase text-expanded" href="about">About</a>
-            </li>
-            <li class="nav-item active px-lg-4">
-              <a class="nav-link text-uppercase text-expanded" href="products">Products</a>
-            </li>
-      
-            <li class="nav-item px-lg-4">
-              <a class="nav-link text-uppercase text-expanded" href="login">Login</a>
-            </li>
-            <li class="nav-item px-lg-4">
-                <a class="nav-link text-uppercase text-expanded" href="profile">Profile</a>
-              </li>
-          </ul>
-        </div>
-      </div>
-    </nav>
+    <% include ../partials/header %>
 
 
 
@@ -81,6 +51,7 @@
         <input class="form-control mr-sm-2" type="search" placeholder="Type a bookname..." aria-label="Search" id="search"><br>
 
         <div class="list-group">
+            <h4 class="my-4">Filter By Genre</h4>
             <a href="http://localhost:3000/products" class="list-group-item">View All Books</a>
             <a href="http://localhost:3000/action" class="list-group-item">Action</a>
             <a href="http://localhost:3000/horror" class="list-group-item">Horror</a>
@@ -88,8 +59,14 @@
             <a href="http://localhost:3000/adventure" class="list-group-item">Adventure</a>
             <a href="http://localhost:3000/comedy" class="list-group-item">Comedy</a>
             <a href="http://localhost:3000/nonfiction" class="list-group-item">Non-fiction</a>
+            
         </div>
+        <br>
+        <br>
+        <h4 class="my-4">Filter By Price</h4>
+        <input class="form-control mr-sm-2" type="search" placeholder="Enter Price...." aria-label="Search" id="searchprice"><br>
 
+        
       </div>
       <!-- /.col-lg-3 -->
 
@@ -135,10 +112,12 @@
             height:200px;
           }
           
+
             
           </style>
  
         <div class="row">
+            <% for (i =0; i < users.length; i++) {%>
               <% for (i =0; i < images.length; i++) {%>
                 <% if ( images[i].avaliable != "Mark As Sold") { %>
                   <div class="col-lg-4 col-md-6 mb-4">
@@ -147,15 +126,21 @@
                         <div class="card-body">
                             <a href="/viewbook/<%= images[i].id%>"><img class="card-img-top" src="images/<%= images[i].imageName %>" alt=""></a>
                           <h4 class="card-title"><%= images[i].title %></h4>
-                          <p class="card-text">Price : $<%= images[i].price1 %></p>
+                          <h6 class="card-text">Price : $<%= images[i].price1 %></h6>
                           <div class="dropdown-divider"></div>
                           <p class="card-text"><small class="text-muted">Genre : <%= images[i].genre1 %></small></p>
-                          <a href="/viewbook/<%= images[i].id%>"><button type="button" class="btn btn-outline-primary">More Info</button></a>
+                          <a href="/viewbook/<%= images[i].id%>"><button type="button" class="btn btn-outline-primary">Info</button></a>
+                          <a href="/viewprofile/<%= images[i].user_id%>"><button type="button" class="btn btn-outline-primary"><%= images[i].seller %></button></a>
+                        
                         </div>
                       </div>
                       </div>
                     </div>
+
+
+                    
              
+                    <% } %>
           <% } %>
           <% } %>
 
@@ -173,8 +158,13 @@ $('#search').keyup(function (){
     $('.card').removeClass('d-none');
     var filter = $(this).val(); // get the value of the input, which we filter on
     $('.card-deck').find('.card .card-body h4:not(:contains("'+filter+'"))').parent().parent().addClass('d-none');
-
-  })</script>
+  })
+    $('#searchprice').keyup(function (){
+    $('.card').removeClass('d-none');
+    var filter = $(this).val(); // get the value of the input, which we filter on
+    $('.card-deck').find('.card .card-body h6:not(:contains("'+filter+'"))').parent().parent().addClass('d-none');
+  })
+  </script>
 
 
     <!-- Footer -->

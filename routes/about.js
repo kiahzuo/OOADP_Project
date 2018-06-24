@@ -10,7 +10,7 @@ var sequelize = myDatabase.sequelize;
 
 
 router.get('/', function(req, res, next) {
-    res.render('about', { title: 'Express' });
+    res.render('about', { title: 'Express',user : req.user, });
   });
 
 
