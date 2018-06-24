@@ -33,19 +33,6 @@ exports.profile = function(req, res) {
    
 };
 
-exports.delete=(function (req,res) {
-    var booknumber = req.params.id;
-    console.log("deleting" + booknumber);
-    Bookitem.destroy({ where: { id: booknumber } }).then((deletedRecord) => {
-        if(!deletedRecord) {
-            return res.send(400, {
-                message: "error"
-            });
-        }
-        res.status(200).send({ message: "Deleted student record: " + booknumber });
-    });
-  }
-  )
 // Logout function
 exports.logout = function () {
     req.logout();

@@ -117,7 +117,7 @@ app.post('/signup', passport.authenticate('local-signup', {
 
 // Delete function For Items
 app.get('/profile', auth.isLoggedIn, auth.profile);
-app.delete("/profile", auth.delete);
+
 
 
 
