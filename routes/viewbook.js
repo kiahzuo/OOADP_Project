@@ -44,6 +44,7 @@ router.post ('/', function (req, res){
     var commentData = {
         title: req.body.title,
         content: req.body.content,
+        rating:req.body.rating,
         user_id: req.user.name
     }
     Comments.create(commentData).then((newComment, created) => {

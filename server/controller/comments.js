@@ -26,7 +26,8 @@ exports.create = function (req, res){
     var commentData = {
         title: req.body.title,
         content: req.body.content,
-        user_id: req.user.id
+        user_id: req.user.id,
+        rating:req.body.rating,
     }
 
     Comments.create(commentData).then((newComment, created) => {

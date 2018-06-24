@@ -4,15 +4,22 @@ var gravatar = require ('gravatar');
 var Bookitem = require('../server/models/models');
 var Comments = require ('../server/models/comments');
 var Images = require('../server/models/images');
+var Users = require('../server/models/users');
 
 /* GET about page. */
 router.get('/', function(req, res, next) {
   Images.findAll()
-  .then(images=>{
+  .then(images=>{  
+      Users.findAll()
+    .then(users=>{
     console.log(images);
-    res.render('products', {images: images});
+    res.render('products', {
+        images: images,
+        users:users,
+        user : req.user,});
   
-  }); 
+  });
+});           
 });
 
 
@@ -35,21 +42,6 @@ router.get('/', function(req, res, next) {
 //       res.redirect('/products');
 //   })
 // });
-
-router.get('/:id', function(req, res, next) {
-  var booknumber = req.params.id;
-  Bookitem.findById(booknumber).then(function (retrievebook) {
-      res.render('viewbook', {
-          title: "Practical 5 Database Node JS - Edit Student Records",
-          retrievebook: retrievebook,
-          hostPath: req.protocol + "://" + req.get("host")
-      });
-  }).catch((err) => {
-      return res.status(400).send({
-          message: err
-      });
-  });
-});
 
 
 module.exports = router;

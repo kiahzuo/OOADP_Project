@@ -22,6 +22,8 @@ var comedyRouter = require('./routes/comedy');
 var adventureRouter = require('./routes/adventure');
 var sciencefictionRouter = require('./routes/sciencefiction')
 var viewbookRouter = require('./routes/viewbook');
+var viewprofileRouter = require('./routes/viewprofile');
+
 
 var bankRouter = require('./routes/bank');
 
@@ -125,6 +127,12 @@ app.get('/logout', function (req, res) {
     res.redirect('/');
 });
 
+//user session
+app.use(function(req, res, next) {
+    res.locals.user = req.user;
+    next();
+  });
+
 
 
 
@@ -148,6 +156,7 @@ app.use('/login',loginRouter);
 app.use('/profile',profileRouter);
 app.use('/signup',signupRouter);
 app.use('/viewbook',viewbookRouter);
+app.use('/viewprofile',viewprofileRouter);
 app.use('/action',actionRouter);
 app.use('/horror',horrorRouter);
 app.use('/comedy',comedyRouter);

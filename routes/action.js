@@ -10,7 +10,10 @@ router.get('/', function(req, res, next) {
     Images.findAll()
     .then(images=>{
       console.log(images);
-      res.render('action', {images: images});
+      res.render('action',
+       {images: images,
+        user : req.user,
+      });
     
     }); 
   });

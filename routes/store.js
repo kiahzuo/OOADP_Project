@@ -5,7 +5,8 @@ var router = express.Router();
 
 var Bookitem = require('../server/models/models');
 router.get('/', function(req, res, next) {  
-  res.render('store', { title: 'Express' });
+  res.render('store', { title: 'Express',
+  user : req.user, });
 });
 
 // router.post('/',(req,res,next) =>{
