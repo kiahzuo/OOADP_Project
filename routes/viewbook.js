@@ -8,9 +8,6 @@ var Images = require('../server/models/images');
 
 var sequelize = myDatabase.sequelize;
 
-
-
-
 // Retrieve update 1 by 1
 router.get('/:id', function(req, res, next) {
     var booknumber = req.params.id;
@@ -23,9 +20,6 @@ router.get('/:id', function(req, res, next) {
             comments: comments,
             hostPath: req.protocol + "://" + req.get("host"),
             urlPath: req.protocol + '://' + req.get('host') + req.originalUrl,
-
-            
-            
         });
     })
     })
