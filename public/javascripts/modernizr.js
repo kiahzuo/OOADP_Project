@@ -530,7 +530,7 @@ window.Modernizr = (function( window, document, undefined ) {
     tests['rgba'] = function() {
         // Set an rgba() color and check the returned value
 
-        setCss('background-color:rgba(150,255,150,.5)');
+        // setCss('background-color:rgba(150,255,150,.5)');
 
         return contains(mStyle.backgroundColor, 'rgba');
     };
@@ -539,7 +539,7 @@ window.Modernizr = (function( window, document, undefined ) {
         // Same as rgba(), in fact, browsers re-map hsla() to rgba() internally,
         //   except IE9 who retains it as hsla
 
-        setCss('background-color:hsla(120,40%,100%,.5)');
+        // setCss('background-color:hsla(120,40%,100%,.5)');
 
         return contains(mStyle.backgroundColor, 'rgba') || contains(mStyle.backgroundColor, 'hsla');
     };

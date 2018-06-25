@@ -18,7 +18,7 @@ body {
   font-size: 100%;
   font-family: "PT Sans", sans-serif;
   color: #31353d;
-  background-color: #eeeff7;
+  /* background-color: #eeeff7; */
 }
 body.overflow-hidden {
   /* prevent 2 vertical scrollbars on ie and firefox when the cart is visible */
@@ -121,7 +121,7 @@ header {
   left: 0;
 }
 #cd-hamburger-menu a {
-  background: #26292f url("../img/cd-hamburger-menu.svg") no-repeat center center;
+  background: #26292f url("../../images/cd-hamburger-menu.svg") no-repeat center center;
 }
 @media only screen and (min-width: 1200px) {
   #cd-hamburger-menu {
@@ -133,7 +133,7 @@ header {
   right: 0;
 }
 #cd-cart-trigger a {
-  background: #26292f url("../img/cd-cart.svg") no-repeat center center;
+  background: #26292f url("../../images/cd-cart.svg") no-repeat center center;
 }
 @media only screen and (min-width: 1200px) {
   #cd-cart-trigger {
@@ -286,7 +286,7 @@ html #main-nav {
   width: 32px;
   height: 32px;
   border-radius: 50%;
-  background: url("../img/cd-remove-item.svg") no-repeat center center;
+  background: url("../../images/cd-remove-item.svg") no-repeat center center;
 }
 .no-touch #cd-cart .cd-item-remove:hover {
   background-color: #e0e6ef;
