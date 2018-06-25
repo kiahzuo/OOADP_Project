@@ -23,10 +23,8 @@ var adventureRouter = require('./routes/adventure');
 var sciencefictionRouter = require('./routes/sciencefiction')
 var viewbookRouter = require('./routes/viewbook');
 var viewprofileRouter = require('./routes/viewprofile');
-
-
 var bankRouter = require('./routes/bank');
-
+var paymentRouter = require('./routes/payment');
 
 //import multer
 var multer = require('multer');
@@ -133,6 +131,17 @@ app.use(function(req, res, next) {
     next();
   });
 
+//payment
+app.get('/payment', function(req, res){
+    res.render('payment',{
+        title: 'test',
+    });
+});
+app.post('/payment/verify', function(req, res){
+    // console.log(req._destroy.body.card-number);
+    console.log('submitted');
+    console.log(req.body);
+  });
 
 
 
@@ -167,6 +176,7 @@ app.get('/about', comments.list);
 app.delete('/about/:comments_id',comments.delete);
 app.use('/edit',editRouter);
 app.use('/bank',bankRouter);
+app.use('/payment',paymentRouter);
 
 //set up routes for images
 app.get('/images-gallery', images.hasAuthorization, images.show);
@@ -191,8 +201,10 @@ app.use(function(err, req, res, next) {
 });
 
 
-app.listen(3000);
-
+app.listen(3000, function(){
+    console.log('Server Started on Port 3000...');
+});
+// app.listen(3001);
 
 
 module.exports = app;
