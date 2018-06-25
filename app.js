@@ -14,10 +14,35 @@ var storeRouter = require('./routes/store');
 var loginRouter = require('./routes/login');
 var profileRouter = require('./routes/profile');
 var signupRouter = require('./routes/signup');
+var editRouter = require('./routes/edit');
+var actionRouter = require('./routes/action');
+var horrorRouter = require('./routes/horror');
+var nonfictionRouter = require('./routes/nonfiction');
+var comedyRouter = require('./routes/comedy');
+var adventureRouter = require('./routes/adventure');
+var sciencefictionRouter = require('./routes/sciencefiction')
+var viewbookRouter = require('./routes/viewbook');
+var viewprofileRouter = require('./routes/viewprofile');
 
+
+var bankRouter = require('./routes/bank');
+
+
+//import multer
+var multer = require('multer');
+var upload = multer({dest:'./public/uploads/',limits:{fileSize: 1500000, files:1} });
 
 // Import login controller
 var auth = require('./server/controller/auth');
+
+//Import images controller
+var images = require('./server/controller/images');
+
+
+//Import comments controller
+var comments = require('./server/controller/comments');
+
+
 
 // Modules to store session
 var myDatabase = require('./server/controller/database');
@@ -43,7 +68,10 @@ var router = express.Router();
 
 
 
+<<<<<<< HEAD
 
+=======
+>>>>>>> 27de6c6c321e243c13b1798dd7d55a58abaad85d
 // Passport configuration
 require('./server/config/passport')(passport);
 
@@ -91,13 +119,24 @@ app.post('/signup', passport.authenticate('local-signup', {
     failureFlash: true
 }));
 
+// Delete function For Items
 app.get('/profile', auth.isLoggedIn, auth.profile);
+
+
+
 
 // Logout Page
 app.get('/logout', function (req, res) {
     req.logout();
     res.redirect('/');
 });
+
+//user session
+app.use(function(req, res, next) {
+    res.locals.user = req.user;
+    next();
+  });
+
 
 
 
@@ -111,14 +150,33 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
+
 app.use('/', indexRouter);
 app.use('/about', aboutRouter);
 app.use('/users', usersRouter);
-app.use('/products', productsRouter);
-app.use('/store', storeRouter);
+app.use('/products', auth.isLoggedIn,productsRouter,);
+app.use('/store', auth.isLoggedIn, storeRouter,images.hasAuthorization, upload.single('image'), images.uploadImage);
 app.use('/login',loginRouter);
 app.use('/profile',profileRouter);
 app.use('/signup',signupRouter);
+app.use('/viewbook',viewbookRouter);
+app.use('/viewprofile',viewprofileRouter);
+app.use('/action',actionRouter);
+app.use('/horror',horrorRouter);
+app.use('/comedy',comedyRouter);
+app.use('/nonfiction',nonfictionRouter);
+app.use('/adventure',adventureRouter);
+app.use('/sciencefiction',sciencefictionRouter);
+app.get('/about', comments.list);
+app.delete('/about/:comments_id',comments.delete);
+app.use('/edit',editRouter);
+app.use('/bank',bankRouter);
+
+//set up routes for images
+app.get('/images-gallery', images.hasAuthorization, images.show);
+app.post('/store', images.hasAuthorization, upload.single('image'), images.uploadImage);
+
+
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
@@ -139,4 +197,12 @@ app.use(function(err, req, res, next) {
 
 app.listen(3000);
 
+<<<<<<< HEAD
 module.exports = app;
+=======
+
+
+module.exports = app;
+
+
+>>>>>>> 27de6c6c321e243c13b1798dd7d55a58abaad85d

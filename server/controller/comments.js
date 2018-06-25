@@ -7,7 +7,7 @@ var sequelize = myDatabase.sequelize;
 exports.list = function(req, res){
     sequelize.query('select c.id, c.title, c.content, u.email AS [user_id] from Comments c join Users u on c.user_id = u.id', {model: Comments}).then((comments) => {
 
-        res.render('comments', {
+        res.render('about', {
             title: 'Comments Page',
             comments: comments,
             gravatar: gravatar.url(comments.user_id, {s: '80', r: 'x', d: 'retro'}, true),
@@ -26,7 +26,8 @@ exports.create = function (req, res){
     var commentData = {
         title: req.body.title,
         content: req.body.content,
-        user_id: req.user.id
+        user_id: req.user.id,
+        rating:req.body.rating,
     }
 
     Comments.create(commentData).then((newComment, created) => {
@@ -36,7 +37,7 @@ exports.create = function (req, res){
             });
         }
 
-        res.redirect('/comments');
+        res.redirect('/products');
     })
 };
 

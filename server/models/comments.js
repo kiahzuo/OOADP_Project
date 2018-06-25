@@ -19,18 +19,18 @@ const Comments = sequelize.define('Comments', {
         defaultValue: '',
         trim: true
     },
+    rating: {
+        type: Sequelize.INTEGER,
+     
+    },
     content: {
         type: Sequelize.STRING,
         defaultValue: '',
         trim: true
     },
     user_id:{
-        type: Sequelize.INTEGER,
-        allowNull: false,
-        references: {
-            model: 'Users',
-            key: 'id'
-        }
+        type: Sequelize.STRING,
+      
     }
 });
 

@@ -1,0 +1,361 @@
+<!DOCTYPE html>
+<html lang="en">
+
+  <head>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>Business Casual - Start Bootstrap Theme</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="../../vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Custom fonts for this template -->
+    <link href="https://fonts.googleapis.com/css?family=Raleway:100,100i,200,200i,300,300i,400,400i,500,500i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Lora:400,400i,700,700i" rel="stylesheet">
+
+    <!-- Custom styles for this template -->
+
+
+
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+<script src="http://code.jquery.com/jquery-1.11.3.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    
+
+  </head>
+<body>
+
+        <h1 class="site-heading text-center text-white d-none d-lg-block">
+      
+              </h1>
+            
+<style>
+            body{   
+                background-color: burlywood;
+            }
+       
+            .card-img-top{
+                   width:100%;
+                   height:500px;
+                 }
+            .rating {
+          
+                width:300px;
+            }
+
+            .rating span input {
+                position:absolute;
+                top:0px;
+                left:0px;
+                opacity:0;
+            }
+            .rating span label {
+                display:inline-block;
+                width:30px;
+                height:30px;
+                text-align:center;
+                color:#FFF;
+                background:#ccc;
+                font-size:30px;
+                margin-right:2px;
+                line-height:30px;
+                border-radius:50%;
+                -webkit-border-radius:50%;
+            }
+            .rating span:hover ~ span label,
+            .rating span:hover label,
+            .rating span.checked label,
+            .rating span.checked ~ span label {
+                background:#F90;
+                color:#FFF;
+            }
+            /* Style the tab */
+.tab {
+    overflow: hidden;
+    border: 1px solid #ccc;
+    background-color: #f1f1f1;
+}
+
+/* Style the buttons that are used to open the tab content */
+.tab button {
+    background-color: inherit;
+    float: left;
+    border: none;
+    outline: none;
+    cursor: pointer;
+    padding: 14px 16px;
+    transition: 0.3s;
+}
+
+/* Change background color of buttons on hover */
+.tab button:hover {
+    background-color: #ddd;
+}
+
+/* Create an active/current tablink class */
+.tab button.active {
+    background-color: #ccc;
+}
+
+/* Style the tab content */
+.tabcontent {
+    display: none;
+    padding: 6px 12px;
+    border: 1px solid #ccc;
+    border-top: none;
+}
+            
+</style>
+
+
+
+    <div class="container">
+
+        <div class="row">
+            
+  
+                <div class="col-lg-3">
+                    <br><br><br>
+                        <div class="list-group">
+                          <a onclick="goBack()" class="list-group-item active">Back To Products</a><br>
+                          <a href="http://localhost:3000/<%= images.genre1 %>" class="list-group-item active">View Related Products</a>
+                  
+                        </div>
+                      </div>
+        
+
+          <div class="col-lg-9">
+  
+            <div class="card mt-4">
+                <img class="card-img-top img-fluid" src="http://localhost:3000/images/<%= images.imageName %>" alt="">
+                <div class="tab">
+                        <button class="tablinks" onclick="openCity(event, 'London') "id="defaultOpen">General Info</button>
+                        <button class="tablinks" onclick="openCity(event, 'Paris')">Reviews</button>
+                        <button class="tablinks" onclick="openCity(event, 'Tokyo')">Comments</button>
+                      </div>
+                      
+                      <!-- Tab content -->
+                      <div id="London" class="tabcontent">
+            <br>
+                        <h3 class="card-title">	<%= images.title %></h3><br>
+                        <h5 class="card-text"><strong>Price</strong> : $<%= images.price1 %></h5><br>
+                        <h5 class="card-text"><strong>Description</strong> : <%= images.description1 %></h5><br>
+                        <h5 class="card-text"><strong>Condition</strong> &#x2605; : <%= images.condition1 %></h5><br>
+                        <h5 class="card-text"><strong>Seller</strong> &#xe004; : <%= images.seller %></h5><br>
+                        <h5 class="card-text"><strong>Genre & Meetup</strong> &#128214; : <%= images.genre1 %></h5><br>
+                        <h5 class="card-text"><strong>Meet up</strong> &#x1f697;: <%= images.meetup1 %></h5><br>
+                        <br>
+                      </div>
+                      
+                      <div id="Paris" class="tabcontent">
+                   <br>
+                   <p>testing</p>
+                   
+                      </div>
+                      
+                      <div id="Tokyo" class="tabcontent">
+           <br>
+                        
+                        <br>
+                        <div class="list-group">
+                        
+                                <% for (i =0; i < comments.length; i++) {%>
+                                  <% if ( comments[i].title == images.title) { %>
+                                    <div class="list-group-item" data-id="<%= comments[i].id%>">
+                      
+                                        <form action="/comments" method="delete">
+                                                <h4 class="list-group-item-heading">
+                                                        <%= comments[i].content %>
+                                                    <% if ( user.name ==  comments[i].user_id ) { %>
+                                                    <button class="btn btn-secondary pull-right deleteBtn" type="button" data-id="<%= comments[i].id%>">Delete</button>
+                                                    <% } %>
+                                                </h4>
+                                               
+                                                <p class="list-group-item-text">
+                                                        Rating : <%= comments[i].rating %>
+                                                    </p>
+                                                <small class="text-muted">By:
+                                                    <%= comments[i].user_id %>
+                                                </small>
+              
+                                            </div>
+                                          </form>
+                                        
+                                    <% } %>
+                                    <% } %>
+                                    <button type="button" class="btn btn-secondary pull-right" data-toggle="modal" data-target="#createPost">
+                                        Add Comment
+                                    </button>
+                                    <br><br><br>
+                      </div>
+                    </div>
+              <div class="card-body">       
+      
+
+            
+                <button class="btn btn-lg btn-primary btn-block" type="submit">Chat</button>
+                <button class="btn btn-lg btn-primary btn-block" type="submit">Add to Cart</button>
+              </div>
+            </div>
+
+
+            <!-- Tab links -->
+
+   
+
+    
+  
+
+            
+
+        
+        
+      <script>
+          $('.deleteBtn').click(function() {
+              var comments_id = $(this).closest("div").data('id');      
+              $.ajax({
+                url: '<%-urlPath%>'+'/'+comments_id,
+                      type: 'DELETE',
+                      success: function(result) {
+                          console.log(result.message);
+                          var itemToRemove = '.list-group-item[data-id='+comments_id+']';
+                          $(itemToRemove).remove();
+                      },
+                      error: function(result){
+                          alert("Unable to delete comment.");
+                          console.log(result.message);
+                      } 
+                  });  
+          });
+
+
+          $(document).ready(function(){
+//  Check Radio-box
+    $(".rating input:radio").attr("checked", false);
+    $('.rating input').click(function () {
+        $(".rating span").removeClass('checked');
+        $(this).parent().addClass('checked');
+    });
+
+    $('input:radio').change(
+    function(){
+        var userRating = this.value;
+        alert(userRating);
+    }); 
+}); 
+         
+
+
+
+         function openCity(evt, cityName) {
+    // Declare all variables
+    var i, tabcontent, tablinks;
+
+    // Get all elements with class="tabcontent" and hide them
+    tabcontent = document.getElementsByClassName("tabcontent");
+    for (i = 0; i < tabcontent.length; i++) {
+        tabcontent[i].style.display = "none";
+    }
+
+    // Get all elements with class="tablinks" and remove the class "active"
+    tablinks = document.getElementsByClassName("tablinks");
+    for (i = 0; i < tablinks.length; i++) {
+        tablinks[i].className = tablinks[i].className.replace(" active", "");
+    }
+
+    // Show the current tab, and add an "active" class to the button that opened the tab
+    document.getElementById(cityName).style.display = "block";
+    evt.currentTarget.className += " active";
+}
+document.getElementById("defaultOpen").click();
+
+
+
+function goBack() {
+    window.history.back();
+}
+
+      </script>
+                  
+                  
+            <!-- Modal -->
+            <div class="modal fade" id="createPost" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <form action="/viewbook" method="post">
+                            <div class="modal-header">
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                                <h4 class="modal-title" id="myModalLabel">Create Comment</h4>
+                            </div>
+        
+                            <div class="modal-body">
+        
+                                <fieldset class="form-group">
+                                    <label for="inputitle">Title</label>
+                                </fieldset>
+                                <fieldset class="form-group">
+                  
+                                    <input type="text" id="inputitle" name="title" class="form-control" placeholder="Comment Title" readonly="readonly" required="" value ="<%= images.title %>"><br> 
+                                    <label for="inputContent">Content</label>
+                                    <textarea id="inputContent" name="content" rows="8" cols="40" class="form-control" placeholder="Comment Description" required=""></textarea>
+                                    <label for="rating">Rating</label>
+                                    <select id="rating"name="rating" class="form-control" placeholder="rating" ><br>
+                                        <option value="1">Very Poor</option>
+                                        <option value="2">Poor</option>
+                                        <option value="3">Mediocre</option>
+                                        <option value="4">Good</option>
+                                        <option value="5">Fantastic</option>
+                                      
+                                      </select>     <br><br><br><br><br><br><br>
+                                </fieldset>
+        
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                <button type="submit" class="btn btn-primary">Save changes</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+              </div>
+                      </div>
+                      
+
+                
+                    </div>
+                  </div>
+                 
+                      </div>
+                    </div>
+              </div>
+            </div>
+            <!-- /.card -->
+  
+          </div>
+          <!-- /.col-lg-9 -->
+  
+        </div>
+  
+      </div>
+      <!-- /.container -->
+
+      <footer class="footer text-faded text-center py-5">
+          <div class="container">
+            <p class="m-0 small">Copyright &copy; Your Website 2018</p>
+          </div>
+        </footer>
+     
+
+
+      
+      
+
+    </body>

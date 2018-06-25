@@ -11,6 +11,7 @@ const Bookitem = sequelize.define('Bookitem', {
         autoIncrement: true,
         primaryKey: true
     },
+   
     bookname1: {
         type: Sequelize.STRING
     },
@@ -25,8 +26,27 @@ const Bookitem = sequelize.define('Bookitem', {
     },
     meetup1: {
         type: Sequelize.STRING
-    }
+    },
+    genre1: {
+        type: Sequelize.STRING
+    },
+    seller: {
+        type: Sequelize.STRING
+    },
+    avaliable: {
+        type: Sequelize.STRING
+    },
+    imageName: {
+        type: Sequelize.STRING
+    },
+
+ 
+    
 });
+
+
+
+
 
 sequelize.sync({ force: false, logging: console.log}).then(() => {
     // Table created

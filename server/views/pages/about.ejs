@@ -16,9 +16,11 @@
     <!-- Custom fonts for this template -->
     <link href="https://fonts.googleapis.com/css?family=Raleway:100,100i,200,200i,300,300i,400,400i,500,500i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Lora:400,400i,700,700i" rel="stylesheet">
+    <script src="http://code.jquery.com/jquery-1.11.3.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 
     <!-- Custom styles for this template -->
-    <link href="stylesheets/business-casual.css" rel="stylesheet">
+    <link href="../../stylesheets/business-casual.css" rel="stylesheet">
 
   </head>
 
@@ -29,36 +31,7 @@
       <span class="site-heading-lower">Business Casual</span>
     </h1>
 
-    <!-- Navigation -->
-    <nav class="navbar navbar-expand-lg navbar-dark py-lg-4" id="mainNav">
-      <div class="container">
-        <a class="navbar-brand text-uppercase text-expanded font-weight-bold d-lg-none" href="#">Start Bootstrap</a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
-          <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarResponsive">
-          <ul class="navbar-nav mx-auto">
-            <li class="nav-item px-lg-4">
-              <a class="nav-link text-uppercase text-expanded" href="/">Home
-                <span class="sr-only">(current)</span>
-              </a>
-            </li>
-            <li class="nav-item active px-lg-4">
-              <a class="nav-link text-uppercase text-expanded" href="about">About</a>
-            </li>
-            <li class="nav-item px-lg-4">
-              <a class="nav-link text-uppercase text-expanded" href="products">Products</a>
-            </li>
-            <li class="nav-item px-lg-4">
-              <a class="nav-link text-uppercase text-expanded" href="store">Store</a>
-            </li>
-            <li class="nav-item px-lg-4">
-              <a class="nav-link text-uppercase text-expanded" href="login">Login</a>
-            </li>
-          </ul>
-        </div>
-      </div>
-    </nav>
+    <% include ../partials/header %>
 
     <section class="page-section about-heading">
       <div class="container">
@@ -80,15 +53,60 @@
       </div>
     </section>
 
+
+    <nav class="navbar navbar-light justify-content-center mt-4">
+        <form class="form-inline">
+          <input class="form-control mr-sm-2" type="search" placeholder="Type a name" aria-label="Search" id="search">
+          <!-- <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button> -->
+        </form>
+      </nav>
+  
+      <!-- Cards -->
+      <div class="layout-margin-8 mt-5">
+        <div class="card-deck">
+          <div class="card card-shadow text-center">
+            <div class="card-body">
+              <h4 class="card-title">Rob Doe</h4>
+              <p class="card-text">UX Designer</p>
+              <div class="dropdown-divider"></div>
+              <p class="card-text"><small class="text-muted">Team A</small></p>
+              <a href="#"><button type="button" class="btn btn-outline-primary">Email</button></a>
+            </div>
+          </div>
+          <div class="card card-shadow text-center">
+            <div class="card-body">
+              <h4 class="card-title">Scott Doe</h4>
+              <p class="card-text">UX Designer</p>
+              <div class="dropdown-divider"></div>
+              <p class="card-text"><small class="text-muted">Team B</small></p>
+              <a href="#"><button type="button" class="btn btn-outline-primary">Email</button></a>
+            </div>
+          </div>
+          <div class="card card-shadow text-center">
+            <div class="card-body">
+              <h4 class="card-title">John Doe Vasile</h4>
+              <p class="card-text">Product Designer</p>
+              <div class="dropdown-divider"></div>
+              <p class="card-text"><small class="text-muted">Team C</small></p>
+              <a href="#"><button type="button" class="btn btn-outline-primary">Email</button></a>
+            </div>
+          </div>
+          </div>
+        </div>
+
     <footer class="footer text-faded text-center py-5">
       <div class="container">
         <p class="m-0 small">Copyright &copy; Your Website 2018</p>
       </div>
     </footer>
+    <script>
+        $('#search').keyup(function (){
+        $('.card').removeClass('d-none');
+        var filter = $(this).val(); // get the value of the input, which we filter on
+        $('.card-deck').find('.card .card-body h4:not(:contains("'+filter+'"))').parent().parent().addClass('d-none');
+    })</script>
 
-    <!-- Bootstrap core JavaScript -->
-    <script src="../public/vendor/jquery/jquery.min.js"></script>
-    <script src="../public/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+
 
   </body>
 
