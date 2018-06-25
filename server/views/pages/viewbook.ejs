@@ -147,7 +147,7 @@
                         <div class="list-group">
                         
                                 <% for (i =0; i < comments.length; i++) {%>
-                                  <% if ( comments[i].title == images.title) { %>
+                                  <% if ( comments[i].title == images.id) { %>
                                     <div class="list-group-item" data-id="<%= comments[i].id%>">
                       
                                         <form action="/comments" method="delete">
