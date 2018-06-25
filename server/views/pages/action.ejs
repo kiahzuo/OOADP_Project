@@ -97,7 +97,8 @@
                             <p class="card-text">Price : $<%= images[i].price1 %></p>
                             <div class="dropdown-divider"></div>
                             <p class="card-text"><small class="text-muted">Genre : <%= images[i].genre1 %></small></p>
-                            <a href="/viewbook/<%= images[i].id%>"><button type="button" class="btn btn-outline-primary">More Info</button></a>
+                            <a href="/viewbook/<%= images[i].id%>"><button type="button" class="btn btn-outline-primary">Info</button></a>
+                            <a href="/viewprofile/<%= images[i].user_id%>"><button type="button" class="btn btn-outline-primary"><%= images[i].seller %></button></a>
                           </div>
                         </div>
                         </div>

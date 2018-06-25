@@ -11,8 +11,12 @@
       <li><a href="http://localhost:3000/">Home</a></li>
       <li><a href="http://localhost:3000/about">About</a></li>
       <li><a class="current" href="http://localhost:3000/products">Products</a></li> <!-- For now, products is current -->
-      <li><a href="http://localhost:3000/profile">Profile</a></li>
+
+      <% if (typeof user !="undefined"){%>
+      <li><a href="http://localhost:3000/profile"><%= user.name %></a></li>
+      <%} else{%>
       <li><a href="http://localhost:3000/login">Login</a></li>
+      <%}%>
     </ul>
 </nav>
 <!-- <nav class="navbar navbar-expand-lg navbar-dark py-lg-4" id="main-nav">
