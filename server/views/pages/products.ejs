@@ -6,9 +6,12 @@
     <% include ../partials/head %>
     <!-- Products custom style -->
     <style>
-        .coloring{
-          background-color: burlywood; 
-        }
+        main {
+          /* Show background image */
+          background-color: transparent; 
+          background: transparent;
+        }  
+
         .card{
           background-color: lightgray;
 
@@ -40,7 +43,7 @@
 
       <div class="col-lg-3">
 
-        <h1 class="my-4">MarketPlace</h1>
+        <h1 class="my-4">Market Place</h1>
         <input class="form-control mr-sm-2" type="search" placeholder="Type a bookname..." aria-label="Search" id="search"><br>
 
         <div class="list-group">
@@ -120,43 +123,20 @@
           </div>
         <!-- /.row -->
       </main>
-      
- <!-- Shopping cart (with sample data) -->       
-<div id="cd-shadow-layer"></div>
+  
+  <% include ../partials/cart %>    
 
-<div id="cd-cart">
-		<h2>Cart</h2>
-		<ul class="cd-cart-items">
-			<li>
-				<span class="cd-qty">1x</span> Product Name
-				<div class="cd-price">$9.99</div>
-				<a href="#0" class="cd-item-remove cd-img-replace">Remove</a>
-			</li>
-
-			<li>
-				<span class="cd-qty">2x</span> Product Name
-				<div class="cd-price">$19.98</div>
-				<a href="#0" class="cd-item-remove cd-img-replace">Remove</a>
-			</li>
-
-			<li>
-				<span class="cd-qty">1x</span> Product Name
-				<div class="cd-price">$9.99</div>
-				<a href="#0" class="cd-item-remove cd-img-replace">Remove</a>
-			</li>
-		</ul> <!-- cd-cart-items -->
-
-		<div class="cd-cart-total">
-			<p>Total <span>$39.96</span></p>
-		</div> <!-- cd-cart-total -->
-
-		<a href="#0" class="checkout-btn">Checkout</a>
-		
-		<p class="cd-go-to-cart"><a href="#0">Go to cart page</a></p>
-	</div> <!-- cd-cart -->
+  
+    <!-- Footer -->
+    <footer class="py-5 bg-dark">
+        <div class="container">
+          <p class="m-0 text-center text-white">Copyright &copy; Your Website 2017</p>
+        </div>
+        <!-- /.container -->
+    </footer>
 
   <!-- Custom (after load) scripts -->
-  <script src="../../javascripts/cart_main.js"></script>
+  <% include ../partials/foot %> 
   <script>
 $('#search').keyup(function (){
     $('.card').removeClass('d-none');
@@ -170,15 +150,6 @@ $('#search').keyup(function (){
   })
   
   </script>
-
-
-    <!-- Footer -->
-    <footer class="py-5 bg-dark">
-        <div class="container">
-          <p class="m-0 text-center text-white">Copyright &copy; Your Website 2017</p>
-        </div>
-        <!-- /.container -->
-      </footer>
 
 </body>
 </html>
