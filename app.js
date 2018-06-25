@@ -68,10 +68,6 @@ var router = express.Router();
 
 
 
-<<<<<<< HEAD
-
-=======
->>>>>>> 27de6c6c321e243c13b1798dd7d55a58abaad85d
 // Passport configuration
 require('./server/config/passport')(passport);
 
@@ -197,12 +193,8 @@ app.use(function(err, req, res, next) {
 
 app.listen(3000);
 
-<<<<<<< HEAD
-module.exports = app;
-=======
 
 
 module.exports = app;
 
 
->>>>>>> 27de6c6c321e243c13b1798dd7d55a58abaad85d
