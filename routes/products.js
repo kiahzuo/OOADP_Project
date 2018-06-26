@@ -6,7 +6,7 @@ var Comments = require ('../server/models/comments');
 var Images = require('../server/models/images');
 var Users = require('../server/models/users');
 
-/* GET about page. */
+/* GET products page. */
 router.get('/', function(req, res, next) {
   Images.findAll()
   .then(images=>{  
@@ -21,6 +21,9 @@ router.get('/', function(req, res, next) {
   });
 });           
 });
+
+/* Shopping cart posting */
+// router.get('/')
 
 
 // router.post ('/', function (req, res){
