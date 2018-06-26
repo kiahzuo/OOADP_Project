@@ -24,7 +24,7 @@
             
 <style>
             body{   
-                background-color:grey ;
+                background-color:grey ; 
             }
 
 
@@ -100,10 +100,22 @@
     border-top: none;
 }
 
-button {
-    float: right;
-}
-            
+
+          .card{
+          background-color: lightgray;
+
+        }
+
+        .card-img-top{
+          width:100%;
+          height:200px;
+        }
+        
+        h2 { width:100%; text-align:center; border-bottom: 1px solid #000; line-height:0.1em; margin:10px 0 20px; } 
+
+
+        h2 span { background:#fff; padding:0 10px; }
+
 </style>
 
 
@@ -226,8 +238,52 @@ button {
                                                     <br><br><br>
                                                 </div>
                                             </div>
+                                            <br>
+                                            <br>
             
+
+                                            <section class="relateproduct bgwhite p-t-45 p-b-138">
+                                                <div class="container">
+                                                    <div class="sec-title p-b-60">
+                                                        <h2>
+                                                            <span>You may also like</span>
+                                                        </h2>
+                                                    </div>
+                                                    <br>
+                                                    <div class="container">
+                                                    <div class="row">
+                              
+                                                          <% for (i =0; i < images2.length; i++) {%>
+                                                            <% if ( images2[i].avaliable != "Mark As Sold") { %>
+                                                                <% if ( images2[i].genre1 == images.genre1) { %>
+                                                                    <% if ( images2[i].id != images.id) { %>
+                                                              <div class="col-lg-4 col-md-6 mb-4">
+                                                                <div class="card-deck">
+                                                                  <div class="card card-shadow text-center">
+                                                                    <div class="card-body">
+                                                                        <a href="/viewbook/<%= images2[i].id%>"><img class="card-img-top" src="http://localhost:3000/images/<%= images2[i].imageName %>" alt=""></a>
+                                                                      <h4 class="card-title"><%= images2[i].title %></h4>
+                                                                      <h6 class="card-text">Price : $<%= images2[i].price1 %></h6>
+                                                                      <div class="dropdown-divider"></div>
+                                                                      <p class="card-text"><small class="text-muted">Genre : <%= images2[i].genre1 %></small></p>
+                                                                      <a href="/viewbook/<%= images2[i].id%>"><button type="button" class="btn btn-outline-primary">Info</button></a>
+                                                                      <a href="/viewprofile/<%= images2[i].user_id%>"><button type="button" class="btn btn-outline-primary"><%= images2[i].seller %></button></a>
+                                                                    
+                                                                    </div>
+                                                                  </div>
+                                                                  </div>
+                                                                </div>
+                                                                <% } %>
+                                                      <% } %>
+                                                      <% } %>
+                                                      <% } %>
+                                            
+                                                    
+                                            
+                                                      
+                                                    </div>
                                         </div>
+                                    
             <!-- Tab links -->
 
    

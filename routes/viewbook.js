@@ -13,9 +13,11 @@ router.get('/:id', function(req, res, next) {
     var booknumber = req.params.id;
     Images.findById(booknumber).then(function (images) {
         Comments.findAll().then(function(comments){
+            Images.findAll().then(function (images2) {
         res.render('viewbook', {
             title: "Practical 5 Database Node JS - Edit Student Records",
             images: images,
+            images2:images2,
             user : req.user,
             comments: comments,
             hostPath: req.protocol + "://" + req.get("host"),
@@ -29,6 +31,7 @@ router.get('/:id', function(req, res, next) {
             message: err
         });
     });
+});
 });
 
 
