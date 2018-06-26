@@ -15,43 +15,48 @@
 
   </head>
 <body>
-
+    <% include ../partials/header %>
         <h1 class="site-heading text-center text-white d-none d-lg-block">
-      
-                <span class="site-heading-lower">BookTrade</span>
+      <br>
+                <span class="site-heading-lower">Edit</span>
               </h1>
             
 
 
 <body>
+    <div class="container">
     <div class="modal-header">
         <h4 class="modal-title" id="myModalLabel">Edit Book Details</h4>
     </div>
+    
     <div class="modal-body">
         <fieldset class="form-group">
-            <label for="inputStudentID">BookName</label>
+            <label for="inputStudentID">BookName</label><br>
             <input type="text" id="title" name="title" class="form-control" placeholder="Student Id" required="true" value="<%= images.title %>">
         </fieldset>
         <fieldset class="form-group">
-            <label for="inputName">Price</label>
+            <label for="inputName">Price</label><br>
             <input type="text" id="price" name="price" class="form-control" placeholder="Student Name" required="true" value="<%= images.price1 %>">
         </fieldset>
         <fieldset class="form-group">
-            <label for="inputGroup">Condition</label>
+            <label for="inputGroup">Condition</label><br>
             <input type="text" id="condition" name="condition" class="form-control" placeholder="Group" required="true" value="<%= images.condition1 %>">
         </fieldset>
         <fieldset class="form-group">
-            <label for="inputHobby">D
-                escription</label>
+            <label for="inputHobby">Description</label><br>
             <input type="text" id="description" name="description" class="form-control" placeholder="Hobby" required="true" value="<%= images.description1 %>">
         </fieldset>
         <fieldset class="form-group">
-            <label for="inputHobby">MeetUp</label>
+            <label for="inputHobby">MeetUp</label><br>
             <input type="text" id="meetup" name="meetup" class="form-control" placeholder="Hobby" required="true" value="<%= images.meetup1 %>">
         </fieldset>
-        <label for="inputHobby">Genre</label>
-        <select id="genre"name="genre" class="form-control" placeholder="genre" required="" selected="<%= images.genre1 %>"><br>
-            <option value="Horror">Horror</option>
+        <label for="inputHobby">Genre</label><br>
+        <select id="genre"name="genre" class="form-control" placeholder="genre" required="" value="<%= images.genre1 %>"><br>
+    
+
+
+            <option value="<%= images.genre1 %>" selected ><%= images.genre1 %></option>
+            <option value="Horror" >Horror</option>
             <option value="Action">Action</option>
             <option value="Science Fiction">Science Fiction</option>
             <option value="Non-Fiction">Non-Fiction</option>
@@ -59,7 +64,7 @@
             <option value="Comedy">Comedy</option>
           </select>     <br>
         <fieldset class="form-group">
-            <label for="inputHobby">Avaliability</label>
+            <label for="inputHobby">Avaliability</label><br>
             <select id="avaliable"name="avaliable" class="form-control" required="true" selected="<%= images.avaliable %>"><br>
                 <option value="Avaliable">Avaliable</option>
                 <option value="Mark As Sold">Mark As Sold</option>
@@ -76,7 +81,7 @@
 
      
     </div>
-
+</div>
     
     <script>
       function saveChanges() {

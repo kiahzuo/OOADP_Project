@@ -5,10 +5,16 @@
 
         <% include ../partials/head %>
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+
+<% include ../partials/header %>
 
 
+<!--=============================================\==================================================-->
+	<link rel="stylesheet" type="text/css" href="../../stylesheets/util.css">
+	<link rel="stylesheet" type="text/css" href="../../stylesheets/main.css">
+<!--===============================================================================================-->
     </head>
 <body>
 
@@ -18,12 +24,14 @@
             
 <style>
             body{   
-                background-color: burlywood;
+                background-color:grey ;
             }
+
+
        
-            .card-img-top{
-                   width:100%;
-                   height:500px;
+            .mainimage{
+                   width:125% !important;
+                   height:350px;
                  }
             .rating {
           
@@ -91,101 +99,133 @@
     border: 1px solid #ccc;
     border-top: none;
 }
+
+button {
+    float: right;
+}
             
 </style>
 
 
 
-    <div class="container">
 
-        <div class="row">
-            
-  
-                <div class="col-lg-3">
-                    <br><br><br>
-                        <div class="list-group">
-                          <a href="http://localhost:3000/products" class="list-group-item active">Back To Products</a><br>
-                          <a href="http://localhost:3000/<%= images.genre1 %>" class="list-group-item active">View Related Products</a>
-                  
-                        </div>
-                      </div>
-        
-
-          <div class="col-lg-9">
-  
-            <div class="card mt-4">
-                <img class="card-img-top img-fluid" src="http://localhost:3000/images/<%= images.imageName %>" alt="">
-                <div class="tab">
-                        <button class="tablinks" onclick="openCity(event, 'London') "id="defaultOpen">General Info</button>
-                        <button class="tablinks" onclick="openCity(event, 'Paris')">Reviews</button>
-                        <button class="tablinks" onclick="openCity(event, 'Tokyo')">Comments</button>
-                      </div>
-                      
-                      <!-- Tab content -->
-                      <div id="London" class="tabcontent">
-            <br>
-                        <h3 class="card-title">	<%= images.title %></h3><br>
-                        <h5 class="card-text"><strong>Price</strong> : $<%= images.price1 %></h5><br>
-                        <h5 class="card-text"><strong>Description</strong> : <%= images.description1 %></h5><br>
-                        <h5 class="card-text"><strong>Condition</strong> &#x2605; : <%= images.condition1 %></h5><br>
-                        <h5 class="card-text"><strong>Seller</strong> &#xe004; : <%= images.seller %></h5><br>
-                        <h5 class="card-text"><strong>Genre & Meetup</strong> &#128214; : <%= images.genre1 %></h5><br>
-                        <h5 class="card-text"><strong>Meet up</strong> &#x1f697;: <%= images.meetup1 %></h5><br>
-                        <br>
-                      </div>
-                      
-                      <div id="Paris" class="tabcontent">
-                   <br>
-                   <p>testing</p>
-                   
-                      </div>
-                      
-                      <div id="Tokyo" class="tabcontent">
-           <br>
-                        
-                        <br>
-                        <div class="list-group">
-                        
-                                <% for (i =0; i < comments.length; i++) {%>
-                                  <% if ( comments[i].title == images.id) { %>
-                                    <div class="list-group-item" data-id="<%= comments[i].id%>">
-                      
-                                        <form action="/comments" method="delete">
-                                                <h4 class="list-group-item-heading">
-                                                        <%= comments[i].content %>
-                                                    <% if ( user.name ==  comments[i].user_id ) { %>
-                                                    <button class="btn btn-secondary pull-right deleteBtn" type="button" data-id="<%= comments[i].id%>">Delete</button>
-                                                    <% } %>
-                                                </h4>
-                                               
-                                                <p class="list-group-item-text">
-                                                        Rating : <%= comments[i].rating %>
-                                                    </p>
-                                                <small class="text-muted">By:
-                                                    <%= comments[i].user_id %>
-                                                </small>
-              
-                                            </div>
-                                          </form>
-                                        
-                                    <% } %>
-                                    <% } %>
-                                    <button type="button" class="btn btn-secondary pull-right" data-toggle="modal" data-target="#createPost">
-                                        Add Comment
-                                    </button>
-                                    <br><br><br>
-                      </div>
-                    </div>
-              <div class="card-body">       
-      
-
-            
-                <button class="btn btn-lg btn-primary btn-block" type="submit">Chat</button>
-                <button class="btn btn-lg btn-primary btn-block" type="submit">Add to Cart</button>
-              </div>
             </div>
+            <br><br>
 
-
+            <div class="container bgwhite p-t-35 p-b-80">
+                
+                <div class="flex-w flex-sb">
+                    <div class="w-size13 p-t-30 respon5">
+                        <div class="wrap-slick3 flex-sb flex-w">
+      
+        
+                            <div class="slick3">
+                                <div class="item-slick3" data-thumb="images/thumb-item-01.jpg">
+                                    <div class="wrap-pic-w">
+                                        <img class="mainimage" src="http://localhost:3000/images/<%= images.imageName %>" alt="IMG-PRODUCT">
+                                    </div>
+                                </div>
+        
+                            
+                            </div>
+                        </div>
+                    </div>
+        
+                    <div class="w-size14 p-t-30 respon5">
+                        <h4 class="product-detail-name m-text16 p-b-13">
+                            <%= images.title %>
+                        </h4>
+        
+                        <span class="m-text17">
+                            $<%= images.price1 %>
+                        </span>
+        
+                        <p class="s-text8 p-t-10">
+                            <%= images.description1 %>
+                        </p>
+        
+                        <!--  -->
+       <br><br><br>
+                           
+        
+                        
+                                <button class="btn btn-lg btn-primary btn-block" type="submit">Chat</button>
+                                                <button class="btn btn-lg btn-primary btn-block" type="submit">Add to Cart</button>
+                            </div>
+                        </div>
+                     <br>
+                
+        
+                        <!--  -->
+                        <div class="tab">
+                            <button class="tablinks" onclick="openCity(event, 'London') "id="defaultOpen">General Info</button>
+                            <button class="tablinks" onclick="openCity(event, 'Paris')">Additional Info</button>
+                            <button class="tablinks" onclick="openCity(event, 'Tokyo')">Comments</button>
+                          </div>
+                          <div id="London" class="tabcontent">
+                            <br>
+                            <h4 class="s-text8">
+                                Title</strong> : <%= images.title %> </h4>
+                                        <h4 class="s-text8">
+                                            Price</strong> : $<%= images.price1 %> </h4>
+                                            <h4 class="s-text8">
+                                                    Description</strong> : <%= images.description1 %> </h4>
+                                            <h4 class="s-text8">
+                                                Condition</strong> : <%= images.condition1 %> </h4>
+                                        
+                                   
+                                        <br>
+                                      </div>
+                                      
+                                      <div id="Paris" class="tabcontent">
+                                   <br>
+                                   <h4 class="s-text8">
+                                    Genre</strong> : <%= images.genre1 %> </h4>
+                                    <h4 class="s-text8">
+                                        Seller</strong>  : <%= images.seller %> </h4>
+                                        <h4 class="s-text8">
+                                            Meetup</strong>  : <%= images.meetup1 %> </h4><br>
+                                        </div>
+                                      
+                                      <div id="Tokyo" class="tabcontent">
+                           <br>
+                                        
+                                        <br>
+                                        <div class="list-group">
+                                        
+                                                <% for (i =0; i < comments.length; i++) {%>
+                                                  <% if ( comments[i].title == images.id) { %>
+                                                    <div class="list-group-item" data-id="<%= comments[i].id%>">
+                                      
+                                                        <form action="/comments" method="delete">
+                                                                <h4 class="list-group-item-heading">
+                                                                        <%= comments[i].content %>
+                                                                    <% if ( user.name ==  comments[i].user_id ) { %>
+                                                                    <button class="btn btn-secondary pull-right deleteBtn" type="button" data-id="<%= comments[i].id%>">Delete</button>
+                                                                    <% } %>
+                                                                </h4>
+                                                                <br>
+                                                               
+                                                                <p class="list-group-item-text">
+                                                                        Rating : <%= comments[i].rating %>
+                                                                    </p><br>
+                                                                <small class="text-muted">By:
+                                                                    <%= comments[i].user_id %>
+                                                                </small>
+                              
+                                                            </div>
+                                                          </form>
+                                                        
+                                                    <% } %>
+                                                    <% } %>
+                                                    <button type="button" class="btn btn-secondary pull-right" data-toggle="modal" data-target="#createPost">
+                                                        Add Comment
+                                                    </button>
+                                                    <br><br><br>
+                                                </div>
+                                            </div>
+            
+                                        </div>
             <!-- Tab links -->
 
    
@@ -193,9 +233,9 @@
     
   
 
-            
+            <br><br>
 
-        
+            <a href="http://localhost:3000/products" class="btn btn-success">Back To Products</a><br>
         
       <script>
           $('.deleteBtn').click(function() {
@@ -267,13 +307,13 @@ document.getElementById("defaultOpen").click();
                                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                     <span aria-hidden="true">&times;</span>
                                 </button>
-                                <h4 class="modal-title" id="myModalLabel">Create Comment</h4>
+                                <h4 class="modal-title" id="myModalLabel">Add Comment</h4>
                             </div>
         
                             <div class="modal-body">
         
                                 <fieldset class="form-group">
-                                    <label for="inputitle">Title</label>
+                                    <label for="inputitle">Booknumber</label>
                                 </fieldset>
                                 <fieldset class="form-group">
                   
@@ -320,6 +360,8 @@ document.getElementById("defaultOpen").click();
   
       </div>
       <!-- /.container -->
+
+ 
 
       <footer class="footer text-faded text-center py-5">
           <div class="container">
