@@ -27,7 +27,7 @@ body.overflow-hidden {
 
 a {
   color: #435779;
-  text-decoration: none;
+  text-decoration: none  !important;
 }
 
 img {
