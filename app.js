@@ -142,7 +142,7 @@ app.use(function(req, res, next) {
     next();
   });
 
-//payment
+// payment
 app.get('/payment', function(req, res){
     res.render('payment',{
         title: 'test',
@@ -158,7 +158,6 @@ app.post('/payment', function(req, res){
     var cardCVC = req.body.cardCVC;
 
     var users =  firebase.database().ref().child("users");
-    f
     console.log("=== Check Var ===");
     console.log("Card Number : " + cardNumber);
     console.log("Card Holder : " + cardHolder);
@@ -168,7 +167,10 @@ app.post('/payment', function(req, res){
     console.log("=== End ===");
   });
 
-
+// bank
+app.post('/bank',function(req, res){
+    console.log(req.body);
+})
 
 // view engine setup
 app.set('views', path.join(__dirname, './server/views/pages'));

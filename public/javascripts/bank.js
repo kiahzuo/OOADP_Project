@@ -9,58 +9,8 @@ var config = {
 };
 firebase.initializeApp(config);
 
-// ==================================================================
-// ============================== PUSH ==============================
-// ==================================================================
-
 var database = firebase.database();
 
-var firstname = document.getElementById("InputFirstName").value;
-var fname = $('#InputFirstName').val();
-var lastname = document.getElementById("InputLastName").value;
-var accountnumber = document.getElementById("AccountNumber").value;
-var availablebalance = document.getElementById("AvailableBalance").value;
-var creditbardnumber = document.getElementById("CreditcardNumber").value;
-var creditcardsc = document.getElementById("CreditCardSC").value;
-var expireday = document.getElementById("ExpireDay").value;
-var expiremonth = document.getElementById("ExpireMonth").value;
-
-function push_users(firstname,lastname,accountnumber,availablebalance,creditbardnumber,creditcardsc,expireday,expiremonth){
-    var newPostKey = firebase.database().ref().child('users').push().key;  
-    var firebaseRef = firebase.database().ref();
-    firebaseRef.child("users/" + newPostKey).set({
-        firstname: firstname,
-        lastname: lastname,
-        accountnumber: accountnumber,
-        availablebalance: availablebalance,
-        creditbardnumber: creditbardnumber,
-        creditcardsc: creditcardsc,
-        expireday: expireday,
-        expiremonth: expiremonth
-    });
-    return false;
-};
-
-function su_user(){
-    push_users(firstname,lastname,accountnumber,availablebalance,creditbardnumber,creditcardsc,expireday,expiremonth);
-    
-};
-function su_changes(){
-    console.log("=== START ===");
-    console.log("firstname:",firstname);
-    console.log(typeof firstname);
-    console.log("fname",fname);
-    console.log(typeof fname);
-    console.log(lastname);
-    console.log(accountnumber);
-    console.log(availablebalance);
-    console.log(creditbardnumber);
-    console.log(creditcardsc);
-    console.log(creditcardtype);
-    console.log(expireday);
-    console.log(expiremonth);
-    console.log("=== END ===");
-}
 // ==================================================================
 // ============================== PULL ==============================
 // ==================================================================
@@ -115,7 +65,4 @@ var users =  firebase.database().ref().child("users");
             ed[i].innerHTML = list_bp_expireday[i];
             em[i].innerHTML = list_bp_expiremonth[i];
         };
-
-            // user_info.style.display = "none";
-
     });

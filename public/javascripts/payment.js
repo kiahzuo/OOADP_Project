@@ -113,7 +113,7 @@ $(document).ready(function () {
                                                                         method:'POST',
                                                                         data:{
                                                                             cardNumber:cardNumber,
-                                                                            cardHolder,cardHolder,
+                                                                            cardHolder:cardHolder,
                                                                             cardMonth:expMonth,
                                                                             cardYear:expYear,
                                                                             cardCVC:cardCVC,
