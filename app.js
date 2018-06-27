@@ -4,6 +4,10 @@ var path = require('path');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var logger = require('morgan');
+var firebase = require('firebase');
+
+
+
 
 // routes
 var indexRouter = require('./routes/index');
@@ -24,8 +28,18 @@ var sciencefictionRouter = require('./routes/sciencefiction')
 var viewbookRouter = require('./routes/viewbook');
 var viewprofileRouter = require('./routes/viewprofile');
 
-
+var paymentRouter = require('./routes/payment');
 var bankRouter = require('./routes/bank');
+
+
+// firebase
+var config = {
+    apiKey: "AIzaSyBcI54P-yTiaNAXEDASZGH3eJNkcbXY7wE",
+    authDomain: "ooadp-2018-sem1-e409b.firebaseapp.com",
+    databaseURL: "https://ooadp-2018-sem1-e409b.firebaseio.com",
+  };
+firebase.initializeApp(config);
+var firebaseRef = firebase.database().ref();
 
 
 //import multer
@@ -136,6 +150,44 @@ app.use(function(req, res, next) {
 
 
 
+
+
+
+//payment
+app.get('/payment', function(req, res){
+    res.render('payment',{
+        title: 'test',
+    });
+});
+app.post('/payment', function(req, res){
+    console.log("=== Start ===");
+    console.log(req.body);
+    var cardNumber = req.body.cardNumber;
+    var cardHolder = req.body.cardHolder;
+    var cardMonth = req.body.cardMonth;
+    var cardYear = req.body.cardYear;
+    var cardCVC = req.body.cardCVC;
+
+    var users =  firebase.database().ref().child("users");
+    console.log("=== Check Var ===");
+    console.log("Card Number : " + cardNumber);
+    console.log("Card Holder : " + cardHolder);
+    console.log("Card expiry Month : " + cardMonth);
+    console.log("Card expiry Year : " + cardYear);
+    console.log("Card CVC : " +cardCVC);
+    console.log("=== End ===");
+  });
+
+// bank
+app.post('/bank',function(req, res){
+    console.log(req.body);
+})
+
+
+
+
+
+
 // view engine setup
 app.set('views', path.join(__dirname, './server/views/pages'));
 app.set('view engine', 'ejs');
@@ -169,7 +221,7 @@ app.delete('/about/:comments_id',comments.delete);
 app.use('/edit',editRouter);
 
 app.use('/bank',bankRouter);
-
+app.use('/payment',paymentRouter);
 //set up routes for images
 app.get('/images-gallery', images.hasAuthorization, images.show);
 app.post('/store', images.hasAuthorization, upload.single('image'), images.uploadImage);
