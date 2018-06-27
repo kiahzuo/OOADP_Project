@@ -2,14 +2,25 @@
 <html lang="en">
 
   <head>
-      <% include ../partials/head %>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
   </head>
 <body>
 
-        <h1 class="site-heading text-center text-white d-none d-lg-block">
-                <span class="site-heading-upper text-primary mb-3">A Free Bootstrap 4 Business Theme</span>
-                <span class="site-heading-lower">Business Casual</span>
-              </h1>
+  <h1 class="site-heading text-center text-white d-none d-lg-block">
+      <br>
+    <span class="site-heading-lower">BookTrade</span>
+  </h1>
+  <% include ../partials/head %>
+
+  </head>
+<body>
+
+ 
           
               <% include ../partials/header %>
           
@@ -21,17 +32,20 @@
                         <h2 class="section-heading mb-5">
                         
 
+          <div class = "container" style = "background-color: rgb(238, 238, 238); text-align: center; border-radius: 10px">
             <form class="form-signin" action="/signup" method="post">
-                <h2 class="form-signin-heading">Please Sign Up</h2>
-				<label for="inputName" class="sr-only">Name address</label>
-                <input type="text" id="name" name="name" class="form-control" placeholder="Name" required="">
-                <label for="inputEmail" class="sr-only">Email address</label>
+              <br>
+                <h2 class="form-signin-heading">Create your BookTrade Account</h2><br>
+				        <label for="inputName" class="sr-only">Name address</label>
+                <input type="text" id="name" name="name" class="form-control" placeholder="Name" required=""><p></p>
+                <label for="inputEmail" class="sr-only">Email address</label><p></p>
                 <input type="email" id="email" name="email" class="form-control" placeholder="Email address" required="">
-                <label for="inputPassword" class="sr-only">Password</label>
-                <input type="password" id="password" name="password" class="form-control" placeholder="Password" required="">
-                <button class="btn btn-lg btn-primary btn-block" type="submit">Sign Up</button>
+                <label for="inputPassword" class="sr-only">Password</label><p></p>
+                <input type="password" id="password" name="password" class="form-control" placeholder="Password" required=""><br>
+                <button class="btn-lg btn-primary btn-block" type="submit" style ="border-radius: 15px; border-color:rgb(75, 160, 216); border-width: 2px ;background-color: rgb(86, 187, 255); ">Sign Up</button>
                 <br>
             </form>
+          </div>
         </div>
         </div>
         </div>

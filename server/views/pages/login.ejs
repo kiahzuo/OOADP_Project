@@ -3,7 +3,12 @@
 
   <head>
 
-      <% include ../partials/head %>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <% include ../partials/header %>
+
   </head>
 <body>
 
@@ -11,8 +16,7 @@
       
     <span class="site-heading-lower">BookTrade</span>
   </h1>
-
-  <% include ../partials/header %>
+  <% include ../partials/head %>
   
   <div class="container">
 
@@ -22,18 +26,25 @@
               <div class="col-xl-9 mx-auto">
                
                   <h2 class="section-heading mb-5">
-        <form class="form-signin" action="/login" method="post">
-          <h2 class="form-signin-heading">Welcome, Sign in</h2>
+                    <div class= "container" style= "text-align: center">
+                      <form class="form-signin" action="/login" method="post">
+                        <h2 class="form-signin-heading">Login</h2><br>
 
-            <label for="inputEmail" class="sr-only">Email address</label>
-            <input type="email" id="email" name="email" class="form-control" placeholder="Email address" required="">
-            <label for="inputPassword" class="sr-only">Password</label>
-            <input type="password" id="password" name="password" class="form-control" placeholder="Password" required="">
-            <button class="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>
-            <br>
-            <p>Don't have an account? <a href="/signup">Signup</a> ,it's free.</p>
-        </form>
-    </div>
+                          <label for="inputEmail" class="sr-only">Email address</label>
+                          <input type="email" id="email" name="email" class="form-control" placeholder="Email address" required=""><p></p>
+                          <label for="inputPassword" class="sr-only">Password</label>
+                          <input type="password" id="password" name="password" class="form-control" placeholder="Password" required=""><p></p>
+                          <button class = "btn btn-lg btn-primary btn-block" type="submit" style= "background-color: green; border-color: rgb(0, 80, 13)">Login</button>
+                          <br>
+                          <div class="container" style="background-color:#d4c093; text-align: center; border-radius: 20px">
+                            <p>If you do not have an account, click here. </p>                              
+                                <button style= "border-radius: 15px; border-color:rgb(75, 160, 216); border-width: 2px ;background-color: rgb(86, 187, 255); width: 140px; height: 60px;  ">
+                                  <a href="/signup" style="color: white">Signup</a>
+                                </button>
+                          </div>
+                      </form>
+                    </div>
+              </div>
 </div>
 </div>
 
