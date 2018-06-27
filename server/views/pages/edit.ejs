@@ -59,17 +59,43 @@
             <% if ( images.genre1 !="Horror") { %>
             <option value="Horror" >Horror</option>
             <% } %>
+
+            <% if ( images.genre1 !="Action") { %>
             <option value="Action">Action</option>
+            <% } %>
+
+            <% if ( images.genre1 !="Science Fiction") { %>
             <option value="Science Fiction">Science Fiction</option>
+            <% } %>
+
+            <% if ( images.genre1 !="Non-Fiction") { %>
             <option value="Non-Fiction">Non-Fiction</option>
+            <% } %>
+
+            <% if ( images.genre1 !="Adventure") { %>
             <option value="Adventure">Adventure</option>
+            <% } %>
+
+            <% if ( images.genre1 !="Comedy") { %>
             <option value="Comedy">Comedy</option>
+            <% } %>
           </select>     <br>
         <fieldset class="form-group">
             <label for="inputHobby">Avaliability</label><br>
             <select id="avaliable"name="avaliable" class="form-control" required="true" selected="<%= images.avaliable %>"><br>
+                <option value="<%= images.avaliable %>" selected ><%= images.avaliable %></option>
+
+                <% if ( images.avaliable !="Avaliable") { %>
                 <option value="Avaliable">Avaliable</option>
+                <% } %>
+
+                <% if ( images.avaliable !="Mark As Sold") { %>
                 <option value="Mark As Sold">Mark As Sold</option>
+                <% } %>
+
+                <% if ( images.avaliable !="Pending") { %>
+                <option value="Pending">Pending</option>
+                <% } %>
               </select><br>
               <label class="file" style="width: 100%">
                     <input type="file" id="image" name="image"selected="<%= images.imageName %>">
