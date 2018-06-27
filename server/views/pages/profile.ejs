@@ -275,51 +275,67 @@ background-color: #4CAF50;
               <% for (i =0; i < images.length; i++) {%>
                 <% if (user.name == images[i].seller) { %>
            
-  
+            <div class="col-lg-4 col-md-6 mb-4">
+   
+              <div class="card h-100" data-id="<%= images[i].id %>"  >
                   
-                  <div class="col-lg-4 col-md-6 mb-4">
-                      <div class="card-deck"data-id="<%= images[i].id %>">
-                        <div class="card card-shadow text-center">
-                          <div class="card-body">
-                              <a href="/viewbook/<%= images[i].id%>"><img class="card-img-top" src="images/<%= images[i].imageName %>" alt=""></a>
-                            <h4 class="card-title"><%= images[i].title %></h4>
-                            <h6 class="card-text">Price : $<%= images[i].price1 %></h6>
-                            <div class="dropdown-divider"></div>
-                            <p class="card-text"><small class="text-muted">Avaliability : <%= images[i].avaliable %></small></p>
-                            <a class = 'btn btn-primary' href="/edit/<%= images[i].id%>">Edit Book</a>
-                            <input type="button" class="deleteBtn"  value="Delete" onclick="return confirm('Are you sure you want to delete this item?')">
-                          
-                          </div>
-                        </div>
-                        </div>
-                      </div>
+                <a href="#"><img class="card-img-top" src="images/<%= images[i].imageName %>" alt=""></a>
+                <div class="card-body">
+                  <h4 class="card-title">
+                      <h4><strong><%= images[i].title %></strong></h5>
+                  </h4>
+                  <h5>$<%= images[i].price1 %></h5>
+                  <br>
+                  <h5><%= images[i].description1 %></h5>
+                  
+                  <br>
+                  <h5>Avaliability : <%= images[i].avaliable %></h5>
+                      <br>
+                  
+                </div>
+
+                
+                <br>
+                <a class = 'btn btn-primary' href="/edit/<%= images[i].id%>">Edit Book</a>
+                <input type="button" class="deleteBtn"  value="Delete" onclick="return confirm('Are you sure you want to delete this item?')">
+      
+
+            </div>
+          
+          </div>
 
             <% } %>
                 <% if (user.name == "ADMIN") { %>
               <div class="col-lg-4 col-md-6 mb-4">
    
                   <div class="card h-100" data-id="<%= images[i].id %>"  >
-
-                          <div class="card-deck">
-                            <div class="card card-shadow text-center">
-                              <div class="card-body">
-                                  <a href="/viewbook/<%= images[i].id%>"><img class="card-img-top" src="images/<%= images[i].imageName %>" alt=""></a>
-                                <h4 class="card-title"><%= images[i].title %></h4>
-                                <h6 class="card-text">Price : $<%= images[i].price1 %></h6>
-                                <div class="dropdown-divider"></div>
-                                <p class="card-text"><small class="text-muted">Avaliability : <%= images[i].avaliable %></small></p>
-                                <a class = 'btn btn-primary' href="/edit/<%= images[i].id%>">Edit Book</a>
-                                <input type="button" class="deleteBtn"  value="Delete" onclick="return confirm('Are you sure you want to delete this item?')">
-                              
-                              </div>
-                            </div>
-                            </div>
-                          </div>
+                      
+                    <a href="#"><img class="card-img-top" src="images/<%= images[i].imageName %>" alt=""></a>
+                    <div class="card-body">
+                      <h4 class="card-title">
+                          <h5><strong><%= images[i].title %></strong></h5>
+                      </h4>
+                      <h5>$<%= images[i].price1 %></h5>
+                      <br>
+                      <h5><%= images[i].description1 %></h5>
+                      <br>
+                      <h5>Avaliability : <%= images[i].avaliable %></h5>
+                      <br>
+                      <a class = 'btn btn-primary' href="/edit/<%= images[i].id%>">Edit Book</a>
+                    </div>
+    
+                    
+                    <br>
+                    <input type="button" class="deleteBtn"  value="Delete" onclick="return confirm('Are you sure you want to delete this item?')">
+          
+    
+                </div>
+              
               </div>
             <% } %>
             <% } %>
- 
-
+              
+            
           
               <div class="container">
                   
