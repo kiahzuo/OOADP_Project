@@ -286,10 +286,10 @@ background-color: #4CAF50;
                   </h4>
                   <h5>$<%= images[i].price1 %></h5>
                   <br>
-                  <h5><%= images[i].description1 %></h5>
+                
                   
-                  <br>
-                  <h5>Avaliability : <%= images[i].avaliable %></h5>
+            
+                  <h5>Avaliability : <strong><%= images[i].avaliable %></strong></h5>
                       <br>
                   
                 </div>
@@ -384,7 +384,7 @@ background-color: #4CAF50;
                                         <option value="Adventure">Adventure</option>
                                         <option value="Comedy">Comedy</option>
                                       </select>     <br>
-                                      <input type="text" id="description" name="description" class="form-control" placeholder="Description..." required=""><br>
+                                      <textarea  id="description" name="description" class="form-control" placeholder="Description..." required=""></textarea><br>
                                       <input type="text" id="meetup" name="meetup" class="form-control" placeholder="Meetup Details" required=""><br>
                                     
                                   </div>
