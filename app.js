@@ -4,6 +4,7 @@ var path = require('path');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var logger = require('morgan');
+var firebase = require('firebase');
 
 // routes
 var indexRouter = require('./routes/index');
@@ -25,6 +26,16 @@ var viewbookRouter = require('./routes/viewbook');
 var viewprofileRouter = require('./routes/viewprofile');
 var bankRouter = require('./routes/bank');
 var paymentRouter = require('./routes/payment');
+
+
+// firebase
+var config = {
+    apiKey: "AIzaSyBcI54P-yTiaNAXEDASZGH3eJNkcbXY7wE",
+    authDomain: "ooadp-2018-sem1-e409b.firebaseapp.com",
+    databaseURL: "https://ooadp-2018-sem1-e409b.firebaseio.com",
+  };
+firebase.initializeApp(config);
+var firebaseRef = firebase.database().ref();
 
 //import multer
 var multer = require('multer');
@@ -137,10 +148,24 @@ app.get('/payment', function(req, res){
         title: 'test',
     });
 });
-app.post('/payment/verify', function(req, res){
-    // console.log(req._destroy.body.card-number);
-    console.log('submitted');
+app.post('/payment', function(req, res){
+    console.log("=== Start ===");
     console.log(req.body);
+    var cardNumber = req.body.cardNumber;
+    var cardHolder = req.body.cardHolder;
+    var cardMonth = req.body.cardMonth;
+    var cardYear = req.body.cardYear;
+    var cardCVC = req.body.cardCVC;
+
+    var users =  firebase.database().ref().child("users");
+    f
+    console.log("=== Check Var ===");
+    console.log("Card Number : " + cardNumber);
+    console.log("Card Holder : " + cardHolder);
+    console.log("Card expiry Month : " + cardMonth);
+    console.log("Card expiry Year : " + cardYear);
+    console.log("Card CVC : " +cardCVC);
+    console.log("=== End ===");
   });
 
 
@@ -204,7 +229,6 @@ app.use(function(err, req, res, next) {
 app.listen(3000, function(){
     console.log('Server Started on Port 3000...');
 });
-// app.listen(3001);
 
 
 module.exports = app;
