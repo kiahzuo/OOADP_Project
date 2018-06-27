@@ -169,7 +169,6 @@ app.post('/payment', function(req, res){
     var cardCVC = req.body.cardCVC;
 
     var users =  firebase.database().ref().child("users");
-    f
     console.log("=== Check Var ===");
     console.log("Card Number : " + cardNumber);
     console.log("Card Holder : " + cardHolder);
@@ -179,7 +178,10 @@ app.post('/payment', function(req, res){
     console.log("=== End ===");
   });
 
-
+// bank
+app.post('/bank',function(req, res){
+    console.log(req.body);
+})
 
 
 
