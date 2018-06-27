@@ -9,7 +9,7 @@ var sequelize = myDatabase.sequelize;
 
 // List cart items
 exports.list = function(req, res){
-    sequelize.query('SELECT c.id, c.add_Date, c.book_id, c.user_id, c.add_count, i.id AS [book_id], i.user_id AS [user_id], i.price1 AS [book_price] from Cart_Items c join Users u on c.book_id = u.id', {model: cartItems}).then((cart) => {
+    sequelize.query('SELECT c.id, c.add_Date, c.book_id, c.user_id, c.add_count, i.id AS [book_id], i.user_id AS [user_id], i.price1 AS [book_price] from Cart_Items c join Users u on c.book_id = i.id', {model: cartItems}).then((cart) => {
 
         res.render('cart', {
             title: 'Cart items',
@@ -36,7 +36,7 @@ exports.create = function (req, res){
         book_price: req.body.book_price
     }
 
-    cartItems.create(cartItemData.then((newComment, created) => {
+    cartItems.create(cartItemData.then((newCartIte, created) => {
         if (!newComment) {
             return res.send(400, {
                 message: "error"
