@@ -8,7 +8,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>Business Casual - Start Bootstrap Theme</title>
+    <title>Payment</title>
 
     <!-- Bootstrap core CSS -->
     <link href="/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
@@ -24,16 +24,10 @@
   </head>
 
   <body>
-    <h1 class="site-heading text-center text-white d-none d-lg-block">
-      <span class="site-heading-lower">BookTrade</span>
-    </h1>
-
     <% include ../partials/header %>
 
-    <!-- <p><%= title %></p> -->
-    <!-- working ^ -->
 
-    <section class="page-section">
+    <section class="page-section" id="card-size">
       <div class="container">
         <div id="card-success" class="hidden">
           <i class="fa fa-check"></i>
@@ -48,12 +42,14 @@
             <div id="card-front">
               <div id="shadow"></div>
               <div id="image-container">
-                <span>paying: <b>$</b><strong id="amount" name="amount">99</strong></span>
+                <span>paying: <b>$</b><strong id="amount" name="amount"><%= paying %></strong></span>
                 <span id="card-image"></span>
               </div>
               <!-- end card image container -->
               <label for="card-number">Card Number</label>
               <input type="text" id="card-number" placeholder="1234 5678 9101 1112" length="16" name="card-number">
+              <br>
+              <br>
               <div id="cardholder-container">
                 <label for="card-holder">Card Holder</label>
                 <input type="text" id="card-holder" name="card-holder" placeholder="e.g. John Doe" />
@@ -85,7 +81,7 @@
       </div>
     </section>
 
-    <footer class="footer text-faded text-center py-5">
+    <footer class="footer text-faded text-center py-5" style="position: fixed;left: 0;bottom: 0;width: 100%;">
       <div class="container">
         <p class="m-0 small">Copyright &copy; Your Website 2018</p>
       </div>
