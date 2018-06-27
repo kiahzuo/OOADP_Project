@@ -17,119 +17,111 @@
         <h3>Welcome to KHEE-BANK</h3>
         <p id="test"></p>
             <!-- login toggle-modal-->
-            <button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#login_modal">User Info</button>
+            <button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#login_modal">Add User</button>
     
         <!-- login Modal -->
         <div class="modal fade" id="login_modal" role="dialog">
-            <div class="modal-dialog">
-                    
-                <!-- login Modal content-->
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h4 class="modal-title">Login</h4>
-                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <div class="modal-dialog">
+                  
+            <!-- login Modal content-->
+            <div class="modal-content">
+              <div class="modal-header">
+                  <h4 class="modal-title">Add User</h4>
+                  <button type="button" class="close" data-dismiss="modal">&times;</button>
+              </div>
+              <form action="/bank" method="POST">
+                <div class="modal-body">
+                  <div class="form-row">
+                    <div class="form-group col-md-6">
+                      <label for="InputFirstName"> First Name</label>
+                      <input id="InputFirstName" name="InputFirstName" class="form-control" type="text" placeholder="First Name">
                     </div>
-                    <div class="modal-body">
-                        <form>
-                            <div class="container row">
-                                <label for="InputFirstName" class="col">First Name</label>
-                                <label for="InputLastName" class="col">Last Name</label>
-                            </div>
-                            <div class="container row">
-                                <input id="InputFirstName" class="form-control col" type="text" placeholder="First Name">
-                                <input id="InputLastName " class="form-control col" type="text" placeholder="Last Name">
-                            </div>
-                            
-                            <div class="form-group">
-                                    <label for="AccountType">Account Type</label>
-                                    <select class="form-control" id="AccountType">
-                                      <option>Basic Checking Accounts</option>
-                                      <option>Savings Accounts</option>
-                                      <option>Interest Bearing Checking Accounts</option>
-                                      <option>Money Market Account</option>
-                                      <option>Marketed Linked Certificate of Deposit (CD/MLCD)</option>
-                                      <option>Investment retirement accounts</option>
-                                      <option>Brokerage Accounts</option>
-                                    </select>
-                            </div>
-                            <label for="AccountNumber">Account Number</label>
-                            <input id="AccountNumber" class="form-control" type="text" placeholder="Account Number">
-                            <label for="AvailableBalance">Available Balance</label>
-                            <input id="AvailableBalance" class="form-control" type="text" placeholder="Available Balance">
-                            <div class="form-group">
-                                    <label for="CreditCardType">CreditCard Type</label>
-                                    <select class="form-control" id="CreditCardType">
-                                      <option>VISA</option>
-                                      <option>Mastercard</option>
-                                      <option>AmericanExpress</option>
-                                    </select>
-                            </div>
-                            <label for="CreditcardNumber">Creditcard Number</label>
-                            <input id="CreditcardNumber" class="form-control" type="text" placeholder="Creditcard Number">
-                            <div class="form-group">
-                                    <label for="ExpireDay">Day</label>
-                                    <select class="form-control" id="ExpireDay">
-                                      <option>1</option>
-                                      <option>2</option>
-                                      <option>3</option>
-                                      <option>4</option>
-                                      <option>5</option>
-                                      <option>6</option>
-                                      <option>7</option>
-                                      <option>8</option>
-                                      <option>9</option>
-                                      <option>10</option>
-                                      <option>11</option>
-                                      <option>12</option>
-                                      <option>13</option>
-                                      <option>14</option>
-                                      <option>15</option>
-                                      <option>16</option>
-                                      <option>17</option>
-                                      <option>18</option>
-                                      <option>19</option>
-                                      <option>20</option>
-                                      <option>21</option>
-                                      <option>22</option>
-                                      <option>23</option>
-                                      <option>24</option>
-                                      <option>25</option>
-                                      <option>26</option>
-                                      <option>27</option>
-                                      <option>28</option>
-                                      <option>29</option>
-                                      <option>30</option>
-                                      <option>31</option>
-                                    </select>
-                            </div>
-                            <div class="form-group">
-                                    <label for="ExpireMonth">Month</label>
-                                    <select class="form-control" id="ExpireMonth">
-                                        <option>1</option>
-                                        <option>2</option>
-                                        <option>3</option>
-                                        <option>4</option>
-                                        <option>5</option>
-                                        <option>6</option>
-                                        <option>7</option>
-                                        <option>8</option>
-                                        <option>9</option>
-                                        <option>10</option>
-                                        <option>11</option>
-                                        <option>12</option>
-                                    </select>
-                            </div>
-                            <label for="CreditCardSC">Security Code</label>
-                            <input id="CreditCardSC" class="form-control" type="text" placeholder="Security Code">
-                        
-                        </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                            <input type="submit" class="btn btn-default" onclick="writeUserData()" placeholder="Submit">
-                        </div>
-                    </form>
+                    <div class="form-group col-md-6">
+                      <label for="InputLastName">LastName</label>
+                      <input id="InputLastName" name="InputLastName" class="form-control" type="text" placeholder="Last Name">
+                    </div>
+                  </div>
+                  <div class="form-row">
+                    <div class="form-group col">
+                      <label for="AccountNumber"> Account Number</label>
+                      <input id="AccountNumber" name="AccountNumber" class="form-control" type="text" placeholder="Account Number">
+                    </div>
+                  </div>
+                  <div class="form-row">
+                    <div class="form-group col">
+                      <label for="AvailableBalance">Available Balance</label>
+                      <input id="AvailableBalance" name="AvailableBalance" class="form-control" type="text" placeholder="Available Balance">
+                    </div>
+                  </div>
+                  <div class="form-row">
+                    <div class="form-group col">
+                      <label for="CreditcardNumber">Creditcard Number</label>
+                      <input id="CreditcardNumber" name="CreditcardNumber" class="form-control" type="text" placeholder="Creditcard Number">
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <label for="ExpireDay">Day</label>
+                    <select class="form-control" id="ExpireDay">
+                      <option>1</option>
+                      <option>2</option>
+                      <option>3</option>
+                      <option>4</option>
+                      <option>5</option>
+                      <option>6</option>
+                      <option>7</option>
+                      <option>8</option>
+                      <option>9</option>
+                      <option>10</option>
+                      <option>11</option>
+                      <option>12</option>
+                      <option>13</option>
+                      <option>14</option>
+                      <option>15</option>
+                      <option>16</option>
+                      <option>17</option>
+                      <option>18</option>
+                      <option>19</option>
+                      <option>20</option>
+                      <option>21</option>
+                      <option>22</option>
+                      <option>23</option>
+                      <option>24</option>
+                      <option>25</option>
+                      <option>26</option>
+                      <option>27</option>
+                      <option>28</option>
+                      <option>29</option>
+                      <option>30</option>
+                      <option>31</option>
+                    </select>
+                  </div>
+                  <div class="form-group">
+                    <label for="ExpireMonth">Month</label>
+                    <select class="form-control" id="ExpireMonth" name="ExpireMonth">
+                      <option>1</option>
+                      <option>2</option>
+                      <option>3</option>
+                      <option>4</option>
+                      <option>5</option>
+                      <option>6</option>
+                      <option>7</option>
+                      <option>8</option>
+                      <option>9</option>
+                      <option>10</option>
+                      <option>11</option>
+                      <option>12</option>
+                    </select>
+                  </div>
+                  <label for="CreditCardSC">Security Code</label>
+                  <input id="CreditCardSC" name="CreditCardSC" class="form-control" type="text" placeholder="Security Code">
                 </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    <input type="submit" class="btn btn-default" placeholder="Submit">
+                </div>
+              </form>
             </div>
+          </div>
         </div>
     </div>
   </body>
