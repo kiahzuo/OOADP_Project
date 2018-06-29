@@ -5,7 +5,7 @@ var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var logger = require('morgan');
 var firebase = require('firebase');
-
+var admin = require("firebase-admin");
 
 
 
@@ -21,7 +21,6 @@ var signupRouter = require('./routes/signup');
 var editRouter = require('./routes/edit');
 var viewbookRouter = require('./routes/viewbook');
 var viewprofileRouter = require('./routes/viewprofile');
-
 var paymentRouter = require('./routes/payment');
 var bankRouter = require('./routes/bank');
 
@@ -31,9 +30,12 @@ var config = {
     apiKey: "AIzaSyBcI54P-yTiaNAXEDASZGH3eJNkcbXY7wE",
     authDomain: "ooadp-2018-sem1-e409b.firebaseapp.com",
     databaseURL: "https://ooadp-2018-sem1-e409b.firebaseio.com",
+    projectId: "ooadp-2018-sem1-e409b",
+    storageBucket: "ooadp-2018-sem1-e409b.appspot.com",
+    messagingSenderId: "1025088843498"
   };
 firebase.initializeApp(config);
-var firebaseRef = firebase.database().ref();
+var database = firebase.database().ref();
 
 
 //import multer
@@ -144,13 +146,10 @@ app.use(function(req, res, next) {
 
 
 
-
-
-
 //payment
 app.get('/payment', function(req, res){
     res.render('payment',{
-        title: 'test',
+        paying: '99',
     });
 });
 app.post('/payment', function(req, res){
@@ -170,11 +169,59 @@ app.post('/payment', function(req, res){
     console.log("Card expiry Year : " + cardYear);
     console.log("Card CVC : " +cardCVC);
     console.log("=== End ===");
-  });
+});
 
 // bank
+app.get('/bank',function(req, res){
+    var users =  firebase.database().ref().child("users");
+    users.on("value", function(snapshot) {
+        console.log(snapshot.val());
+        var x = snapshot.val();
+        res.render('bank',{
+            FirstName :'test',
+            test:x,
+        });
+      }, function (errorObject) {
+        console.log("The read failed: " + errorObject.code);
+      });
+    
+});
+
 app.post('/bank',function(req, res){
+    var InputFirstName = req.body.InputFirstName;
+    var InputLastName = req.body.InputLastName;
+    var AccountNumber = req.body.AccountNumber;
+    var AvailableBalance = req.body.AvailableBalance;
+    var CreditcardNumber = req.body.CreditcardNumber;
+    var ExpireMonth = req.body.ExpireMonth;
+    var ExpireYear= req.body.ExpireYear;
+    var CreditCardSC = req.body.CreditCardSC;
+
+    var users =  firebase.database().ref().child("users");
+
+    users.push({
+        FirstName:InputFirstName,
+        LastName:InputLastName,
+        AccountNumber:AccountNumber,
+        AvailableBalance:AvailableBalance,
+        CreditcardNumber:CreditcardNumber,
+        ExpireMonth:ExpireMonth,
+        ExpireYear:ExpireYear,
+        CreditCardSC:CreditCardSC
+    });
     console.log(req.body);
+    console.log("=== Check Var ===");
+    console.log("InputFirstName : " + InputFirstName);
+    console.log("InputLastName : " + InputLastName);
+    console.log("AccountNumber : " + AccountNumber);
+    console.log("AvailableBalance : " + AvailableBalance);
+    console.log("CreditcardNumber : " + CreditcardNumber);
+    console.log("ExpireMonth : " + ExpireMonth);
+    console.log("ExpireYear : " + ExpireYear);
+    console.log("CreditCardSC : " + CreditCardSC);
+    console.log("=== End ===");
+    res.redirect('/bank');
+
 })
 
 
@@ -204,10 +251,13 @@ app.use('/signup',signupRouter);
 app.use('/viewbook',viewbookRouter);
 app.use('/viewprofile',viewprofileRouter);
 app.get('/about', comments.list);
+<<<<<<< HEAD
 // app.delete('/about/:comments_id',comments.delete);
 
+=======
+app.delete('/about/:comments_id',comments.delete);
+>>>>>>> 5137595ff7653edc62f2b070a242c52c13b9d197
 app.use('/edit',editRouter);
-
 app.use('/bank',bankRouter);
 app.use('/payment',paymentRouter);
 //set up routes for images
