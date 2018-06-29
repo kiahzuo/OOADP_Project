@@ -27,6 +27,7 @@ var adventureRouter = require('./routes/adventure');
 var sciencefictionRouter = require('./routes/sciencefiction')
 var viewbookRouter = require('./routes/viewbook');
 var viewprofileRouter = require('./routes/viewprofile');
+var transactionRouter = require('./routes/viewbook/cart');
 var paymentRouter = require('./routes/payment');
 var bankRouter = require('./routes/bank');
 
@@ -250,7 +251,7 @@ app.use('/', indexRouter);
 app.use('/about', aboutRouter);
 app.use('/users', usersRouter);
 app.use('/products', auth.isLoggedIn,productsRouter,);
-app.use('/store', auth.isLoggedIn, storeRouter,images.hasAuthorization, upload.single('image'), images.uploadImage);
+//app.use('/store', auth.isLoggedIn, storeRouter,images.hasAuthorization, upload.single('image'), images.uploadImage);
 app.use('/login',loginRouter);
 app.use('/profile',profileRouter);
 app.use('/signup',signupRouter);
@@ -266,11 +267,14 @@ app.get('/about', comments.list);
 app.delete('/about/:comments_id',comments.delete);
 app.use('/edit',editRouter);
 app.use('/bank',bankRouter);
+app.use('/viewbook/cart', transactionRouter);
 app.use('/payment',paymentRouter);
 //set up routes for images
 app.get('/images-gallery', images.hasAuthorization, images.show);
 app.post('/store', images.hasAuthorization, upload.single('image'), images.uploadImage);
 
+// Set up routes for shopping cart items
+// app.post'/store', upload.single('cart_item')
 
 
 // catch 404 and forward to error handler

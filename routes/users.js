@@ -1,5 +1,3 @@
-
-
 var myDatabase = require('../server/controller/database');
 var sequelize = myDatabase.sequelize;
 var Sequelize = myDatabase.Sequelize;

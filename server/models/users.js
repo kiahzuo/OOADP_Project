@@ -1,7 +1,4 @@
 // models/users.js
-
-
-
 var myDatabase = require('../controller/database');
 var sequelize = myDatabase.sequelize;
 var Sequelize = myDatabase.Sequelize;

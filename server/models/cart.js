@@ -2,6 +2,7 @@
 var myDatabase = require('../controller/database');
 var sequelize = myDatabase.sequelize;
 var Sequelize = myDatabase.Sequelize;
+var sequelizeTransforms = require('sequelize-transforms');
 
 const Cart_Items = sequelize.define('Cart_Items', {
     id: {
@@ -29,16 +30,38 @@ const Cart_Items = sequelize.define('Cart_Items', {
             key: 'id'
         }
     },
+    booK_price:{
+        type: Sequelize.STRING,
+        allowNull: false,
+        references: {
+            model: 'Images',
+            key: 'price1'
+        }
+    },
+    book_name:{
+        type: Sequelize.STRING,
+        allowNull: false,
+        references: {
+            model: 'Images',
+            key: 'title'
+        }
+    },
     add_count:{
         type: Sequelize.INTEGER,
-        allowNull = false
+        allowNull = true
     }
 });
 
 // force: true will drop the table if it already exists
-Images.sync({ force: false, logging: console.log}).then(() => {
-    // Table created
+Cart_Items.sync({ force: true, logging: console.log}).then(() => {
     console.log("Cart_Items table synced");
+    // Test table creation with dummy data
+    return Cart_Items.upsert({
+        id: 1,
+        book_id: '1',
+        user_id: '1',
+    })
 });
 
 module.exports = sequelize.model('Cart_Items', Cart_Items);
+

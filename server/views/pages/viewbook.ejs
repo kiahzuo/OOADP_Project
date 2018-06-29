@@ -162,7 +162,7 @@
         
                         
                                 <button class="btn btn-lg btn-primary btn-block" type="submit">Chat</button>
-                                                <button class="btn btn-lg btn-primary btn-block" type="submit">Add to Cart</button>
+                                <button id="addToCartButton" class="btn btn-lg btn-primary btn-block" type="button">Add to Cart</button>
                             </div>
                         </div>
                      <br>
@@ -419,17 +419,84 @@ document.getElementById("defaultOpen").click();
       </div>
       <!-- /.container -->
 
+    <!-- Invisible form to send to cart test, delete later -->
+      <!-- <form action="/cart" method="post" style="display:none;">
+        <input type="text" id="bookID" name="bookID" readonly="readonly" value =""> 
+        <input type="text" id="userID" name="userID" readonly="readonly" value ="">
+        <input type="text" id="bookID" name="bookID" readonly="readonly" value ="<%= images.id %>">
+        <input type="text" id="bookID" name="bookID" readonly="readonly" value ="<%= images.id %>">
+
+      </form> -->
+      <% include ../partials/cart %>
  
 
       <footer class="footer text-faded text-center py-5">
           <div class="container">
             <p class="m-0 small">Copyright &copy; Your Website 2018</p>
           </div>
-        </footer>
+      </footer>
+
+      <% include ../partials/foot %>
+      <script>
+      // Ready functions, now used to display values
+      $(document).ready(function(){
+        console.log(String(`<%= images.avaliable %>`));
+        console.log(`<%= urlPath %>`);
+      });
+      
+      // Submit cart data function
+      $('#addToCartButton').click( function() {
+         // Check availability in case
+         if (String(`<%= images.avaliable %>`) == "In cart")  {
+            $.alert({
+                title: '',
+                content: '<span style="color: red; font-weight: bold;">Add to cart failed:</span> Book is not available, please try another book...',
+                });
+            return;
+         }
+
+        var formData = {
+            'bookID' : `<%= images.id %>`,  // ` ` quotes to indicate template literals, allowing embedded expressions 
+            'userID' : `<%= images.user_id %>`,
+            'bookPrice' : `<%= images.price1 %>`,
+            'bookName' : `<%= images.title %>`
+        };
+
+        $.ajax({
+            url: `<%= urlPath %>` + '/addCart',
+            type: 'POST',
+            dataType: 'json',
+            data: formData,
+            encode: true,
+            // success: function(data) {
+            // }
+            
+          })
+          // done promise callback
+          .done(function(data) {
+              // Log data to check
+              console.log(data);
+              if (! data.success) {
+                  // Error handling
+              } else {
+                  // Successfully sent, need handle error on server and send response...
+                  $.alert({
+                        title: 'Book added to cart',
+                        content: '',
+                        buttons: {
+                            OK: function () {
+                                location.replace("http://localhost:3000/products");
+                            }
+                        }
+                    });
+              }
+          });
+          // fail promise callback, for testing - not needed
+          // Error handling
+          console.log(data);
+      });
+      </script>
      
 
-
-      
-      
-
     </body>
+</html>
