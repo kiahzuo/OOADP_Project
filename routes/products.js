@@ -11,26 +11,18 @@ var Users = require('../server/models/users');
   Images.findAll({order: [['price1', 'ASC']]})
     .then(images=>{
 
-
-      Images.findAll({order: [['price1', 'DESC']]})
-   .then(images2=>{
-
-
         Users.findAll()
      .then(users=>{
 
-
-  
      res.render('products', {
         images: images,
-         images2: images2,
           users:users,
          user : req.user,});
   
     });
   });  
   });           
-  });
+ 
 
 
 

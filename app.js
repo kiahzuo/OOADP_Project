@@ -251,12 +251,12 @@ app.use('/signup',signupRouter);
 app.use('/viewbook',viewbookRouter);
 app.use('/viewprofile',viewprofileRouter);
 app.get('/about', comments.list);
-<<<<<<< HEAD
+
 // app.delete('/about/:comments_id',comments.delete);
 
-=======
+
 app.delete('/about/:comments_id',comments.delete);
->>>>>>> 5137595ff7653edc62f2b070a242c52c13b9d197
+
 app.use('/edit',editRouter);
 app.use('/bank',bankRouter);
 app.use('/payment',paymentRouter);
