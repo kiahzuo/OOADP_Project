@@ -27,7 +27,7 @@ var adventureRouter = require('./routes/adventure');
 var sciencefictionRouter = require('./routes/sciencefiction')
 var viewbookRouter = require('./routes/viewbook');
 var viewprofileRouter = require('./routes/viewprofile');
-var transactionRouter = require('./routes/viewbook/cart');
+var transactionRouter = require('./routes/cart');
 var paymentRouter = require('./routes/payment');
 var bankRouter = require('./routes/bank');
 
@@ -267,7 +267,7 @@ app.get('/about', comments.list);
 app.delete('/about/:comments_id',comments.delete);
 app.use('/edit',editRouter);
 app.use('/bank',bankRouter);
-app.use('/viewbook/cart', transactionRouter);
+app.use('/cart', transactionRouter);
 app.use('/payment',paymentRouter);
 //set up routes for images
 app.get('/images-gallery', images.hasAuthorization, images.show);

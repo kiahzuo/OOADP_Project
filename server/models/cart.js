@@ -48,19 +48,19 @@ const Cart_Items = sequelize.define('Cart_Items', {
     },
     add_count:{
         type: Sequelize.INTEGER,
-        allowNull = true
+        allowNull: true
     }
 });
 
 // force: true will drop the table if it already exists
-Cart_Items.sync({ force: true, logging: console.log}).then(() => {
+Cart_Items.sync({ force: false, logging: console.log}).then(() => {
     console.log("Cart_Items table synced");
     // Test table creation with dummy data
-    return Cart_Items.upsert({
-        id: 1,
-        book_id: '1',
-        user_id: '1',
-    })
+    // return Cart_Items.upsert({
+    //     id: 1,
+    //     book_id: '1',
+    //     user_id: '1',
+    // })
 });
 
 module.exports = sequelize.model('Cart_Items', Cart_Items);

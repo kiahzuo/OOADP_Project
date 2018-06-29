@@ -29,6 +29,5 @@ router.post('/:id/:uid', function(req, res, next) {
         });
     });
 });
-});
 
 module.exports = router;

@@ -463,7 +463,7 @@ document.getElementById("defaultOpen").click();
         };
 
         $.ajax({
-            url: `<%= urlPath %>` + '/addCart',
+            url: `<%= urlPath %>` + '/cart/add',
             type: 'POST',
             dataType: 'json',
             data: formData,
