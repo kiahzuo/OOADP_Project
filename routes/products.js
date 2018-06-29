@@ -7,20 +7,37 @@ var Images = require('../server/models/images');
 var Users = require('../server/models/users');
 
 /* GET products page. */
-router.get('/', function(req, res, next) {
-  Images.findAll()
-  .then(images=>{  
-      Users.findAll()
-    .then(users=>{
-    console.log(images);
-    res.render('products', {
-        images: images,
-        users:users,
-        user : req.user,});
+  router.get('/', function(req, res, next) {
+  Images.findAll({order: [['price1', 'ASC']]})
+    .then(images=>{
+
+
+      Images.findAll({order: [['price1', 'DESC']]})
+   .then(images2=>{
+
+
+        Users.findAll()
+     .then(users=>{
+
+
   
+     res.render('products', {
+        images: images,
+         images2: images2,
+          users:users,
+         user : req.user,});
+  
+    });
+  });  
+  });           
   });
-});           
-});
+
+
+
+
+
+
+
 
 /* Shopping cart posting */
 // router.get('/')

@@ -44,7 +44,7 @@
         </fieldset>
         <fieldset class="form-group">
             <label for="inputHobby">Description</label><br>
-            <input type="text" id="description" name="description" class="form-control" placeholder="Hobby" required="true" value="<%= images.description1 %>">
+            <textarea id="description" name="description" class="form-control" placeholder="Hobby" required="true" value="<%= images.description1 %>"><%= images.description1 %></textarea>
         </fieldset>
         <fieldset class="form-group">
             <label for="inputHobby">MeetUp</label><br>
@@ -98,7 +98,7 @@
                 <% } %>
               </select><br>
               <label class="file" style="width: 100%">
-                    <input type="file" id="image" name="image"selected="<%= images.imageName %>">
+                    <input type="file" id="image" name="image"value="<%= images.imageName %>">
                     <span class="file-custom"></span>
                 </label>
         </fieldset>

@@ -31,7 +31,7 @@ const Images = sequelize.define('Images', {
         }
     },
     price1: {
-        type: Sequelize.STRING
+        type: Sequelize.INTEGER
     },
     condition1: {
         type: Sequelize.STRING

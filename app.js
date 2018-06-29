@@ -19,12 +19,6 @@ var loginRouter = require('./routes/login');
 var profileRouter = require('./routes/profile');
 var signupRouter = require('./routes/signup');
 var editRouter = require('./routes/edit');
-var actionRouter = require('./routes/action');
-var horrorRouter = require('./routes/horror');
-var nonfictionRouter = require('./routes/nonfiction');
-var comedyRouter = require('./routes/comedy');
-var adventureRouter = require('./routes/adventure');
-var sciencefictionRouter = require('./routes/sciencefiction')
 var viewbookRouter = require('./routes/viewbook');
 var viewprofileRouter = require('./routes/viewprofile');
 
@@ -44,7 +38,7 @@ var firebaseRef = firebase.database().ref();
 
 //import multer
 var multer = require('multer');
-var upload = multer({dest:'./public/uploads/',limits:{fileSize: 1500000, files:1} });
+var upload = multer({dest:'./public/uploads/',limits:{fileSize: 1500000, files:2} });
 
 // Import login controller
 var auth = require('./server/controller/auth');
@@ -202,21 +196,15 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use('/', indexRouter);
 app.use('/about', aboutRouter);
 app.use('/users', usersRouter);
-app.use('/products', auth.isLoggedIn,productsRouter,);
+app.use('/products', auth.isLoggedIn,productsRouter, images.filterCategories , images.filterPriceSorting );
 app.use('/store', auth.isLoggedIn, storeRouter,images.hasAuthorization, upload.single('image'), images.uploadImage);
 app.use('/login',loginRouter);
 app.use('/profile',profileRouter);
 app.use('/signup',signupRouter);
 app.use('/viewbook',viewbookRouter);
 app.use('/viewprofile',viewprofileRouter);
-app.use('/action',actionRouter);
-app.use('/horror',horrorRouter);
-app.use('/comedy',comedyRouter);
-app.use('/nonfiction',nonfictionRouter);
-app.use('/adventure',adventureRouter);
-app.use('/sciencefiction',sciencefictionRouter);
 app.get('/about', comments.list);
-app.delete('/about/:comments_id',comments.delete);
+// app.delete('/about/:comments_id',comments.delete);
 
 app.use('/edit',editRouter);
 

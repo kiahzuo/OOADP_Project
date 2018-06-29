@@ -45,23 +45,38 @@
 
         <h1 class="my-4">Market Place</h1>
         <input class="form-control mr-sm-2" type="search" placeholder="Type a bookname..." aria-label="Search" id="search"><br>
+        <br>
 
-        <div class="list-group">
-            <h4 class="my-4">Filter By Genre</h4>
-            <a href="http://localhost:3000/products" class="list-group-item">View All Books</a>
-            <a href="http://localhost:3000/action" class="list-group-item">Action</a>
-            <a href="http://localhost:3000/horror" class="list-group-item">Horror</a>
-            <a href="http://localhost:3000/sciencefiction" class="list-group-item">Science Fiction</a>
-            <a href="http://localhost:3000/adventure" class="list-group-item">Adventure</a>
-            <a href="http://localhost:3000/comedy" class="list-group-item">Comedy</a>
-            <a href="http://localhost:3000/nonfiction" class="list-group-item">Non-fiction</a>
-            
-        </div>
-        <br>
-        <br>
         <h4 class="my-4">Filter By Price</h4>
+        <form action="/products" method="post">
+          <select class="pricesort" name="pricesort" id="pricesort">
+            <option value="low" selected>Low to High</option>
+            <option value="high">High to Low</option>
+          </select>
+
+          <input type="submit" value="Submit">
+        </form>
+        <br>
+<br>
+
         <input class="form-control mr-sm-2" type="search" placeholder="Enter Price...." aria-label="Search" id="searchprice"><br>
 
+     
+     
+        <h4 class="my-4">Filter By Genre</h4>
+          <form action="/products" method="post">
+            <select class="category" name="category" id="category">
+              <option value="All" selected>View All</option>
+              <option value="Action">Action</option>
+              <option value="Horror">Horror</option>
+              <option value="Science Fiction">Science Fiction</option>
+              <option value="Non-Fiction">Non-Fiction</option>
+              <option value="Adventure">Adventure</option>
+              <option value="Comedy">Comedy</option>
+            </select>
+
+            <input type="submit" value="Submit">
+          </form>
         
       </div>
       <!-- /.col-lg-3 -->
@@ -92,9 +107,12 @@
             <span class="sr-only">Next</span>
           </a>
         </div>
- 
-        <div class="row">
-            <% for (i =0; i < users.length; i++) {%>
+
+        <br>
+        
+
+          <div class="row">
+  
               <% for (i =0; i < images.length; i++) {%>
                 <% if ( images[i].avaliable == "Avaliable") { %>
                   <div class="col-lg-4 col-md-6 mb-4">
@@ -116,7 +134,13 @@
 
                     <% } %>
           <% } %>
-          <% } %>
+
+        </div>
+      </div>
+        
+   
+ 
+
 
         
 
@@ -149,7 +173,52 @@ $('#search').keyup(function (){
     $('.card-deck').find('.card .card-body h6:not(:contains("'+filter+'"))').parent().parent().addClass('d-none');
   })
   
+
+  
   </script>
+
+
+
+<style>
+  body {font-family: Arial;}
+  
+  /* Style the tab */
+  .tab {
+      overflow: hidden;
+      border: 1px solid #ccc;
+      background-color: #f1f1f1;
+  }
+  
+  /* Style the buttons inside the tab */
+  .tab button {
+      background-color: inherit;
+      float: left;
+      border: none;
+      outline: none;
+      cursor: pointer;
+      padding: 14px 16px;
+      transition: 0.3s;
+      font-size: 17px;
+  }
+  
+  /* Change background color of buttons on hover */
+  .tab button:hover {
+      background-color: #ddd;
+  }
+  
+  /* Create an active/current tablink class */
+  .tab button.active {
+      background-color: #ccc;
+  }
+  
+  /* Style the tab content */
+  .tabcontent {
+      display: none;
+      padding: 6px 12px;
+      border: 1px solid #ccc;
+      border-top: none;
+  }
+  </style>
 
 </body>
 </html>

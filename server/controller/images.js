@@ -112,3 +112,52 @@ exports.hasAuthorization = function(req,res,next)
         return next();
     res.redirect('/login');
 }
+
+
+exports.filterCategories =function(req, res) {
+    var category = req.body.category;
+    if(category == "All")
+    {
+      Images.findAll()
+        .then(images =>{
+          res.render('products', {
+            images:images,
+          })
+        })
+      }
+    else{
+      Images.findAll({where:{genre1:category}})
+      .then(images=>{
+        res.render('products',{images:images})
+      })
+    }
+  
+    }
+
+
+    exports.filterPriceSorting = function(req,res){
+        var pricesort = req.body.pricesort;
+        if(pricesort == "low")
+        {
+            Images.findAll({order: [['price1', 'ASC']]})
+                .then(images=>{
+                    res.render('products', {
+                        images:images,
+                      })
+            })
+           
+        }
+
+        else {
+            Images.findAll({order: [['price1', 'DESC']]})
+            .then(images=>{
+                res.render('products', {
+                    images:images,
+                  })
+            })
+            
+        }
+
+
+
+    }
