@@ -243,7 +243,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use('/', indexRouter);
 app.use('/about', aboutRouter);
 app.use('/users', usersRouter);
-app.use('/products', auth.isLoggedIn,productsRouter, images.filterCategories , images.filterPriceSorting );
+app.use('/products', auth.isLoggedIn,productsRouter, images.filterCategories  );
 app.use('/store', auth.isLoggedIn, storeRouter,images.hasAuthorization, upload.single('image'), images.uploadImage);
 app.use('/login',loginRouter);
 app.use('/profile',profileRouter);
@@ -256,7 +256,6 @@ app.get('/about', comments.list);
 
 
 app.delete('/about/:comments_id',comments.delete);
-
 app.use('/edit',editRouter);
 app.use('/bank',bankRouter);
 app.use('/payment',paymentRouter);

@@ -45,27 +45,26 @@
 
         <h1 class="my-4">Market Place</h1>
         <input class="form-control mr-sm-2" type="search" placeholder="Type a bookname..." aria-label="Search" id="search"><br>
-        <br>
-
-        <h4 class="my-4">Filter By Price</h4>
-        <form action="/products" method="post">
-          <select class="pricesort" name="pricesort" id="pricesort">
-            <option value="low" selected>Low to High</option>
+     
+        <h4 class="my-4">Price</h4>
+        <form action="/products" method="POST" onchange="checkAndSubmit()" id="formID">
+          <select class="sort" name="sort" id="sort">
+              <option value="All">Default</option>
+            <option value="low" >Low to High</option>
             <option value="high">High to Low</option>
           </select>
 
-          <input type="submit" value="Submit">
         </form>
         <br>
-<br>
 
-        <input class="form-control mr-sm-2" type="search" placeholder="Enter Price...." aria-label="Search" id="searchprice"><br>
+
+
 
      
      
-        <h4 class="my-4">Filter By Genre</h4>
-          <form action="/products" method="post">
-            <select class="category" name="category" id="category">
+        <h4 class="my-4">Genre</h4>
+          <form action="/products" method="post" onchange="checkAndSubmit2()" id="formID2">
+            <select class="sort" name="sort" id="sort2">
               <option value="All" selected>View All</option>
               <option value="Action">Action</option>
               <option value="Horror">Horror</option>
@@ -75,9 +74,30 @@
               <option value="Comedy">Comedy</option>
             </select>
 
-            <input type="submit" value="Submit">
+
           </form>
-        
+
+
+          <script>
+              function checkAndSubmit2()
+            {
+              if (document.getElementById('sort2').selectedIndex > 0)
+              {
+                  document.getElementById('formID2').submit();
+            
+              }
+            }
+
+
+            function checkAndSubmit()
+            {
+              if (document.getElementById('sort').selectedIndex > 0)
+              {
+                  document.getElementById('formID').submit();
+            
+              }
+            }
+            </script>        
       </div>
       <!-- /.col-lg-3 -->
 

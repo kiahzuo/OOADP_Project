@@ -115,7 +115,7 @@ exports.hasAuthorization = function(req,res,next)
 
 
 exports.filterCategories =function(req, res) {
-    var category = req.body.category;
+    var category = req.body.sort;
     if(category == "All")
     {
       Images.findAll()
@@ -125,6 +125,34 @@ exports.filterCategories =function(req, res) {
           })
         })
       }
+
+
+      else if(category == "low")
+    {
+        Images.findAll({order: [['price1', 'asc']]})
+        .then(images=>{
+            res.render('products', {
+                images:images,
+              })
+    })
+      }
+
+
+      else if(category == "high")
+    {
+        Images.findAll({order: [['price1', 'DESC']]})
+        .then(images=>{
+            res.render('products', {
+                images:images,
+              })
+    })
+      }
+
+
+
+
+
+
     else{
       Images.findAll({where:{genre1:category}})
       .then(images=>{
@@ -135,29 +163,3 @@ exports.filterCategories =function(req, res) {
     }
 
 
-    exports.filterPriceSorting = function(req,res){
-        var pricesort = req.body.pricesort;
-        if(pricesort == "low")
-        {
-            Images.findAll({order: [['price1', 'ASC']]})
-                .then(images=>{
-                    res.render('products', {
-                        images:images,
-                      })
-            })
-           
-        }
-
-        else {
-            Images.findAll({order: [['price1', 'DESC']]})
-            .then(images=>{
-                res.render('products', {
-                    images:images,
-                  })
-            })
-            
-        }
-
-
-
-    }

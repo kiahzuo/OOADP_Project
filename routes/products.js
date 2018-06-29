@@ -8,7 +8,7 @@ var Users = require('../server/models/users');
 
 /* GET products page. */
   router.get('/', function(req, res, next) {
-  Images.findAll({order: [['price1', 'ASC']]})
+  Images.findAll()
     .then(images=>{
 
         Users.findAll()
