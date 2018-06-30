@@ -21,16 +21,7 @@ const Users = sequelize.define('Users', {
     }
 });
 
-// force: true will drop the table if it already exists
-Users.sync({force: false, logging:console.log}).then(()=>{
-    console.log("users table synced");
-    return Users.upsert({
-        id: 1,
-        name: 'Ben',
-        email: 'a@b.com',
-        password: '1234'
-    })
-});
+
 
 module.exports = sequelize.model('Users', Users);
 
