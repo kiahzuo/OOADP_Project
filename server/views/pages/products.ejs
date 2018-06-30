@@ -111,6 +111,32 @@
     
                 <div class="search-product pos-relative bo4 of-hidden">
                     <input class="form-control mr-sm-2" type="search" placeholder="Type a bookname..." aria-label="Search" id="search">
+<br><br>
+
+                    <form action="/products" method="POST" onchange="checkAndSubmit()" id="formID">
+                      <select class="sort" name="sort" id="sort">
+                          <option value="All">Price</option>
+                        <option value="low" >Low to High</option>
+                        <option value="high">High to Low</option>
+                      </select>
+            
+                    </form>
+
+<br><br>
+                    <form action="/products" method="post" onchange="checkAndSubmit2()" id="formID2">
+                      <select class="sort" name="sort" id="sort2">
+                          <option value="Nil" selected>Genre</option>
+                        <option value="All" >View All</option>
+                        <option value="Action">Action</option>
+                        <option value="Horror">Horror</option>
+                        <option value="Science Fiction">Science Fiction</option>
+                        <option value="Non-Fiction">Non-Fiction</option>
+                        <option value="Adventure">Adventure</option>
+                        <option value="Comedy">Comedy</option>
+                      </select>
+          
+          
+                    </form>
     
                   <button class="flex-c-m size5 ab-r-m color2 color0-hov trans-0-4">
                     <i class="fs-12 fa fa-search" aria-hidden="true"></i>
@@ -124,35 +150,7 @@
           
               <br><br>
               <div class="flex-sb-m flex-w p-b-35">
-                <div class="flex-w">
-                  <div class="rs2-select2 bo4 of-hidden w-size12 m-t-5 m-b-5 m-r-10">
-                      <form action="/products" method="post" onchange="checkAndSubmit2()" id="formID2">
-                        <select class="sort" name="sort" id="sort2">
-                            <option value="Nil" selected>Genre</option>
-                          <option value="All" >View All</option>
-                          <option value="Action">Action</option>
-                          <option value="Horror">Horror</option>
-                          <option value="Science Fiction">Science Fiction</option>
-                          <option value="Non-Fiction">Non-Fiction</option>
-                          <option value="Adventure">Adventure</option>
-                          <option value="Comedy">Comedy</option>
-                        </select>
-            
-            
-                      </form>
-                  </div>
-    
-                  <div class="rs2-select2 bo4 of-hidden w-size12 m-t-5 m-b-5 m-r-10">
-                      <form action="/products" method="POST" onchange="checkAndSubmit()" id="formID">
-                        <select class="sort" name="sort" id="sort">
-                            <option value="All">Price</option>
-                          <option value="low" >Low to High</option>
-                          <option value="high">High to Low</option>
-                        </select>
-              
-                      </form>
-                  </div>
-                </div>
+ 
     
                 
               </div>

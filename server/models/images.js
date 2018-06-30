@@ -3,7 +3,7 @@ var myDatabase = require('../controller/database');
 var sequelize = myDatabase.sequelize;
 var Sequelize = myDatabase.Sequelize;
 
-const Books = sequelize.define('Books', {
+const Images = sequelize.define('Images', {
     id: {
         type: Sequelize.INTEGER,
         autoIncrement: true,
@@ -54,9 +54,9 @@ const Books = sequelize.define('Books', {
 });
 
 // force: true will drop the table if it already exists
-Books.sync({ force: false, logging: console.log}).then(() => {
+Images.sync({ force: false, logging: console.log}).then(() => {
     // Table created
     console.log("images table synced");
 });
 
-module.exports = sequelize.model('Books', Books);
+module.exports = sequelize.model('Images', Images);
