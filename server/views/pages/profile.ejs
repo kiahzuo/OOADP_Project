@@ -142,9 +142,15 @@ background-color: #4CAF50;
 }
 
 .card-body{
- height: 200px;
+ height: 170px;
 }
 
+
+.profilepic {
+    border-radius: 70%;
+    width:150px;
+    height:150px;
+}
   
 </style>
 
@@ -352,15 +358,22 @@ background-color: #4CAF50;
           <ul class="p-b-54">
           <h4 class="card-title">Profile</h4>
                     <h6 class="card-text">
+                        <img class='profilepic'src="https://img.kpopmap.com/2018/04/twice-momo-earphone-cover.jpg" alt="Avatar"><br><br>
                         <strong>Name</strong>: <%= user.name %><br><br>
                         <strong>Email</strong>: <%= user.email %><br><br>
-                        <strong>Joined</strong>: <%= user.createdAt%><br><br>
+                        <strong>Joined</strong>: <%= user.createdAt %><br><br>
+                        <% if (user.name =="ADMIN") { %>
+                        <button type="button" class="btn btn-primary pull-right" data-toggle="modal" data-target="#createImage">
+                            User Management
+                         </button>
+                         <% } %>
                     </h6>
           </ul>
           <a href="/logout" class="btn btn-danger">Logout</a>
           <button type="button" class="btn btn-secondary pull-right" data-toggle="modal" data-target="#createImage">
               List an Item !
            </button>
+           
           <!--  -->
     
 
@@ -383,29 +396,44 @@ background-color: #4CAF50;
         <div class="flex-sb-m flex-w p-b-35">
           <div class="flex-w">
             <div class="rs2-select2 bo4 of-hidden w-size12 m-t-5 m-b-5 m-r-10">
-              <select class="selection-2" name="sorting">
-                <option>Default Sorting</option>
-                <option>Popularity</option>
-                <option>Price: low to high</option>
-                <option>Price: high to low</option>
-              </select>
+                <form action="/profile" method="POST" onchange="checkAndSubmit()" id="formID">
+                  <select class="sort" name="sort" id="sort">
+                      <option value="All">Price</option>
+                    <option value="low" >Low to High</option>
+                    <option value="high">High to Low</option>
+                  </select>
+        
+                </form>
             </div>
 
             <div class="rs2-select2 bo4 of-hidden w-size12 m-t-5 m-b-5 m-r-10">
-              <select class="selection-2" name="sorting">
-                <option>Price</option>
-                <option>$0.00 - $50.00</option>
-                <option>$50.00 - $100.00</option>
-                <option>$100.00 - $150.00</option>
-                <option>$150.00 - $200.00</option>
-                <option>$200.00+</option>
-
-              </select>
+                <form action="/profile" method="post" onchange="checkAndSubmit2()" id="formID2">
+                  <select class="sort" name="sort" id="sort2">
+                      <option value="Nil" selected>Genre</option>
+                    <option value="All" >View All</option>
+                    <option value="Action">Action</option>
+                    <option value="Horror">Horror</option>
+                    <option value="Science Fiction">Science Fiction</option>
+                    <option value="Non-Fiction">Non-Fiction</option>
+                    <option value="Adventure">Adventure</option>
+                    <option value="Comedy">Comedy</option>
+                  </select>
+      
+      
+                </form>
             </div>
           </div>
 
  
         </div>
+
+
+        <script>
+            function clicked(e)
+            {
+                if(!confirm('Are you sure?'))e.preventDefault();
+            }
+            </script>
 
         <!-- Product -->
         <div class="row">
@@ -415,6 +443,42 @@ background-color: #4CAF50;
   <div class="row">
 
             <% for (i =0; i < images.length; i++) {%>
+              <% if (user.name =="ADMIN") { %>
+                <div class="col-lg-4 col-md-6 mb-4">
+ 
+                  <div class="card h-100" data-id="<%= images[i].id %>"  >
+                      
+                    <a href="#"><img class="card-img-top" src="images/<%= images[i].imageName %>" alt=""></a>
+                    <div class="card-body">
+                      <h4 class="card-title">
+                          <h4><strong><%= images[i].title %></strong></h5>
+                      </h4>
+                      <h5>$<%= images[i].price1 %></h5>
+      
+       
+      
+                      <br>
+                    
+                      
+                
+                      <h5>Avaliability : <strong><%= images[i].avaliable %></strong></h5>
+                          <br>
+                          <h5>Seller : <strong><%= images[i].seller %></strong></h5>
+                    </div>
+      
+                    
+                    <br>
+                    <a class = 'btn btn-primary' href="/edit/<%= images[i].id%>">Edit Book</a>
+                    <input type="submit" class="deleteBtn"  value="Delete" onclick="clicked(event)">
+          
+      
+                </div>
+              
+              </div>
+
+                <% } %>
+
+
               <% if (user.name == images[i].seller) { %>
          
           <div class="col-lg-4 col-md-6 mb-4">
@@ -442,7 +506,7 @@ background-color: #4CAF50;
               
               <br>
               <a class = 'btn btn-primary' href="/edit/<%= images[i].id%>">Edit Book</a>
-              <input type="button" class="deleteBtn"  value="Delete" onclick="return confirm('Are you sure you want to delete this item?')">
+              <input type="button" class="deleteBtn"  value="Delete" onclick="clicked(event)">
     
 
           </div>
@@ -451,6 +515,8 @@ background-color: #4CAF50;
         
           
         <% } %>
+
+
           <% } %>
 
           <script>
@@ -458,7 +524,7 @@ background-color: #4CAF50;
               $('.deleteBtn').click(function () {
                 var booknumber = $(this).closest("div").data('id');
                 $.ajax({
-                  url: '<%-urlPath%>/' + booknumber,
+                  url: 'http://localhost:3000/profile/' + booknumber,
                   type: 'DELETE',
                   success: function (result) {
                     console.log(result.message);
@@ -472,6 +538,26 @@ background-color: #4CAF50;
                   }
                 });
               });
+
+
+                 function checkAndSubmit2()
+                {
+                  if (document.getElementById('sort2').selectedIndex > 0)
+                  {
+                      document.getElementById('formID2').submit();
+                
+                  }
+                }
+    
+    
+                function checkAndSubmit()
+                {
+                  if (document.getElementById('sort').selectedIndex > 0)
+                  {
+                      document.getElementById('formID').submit();
+                
+                  }
+                }
             </script>
                 </ul> 
 

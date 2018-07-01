@@ -113,7 +113,7 @@ exports.hasAuthorization = function(req,res,next)
     res.redirect('/login');
 }
 
-
+// on products page
 exports.filterCategories =function(req, res) {
     var category = req.body.sort;
     if(category == "All")
@@ -162,4 +162,52 @@ exports.filterCategories =function(req, res) {
   
     }
 
+// on viewprofile page
 
+exports.filterCategories2 =function(req, res) {
+    var category = req.body.sort;
+    if(category == "All")
+    {
+      Images.findAll()
+        .then(images =>{
+          res.render('profile', {
+            images:images,
+          })
+        })
+      }
+
+
+      else if(category == "low")
+    {
+        Images.findAll({order: [['price1', 'asc']]})
+        .then(images=>{
+            res.render('profile', {
+                images:images,
+              })
+    })
+      }
+
+
+      else if(category == "high")
+    {
+        Images.findAll({order: [['price1', 'DESC']]})
+        .then(images=>{
+            res.render('profile', {
+                images:images,
+              })
+    })
+      }
+
+
+
+
+
+
+    else{
+      Images.findAll({where:{genre1:category}})
+      .then(images=>{
+        res.render('profile',{images:images})
+      })
+    }
+  
+    }

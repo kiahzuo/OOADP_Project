@@ -5,6 +5,8 @@
 
 
     <% include ../partials/head %>
+    <link rel="stylesheet" type="text/css" href="../../stylesheets/util.css">
+    <link rel="stylesheet" type="text/css" href="../../stylesheets/main.css">
   </head>
 <body>
 
@@ -20,35 +22,6 @@
 
     <div class="container">
 
-        <div class="datails">
-
-            <div class="card text-xs-center">
-
-                <div class="coloring">
-                <div class="card-block">
-                    <h4 class="card-title"><%= users.name %>'s  Profile</h4>
-                    <p class="card-text">
-                        <strong>Name</strong>: <%= users.name %><br>
-                        <strong>Email</strong>: <%= users.email %><br>
-                    </p>
-                  </div>
-                 
-                    <div class="container">
-    			
-                   
-                          <div class="col-sm-3">
-                            		
-                        </div>
-                        </div><br>			
-                        <a href="http://localhost:3000/products" class="btn btn-success">Back To Products</a><br>
-          
-                        
-
-             
-                        <br><br>
-                      </div>
-                </div>
-            </div>
         </div>
     </div>
 <br><br>
@@ -107,16 +80,99 @@
     text-decoration: none;
     color: initial;
         }
-
-
-
+        .profilepic {
+    border-radius: 70%;
+    width:150px;
+    height:150px;
+}
   
 </style>
 
 
           <div class="container">
 
-                <div class="row">
+       
+
+
+                <section class="bgwhite p-t-55 p-b-65">
+                    <div class="container">
+                      <div class="row">
+                        <div class="col-sm-6 col-md-4 col-lg-3 p-b-50">
+                          <div class="leftbar p-r-20 p-r-0-sm">
+                            <!--  -->
+                        
+                  
+                            <ul class="p-b-54">
+                            <h4 class="card-title">Profile</h4>
+                                      <h6 class="card-text">
+                                          <img class='profilepic'src="https://img.kpopmap.com/2018/04/twice-momo-earphone-cover.jpg" alt="Avatar"><br><br>
+                                          <strong>Name</strong>: <%= user.name %><br><br>
+                                          <strong>Email</strong>: <%= user.email %><br><br>
+                                          <strong>Joined</strong>: <%= user.createdAt%><br><br>
+                                         
+                                      </h6>
+                            </ul>
+                            <a href="/products" class="btn btn-danger">Back To Products</a>
+                      
+                            <!--  -->
+                      
+                  
+                            <div class="filter-price p-t-22 p-b-50 bo3">
+                      
+                  
+                         
+                  
+                        
+                            </div>
+                  
+                     
+                  
+                  
+                          </div>
+                        </div>
+                  
+                        <div class="col-sm-6 col-md-8 col-lg-9 p-b-50">
+                          <!--  -->
+                          <div class="flex-sb-m flex-w p-b-35">
+                            <div class="flex-w">
+                              <div class="rs2-select2 bo4 of-hidden w-size12 m-t-5 m-b-5 m-r-10">
+                                  <form action="/viewprofile" method="POST" onchange="checkAndSubmit()" id="formID">
+                                    <select class="sort" name="sort" id="sort">
+                                        <option value="All">Price</option>
+                                      <option value="low" >Low to High</option>
+                                      <option value="high">High to Low</option>
+                                    </select>
+                          
+                                  </form>
+                              </div>
+                  
+                              <div class="rs2-select2 bo4 of-hidden w-size12 m-t-5 m-b-5 m-r-10">
+                                  <form action="/viewprofile" method="post" onchange="checkAndSubmit2()" id="formID2">
+                                    <select class="sort" name="sort" id="sort2">
+                                        <option value="Nil" selected>Genre</option>
+                                      <option value="All" >View All</option>
+                                      <option value="Action">Action</option>
+                                      <option value="Horror">Horror</option>
+                                      <option value="Science Fiction">Science Fiction</option>
+                                      <option value="Non-Fiction">Non-Fiction</option>
+                                      <option value="Adventure">Adventure</option>
+                                      <option value="Comedy">Comedy</option>
+                                    </select>
+                        
+                        
+                                  </form>
+                              </div>
+                            </div>
+                  
+                   
+                          </div>
+                  
+                          <!-- Product -->
+                          <div class="row">
+                            
+                  <div class="container">
+                  
+                      <div class="row">
             
                           <% for (i =0; i < images.length; i++) {%>
                             <% if (users.id == images[i].user_id) { %>
@@ -164,6 +220,52 @@
 
 
                 </div>
+                  
+                            <script>
+                  
+                                $('.deleteBtn').click(function () {
+                                  var booknumber = $(this).closest("div").data('id');
+                                  $.ajax({
+                                    url: '<%-urlPath%>/' + booknumber,
+                                    type: 'DELETE',
+                                    success: function (result) {
+                                      console.log(result.message);
+                                      var itemToRemove = '.card[data-id=' + booknumber + ']';
+                                      $(itemToRemove).remove();
+                                      alert("Record Deleted Successfully.");
+                                    },
+                                    error: function (result) {
+                                      alert("Unable to delete record.");
+                                      console.log(result.message);
+                                    }
+                                  });
+                                });
+
+
+                          
+                  function checkAndSubmit2()
+                {
+                  if (document.getElementById('sort2').selectedIndex > 0)
+                  {
+                      document.getElementById('formID2').submit();
+                
+                  }
+                }
+    
+    
+                function checkAndSubmit()
+                {
+                  if (document.getElementById('sort').selectedIndex > 0)
+                  {
+                      document.getElementById('formID').submit();
+                
+                  }
+                }
+                </script>   
+    
+    
+                      
+                                  </ul> 
 
   <!-- Footer -->
   <footer class="py-5 bg-dark">

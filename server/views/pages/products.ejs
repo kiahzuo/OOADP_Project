@@ -33,7 +33,7 @@
 
         .d-block {
           width : 870px;
-          height : 327px;
+          height : 210px;
           margin-left: 300px;
 
         }
@@ -99,7 +99,7 @@
                 <br><br>
         
                                 <div class="m-text15 p-b-17">
-                    <h3>Filter</h3><br>   
+                    <h3>Filter By Name</h3><br>   
                   </div>
           
                  
@@ -112,7 +112,9 @@
                 <div class="search-product pos-relative bo4 of-hidden">
                     <input class="form-control mr-sm-2" type="search" placeholder="Type a bookname..." aria-label="Search" id="search">
 <br><br>
-
+<div class="m-text15 p-b-17">
+    <h3>Filter By Price</h3><br>   
+  </div>
                     <form action="/products" method="POST" onchange="checkAndSubmit()" id="formID">
                       <select class="sort" name="sort" id="sort">
                           <option value="All">Price</option>
@@ -123,6 +125,9 @@
                     </form>
 
 <br><br>
+<div class="m-text15 p-b-17">
+    <h3>Filter By Genre</h3><br>   
+  </div>
                     <form action="/products" method="post" onchange="checkAndSubmit2()" id="formID2">
                       <select class="sort" name="sort" id="sort2">
                           <option value="Nil" selected>Genre</option>
