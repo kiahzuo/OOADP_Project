@@ -163,9 +163,13 @@
                         
                                 <button class="btn btn-lg btn-primary btn-block" type="submit">Chat</button>
                                                 <button class="btn btn-lg btn-primary btn-block" type="submit">Add to Cart</button>
-                                                <form name="formName" id="formName" action="" method="get">
-                                                        <input type ="checkbox" name="categories1" value = "1" onclick="this.form.submit();">1</input>
-                                                        </form>
+
+      
+                                    
+                                                <button class="btn btn-lg btn-primary btn-block" data-toggle="modal" data-target="#createWishlist" >Add To Wish List</button>
+
+                                                
+
                             </div>
                         </div>
                      <br>
@@ -223,9 +227,7 @@
                                                                 </h4>
                                                                 <br>
                                                                
-                                                                <p class="list-group-item-text">
-                                                                        Rating : <%= comments[i].rating %>
-                                                                    </p><br>
+                                                                
                                                                 <small class="text-muted">By:
                                                                     <%= comments[i].user_id %>
                                                                 </small>
@@ -317,20 +319,20 @@
           });
 
 
-          $(document).ready(function(){
-//  Check Radio-box
-    $(".rating input:radio").attr("checked", false);
-    $('.rating input').click(function () {
-        $(".rating span").removeClass('checked');
-        $(this).parent().addClass('checked');
-    });
+//           $(document).ready(function(){
+// //  Check Radio-box
+//     $(".rating input:radio").attr("checked", false);
+//     $('.rating input').click(function () {
+//         $(".rating span").removeClass('checked');
+//         $(this).parent().addClass('checked');
+//     });
 
-    $('input:radio').change(
-    function(){
-        var userRating = this.value;
-        alert(userRating);
-    }); 
-}); 
+//     $('input:radio').change(
+//     function(){
+//         var userRating = this.value;
+//         alert(userRating);
+//     }); 
+// }); 
          
 
 
@@ -357,9 +359,52 @@
 }
 document.getElementById("defaultOpen").click();
       </script>
+
+
+
+
+
+            <!-- Modal Wishlist -->
+            <div class="modal fade" id="createWishlist" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <form action="/viewbook1" method="post">
+                            <div class="modal-header">
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                                <h4 class="modal-title" id="myModalLabel">Add To WishList ?</h4>
+                            </div>
+        
+                            <div class="modal-body">
+        
+                                <fieldset class="form-group">
+                                    <label for="inputitle">Book Title</label>
+                                </fieldset>
+                                <fieldset class="form-group">
+                  
+
+                                    
+                                    <input type="text" id="inputitle" name="title" class="form-control" placeholder="Comment Title" readonly="readonly" required="" value ="<%= images.title %>"><br>
+                                    <label for="rating">Book Title</label>
+                                    <input type="text" id="inputitle" name="bookid" class="form-control" placeholder="Comment Title" readonly="readonly" required="" value ="<%= images.id %>"><br> 
+                                    <label for="inputContent">Seller Name</label>
+                                    <input type="text" id="inputitle" name="seller" class="form-control" placeholder="Comment Title" readonly="readonly" required="" value ="<%= images.seller %>"><br>
+                                    
+                                </fieldset>
+        
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                <button type="submit" class="btn btn-primary">Confirm</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+              </div>
                   
                   
-            <!-- Modal -->
+            <!-- Modal Comments -->
             <div class="modal fade" id="createPost" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
                 <div class="modal-dialog" role="document">
                     <div class="modal-content">
@@ -381,15 +426,8 @@ document.getElementById("defaultOpen").click();
                                     <input type="text" id="inputitle" name="title" class="form-control" placeholder="Comment Title" readonly="readonly" required="" value ="<%= images.id %>"><br> 
                                     <label for="inputContent">Content</label>
                                     <textarea id="inputContent" name="content" rows="8" cols="40" class="form-control" placeholder="Comment Description" required=""></textarea>
-                                    <label for="rating">Rating</label>
-                                    <select id="rating"name="rating" class="form-control" placeholder="rating" ><br>
-                                        <option value="1">Very Poor</option>
-                                        <option value="2">Poor</option>
-                                        <option value="3">Mediocre</option>
-                                        <option value="4">Good</option>
-                                        <option value="5">Fantastic</option>
-                                      
-                                      </select>     <br><br><br><br><br><br><br>
+                                  
+                                
                                 </fieldset>
         
                             </div>

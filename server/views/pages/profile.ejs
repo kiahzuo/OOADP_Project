@@ -1,3 +1,328 @@
+
+<% if (user.name =="ADMIN") { %>
+
+
+  <!DOCTYPE html>
+  <html lang="en">
+  
+    <head>
+  
+        <% include ../partials/head %>
+  
+        <link rel="stylesheet" type="text/css" href="../../stylesheets/util.css">
+        <link rel="stylesheet" type="text/css" href="../../stylesheets/main.css">
+    </head>
+  
+  
+    <style>
+          * {box-sizing: border-box}
+          body{
+              background-color: lightgoldenrodyellow;
+          }
+          
+          /* Style the tab */
+          .tab {
+              float: left;
+              border: 1px solid #ccc;
+              background-color: #31353d;
+              width: 15%;
+              height: 100%;
+          }
+          
+          /* Style the buttons inside the tab */
+          .tab button {
+              display: block;
+              background-color: inherit;
+              color: white;
+              padding: 22px 16px;
+              width: 100%;
+              border: none;
+              outline: none;
+              text-align: left;
+              cursor: pointer;
+              transition: 0.3s;
+              font-size: 17px;
+          }
+          
+          /* Change background color of buttons on hover */
+          .tab button:hover {
+              background-color: #ddd;
+          }
+          
+          /* Create an active/current "tab button" class */
+          .tab button.active {
+              background-color: #ccc;
+          }
+          
+          /* Style the tab content */
+          .tabcontent {
+              float: left;
+              padding: 0px 12px;
+              border: 1px solid #ccc;
+              width: 85%;
+              border-left: none;
+              height: 100%;
+              background-color: lightgoldenrodyellow;
+          }
+  
+  
+          .card{
+      background-color: lightgray;
+      width: 300px;
+      height:500px;
+      margin-left: 150px;
+  
+    }
+    .btn{
+      display: inline-block;
+    }
+    .coloring{
+              background-color: burlywood; 
+            }
+    
+    .card-img-top{
+         width:100%;
+         height:250px;
+       }
+       .btn-grey{
+      background-color:#D8D8D8;
+    color:#FFF;
+  }
+  .rating-block{
+    background-color:#FAFAFA;
+    border:1px solid #EFEFEF;
+    padding:15px 15px 20px 15px;
+    border-radius:3px;
+  }
+  .bold{
+    font-weight:700;
+  }
+  .padding-bottom-7{
+    padding-bottom:7px;
+  
+    
+  }
+  .card-title{
+      margin-left: 2%;
+    }
+    .card-text{
+      margin-left: 2%;
+    }
+    .card-img-top1 {height: 250px;
+          width: 50%;
+          margin: auto}
+  
+          a.button {
+      -webkit-appearance: button;
+      -moz-appearance: button;
+      appearance: button;
+  
+      text-decoration: none;
+      color: initial;
+          }
+  
+  #nextBtn,#prevBtn {
+      background-color: #4CAF50;
+      border: none;
+      color: white;
+      padding: 12px;
+      text-align: center;
+      text-decoration: none;
+      display: inline-block;
+      font-size: 16px;
+      margin: 4px 2px;
+      border-radius: 12px;
+  }
+  
+  .card-body{
+   height: 170px;
+  }
+  
+  
+  .profilepic {
+      border-radius: 70%;
+      width:150px;
+      height:150px;
+  }
+          </style>
+          </head>
+  
+  
+          <body>
+  
+                  <% include ../partials/header %>
+          
+          <p>Click on the buttons inside the tabbed menu:</p>
+          <br><br><br>
+          
+          <div class="tab">
+            <button class="tablinks" onclick="openCity(event, 'London')" id="defaultOpen">View All Books</button>
+            <button class="tablinks" onclick="openCity(event, 'Paris')">Reported Items</button>
+            <button class="tablinks" onclick="openCity(event, 'Tokyo')">User Management</button><br><br>
+
+            <a href="/logout" class="btn btn-danger">Logout</a><br><br>
+            
+          </div>
+          
+          <div id="London" class="tabcontent">
+              <br>
+         
+                    
+                              <div class="col-sm-6 col-md-8 col-lg-9 p-b-50">
+                                      <!--  -->
+                                   
+                              
+                              
+                                      <script>
+                                          function clicked(e)
+                                          {
+                                              if(!confirm('Are you sure?'))e.preventDefault();
+                                          }
+                                          </script>
+                              
+                                      <!-- Product -->
+                                      <div class="row">
+                                        
+                              <div class="container">
+                              
+                                <div class="row">
+                              
+                                          <% for (i =0; i < images.length; i++) {%>
+                      
+                                              <div class="col-lg-4 col-md-6 mb-4">
+                               
+                                                <div class="card h-100" data-id="<%= images[i].id %>"  >
+                                                    
+                                                  <a href="#"><img class="card-img-top" src="images/<%= images[i].imageName %>" alt=""></a>
+                                                  <div class="card-body">
+                                                    <h4 class="card-title">
+                                                        <h4><strong><%= images[i].title %></strong></h5>
+                                                    </h4>
+                                                    <h5>$<%= images[i].price1 %></h5>
+                                    
+                                     
+                                    
+                                                    <br>
+                                                  
+                                                    
+                                              
+                                                    <h5>Avaliability : <strong><%= images[i].avaliable %></strong></h5>
+                                                        <br>
+                                                        <h5>Seller : <strong><%= images[i].seller %></strong></h5>
+                                                  </div>
+                                    
+                                                  
+                                                  <br>
+                                                  <a class = 'btn btn-primary' href="/edit/<%= images[i].id%>">Edit Book</a>
+                                                  <input type="submit" class="deleteBtn"  value="Delete" onclick="clicked(event)">
+                                        
+                                    
+                                              </div>
+                                            
+                                            </div>
+                              
+                              
+                                     
+                              
+                              
+                                        <% } %>
+                    
+          </div>
+          
+          <div id="Paris" class="tabcontent">
+            <h3>Paris</h3>
+            <p>Paris is the capital of France.</p> 
+          </div>
+          
+          <div id="Tokyo" class="tabcontent">
+            <h3>Tokyo</h3>
+            <p>Tokyo is the capital of Japan.</p>
+          </div>
+          
+          <script>
+          function openCity(evt, cityName) {
+              var i, tabcontent, tablinks;
+              tabcontent = document.getElementsByClassName("tabcontent");
+              for (i = 0; i < tabcontent.length; i++) {
+                  tabcontent[i].style.display = "none";
+              }
+              tablinks = document.getElementsByClassName("tablinks");
+              for (i = 0; i < tablinks.length; i++) {
+                  tablinks[i].className = tablinks[i].className.replace(" active", "");
+              }
+              document.getElementById(cityName).style.display = "block";
+              evt.currentTarget.className += " active";
+          }
+          
+          // Get the element with id="defaultOpen" and click on it
+          document.getElementById("defaultOpen").click();
+  
+  
+  
+  
+  $('.deleteBtn').click(function () {
+    var booknumber = $(this).closest("div").data('id');
+    $.ajax({
+      url: 'http://localhost:3000/admin/' + booknumber,
+      type: 'DELETE',
+      success: function (result) {
+        console.log(result.message);
+        var itemToRemove = '.card[data-id=' + booknumber + ']';
+        $(itemToRemove).remove();
+        alert("Record Deleted Successfully.");
+      },
+      error: function (result) {
+        alert("Unable to delete record.");
+        console.log(result.message);
+      }
+    });
+  });
+  
+  
+  
+          </script>
+  
+  
+  
+               
+          </body>
+
+  <%} else{%>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -156,12 +481,6 @@ background-color: #4CAF50;
 
 
 
-
-          
-            
-              
-            
-          
               <div class="container">
                   
                   <!-- Modal -->
@@ -177,7 +496,7 @@ background-color: #4CAF50;
                                   </div>
           
                                   <div class="modal-body">
-                                      
+                                    
             
 
                       
@@ -188,7 +507,7 @@ background-color: #4CAF50;
                                       
                                       <input type="text" id="itle" name="title" class="form-control" placeholder="Image Title..." required=""><br>
                                       
-                                      <input type="text" id="price" name="price" class="form-control" placeholder="Price..." required=""><br>
+                                      <input type="number" id="price" name="price" class="form-control" placeholder="Price..." required=""><br>
 
                                       <input type="text" id="condition" name="condition" class="form-control" placeholder="Condition..." required=""><br>
                                   </div>
@@ -362,19 +681,13 @@ background-color: #4CAF50;
                         <strong>Name</strong>: <%= user.name %><br><br>
                         <strong>Email</strong>: <%= user.email %><br><br>
                         <strong>Joined</strong>: <%= user.createdAt %><br><br>
-                        <% if (user.name =="ADMIN") { %>
-                        <button type="button" class="btn btn-primary pull-right" data-toggle="modal" data-target="#createImage">
-                            User Management
-                         </button>
-                         <% } %>
                     </h6>
           </ul>
           <a href="/logout" class="btn btn-danger">Logout</a>
-          <button type="button" class="btn btn-secondary pull-right" data-toggle="modal" data-target="#createImage">
-              List an Item !
-           </button>
+          
            
           <!--  -->
+          
     
 
           <div class="filter-price p-t-22 p-b-50 bo3">
@@ -422,6 +735,10 @@ background-color: #4CAF50;
       
                 </form>
             </div>
+
+            <button type="button" class="btn btn-secondary pull-right" data-toggle="modal" data-target="#createImage">
+              List an Item !
+           </button>
           </div>
 
  
@@ -443,7 +760,7 @@ background-color: #4CAF50;
   <div class="row">
 
             <% for (i =0; i < images.length; i++) {%>
-              <% if (user.name =="ADMIN") { %>
+              <% if (images.seller == user.name) { %>
                 <div class="col-lg-4 col-md-6 mb-4">
  
                   <div class="card h-100" data-id="<%= images[i].id %>"  >
@@ -571,3 +888,6 @@ background-color: #4CAF50;
     <% include ../partials/foot %> 
 
     </body>
+
+
+    <% } %>

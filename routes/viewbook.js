@@ -5,6 +5,7 @@ var Bookitem = require('../server/models/models');
 var Comments = require ('../server/models/comments');
 var myDatabase = require('../server/controller/database');
 var Images = require('../server/models/images');
+var wishlist = require('../server/models/wishlist');
 
 var sequelize = myDatabase.sequelize;
 
@@ -14,10 +15,12 @@ router.get('/:id', function(req, res, next) {
     Images.findById(booknumber).then(function (images) {
         Comments.findAll().then(function(comments){
             Images.findAll().then(function (images2) {
+                wishlist.findAll().then(function (wishlist) {
         res.render('viewbook', {
             title: "Practical 5 Database Node JS - Edit Student Records",
             images: images,
             images2:images2,
+            wishlist:wishlist,
             user : req.user,
             comments: comments,
             hostPath: req.protocol + "://" + req.get("host"),
@@ -25,7 +28,7 @@ router.get('/:id', function(req, res, next) {
         });
     })
     })
-
+})
     .catch((err) => {
         return res.status(400).send({
             message: err
@@ -33,6 +36,10 @@ router.get('/:id', function(req, res, next) {
     });
 });
 });
+
+
+
+
 
 
 router.post ('/', function (req, res){

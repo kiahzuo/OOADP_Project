@@ -48,6 +48,9 @@ var auth = require('./server/controller/auth');
 //Import images controller
 var images = require('./server/controller/images');
 
+//Import Wishlist
+var wishlist = require('./server/controller/wishlist');
+
 
 //Import comments controller
 var comments = require('./server/controller/comments');
@@ -248,19 +251,17 @@ app.use('/store', auth.isLoggedIn, storeRouter,images.hasAuthorization, upload.s
 app.use('/login',loginRouter);
 app.use('/profile',profileRouter,images.filterCategories2);
 app.use('/signup',signupRouter);
-app.use('/viewbook',viewbookRouter);
+app.use('/viewbook',viewbookRouter,wishlist.create);
 app.use('/viewprofile',viewprofileRouter);
 app.get('/about', comments.list);
 
-// app.delete('/about/:comments_id',comments.delete);
 
 
-app.delete('/about/:comments_id',comments.delete);
+app.post('/viewbook1',wishlist.create)
+
 app.use('/edit',editRouter);
 app.use('/bank',bankRouter);
 app.use('/payment',paymentRouter);
-//set up routes for images
-app.get('/images-gallery', images.hasAuthorization, images.show);
 app.post('/store', images.hasAuthorization, upload.single('image'), images.uploadImage);
 
 

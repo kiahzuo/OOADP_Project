@@ -105,6 +105,8 @@ exports.uploadImage = function(req,res){
     });
 };
 
+
+
 //images authorization middleware
 exports.hasAuthorization = function(req,res,next)
 {
@@ -183,7 +185,7 @@ exports.filterCategories2 =function(req, res) {
         .then(images=>{
             res.render('profile', {
                 images:images,
-              })
+              })    
     })
       }
 

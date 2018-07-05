@@ -10,10 +10,7 @@
   </head>
 <body>
 
-        <h1 class="site-heading text-center text-white d-none d-lg-block">
-      
-                <span class="site-heading-lower">BookTrade</span>
-              </h1>
+
             
               <% include ../partials/header %>
   <br>
@@ -106,9 +103,9 @@
                             <h4 class="card-title">Profile</h4>
                                       <h6 class="card-text">
                                           <img class='profilepic'src="https://img.kpopmap.com/2018/04/twice-momo-earphone-cover.jpg" alt="Avatar"><br><br>
-                                          <strong>Name</strong>: <%= user.name %><br><br>
-                                          <strong>Email</strong>: <%= user.email %><br><br>
-                                          <strong>Joined</strong>: <%= user.createdAt%><br><br>
+                                          <strong>Name</strong>: <%= users.name %><br><br>
+                                          <strong>Email</strong>: <%= users.email %><br><br>
+                                          <strong>Joined</strong>: <%= users.createdAt%><br><br>
                                          
                                       </h6>
                             </ul>
