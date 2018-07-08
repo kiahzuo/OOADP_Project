@@ -22,6 +22,9 @@
 
 
         <style>
+          body{
+            background-color: lightgoldenrodyellow;
+          }
 
 
           #regForm {
@@ -74,6 +77,38 @@ input.invalid {
 }
 
 
+        main {
+          /* Show background image */
+          background-color: transparent; 
+          background: transparent;
+        }  
+
+        .card{
+          background-color: lightgray;
+
+        }
+
+        .card-img-top{
+          width:100%;
+          height:200px;
+        }
+
+        #sort , #sort2{
+          width: 150px;
+          
+        }
+
+        .d-block {
+          width : 870px;
+          height : 210px;
+          margin-left: 300px;
+
+        }
+        .carouselExampleIndicators{
+          margin-left: 100px;
+        }
+        
+    
         </style>
 
 
@@ -82,41 +117,27 @@ input.invalid {
 <div class="container">
 
 <div class="row">
-  <% for (i =0; i < wishlist.length; i++) {%>
-    <% if ( wishlist[i].user_id == user.name) { %>
 
 
-        <div class="col-lg-4 col-md-6 mb-4">
- 
-          <div class="card" data-id="<%= wishlist[i].id %>"  >
-            <a href="#"><img class="card-img-top" src="http://localhost:3000/images/<%= wishlist[i].bookimage %>" alt=""></a>
-            
-            <div class="card-body">
-              <h4 class="card-title">
-                  <h4><strong><%= wishlist[i].title %></strong></h5><br>
-              </h4>
-              <h5>Seller : <%= wishlist[i].seller %>  </h5><br>
+<% for (i =0; i < wishlist.length; i++) {%>
+  <% if ( wishlist[i].user_id == user.name) { %>
+    <div class="col-lg-4 col-md-6 mb-4">
+      <div class="card-deck">
+        <div class="card card-shadow text-center">
+          <div class="card-body">
+              <a href="/viewbook/<%= wishlist[i].bookid%>"><img class="card-img-top" src="http://localhost:3000/images/<%= wishlist[i].bookimage %>" alt=""></a>
+            <h4 class="card-title"><%= wishlist[i].title %></h4>
+            <h6 class="card-text">Price : $<%= wishlist[i].price %></h6>
+            <div class="dropdown-divider"></div>
+            <a href="/viewbook/<%= wishlist[i].bookid%>"><button type="button" class="btn btn-outline-primary">Info</button></a>
 
-              <a href="/viewbook/<%= wishlist[i].bookid%>"><button type="button" class="btn btn-outline-primary">Info</button></a>
-                </div>
-
-                
-
-              
-                <input type="button" class="deleteBtn"  value="Delete">
-            </div>
+          
           </div>
+        </div>
+        </div>
+      </div>
 
-            
-        
-     
-
-            
-            <br>
-
-    
-
-        <% } %>
+      <% } %>
 <% } %>
 </div>
 

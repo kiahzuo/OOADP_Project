@@ -42,6 +42,7 @@ exports.create = function (req, res){
         title: req.body.title,
         seller: req.body.seller,
         bookid: req.body.bookid,
+        price:req.body.price,
         bookimage:req.body.bookimage,
         user_id: req.user.name,
         
