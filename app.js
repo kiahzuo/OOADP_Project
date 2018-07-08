@@ -10,7 +10,7 @@ var admin = require("firebase-admin");
 
 
 // routes
-var indexRouter = require('./routes/index');
+var indexRouter = require('./routes/index');``
 var usersRouter = require('./routes/users');
 var wishlistRouter = require('./routes/wishlist');
 var productsRouter = require('./routes/products');
@@ -156,22 +156,51 @@ app.get('/payment', function(req, res){
     });
 });
 app.post('/payment', function(req, res){
-    console.log("=== Start ===");
     console.log(req.body);
     var cardNumber = req.body.cardNumber;
     var cardHolder = req.body.cardHolder;
+    var cardHolder_verify = cardHolder.replace(/\s/g, '').toUpperCase();
     var cardMonth = req.body.cardMonth;
     var cardYear = req.body.cardYear;
     var cardCVC = req.body.cardCVC;
+    var amount = req.body.payment;
 
     var users =  firebase.database().ref().child("users");
-    console.log("=== Check Var ===");
-    console.log("Card Number : " + cardNumber);
-    console.log("Card Holder : " + cardHolder);
-    console.log("Card expiry Month : " + cardMonth);
-    console.log("Card expiry Year : " + cardYear);
-    console.log("Card CVC : " +cardCVC);
-    console.log("=== End ===");
+    users.on("value", function(snapshot) {
+        // console.log(snapshot.val());
+        var x = snapshot.val();
+
+        for (var key in x){
+            if (x.hasOwnProperty(key)){
+                var db_cn = x[key].CreditcardNumber;
+                var db_ch = x[key].FirstName + x[key].LastName;
+                var db_ch_verify = db_ch.replace(/\s/g, '').toUpperCase();
+                var db_em = x[key].ExpireMonth;
+                var db_ey = x[key].ExpireYear;
+                var db_cvc = x[key].CreditCardSC;
+                if (cardNumber == db_cn){
+                    if (cardHolder_verify == db_ch_verify){
+                        if (cardMonth == db_em){
+                            if (cardYear == db_ey){
+                                if (cardCVC == db_cvc){
+                                    console.log("PASS!");
+                                    console.log("User key : "+key);
+                                    var cfm_payment =  firebase.database().ref().child("confirm payment");
+                                    cfm_payment.push({
+                                        Amount:payment,
+                                    });
+                                }
+                            }
+                        }
+                    }
+                }
+                // console.log("db_ch_verify : "+db_ch_verify);
+                // console.log("db_ch : "+db_ch);
+                // console.log("cardHolder_verify : "+cardHolder_verify);
+                // console.log("cardHolder : "+cardHolder);
+            }
+        }
+    });
 });
 
 // bank
@@ -181,7 +210,6 @@ app.get('/bank',function(req, res){
         console.log(snapshot.val());
         var x = snapshot.val();
         res.render('bank',{
-            FirstName :'test',
             test:x,
         });
       }, function (errorObject) {
@@ -199,6 +227,7 @@ app.post('/bank',function(req, res){
     var ExpireMonth = req.body.ExpireMonth;
     var ExpireYear= req.body.ExpireYear;
     var CreditCardSC = req.body.CreditCardSC;
+    var CreditDebit = req.body.CreditDebit;
 
     var users =  firebase.database().ref().child("users");
 
@@ -210,19 +239,20 @@ app.post('/bank',function(req, res){
         CreditcardNumber:CreditcardNumber,
         ExpireMonth:ExpireMonth,
         ExpireYear:ExpireYear,
-        CreditCardSC:CreditCardSC
+        CreditCardSC:CreditCardSC,
+        CreditDebit:CreditDebit
     });
-    console.log(req.body);
-    console.log("=== Check Var ===");
-    console.log("InputFirstName : " + InputFirstName);
-    console.log("InputLastName : " + InputLastName);
-    console.log("AccountNumber : " + AccountNumber);
-    console.log("AvailableBalance : " + AvailableBalance);
-    console.log("CreditcardNumber : " + CreditcardNumber);
-    console.log("ExpireMonth : " + ExpireMonth);
-    console.log("ExpireYear : " + ExpireYear);
-    console.log("CreditCardSC : " + CreditCardSC);
-    console.log("=== End ===");
+    // console.log(req.body);
+    // console.log("=== Check Var ===");
+    // console.log("InputFirstName : " + InputFirstName);
+    // console.log("InputLastName : " + InputLastName);
+    // console.log("AccountNumber : " + AccountNumber);
+    // console.log("AvailableBalance : " + AvailableBalance);
+    // console.log("CreditcardNumber : " + CreditcardNumber);
+    // console.log("ExpireMonth : " + ExpireMonth);
+    // console.log("ExpireYear : " + ExpireYear);
+    // console.log("CreditCardSC : " + CreditCardSC);
+    // console.log("=== End ===");
     res.redirect('/bank');
 
 })
@@ -294,5 +324,3 @@ app.listen(3000);
 
 
 module.exports = app;
-
-

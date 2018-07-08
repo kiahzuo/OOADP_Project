@@ -20,7 +20,7 @@
     <link href="/stylesheets/business-casual.min.css" rel="stylesheet">
     
     <!-- My own css (kheehing) -->
-    <!-- <link href="#" rel="stylesheet"> -->
+    <link href="../stylesheets/bank.css" rel="stylesheet">
  
   </head>
 
@@ -31,6 +31,7 @@
             <!-- login toggle-modal-->
             <button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#login_modal">Add User</button>
             <button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#view_modal">View User</button>
+            <button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#confirm_modal">confirm payment</button>
     
         <!-- login Modal -->
         <div class="modal fade" id="login_modal" role="dialog">
@@ -38,7 +39,7 @@
             <!-- login Modal content-->
             <div class="modal-content">
               <div class="modal-header">
-                  <h4 class="modal-title">Add User</h4>
+                  <h4 id="gai" class="modal-title">Add User</h4>
                   <button type="button" class="close" data-dismiss="modal">&times;</button>
               </div>
               <form action="/bank" method="POST">
@@ -46,43 +47,52 @@
                   <div class="form-row">
                     <div class="form-group col-md-6">
                       <label for="InputFirstName"> First Name</label>
-                      <input id="InputFirstName" name="InputFirstName" class="form-control" type="text" placeholder="First Name" required>
+                      <input id="InputFirstName" name="InputFirstName" class="form-control" type="text" placeholder="First Name" pattern="^([A-Za-z ])\w+$" title="No special characters or numbers" required>
                     </div>
                     <div class="form-group col-md-6">
                       <label for="InputLastName">LastName</label>
-                      <input id="InputLastName" name="InputLastName" class="form-control" type="text" placeholder="Last Name" required>
+                      <input id="InputLastName" name="InputLastName" class="form-control" type="text" placeholder="Last Name" pattern="^([A-Za-z ])\w+$" title="No special characters or numbers" required>
                     </div>
                   </div>
                   <div class="form-row">
                     <div class="form-group col">
                       <label for="AccountNumber"> Account Number</label>
-                      <input id="AccountNumber" name="AccountNumber" class="form-control" type="text" placeholder="Account Number" required>
+                      <input id="AccountNumber" name="AccountNumber" class="form-control" type="text" placeholder="Account Number" pattern="^\d+$" title="Numbers Only" required>
                     </div>
                   </div>
                   <div class="form-row">
                     <div class="form-group col">
                       <label for="AvailableBalance">Available Balance</label>
-                      <input id="AvailableBalance" name="AvailableBalance" class="form-control" type="text" placeholder="Available Balance" required>
+                      <input id="AvailableBalance" name="AvailableBalance" class="form-control" type="text" placeholder="Available Balance" pattern="^\d+$" title="Numbers Only" required>
                     </div>
                   </div>
                   <div class="form-row">
                     <div class="form-group col">
                       <label for="CreditcardNumber">Creditcard Number</label>
-                      <input id="CreditcardNumber" name="CreditcardNumber" class="form-control" type="text" placeholder="Creditcard Number" required>
+                      <input id="CreditcardNumber" name="CreditcardNumber" class="form-control" type="text" placeholder="Creditcard Number" pattern="^3[47][0-9]{13}$|^5[1-5][0-9]{14}$|^4[0-9]{12}(?:[0-9]{3})?$|^65[4-9][0-9]{13}|64[4-9][0-9]{13}|6011[0-9]{12}|(622(?:12[6-9]|1[3-9][0-9]|[2-8][0-9][0-9]|9[01][0-9]|92[0-5])[0-9]{10})$" title="Invalid CreditCard Number, Make sure there are no spaces inbetween numbers" required>
                     </div>
                   </div>
                   <div class="form-row">
+                      <div class="form-group col">
+                        <label for="CreditcardNumber">Credit / Debit</label>
+                        <select id="CreditDebit" name="CreditDebit" class="form-control" required>
+                          <option>Credit</option>
+                          <option>Debit</option>
+                        </select>
+                      </div>
+                    </div>
+                  <div class="form-row">
                     <div class="form-group col">
                       <label for="ExpireMonth">Month</label>
-                      <input id="ExpireMonth" name="ExpireMonth" class="form-control" type="number" placeholder="" required>
+                      <input id="ExpireMonth" name="ExpireMonth" class="form-control" type="number" pattern="^[1-9]$|^[1][0-2]$" title="Number Range from 1-12" required>
                     </div>
                     <div class="form-group col">
                         <label for="ExpireYear">Year</label>
-                        <input id="ExpireYear" name="ExpireYear" class="form-control" type="number" placeholder="" required>
+                        <input id="ExpireYear" name="ExpireYear" class="form-control" type="number" pattern="^[2][0][0-9][0-9]$" title="Invalid year" required>
                       </div>
                   </div>
                   <label for="CreditCardSC">Security Code</label>
-                  <input id="CreditCardSC" name="CreditCardSC" class="form-control" type="text" placeholder="Security Code">
+                  <input id="CreditCardSC" name="CreditCardSC" class="form-control" type="text" placeholder="Security Code"  pattern="^[0-9]{4}|[0-9]{3}$" title="3 or 4 digit" required>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
@@ -104,39 +114,71 @@
                   </button>
                 </div>
                 <div class="modal-body">
-                  <%= FirstName %>
-                  <%= test %>
-                </div>
-                <div class="modal-footer">
-                  <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                  <button type="button" class="btn btn-primary">Save changes</button>
+                  <div class="modal-body">
+                    <% for (var key in test) { %>
+                      <% if (test.hasOwnProperty(key)) { %>
+                        <div class="card w-100">
+                          <div class="card-body">
+                            <div class="row">
+                              <h5 class="card-title col-md-6"><%= test[key].FirstName; %>&nbsp;<%= test[key].LastName; %></h5>
+                              <p class="card-text col-md-6">Account:&nbsp;<%= test[key].AccountNumber; %></p>
+                            </div>
+
+                            <% if (test[key].CreditcardNumber != "") { %>
+                            <p class="card-text">Creditcard Number:&nbsp;<%= test[key].CreditcardNumber; %></p>
+                            <% } %>
+
+                            <div class="row">
+                              <p class="card-text col-md-6">Balance:&nbsp;<%= test[key].AvailableBalance; %></p>
+
+                              <% if (test[key].CreditDebit != "") { %>
+                                <p class="card-text col-md-6">Type:&nbsp;<%= test[key].CreditDebit; %>Card</p>
+                              <% } if (test[key].CreditDebit == "") { %>
+                                <p class="card-text col-md-6"></p>
+                              <% } %>
+
+                            </div>
+                            <div class="row">
+                              <% if (test[key].ExpireMonth != "" && test[key].ExpireYear != "") { %>
+                                <P class="card-text col-md-6">ExpiryDate:&nbsp;<%= test[key].ExpireMonth; %>/<%= test[key].ExpireYear; %></P>
+                              <% } if (test[key].CreditCardSC != "") { %>  
+                                <P class="card-text col-md-6">CVC:&nbsp;<%= test[key].CreditCardSC; %></P>
+                              <% } %>
+                            </div>
+                          </div>
+                        </div><br>
+                      <% } %>
+                    <% } %>
+                  </div>
                 </div>
               </div>
             </div>
           </div><!-- end view login -->
 
+          <!-- Confirm Payment -->
+          <div class="modal fade" id="confirm_modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+              <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                      <span aria-hidden="true">&times;</span>
+                    </button>
+                  </div>
+                  <div class="modal-body">
+                    ...
+                  </div>
+                  <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+
     </div><!-- end container -->
   </body>
 
-  <footer>
-      
-  </footer>
-
-    
-    <!-- Firebase -->
-    <script src="https://www.gstatic.com/firebasejs/5.0.4/firebase.js"></script>
-    <script>
-        // Initialize Firebase
-        var config = {
-            apiKey: "AIzaSyC49wuB3NGxO8KmH_9E1uG1LLzDceYGIVI",
-            authDomain: "ooadp-2018-sem1.firebaseapp.com",
-            databaseURL: "https://ooadp-2018-sem1.firebaseio.com",
-            projectId: "ooadp-2018-sem1",
-            storageBucket: "ooadp-2018-sem1.appspot.com",
-            messagingSenderId: "759422311263"
-        };
-        firebase.initializeApp(config);
-    </script>
+  <footer></footer>
     <script src="./bank.js"></script>
     <!-- BootStrap -->
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
