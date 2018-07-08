@@ -89,13 +89,13 @@ input.invalid {
         <div class="col-lg-4 col-md-6 mb-4">
  
           <div class="card" data-id="<%= wishlist[i].id %>"  >
-              <a href="#"><img class="card-img-top"  alt=""></a>
+            <a href="#"><img class="card-img-top" src="http://localhost:3000/images/<%= wishlist[i].bookimage %>" alt=""></a>
             
             <div class="card-body">
               <h4 class="card-title">
                   <h4><strong><%= wishlist[i].title %></strong></h5><br>
               </h4>
-              <h5>Seller : $<%= wishlist[i].seller %>  </h5><br>
+              <h5>Seller : <%= wishlist[i].seller %>  </h5><br>
 
               <a href="/viewbook/<%= wishlist[i].bookid%>"><button type="button" class="btn btn-outline-primary">Info</button></a>
                 </div>

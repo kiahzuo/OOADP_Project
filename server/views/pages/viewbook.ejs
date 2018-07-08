@@ -168,7 +168,7 @@
 
       
                                     
-                                                <button class="btn btn-lg btn-primary btn-block" data-toggle="modal" data-target="#createWishlist" >Add To Wish List</button>
+                                                <button class="btn btn-lg btn-primary btn-block" data-toggle="modal" data-target="#createWishlist" ><%=status %></button>
 
                                                 
 
@@ -390,11 +390,13 @@ document.getElementById("defaultOpen").click();
 
                                     
                                     <input type="text" id="inputitle" name="title" class="form-control" placeholder="Comment Title" readonly="readonly" required="" value ="<%= images.title %>"><br>
-                                    <label for="rating">Book Title</label>
-                                    <input type="text" id="inputitle" name="bookid" class="form-control" placeholder="Comment Title" readonly="readonly" required="" value ="<%= images.id %>"><br> 
-                                    <label for="inputContent">Seller Name</label>
+
+                                    <label for="inputContent">Seller Name</label><br><br>
                                     <input type="text" id="inputitle" name="seller" class="form-control" placeholder="Comment Title" readonly="readonly" required="" value ="<%= images.seller %>"><br>
                                     
+                                    <input hidden type="text" id="inputitle" name="bookid" class="form-control" placeholder="Comment Title" readonly="readonly" required="" value ="<%= images.id %>">
+
+                                    <input hidden type="text" id="bookimage" name="bookimage" class="form-control" placeholder="Comment Title" readonly="readonly" required="" value ="<%= images.imageName %>">
                                 </fieldset>
         
                             </div>

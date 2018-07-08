@@ -42,6 +42,7 @@ exports.create = function (req, res){
         title: req.body.title,
         seller: req.body.seller,
         bookid: req.body.bookid,
+        bookimage:req.body.bookimage,
         user_id: req.user.name,
         
         
@@ -63,8 +64,8 @@ exports.create = function (req, res){
             })
         }
         else{
-            alert("In  Wishlist already")
-            res.redirect('/products');
+        
+            res.redirect('/wishlist');
 
         }
         })
