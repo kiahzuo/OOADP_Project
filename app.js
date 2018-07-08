@@ -12,7 +12,7 @@ var admin = require("firebase-admin");
 // routes
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
-var aboutRouter = require('./routes/about');
+var wishlistRouter = require('./routes/wishlist');
 var productsRouter = require('./routes/products');
 var storeRouter = require('./routes/store');
 var loginRouter = require('./routes/login');
@@ -244,7 +244,6 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 
 app.use('/', indexRouter);
-app.use('/about', aboutRouter);
 app.use('/users', usersRouter);
 app.use('/products', auth.isLoggedIn,productsRouter, images.filterCategories );
 app.use('/store', auth.isLoggedIn, storeRouter,images.hasAuthorization, upload.single('image'), images.uploadImage);
@@ -253,7 +252,14 @@ app.use('/profile',profileRouter,images.filterCategories2);
 app.use('/signup',signupRouter);
 app.use('/viewbook',viewbookRouter,wishlist.create);
 app.use('/viewprofile',viewprofileRouter);
-app.get('/about', comments.list);
+
+
+app.post("/edit/:id", upload.single('imageName'),images.updateImage)
+app.get("/edit/:id", images.show);
+
+//wishlist
+app.get('/wishlist',wishlist.show)
+app.delete('/wishlist/:id',wishlist.delete)
 
 
 
