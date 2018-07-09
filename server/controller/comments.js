@@ -4,21 +4,21 @@ var Comments = require ('../models/comments');
 var myDatabase = require('./database');
 var sequelize = myDatabase.sequelize;
 
-exports.list = function(req, res){
-    sequelize.query('select c.id, c.title, c.content, u.email AS [user_id] from Comments c join Users u on c.user_id = u.id', {model: Comments}).then((comments) => {
+// exports.list = function(req, res){
+//     sequelize.query('select c.id, c.title, c.content, u.email AS [user_id] from Comments c join Users u on c.user_id = u.id', {model: Comments}).then((comments) => {
 
-        res.render('about', {
-            title: 'Comments Page',
-            comments: comments,
-            gravatar: gravatar.url(comments.user_id, {s: '80', r: 'x', d: 'retro'}, true),
-            urlPath: req.protocol + "://" + req.get("host") + req.url
-        })
-    }).catch((err)=>{
-        return res.status(400).send({
-            message: err
-        });
-    });
-};
+//         res.render('about', {
+//             title: 'Comments Page',
+//             comments: comments,
+//             gravatar: gravatar.url(comments.user_id, {s: '80', r: 'x', d: 'retro'}, true),
+//             urlPath: req.protocol + "://" + req.get("host") + req.url
+//         })
+//     }).catch((err)=>{
+//         return res.status(400).send({
+//             message: err
+//         });
+//     });
+// };
 
 exports.create = function (req, res){
     console.log("Creating comments")

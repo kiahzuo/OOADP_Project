@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+
+  <head>
+      <% include ../partials/head %>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+      <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+
+  </head>
+
+  <body>
+<br><br><br><br>
+    <h1 class="site-heading text-center text-white d-none d-lg-block">
+  
+
+    </h1>
+
+    <% include ../partials/header %>
+
+
+
+
+
+        <style>
+          body{
+            background-color: lightgoldenrodyellow;
+          }
+
+
+          #regForm {
+  background-color: #ffffff;
+  margin: 100px auto;
+  padding: 40px;
+  width: 70%;
+  min-width: 300px;
+}
+
+/* Style the input fields */
+input {
+  padding: 10px;
+  width: 100%;
+  font-size: 17px;
+  font-family: Raleway;
+  border: 1px solid #aaaaaa;
+}
+
+/* Mark input boxes that gets an error on validation: */
+input.invalid {
+  background-color: #ffdddd;
+}
+
+/* Hide all steps by default: */
+.tab {
+  display: none;
+}
+
+/* Make circles that indicate the steps of the form: */
+.step {
+  height: 15px;
+  width: 15px;
+  margin: 0 2px;
+  background-color: #bbbbbb;
+  border: none; 
+  border-radius: 50%;
+  display: inline-block;
+  opacity: 0.5;
+}
+
+/* Mark the active step: */
+.step.active {
+  opacity: 1;
+}
+
+/* Mark the steps that are finished and valid: */
+.step.finish {
+  background-color: #4CAF50;
+}
+
+
+        main {
+          /* Show background image */
+          background-color: transparent; 
+          background: transparent;
+        }  
+
+        .card{
+          background-color: lightgray;
+
+        }
+
+        .card-img-top{
+          width:100%;
+          height:200px;
+        }
+
+        #sort , #sort2{
+          width: 150px;
+          
+        }
+
+        .d-block {
+          width : 870px;
+          height : 210px;
+          margin-left: 300px;
+
+        }
+        .carouselExampleIndicators{
+          margin-left: 100px;
+        }
+        
+    
+        </style>
+
+
+
+
+<div class="container">
+
+<div class="row">
+
+
+<% for (i =0; i < wishlist.length; i++) {%>
+  <% if ( wishlist[i].user_id == user.name) { %>
+    <div class="col-lg-4 col-md-6 mb-4">
+      <div class="card-deck">
+        <div class="card card-shadow text-center">
+          <div class="card-body">
+              <a href="/viewbook/<%= wishlist[i].bookid%>"><img class="card-img-top" src="http://localhost:3000/images/<%= wishlist[i].bookimage %>" alt=""></a>
+            <h4 class="card-title"><%= wishlist[i].title %></h4>
+            <h6 class="card-text">Price : $<%= wishlist[i].price %></h6>
+            <div class="dropdown-divider"></div>
+            <a href="/viewbook/<%= wishlist[i].bookid%>"><button type="button" class="btn btn-outline-primary">Info</button></a>
+
+          
+          </div>
+        </div>
+        </div>
+      </div>
+
+      <% } %>
+<% } %>
+</div>
+
+<script>
+
+         $('.deleteBtn').click(function () {
+                var booknumber = $(this).closest("div").data('id');
+                $.ajax({
+                  url: 'http://localhost:3000/wishlist/' + booknumber,
+                  type: 'DELETE',
+                  success: function (result) {
+                    console.log(result.message);
+                    var itemToRemove = '.card[data-id=' + booknumber + ']';
+                    $(itemToRemove).remove();
+                    alert("Record Deleted Successfully.");
+                  },
+                  error: function (result) {
+                    alert("Unable to delete record.");
+                    console.log(result.message);
+                  }
+                });
+              });
+
+
+</script>
+
+
+
+
+    <% include ../partials/cart %> 
+
+    
+
+  <% include ../partials/foot %> 
+  
+
+  </body>
+
+</html>

@@ -28,6 +28,8 @@
     <div class="modal-header">
         <h4 class="modal-title" id="myModalLabel">Edit Book Details</h4>
     </div>
+
+    <form method="post" enctype="multipart/form-data">
     
     <div class="modal-body">
         <fieldset class="form-group">
@@ -97,24 +99,29 @@
                 <option value="Pending">Pending</option>
                 <% } %>
               </select><br>
+
+              <img src="http://localhost:3000/images/<%= images.imageName %>" class="figure-img img-fluid img-rounded" width="100px" >
               <label class="file" style="width: 100%">
-                    <input type="file" id="image" name="image"value="<%= images.imageName %>">
+                    <input type="file" id="imageName" name="imageName"value="<%= images.imageName %>">
                     <span class="file-custom"></span>
                 </label>
         </fieldset>
     </div>
     <div class="modal-footer">
-        <button type="submit" class="btn btn-primary" onclick=saveChanges()>Save Changes</button>
+        <button type="submit" class="btn btn-primary" >Save Changes</button>
         <button type="button" class="btn btn-secondary" onclick=discardChanges()>Cancel</button>
 
      
     </div>
+</form>
 </div>
 <% include ../partials/foot %> 
     <script>
       function saveChanges() {
           var url = "<%=hostPath%>/edit/<%=images.id%>";
           var newValues = {
+              imageName : document.getElementById("imageName").files[0],
+              file: document.getElementById("imageName").files[0],
               title: $("#title").val(),
               price: $("#price").val(),
               condition: $("#condition").val(),

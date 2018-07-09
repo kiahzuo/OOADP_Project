@@ -10,20 +10,78 @@ var Images = require('../models/images');
 var myDatabase = require('./database');
 var sequelize = myDatabase.sequelize;
 
-//show images gallery
+//show edit
 exports.show = function(req,res){
-    Images.findAll()
-    .then(images=>{
-        res.render('store',{       //render the images-gallery.ejs file
+    var booknumber = req.params.id;
+    Images.findById(booknumber).then(function (images) {
+        res.render('edit', {
+            title: "Practical 5 Database Node JS - Edit Student Records",
             images: images,
-            gravatar:gravatar.url(images.user_id,{s:'80',r:'x',d:'retro'}, true)
+            hostPath: req.protocol + "://" + req.get("host"),
+            urlPath: req.protocol + "://" + req.get("host") + req.url
+            
         });
     }).catch((err) => {
         return res.status(400).send({
-            message:err
+            message: err
         });
     });
 };
+
+
+exports.updateImage = function(req,res){
+    var src;
+    var dest;
+    var targetPath;
+    var targetName;
+    var tempPath = req.file.path;
+    //get the mmime type of the file
+    var type = mime.lookup(req.file.mimetype);
+    // get file extension
+    var extension = req.file.path.split(/[. ]+/).pop();
+    // check support file types
+    if (IMAGE_TYPES.indexOf(type) == -1) {
+        return res.status(415).send('Support images formats: jpeg, jpg, jpe, png.');
+
+    }
+    // Set new path to images
+    targetPath = './public/images/' + req.file.originalname;
+    // using read stream API to read file
+    src = fs.createReadStream(tempPath);
+    // using a write stream API to write file
+    dest = fs.createWriteStream(targetPath);
+    src.pipe(dest);
+    // Show error
+    src.on('error', function (err) {
+        if (err) {
+            return res.status(500).send({
+                message: error
+            });
+        }
+    });
+
+    var booknumber = req.params.id;
+    var updateData = {
+        title : req.body.title,
+        price1 : req.body.price,
+        condition1 : req.body.condition,
+        description1 : req.body.description,
+        genre1: req.body.genre,
+        meetup1 : req.body.meetup,
+        avaliable : req.body.avaliable,
+        imageName:req.file.originalname,
+      
+    }
+    Images.update(updateData, { where: { id: booknumber } }).then((updatedRecord) => {
+        if(!updatedRecord || updatedRecord == 0) {
+            return res.send(400, {
+                message: "error"
+            });
+        }
+        res.redirect("http://localhost:3000/profile")
+    })
+
+}
 
 //Image upload
 exports.uploadImage = function(req,res){
