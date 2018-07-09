@@ -28,9 +28,9 @@ Users.sync({force: false, logging:console.log}).then(()=>{
     console.log("users table synced");
     return Users.upsert({
         id: 1,
-        name: 'Ben',
+        name: 'ADMIN',
         email: 'a@b.com',
-        password: '1234'
+        password: '1234',
     })
 });
 
