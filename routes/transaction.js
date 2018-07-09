@@ -1,13 +1,13 @@
 var express = require('express');
 var router = express.Router();
-var myDatabase = require('./database');
+var myDatabase = require('../server/controller/database');
 
 var Images = require('../server/models/images');
 var Users = require('../server/models/users');
 var Cart_Items = require('../server/models/cart');
 var sequelize = myDatabase.sequelize;
 
-app.post("/add", (req, res) => {
+router.post("/add", (req, res) => {
     // Test connection
     var message = req.body.message;
     console.log(message)
@@ -29,34 +29,34 @@ app.post("/add", (req, res) => {
         add_count: ""
     }
 
-    sequelize.query('SELECT ci.add_count FROM Cart_Items ci WHERE user_id = `req.body.userID`', {model: Cart_Items}).then((addCounts)) => {
-        reply.add_count = addCounts;
-    }
-    var Cart_Data = {
-        book_id: req.body.bookID,
-        user_id: req.body.userID
-        // ...
-    }
-    Cart_Items.create()
-}
+    // sequelize.query('SELECT ci.add_count FROM Cart_Items ci WHERE user_id = `req.body.userID`', {model: Cart_Items}).then((addCounts) => {
+    //     reply.add_count = addCounts;
+    // }
+    // var Cart_Data = {
+    //     book_id: req.body.bookID,
+    //     user_id: req.body.userID
+    //     // ...
+    // }
+    // Cart_Items.create()
+})
 
 
 
 
 /* Return specific book's data for checking */
-router.get('/', function(req, res, next) {
-    Images.findAll()
-      .then(images=>{
-          Users.findAll()
-            .then(users=>{
+// router.get('/', function(req, res, next) {
+//     Images.findAll()
+//       .then(images=>{
+//           Users.findAll()
+//             .then(users=>{
   
-       res.send('products', {
-          images: images,
-            users:users,
-           user : req.user,});
+//        res.send('products', {
+//           images: images,
+//             users:users,
+//            user : req.user,});
     
-      });
-    });  
-    }); 
+//       });
+//     });  
+//     }); 
 
 module.exports = router;

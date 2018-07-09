@@ -223,7 +223,7 @@ app.post('/bank',function(req, res){
 // Routers' routes
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
-var aboutRouter = require('./routes/about');
+// var aboutRouter = require('./routes/about');
 var productsRouter = require('./routes/products');
 var storeRouter = require('./routes/store');
 var loginRouter = require('./routes/login');
@@ -260,7 +260,7 @@ app.use('/payment', paymentRouter);
 app.get('/wishlist',wishlist.show)
 app.delete('/wishlist/:id',wishlist.delete)
 
-app.get('/about', comments.list);
+// app.get('/about', comments.list);
 
 app.post('/viewbook1', wishlist.create)
 app.post('/store', images.hasAuthorization, upload.single('image'), images.uploadImage);
