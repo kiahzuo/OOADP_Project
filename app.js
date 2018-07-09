@@ -51,7 +51,7 @@ var wishlist = require('./server/controller/wishlist');
 //Import comments controller
 var comments = require('./server/controller/comments');
 //Import transaction controller
-var transaction = require('./server/controller/transaction');
+// var transaction = require('./server/controller/transaction');
 
 // Modules to store session
 var myDatabase = require('./server/controller/database');
@@ -223,7 +223,6 @@ app.post('/bank',function(req, res){
 // Routers' routes
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
-var aboutRouter = require('./routes/about');
 var productsRouter = require('./routes/products');
 var storeRouter = require('./routes/store');
 var loginRouter = require('./routes/login');
@@ -232,7 +231,7 @@ var signupRouter = require('./routes/signup');
 var editRouter = require('./routes/edit');
 var viewbookRouter = require('./routes/viewbook');
 var viewprofileRouter = require('./routes/viewprofile');
-var transactionRouter = require('./routes/transaction');
+// var transactionRouter = require('./routes/transaction');
 var paymentRouter = require('./routes/payment');
 var bankRouter = require('./routes/bank');
 // Assigning routers
@@ -250,7 +249,7 @@ app.use('/edit', editRouter);
 app.post("/edit/:id", upload.single('imageName'),images.updateImage)
 app.get("/edit/:id", images.show);
 
-app.use('/transaction', transactionRouter);
+// app.use('/transaction', transactionRouter);
 app.use('/bank', bankRouter);
 app.use('/payment', paymentRouter);
 
