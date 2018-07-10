@@ -161,6 +161,8 @@
             <button class="tablinks" onclick="openCity(event, 'Tokyo')">User Management</button><br><br>
 
             <a href="/logout" class="btn btn-danger">Logout</a><br><br>
+
+  
             
           </div>
           
@@ -169,19 +171,7 @@
          
                     
                               <div class="col-sm-6 col-md-8 col-lg-9 p-b-50">
-                                      <!--  -->
-                                   
-                              
-                              
-                                      <script>
-                                          function clicked(e)
-                                          {
-                                              if(!confirm('Are you sure?'))e.preventDefault();
-                                          }
-                                          </script>
-                              
-                                      <!-- Product -->
-                                      <div class="row">
+                                
                                         
                               <div class="container">
                               
@@ -228,16 +218,118 @@
                                         <% } %>
                     
           </div>
+        </div>
+      </div >
+    </div>
           
           <div id="Paris" class="tabcontent">
-            <h3>Paris</h3>
-            <p>Paris is the capital of France.</p> 
+
+            <br>
+
+            <form action="/genre" method="post">
+              <div class="modal-header">
+                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                      <span aria-hidden="true">&times;</span>
+                  </button>
+                  <h4 class="modal-title" id="myModalLabel">Add New Category</h4>
+              </div>
+
+              <div class="modal-body">
+
+                  <fieldset class="form-group">
+                      <label for="inputitle">Genre</label>
+                  </fieldset>
+                  <fieldset class="form-group">
+    
+                      <input type="text" id="genre" name="genre" class="form-control" placeholder="Insert a Genre...."  required="" ><br> 
+                      
+                    
+                  
+                  </fieldset>
+
+              </div>
+              <div class="modal-footer">
+                  <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                  <button type="submit" class="btn btn-primary">Save changes</button>
+              </div>
+          </form>
+
+
+
           </div>
           
           <div id="Tokyo" class="tabcontent">
-            <h3>Tokyo</h3>
-            <p>Tokyo is the capital of Japan.</p>
-          </div>
+              
+                          <form action="/store" method="post" enctype="multipart/form-data" id="regForm">
+                              <div class="modal-header">
+                                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                      <span aria-hidden="true">&times;</span>
+                                  </button>
+                                  <h4 class="modal-title" id="myModalLabel">Upload A Book</h4>
+                              </div>
+      
+                              <div class="modal-body">
+                                
+        
+
+                  
+                           
+                              
+                              <!-- One "tab" for each step in the form: -->
+                    
+                                  
+                                  <input type="text" id="itle" name="title" class="form-control" placeholder="Image Title..." required=""><br>
+                                  
+                                  <input type="number" id="price" name="price" class="form-control" placeholder="Price..." required=""><br>
+
+                                  <input type="text" id="condition" name="condition" class="form-control" placeholder="Condition..." required=""><br>
+                    
+                        
+
+
+                             
+                                  <select id="genre"name="genre" class="form-control" placeholder="genre" required=""><br>
+                                    <% for (i =0; i < genre.length; i++) {%>
+                                    <option value="<%= genre[i].genre %>"><%= genre[i].genre %></option>
+                                    
+
+                                    <% } %>
+                                  </select>     <br>
+                                  <textarea  id="description" name="description" class="form-control" placeholder="Description..." required=""></textarea><br>
+                                  <input type="text" id="meetup" name="meetup" class="form-control" placeholder="Meetup Details" required=""><br>
+                                
+                      
+                              
+  
+          
+                                  <select hidden id="avaliable"name="avaliable" class="form-control" readonly placeholder="avaliable" required=""><br>
+                                    <option value="Avaliable">Avaliable</option>
+              
+                                  </select>     <br>
+                                  <label  for="itle">Add a picture</label>
+                                      <input type="file" id="image" name="image" multiple>
+                                      <span class="file-custom"></span>
+                              
+                     
+                              
+                              <div style="overflow:auto;">
+                                <div style="float:right;">
+                                    <button type="submit" class="btn btn-primary">Confirm</button>
+                                </div>
+                              </div>
+                              
+                              <!-- Circles which indicates the steps of the form: -->
+                              <div style="text-align:center;margin-top:40px;">
+                                <span class="step"></span>
+                                <span class="step"></span>
+                                <span class="step"></span>
+                              </div>
+                              
+                              </form>
+           
+
+
+     
           
           <script>
           function openCity(evt, cityName) {
@@ -282,6 +374,7 @@
   
           </script>
   
+
   
   
                
@@ -521,12 +614,11 @@ background-color: #4CAF50;
 
                                  
                                       <select id="genre"name="genre" class="form-control" placeholder="genre" required=""><br>
-                                        <option value="Horror">Horror</option>
-                                        <option value="Action">Action</option>
-                                        <option value="Science Fiction">Science Fiction</option>
-                                        <option value="Non-Fiction">Non-Fiction</option>
-                                        <option value="Adventure">Adventure</option>
-                                        <option value="Comedy">Comedy</option>
+                                        <% for (i =0; i < genre.length; i++) {%>
+                                          <option value="<%= genre[i].genre %>"><%= genre[i].genre %></option>
+                                          
+                  
+                                          <% } %>
                                       </select>     <br>
                                       <textarea  id="description" name="description" class="form-control" placeholder="Description..." required=""></textarea><br>
                                       <input type="text" id="meetup" name="meetup" class="form-control" placeholder="Meetup Details" required=""><br>
@@ -722,14 +814,12 @@ background-color: #4CAF50;
             <div class="rs2-select2 bo4 of-hidden w-size12 m-t-5 m-b-5 m-r-10">
                 <form action="/profile" method="post" onchange="checkAndSubmit2()" id="formID2">
                   <select class="sort" name="sort" id="sort2">
-                      <option value="Nil" selected>Genre</option>
-                    <option value="All" >View All</option>
-                    <option value="Action">Action</option>
-                    <option value="Horror">Horror</option>
-                    <option value="Science Fiction">Science Fiction</option>
-                    <option value="Non-Fiction">Non-Fiction</option>
-                    <option value="Adventure">Adventure</option>
-                    <option value="Comedy">Comedy</option>
+
+                      <% for (i =0; i < genre.length; i++) {%>
+                        <option value="<%= genre[i].genre %>"><%= genre[i].genre %></option>
+                        
+
+                        <% } %>
                   </select>
       
       

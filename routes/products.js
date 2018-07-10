@@ -5,6 +5,7 @@ var Bookitem = require('../server/models/models');
 var Comments = require ('../server/models/comments');
 var Images = require('../server/models/images');
 var Users = require('../server/models/users');
+var genre = require('../server/models/genre');
 
 /* GET products page. */
    router.get('/', function(req, res, next) {
@@ -14,10 +15,14 @@ var Users = require('../server/models/users');
       Users.findAll()
    .then(users=>{
 
+    genre.findAll()
+    .then(genre=>{
       res.render('products', {
          images: images,
+         genre:genre,
            users:users,
           user : req.user,});
+        })
      });
    });  
  });           

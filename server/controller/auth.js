@@ -3,6 +3,7 @@ var gravatar = require('gravatar');
 var passport = require('passport');
 var Bookitem = require('../models/models');
 var Images = require('../models/images');
+var genre = require('../models/genre');
 
 // Signin GET
 exports.signin = function(req, res) {
@@ -19,18 +20,23 @@ exports.signup = function(req, res) {
 exports.profile = function(req, res) {
     // List all Users and sort by Date
     Images.findAll()
-  .then(images=>{ res.render('profile', { 
+  .then(images=>{ 
+    genre.findAll()
+    .then(genre=>{ 
+      res.render('profile', { 
       title: 'Profile Page', 
       images:images,
+      genre:genre,
       user : req.user, 
       avatar: gravatar.url(req.user.email ,  {s: '100', r: 'x', d: 'retro'}, true),
       urlPath: req.protocol + "://" + req.get("host") + req.url
-
+      
       
     });})
 
     
    
+})
 };
 
 exports.delete=(function (req,res) {

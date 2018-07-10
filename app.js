@@ -46,6 +46,8 @@ var database = firebase.database().ref();
 var auth = require('./server/controller/auth');
 //Import images controller
 var images = require('./server/controller/images');
+//Import genre controller
+var genre = require('./server/controller/genre');
 //Import wishlist
 var wishlist = require('./server/controller/wishlist');
 //Import comments controller
@@ -257,6 +259,8 @@ app.get("/edit/:id", images.show);
 app.use('/bank', bankRouter);
 app.use('/payment', paymentRouter);
 
+// adding new genre
+app.post('/genre', genre.create)
 
 
 // wishlist HTTP request handlers
