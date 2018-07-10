@@ -8,6 +8,25 @@ var bodyParser = require('body-parser');
 var logger = require('morgan');
 var router = express.Router();
 var firebase = require('firebase');
+
+
+// routes
+var indexRouter = require('./routes/index');``
+var usersRouter = require('./routes/users');
+var aboutRouter = require('./routes/about');
+var productsRouter = require('./routes/products');
+var storeRouter = require('./routes/store');
+var loginRouter = require('./routes/login');
+var profileRouter = require('./routes/profile');
+var signupRouter = require('./routes/signup');
+var editRouter = require('./routes/edit');
+var viewbookRouter = require('./routes/viewbook');
+var viewprofileRouter = require('./routes/viewprofile');
+var paymentRouter = require('./routes/payment');
+var bankRouter = require('./routes/bank');
+
+
+// firebase
 var admin = require("firebase-admin");
 var app = express();
 // 
@@ -46,12 +65,14 @@ var database = firebase.database().ref();
 var auth = require('./server/controller/auth');
 //Import images controller
 var images = require('./server/controller/images');
+//Import genre controller
+var genre = require('./server/controller/genre');
 //Import wishlist
 var wishlist = require('./server/controller/wishlist');
 //Import comments controller
 var comments = require('./server/controller/comments');
 //Import transaction controller
-var transaction = require('./server/controller/transaction');
+// var transaction = require('./server/controller/transaction');
 
 // Modules to store session
 var myDatabase = require('./server/controller/database');
@@ -114,10 +135,11 @@ app.get('/logout', function (req, res) {
 
 // Payment routes, get and post
 app.get('/payment', function(req, res){
-    res.render('payment',{
+    res.render('payment.ejs',{
         paying: '99',
     });
 });
+
 app.post('/payment', function(req, res){
     console.log("=== Start ===");
     console.log(req.body);
@@ -127,13 +149,13 @@ app.post('/payment', function(req, res){
     var cardMonth = req.body.cardMonth;
     var cardYear = req.body.cardYear;
     var cardCVC = req.body.cardCVC;
-    var amount = req.body.payment;
+    var cardamount = req.body.amount;
+    console.log(cardamount);
 
     var users =  firebase.database().ref().child("users");
     users.on("value", function(snapshot) {
-        // console.log(snapshot.val());
+        var confirm =  firebase.database().ref().child("confirm");
         var x = snapshot.val();
-
         for (var key in x){
             if (x.hasOwnProperty(key)){
                 var db_cn = x[key].CreditcardNumber;
@@ -148,28 +170,38 @@ app.post('/payment', function(req, res){
                             if (cardYear == db_ey){
                                 if (cardCVC == db_cvc){
                                     console.log("PASS!");
-                                    console.log("User key : "+key);
-                                    var cfm_payment =  firebase.database().ref().child("confirm payment");
-                                    cfm_payment.push({
-                                        Amount:payment,
+                                    console.log("User key : " + key);
+                                    var currentdate = new Date(); 
+                                    var date =   currentdate.getDate() + "/"
+                                                    + (currentdate.getMonth()+1)  + "/" 
+                                                    + currentdate.getFullYear()
+                                    var time = currentdate.getHours() + ":"  
+                                    + currentdate.getMinutes() + ":" 
+                                    + currentdate.getSeconds();
+                                    confirm.push({
+                                        Key:key,
+                                        Date:date,
+                                        Time:time,
                                     });
+                                }else{
+                                    console.log("FAIL!")
                                 }
                             }
                         }
                     }
                 }
-                // console.log("db_ch_verify : "+db_ch_verify);
-                // console.log("db_ch : "+db_ch);
-                // console.log("cardHolder_verify : "+cardHolder_verify);
-                // console.log("cardHolder : "+cardHolder);
+                // end nested if
             }
+            // end if
         }
+        // end for
     });
 });
 
 // Bank routes, get and post
 app.get('/bank',function(req, res){
     var users =  firebase.database().ref().child("users");
+    
     users.on("value", function(snapshot) {
         console.log(snapshot.val());
         var x = snapshot.val();
@@ -205,25 +237,16 @@ app.post('/bank',function(req, res){
         CreditCardSC:CreditCardSC,
         CreditDebit:CreditDebit
     });
-    // console.log(req.body);
-    // console.log("=== Check Var ===");
-    // console.log("InputFirstName : " + InputFirstName);
-    // console.log("InputLastName : " + InputLastName);
-    // console.log("AccountNumber : " + AccountNumber);
-    // console.log("AvailableBalance : " + AvailableBalance);
-    // console.log("CreditcardNumber : " + CreditcardNumber);
-    // console.log("ExpireMonth : " + ExpireMonth);
-    // console.log("ExpireYear : " + ExpireYear);
-    // console.log("CreditCardSC : " + CreditCardSC);
-    // console.log("=== End ===");
     res.redirect('/bank');
-
 })
 
 // Routers' routes
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
+
+
 // var aboutRouter = require('./routes/about');
+
 var productsRouter = require('./routes/products');
 var storeRouter = require('./routes/store');
 var loginRouter = require('./routes/login');
@@ -232,7 +255,7 @@ var signupRouter = require('./routes/signup');
 var editRouter = require('./routes/edit');
 var viewbookRouter = require('./routes/viewbook');
 var viewprofileRouter = require('./routes/viewprofile');
-var transactionRouter = require('./routes/transaction');
+// var transactionRouter = require('./routes/transaction');
 var paymentRouter = require('./routes/payment');
 var bankRouter = require('./routes/bank');
 // Assigning routers
@@ -245,15 +268,23 @@ app.use('/profile',profileRouter,images.filterCategories2);
 app.use('/signup',signupRouter);
 app.use('/viewbook',viewbookRouter,wishlist.create);
 app.use('/viewprofile',viewprofileRouter);
+app.use('/transaction', transactionRouter);
+app.use('/bank', bankRouter);
+app.use('/payment', paymentRouter);
 // Book edit HTTP request handlers
 app.use('/edit', editRouter);
 app.post("/edit/:id", upload.single('imageName'),images.updateImage)
 app.get("/edit/:id", images.show);
 
-app.use('/transaction', transactionRouter);
+<<<<<<< HEAD
+// app.use('/transaction', transactionRouter);
 app.use('/bank', bankRouter);
 app.use('/payment', paymentRouter);
+=======
+>>>>>>> fddc0459570329e6410a7d271697c3f273778cfc
 
+// adding new genre
+app.post('/genre', genre.create)
 
 
 // wishlist HTTP request handlers

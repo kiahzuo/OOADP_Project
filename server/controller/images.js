@@ -7,6 +7,7 @@ var gravatar = require('gravatar');
 var IMAGE_TYPES = ['image/jpeg','image/jpg','image/png'];
 
 var Images = require('../models/images');
+var genre = require('../models/genre');
 var myDatabase = require('./database');
 var sequelize = myDatabase.sequelize;
 
@@ -207,10 +208,17 @@ exports.filterCategories =function(req, res) {
     var category = req.body.sort;
     if(category == "All")
     {
-      Images.findAll()
-        .then(images =>{
-          res.render('products', {
-            images:images,
+        genre.findAll()
+        .then(genre=>{
+            
+          Images.findAll()
+          .then(images=>{
+              
+            res.render('products',{
+                images:images,
+                genre:genre,
+            
+            })
           })
         })
       }
@@ -218,23 +226,35 @@ exports.filterCategories =function(req, res) {
 
       else if(category == "low")
     {
+
+        genre.findAll()
+        .then(genre=>{
+            
         Images.findAll({order: [['price1', 'asc']]})
         .then(images=>{
             res.render('products', {
                 images:images,
-              })
+                genre:genre,
+              })    
     })
+})
       }
 
 
       else if(category == "high")
     {
+
+        genre.findAll()
+        .then(genre=>{
+            
         Images.findAll({order: [['price1', 'DESC']]})
         .then(images=>{
             res.render('products', {
                 images:images,
+                genre:genre,
               })
     })
+})
       }
 
 
@@ -243,10 +263,21 @@ exports.filterCategories =function(req, res) {
 
 
     else{
+
+        genre.findAll()
+    .then(genre=>{
+        
       Images.findAll({where:{genre1:category}})
       .then(images=>{
-        res.render('products',{images:images})
+          
+        res.render('products',{
+            images:images,
+            genre:genre,
+        
+        })
       })
+    })
+  
     }
   
     }
@@ -257,10 +288,17 @@ exports.filterCategories2 =function(req, res) {
     var category = req.body.sort;
     if(category == "All")
     {
-      Images.findAll()
-        .then(images =>{
-          res.render('profile', {
-            images:images,
+        genre.findAll()
+        .then(genre=>{
+            
+          Images.findAll()
+          .then(images=>{
+              
+            res.render('profile',{
+                images:images,
+                genre:genre,
+            
+            })
           })
         })
       }
@@ -268,23 +306,35 @@ exports.filterCategories2 =function(req, res) {
 
       else if(category == "low")
     {
+
+        genre.findAll()
+        .then(genre=>{
+            
         Images.findAll({order: [['price1', 'asc']]})
         .then(images=>{
             res.render('profile', {
                 images:images,
+                genre:genre,
               })    
     })
+})
       }
 
 
       else if(category == "high")
     {
+
+        genre.findAll()
+        .then(genre=>{
+            
         Images.findAll({order: [['price1', 'DESC']]})
         .then(images=>{
             res.render('profile', {
                 images:images,
+                genre:genre,
               })
     })
+})
       }
 
 
@@ -293,14 +343,23 @@ exports.filterCategories2 =function(req, res) {
 
 
     else{
+
+        genre.findAll()
+    .then(genre=>{
+        
       Images.findAll({where:{genre1:category}})
       .then(images=>{
-        res.render('profile',{images:images})
+          
+        res.render('profile',{
+            images:images,
+            genre:genre,
+        
+        })
       })
-    }
+    })
   
     }
-
+}
 
     //show edit
 exports.show = function(req,res){
