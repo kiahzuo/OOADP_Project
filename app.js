@@ -5,8 +5,6 @@ var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var logger = require('morgan');
 var firebase = require('firebase');
-var admin = require("firebase-admin");
-
 
 
 // routes
@@ -151,10 +149,11 @@ app.use(function(req, res, next) {
 
 //payment
 app.get('/payment', function(req, res){
-    res.render('payment',{
+    res.render('payment.ejs',{
         paying: '99',
     });
 });
+
 app.post('/payment', function(req, res){
     console.log(req.body);
     var cardNumber = req.body.cardNumber;
@@ -163,13 +162,13 @@ app.post('/payment', function(req, res){
     var cardMonth = req.body.cardMonth;
     var cardYear = req.body.cardYear;
     var cardCVC = req.body.cardCVC;
-    var amount = req.body.payment;
+    var cardamount = req.body.amount;
+    console.log(cardamount);
 
     var users =  firebase.database().ref().child("users");
     users.on("value", function(snapshot) {
-        // console.log(snapshot.val());
+        var confirm =  firebase.database().ref().child("confirm");
         var x = snapshot.val();
-
         for (var key in x){
             if (x.hasOwnProperty(key)){
                 var db_cn = x[key].CreditcardNumber;
@@ -184,28 +183,38 @@ app.post('/payment', function(req, res){
                             if (cardYear == db_ey){
                                 if (cardCVC == db_cvc){
                                     console.log("PASS!");
-                                    console.log("User key : "+key);
-                                    var cfm_payment =  firebase.database().ref().child("confirm payment");
-                                    cfm_payment.push({
-                                        Amount:payment,
+                                    console.log("User key : " + key);
+                                    var currentdate = new Date(); 
+                                    var date =   currentdate.getDate() + "/"
+                                                    + (currentdate.getMonth()+1)  + "/" 
+                                                    + currentdate.getFullYear()
+                                    var time = currentdate.getHours() + ":"  
+                                    + currentdate.getMinutes() + ":" 
+                                    + currentdate.getSeconds();
+                                    confirm.push({
+                                        Key:key,
+                                        Date:date,
+                                        Time:time,
                                     });
+                                }else{
+                                    console.log("FAIL!")
                                 }
                             }
                         }
                     }
                 }
-                // console.log("db_ch_verify : "+db_ch_verify);
-                // console.log("db_ch : "+db_ch);
-                // console.log("cardHolder_verify : "+cardHolder_verify);
-                // console.log("cardHolder : "+cardHolder);
+                // end nested if
             }
+            // end if
         }
+        // end for
     });
 });
 
 // bank
 app.get('/bank',function(req, res){
     var users =  firebase.database().ref().child("users");
+    
     users.on("value", function(snapshot) {
         console.log(snapshot.val());
         var x = snapshot.val();
@@ -242,19 +251,7 @@ app.post('/bank',function(req, res){
         CreditCardSC:CreditCardSC,
         CreditDebit:CreditDebit
     });
-    // console.log(req.body);
-    // console.log("=== Check Var ===");
-    // console.log("InputFirstName : " + InputFirstName);
-    // console.log("InputLastName : " + InputLastName);
-    // console.log("AccountNumber : " + AccountNumber);
-    // console.log("AvailableBalance : " + AvailableBalance);
-    // console.log("CreditcardNumber : " + CreditcardNumber);
-    // console.log("ExpireMonth : " + ExpireMonth);
-    // console.log("ExpireYear : " + ExpireYear);
-    // console.log("CreditCardSC : " + CreditCardSC);
-    // console.log("=== End ===");
     res.redirect('/bank');
-
 })
 
 

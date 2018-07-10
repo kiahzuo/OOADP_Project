@@ -42,12 +42,13 @@
             <div id="card-front">
               <div id="shadow"></div>
               <div id="image-container">
-                <span>Paying: <b>$</b><input id="amount" name="amount" value="<%= paying%>" readonly></span>
+                <span>Paying: <b>$</b><input id="amount" value="<%= paying%>" name="amount" readonly></span>
+                <input style="display:none;" id="test" value="100" name="test">
                 <span id="card-image"></span>
               </div>
               <!-- end card image container -->
               <label for="card-number">Card Number</label>
-              <input type="text" id="card-number" placeholder="1234 5678 9101 1112" length="16" name="card-number">
+              <input type="text" id="card-number" placeholder="xxxx xxxx xxxx xxxx" length="16" name="card-number">
               <br>
               <br>
               <div id="cardholder-container">
