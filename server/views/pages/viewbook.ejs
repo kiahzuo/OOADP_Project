@@ -164,7 +164,7 @@
         
                         
                                 <button class="btn btn-lg btn-primary btn-block" type="submit">Chat</button>
-                                                <button class="btn btn-lg btn-primary btn-block" type="submit">Add to Cart</button>
+                                                <button id="addToCartButton" class="btn btn-lg btn-primary btn-block" type="button">Add to Cart</button>
 
       
                                     
@@ -487,37 +487,35 @@ document.getElementById("defaultOpen").click();
         // Submit cart data function
         $('#addToCartButton').click( function() {
            // Check availability in case
-           if (String(`<%= images.avaliable %>`) == "In cart")  {
-              $.alert({
-                  title: '',
-                  content: '<span style="color: red; font-weight: bold;">Add to cart failed:</span> Book is not available, please try another book...',
-                  });
-              return;
-           }
+        //    if (String(`<%= images.avaliable %>`) == "In cart")  {
+        //       $.alert({
+        //           title: '<span style="color: red; font-weight: bold;">Add to cart failed:</span> Book is not available, please try another book...',
+        //           content: ''
+        //           });
+        //       return;
+        //    }
   
           var cartData = {
               message: "Adding item to cart",
               bookID : `<%= images.id %>`,  // ` ` quotes to indicate template literals, allowing embedded expressions 
               userID : `<%= images.user_id %>`,
               bookPrice : `<%= images.price1 %>`,
-              bookName : `<%= images.title %>`
+              bookName : `<%= images.title %>`  
           };
   
           $.ajax({
-              url: 'http://localhost:3000/cart/add',
+              url: 'http://localhost:3000/transaction/cart/add',
               type: 'POST',
               dataType: 'json',
-              data: JSON.strinigfy(cartData),
+              data: JSON.stringify(cartData),
               contentType: "application/json",
               encode: true,
-              // success: function(data) {
-              // }
-              
-            })
-            // then promise callback
-            .then(function(data) {
+
+              success: function(data) {
                 // Log data to check
                 console.log(data);
+                console.log(data.add_count);
+                console.log(data.message);
                 if (!data.success) {
                     // Error handling
                 } else {
@@ -532,11 +530,39 @@ document.getElementById("defaultOpen").click();
                           }
                     });
                 }
+                }
             });
-            // fail promise callback, for testing - not needed
-            // Error handling
-            console.log(data);
         });
+            // fail promise callback, for testing - not needed
+            //..
+            // Error handling
+            // console.log(data);
+            //      }
+            // })
+        //     // then promise callback
+        //     .then(function(data) {
+        //         // Log data to check
+        //         console.log(data);
+        //         console.log(data.add_count);
+        //         console.log(data.message);
+        //         if (!data.success) {
+        //             // Error handling
+        //         } else {
+        //             // Successfully sent, need handle error on server and send response...
+        //             $.alert({
+        //                   title: 'Book added to cart',
+        //                   content: toString(data),
+        //                   buttons: {
+        //                       OK: function () {
+        //                           location.replace("http://localhost:3000/products");
+        //                       }
+        //                   }
+        //             });
+        //         }
+        //     });
+        //     // fail promise callback, for testing - not needed
+        //     // Error handling
+        //     console.log(data);
         </script>
 
     </body>
