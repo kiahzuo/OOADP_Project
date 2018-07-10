@@ -31,7 +31,17 @@ const wishlist = sequelize.define('wishlist', {
     user_id:{
         type: Sequelize.STRING,
       
-    }
+    },
+
+    bookimage:{
+        type: Sequelize.STRING,
+      
+    },
+
+    price:{
+        type: Sequelize.INTEGER,
+      
+    },
 });
 
 // force: true will drop the table if it already exists

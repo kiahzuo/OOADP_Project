@@ -7,21 +7,20 @@ var Images = require('../server/models/images');
 var Users = require('../server/models/users');
 
 /* GET products page. */
-  router.get('/', function(req, res, next) {
-  Images.findAll()
-    .then(images=>{
+   router.get('/', function(req, res, next) {
+ Images.findAll()
+     .then(images=>{
 
-        Users.findAll()
-     .then(users=>{
+      Users.findAll()
+   .then(users=>{
 
-     res.render('products', {
-        images: images,
-          users:users,
-         user : req.user,});
-  
-    });
-  });  
-  });           
+      res.render('products', {
+         images: images,
+           users:users,
+          user : req.user,});
+     });
+   });  
+ });           
  
 
 

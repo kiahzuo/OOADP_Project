@@ -157,7 +157,7 @@
           
           <div class="tab">
             <button class="tablinks" onclick="openCity(event, 'London')" id="defaultOpen">View All Books</button>
-            <button class="tablinks" onclick="openCity(event, 'Paris')">Reported Items</button>
+            <button class="tablinks" onclick="openCity(event, 'Paris')">Add Genres</button>
             <button class="tablinks" onclick="openCity(event, 'Tokyo')">User Management</button><br><br>
 
             <a href="/logout" class="btn btn-danger">Logout</a><br><br>
@@ -760,43 +760,7 @@ background-color: #4CAF50;
   <div class="row">
 
             <% for (i =0; i < images.length; i++) {%>
-              <% if (images.seller == user.name) { %>
-                <div class="col-lg-4 col-md-6 mb-4">
- 
-                  <div class="card h-100" data-id="<%= images[i].id %>"  >
-                      
-                    <a href="#"><img class="card-img-top" src="images/<%= images[i].imageName %>" alt=""></a>
-                    <div class="card-body">
-                      <h4 class="card-title">
-                          <h4><strong><%= images[i].title %></strong></h5>
-                      </h4>
-                      <h5>$<%= images[i].price1 %></h5>
-      
-       
-      
-                      <br>
-                    
-                      
-                
-                      <h5>Avaliability : <strong><%= images[i].avaliable %></strong></h5>
-                          <br>
-                          <h5>Seller : <strong><%= images[i].seller %></strong></h5>
-                    </div>
-      
-                    
-                    <br>
-                    <a class = 'btn btn-primary' href="/edit/<%= images[i].id%>">Edit Book</a>
-                    <input type="submit" class="deleteBtn"  value="Delete" onclick="clicked(event)">
-          
-      
-                </div>
-              
-              </div>
-
-                <% } %>
-
-
-              <% if (user.name == images[i].seller) { %>
+              <% if (user.id == images[i].user_id) { %>
          
           <div class="col-lg-4 col-md-6 mb-4">
  

@@ -1,9 +1,12 @@
+// Variables for modules
+var express = require('express');
 var createError = require('http-errors');
 var express = require('express');
 var path = require('path');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var logger = require('morgan');
+var router = express.Router();
 var firebase = require('firebase');
 
 
@@ -24,6 +27,29 @@ var bankRouter = require('./routes/bank');
 
 
 // firebase
+var admin = require("firebase-admin");
+var app = express();
+// 
+app.use(logger('dev'));
+// app.use(bodyParser.json()); // Updated Express, can just use express.json()
+app.use(express.json());
+app.use(bodyParser.urlencoded({ extended: false }));
+app.use(cookieParser());
+app.use(require('node-sass-middleware')({
+    src: path.join(__dirname, 'public'),
+    dest: path.join(__dirname, 'public'),
+    indentedSyntax: true,
+    sourceMap: true
+}));
+// View engine setup
+app.set('views', path.join(__dirname, './server/views/pages'));
+app.set('view engine', 'ejs');
+app.use(express.urlencoded({ extended: false }));
+app.use(express.static(path.join(__dirname, 'public')));
+//import multer
+var multer = require('multer');
+var upload = multer({dest:'./public/uploads/',limits:{fileSize: 1500000, files:2} });
+// firebase (for payment)
 var config = {
     apiKey: "AIzaSyBcI54P-yTiaNAXEDASZGH3eJNkcbXY7wE",
     authDomain: "ooadp-2018-sem1-e409b.firebaseapp.com",
@@ -35,25 +61,16 @@ var config = {
 firebase.initializeApp(config);
 var database = firebase.database().ref();
 
-
-//import multer
-var multer = require('multer');
-var upload = multer({dest:'./public/uploads/',limits:{fileSize: 1500000, files:2} });
-
 // Import login controller
 var auth = require('./server/controller/auth');
-
 //Import images controller
 var images = require('./server/controller/images');
-
-//Import Wishlist
+//Import wishlist
 var wishlist = require('./server/controller/wishlist');
-
-
 //Import comments controller
 var comments = require('./server/controller/comments');
-
-
+//Import transaction controller
+var transaction = require('./server/controller/transaction');
 
 // Modules to store session
 var myDatabase = require('./server/controller/database');
@@ -63,54 +80,31 @@ var sequelizeSessionStore = new SessionStore({
     db: myDatabase.sequelize,
 });
 
-
 // Import Passport and Warning flash modules
 var passport = require('passport');
 var flash = require('connect-flash');
-
-
-
-
-var express = require('express');
-var app = express();
-var router = express.Router();
-
-
-
-
-
 // Passport configuration
 require('./server/config/passport')(passport);
-
-app.use(logger('dev'));
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: false }));
-app.use(cookieParser());
-app.use(require('node-sass-middleware')({
-    src: path.join(__dirname, 'public'),
-    dest: path.join(__dirname, 'public'),
-    indentedSyntax: true,
-    sourceMap: true
-}));
-
-// required for passport
 // secret for session
 app.use(expressSession({
-  secret: 'sometextgohere',
-  store: sequelizeSessionStore,
-  resave: false,
-  saveUninitialized: false,
-}));
+    secret: 'sometextgohere',
+    store: sequelizeSessionStore,
+    resave: false,
+    saveUninitialized: false,
+  }));
+  // Init passport authentication
+  app.use(passport.initialize());
+  // persistent login sessions
+  app.use(passport.session());
+  // flash messages
+  app.use(flash());
+//User session
+app.use(function(req, res, next) {
+    res.locals.user = req.user;
+    next();
+});
 
-// Init passport authentication
-app.use(passport.initialize());
-// persistent login sessions
-app.use(passport.session());
-// flash messages
-app.use(flash());
-
-// Index Route
-
+// Login routes, get and post
 app.get('/login', auth.signin);
 app.post('/login', passport.authenticate('local-login', {
     //Success go to Profile Page / Fail go to login page
@@ -118,6 +112,7 @@ app.post('/login', passport.authenticate('local-login', {
     failureRedirect: '/login',
     failureFlash: true
 }));
+// Signup routes, get  and post
 app.get('/signup', auth.signup);
 app.post('/signup', passport.authenticate('local-signup', {
     //Success go to Profile Page / Fail go to Signup page
@@ -126,28 +121,17 @@ app.post('/signup', passport.authenticate('local-signup', {
     failureFlash: true
 }));
 
-// Delete function For Items
+// Delete function rotes for items, get and delete
 app.get('/profile', auth.isLoggedIn, auth.profile);
 app.delete("/profile", auth.delete);
 
-
-
-// Logout Page
+// Logout page routes, get
 app.get('/logout', function (req, res) {
     req.logout();
     res.redirect('/');
 });
 
-//user session
-app.use(function(req, res, next) {
-    res.locals.user = req.user;
-    next();
-  });
-
-
-
-
-//payment
+// Payment routes, get and post
 app.get('/payment', function(req, res){
     res.render('payment.ejs',{
         paying: '99',
@@ -155,6 +139,7 @@ app.get('/payment', function(req, res){
 });
 
 app.post('/payment', function(req, res){
+    console.log("=== Start ===");
     console.log(req.body);
     var cardNumber = req.body.cardNumber;
     var cardHolder = req.body.cardHolder;
@@ -211,7 +196,7 @@ app.post('/payment', function(req, res){
     });
 });
 
-// bank
+// Bank routes, get and post
 app.get('/bank',function(req, res){
     var users =  firebase.database().ref().child("users");
     
@@ -226,7 +211,6 @@ app.get('/bank',function(req, res){
       });
     
 });
-
 app.post('/bank',function(req, res){
     var InputFirstName = req.body.InputFirstName;
     var InputLastName = req.body.InputLastName;
@@ -254,24 +238,23 @@ app.post('/bank',function(req, res){
     res.redirect('/bank');
 })
 
-
-
-
-
-
-// view engine setup
-app.set('views', path.join(__dirname, './server/views/pages'));
-app.set('view engine', 'ejs');
-
-app.use(logger('dev'));
-app.use(express.json());
-app.use(express.urlencoded({ extended: false }));
-app.use(cookieParser());
-app.use(express.static(path.join(__dirname, 'public')));
-
-
+// Routers' routes
+var indexRouter = require('./routes/index');
+var usersRouter = require('./routes/users');
+// var aboutRouter = require('./routes/about');
+var productsRouter = require('./routes/products');
+var storeRouter = require('./routes/store');
+var loginRouter = require('./routes/login');
+var profileRouter = require('./routes/profile');
+var signupRouter = require('./routes/signup');
+var editRouter = require('./routes/edit');
+var viewbookRouter = require('./routes/viewbook');
+var viewprofileRouter = require('./routes/viewprofile');
+var transactionRouter = require('./routes/transaction');
+var paymentRouter = require('./routes/payment');
+var bankRouter = require('./routes/bank');
+// Assigning routers
 app.use('/', indexRouter);
-app.use('/about', aboutRouter);
 app.use('/users', usersRouter);
 app.use('/products', auth.isLoggedIn,productsRouter, images.filterCategories );
 app.use('/store', auth.isLoggedIn, storeRouter,images.hasAuthorization, upload.single('image'), images.uploadImage);
@@ -280,24 +263,30 @@ app.use('/profile',profileRouter,images.filterCategories2);
 app.use('/signup',signupRouter);
 app.use('/viewbook',viewbookRouter,wishlist.create);
 app.use('/viewprofile',viewprofileRouter);
-app.get('/about', comments.list);
+app.use('/transaction', transactionRouter);
+app.use('/bank', bankRouter);
+app.use('/payment', paymentRouter);
+// Book edit HTTP request handlers
+app.use('/edit', editRouter);
+app.post("/edit/:id", upload.single('imageName'),images.updateImage)
+app.get("/edit/:id", images.show);
 
 
 
-app.post('/viewbook1',wishlist.create)
 
-app.use('/edit',editRouter);
-app.use('/bank',bankRouter);
-app.use('/payment',paymentRouter);
+// wishlist HTTP request handlers
+app.get('/wishlist',wishlist.show)
+app.delete('/wishlist/:id',wishlist.delete)
+
+// app.get('/about', comments.list);
+
+app.post('/viewbook1', wishlist.create)
 app.post('/store', images.hasAuthorization, upload.single('image'), images.uploadImage);
-
-
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
   next(createError(404));
 });
-
 // error handler
 app.use(function(err, req, res, next) {
   // set locals, only providing error in development
@@ -309,9 +298,5 @@ app.use(function(err, req, res, next) {
   res.render('error');
 });
 
-
 app.listen(3000);
-
-
-
 module.exports = app;
