@@ -363,11 +363,15 @@ exports.filterCategories2 =function(req, res) {
 
     //show edit
 exports.show = function(req,res){
+
+    genre.findAll()
+    .then(genre=>{
     var booknumber = req.params.id;
     Images.findById(booknumber).then(function (images) {
         res.render('edit', {
             title: "Practical 5 Database Node JS - Edit Student Records",
             images: images,
+            genre:genre,
             hostPath: req.protocol + "://" + req.get("host"),
             urlPath: req.protocol + "://" + req.get("host") + req.url
             
@@ -376,5 +380,6 @@ exports.show = function(req,res){
         return res.status(400).send({
             message: err
         });
+    })
     });
 };

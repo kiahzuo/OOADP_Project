@@ -53,34 +53,22 @@
             <input type="text" id="meetup" name="meetup" class="form-control" placeholder="Hobby" required="true" value="<%= images.meetup1 %>">
         </fieldset>
         <label for="inputHobby">Genre</label><br>
-        <select id="genre"name="genre" class="form-control" placeholder="genre" required="" value="<%= images.genre1 %>"><br>
+        <select id="genre"name="genre" class="form-control" placeholder="genre" required=""><br>
     
 
 
+       
+
             <option value="<%= images.genre1 %>" selected ><%= images.genre1 %></option>
-            <% if ( images.genre1 !="Horror") { %>
-            <option value="Horror" >Horror</option>
-            <% } %>
+            <% for (i =0; i < genre.length; i++) {%>
+                <% if ( images.genre1 != genre[i].genre) { %>
+                <option value="<%= genre[i].genre %>"><%= genre[i].genre %></option>
 
-            <% if ( images.genre1 !="Action") { %>
-            <option value="Action">Action</option>
-            <% } %>
+                
 
-            <% if ( images.genre1 !="Science Fiction") { %>
-            <option value="Science Fiction">Science Fiction</option>
-            <% } %>
-
-            <% if ( images.genre1 !="Non-Fiction") { %>
-            <option value="Non-Fiction">Non-Fiction</option>
-            <% } %>
-
-            <% if ( images.genre1 !="Adventure") { %>
-            <option value="Adventure">Adventure</option>
-            <% } %>
-
-            <% if ( images.genre1 !="Comedy") { %>
-            <option value="Comedy">Comedy</option>
-            <% } %>
+                <% } %>
+                <% } %>
+       
           </select>     <br>
         <fieldset class="form-group">
             <label for="inputHobby">Avaliability</label><br>
