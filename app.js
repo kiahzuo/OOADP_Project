@@ -116,8 +116,7 @@ app.use('/bank', bankRouter);
 app.use('/payment', paymentRouter);
 app.use('/edit', editRouter);
 
-/* RAW HTTP REQUEST HANDLERS (Section below) */
-
+/* RAW HTTP REQUEST HANDLERS (Entire section below) */
 // Login routes, get and post
 app.get('/login', auth.signin);
 app.post('/login', passport.authenticate('local-login', {
