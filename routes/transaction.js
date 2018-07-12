@@ -41,7 +41,21 @@ router.post("/cart/add", (req, res) => {
         add_count: 0
     }
     
-    sequelize.query('SELECT max(add_count) FROM Cart_Items WHERE user_id = ? ;', {replacements:[req.body.userID]}, {type: sequelize.QueryTypes.SELECT}).then(function(maxAddCount){
+    // Unknwon return value.
+    // sequelize.query('SELECT max(add_count) FROM Cart_Items WHERE user_id = ? ;', {replacements:[req.body.userID]}, {type: sequelize.QueryTypes.SELECT}).then(function(maxAddCount){
+    //     console.log("maxAddCount" + maxAddCount);
+    //     console.log("maxAddcount" + maxAddCount.add_count);
+    //     if (maxAddCount == "") {
+    //          reply.add_count = 1 ;
+    //     } else if (maxAddCount >= 5) {
+    //         // Error, handle and reply error
+    //     } else {
+    //         reply.add_count++
+    //     }
+         
+    // });
+    // Alternative
+    Cart_Items.max('add_count', {where: {'user_id]': req.body.userID}}).then(function(maxAddcount) {
         console.log("maxAddCount" + maxAddCount);
         console.log("maxAddcount" + maxAddCount.add_count);
         if (maxAddCount == "") {
@@ -51,7 +65,6 @@ router.post("/cart/add", (req, res) => {
         } else {
             reply.add_count++
         }
-         
     });
 
     var Cart_Data = {

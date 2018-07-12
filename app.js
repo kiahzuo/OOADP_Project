@@ -13,7 +13,6 @@ var firebase = require('firebase');
 // routes
 var indexRouter = require('./routes/index');``
 var usersRouter = require('./routes/users');
-var aboutRouter = require('./routes/about');
 var productsRouter = require('./routes/products');
 var storeRouter = require('./routes/store');
 var loginRouter = require('./routes/login');
@@ -243,10 +242,6 @@ app.post('/bank',function(req, res){
 // Routers' routes
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
-
-
-// var aboutRouter = require('./routes/about');
-
 var productsRouter = require('./routes/products');
 var storeRouter = require('./routes/store');
 var loginRouter = require('./routes/login');
@@ -276,12 +271,6 @@ app.use('/edit', editRouter);
 app.post("/edit/:id", upload.single('imageName'),images.updateImage)
 app.get("/edit/:id", images.show);
 
-<<<<<<< HEAD
-// app.use('/transaction', transactionRouter);
-app.use('/bank', bankRouter);
-app.use('/payment', paymentRouter);
-=======
->>>>>>> fddc0459570329e6410a7d271697c3f273778cfc
 
 // adding new genre
 app.post('/genre', genre.create)
@@ -290,8 +279,6 @@ app.post('/genre', genre.create)
 // wishlist HTTP request handlers
 app.get('/wishlist',wishlist.show)
 app.delete('/wishlist/:id',wishlist.delete)
-
-// app.get('/about', comments.list);
 
 app.post('/viewbook1', wishlist.create)
 app.post('/store', images.hasAuthorization, upload.single('image'), images.uploadImage);
