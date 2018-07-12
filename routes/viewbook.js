@@ -15,7 +15,7 @@ router.get('/:id', function(req, res, next) {
     Images.findById(booknumber).then(function (images) {
         Comments.findAll().then(function(comments){
             Images.findAll().then(function (images2) {
-                wishlist.findAll({where:{user_id :req.user.id, bookid :booknumber}}).then(function (wishlist)  {
+                wishlist.findAll({where:{user_id :req.user.name, bookid :booknumber}}).then(function (wishlist)  {
 
 
                     if(wishlist ==""){
