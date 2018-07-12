@@ -42,7 +42,7 @@ exports.profile = function(req, res) {
 exports.delete=(function (req,res) {
     var booknumber = req.params.id;
     console.log("deleting" + booknumber);
-    Bookitem.destroy({ where: { id: booknumber } }).then((deletedRecord) => {
+    Images.destroy({ where: { id: booknumber } }).then((deletedRecord) => {
         if(!deletedRecord) {
             return res.send(400, {
                 message: "error"
