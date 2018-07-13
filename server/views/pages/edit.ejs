@@ -84,18 +84,18 @@
           </select>     <br>
         <fieldset class="form-group">
             <label for="inputHobby">Avaliability</label><br>
-            <select id="avaliable"name="avaliable" class="form-control" required="true" selected="<%= images.avaliable %>"><br>
-                <option value="<%= images.avaliable %>" selected ><%= images.avaliable %></option>
+            <select id="available"name="available" class="form-control" required="true" selected="<%= images.available %>"><br>
+                <option value="<%= images.available %>" selected ><%= images.available %></option>
 
-                <% if ( images.avaliable !="Avaliable") { %>
-                <option value="Avaliable">Avaliable</option>
+                <% if ( images.available !="available") { %>
+                <option value="available">available</option>
                 <% } %>
 
-                <% if ( images.avaliable !="Mark As Sold") { %>
+                <% if ( images.available !="Mark As Sold") { %>
                 <option value="Mark As Sold">Mark As Sold</option>
                 <% } %>
 
-                <% if ( images.avaliable !="Pending") { %>
+                <% if ( images.available !="Pending") { %>
                 <option value="Pending">Pending</option>
                 <% } %>
               </select><br>
@@ -128,7 +128,7 @@
               description: $("#description").val(),
               genre:$("#genre").val(),
               meetup: $("#meetup").val(),
-              avaliable:$("#avaliable").val()
+              available:$("#available").val()
           }
           $.ajax({
               url: url,

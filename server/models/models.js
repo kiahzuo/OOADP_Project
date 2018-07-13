@@ -33,7 +33,7 @@ const Bookitem = sequelize.define('Bookitem', {
     seller: {
         type: Sequelize.STRING
     },
-    avaliable: {
+    available: {
         type: Sequelize.STRING
     },
     imageName: {

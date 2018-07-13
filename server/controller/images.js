@@ -70,7 +70,7 @@ exports.updateImage = function(req,res){
             description1 : req.body.description,
             genre1: req.body.genre,
             meetup1 : req.body.meetup,
-            avaliable : req.body.avaliable,
+            available : req.body.available,
             imageName:req.file.originalname,
           
         }
@@ -93,7 +93,7 @@ exports.updateImage = function(req,res){
         description1 : req.body.description,
         genre1: req.body.genre,
         meetup1 : req.body.meetup,
-        avaliable : req.body.avaliable,
+        available : req.body.available,
     }
     Images.update(updateData, { where: { id: booknumber } }).then((updatedRecord) => {
         if(!updatedRecord || updatedRecord == 0) {
@@ -166,7 +166,7 @@ exports.uploadImage = function(req,res){
             genre1 : req.body.genre,
             meetup1 : req.body.meetup,
             seller: req.user.name,
-            avaliable:req.body.avaliable,
+            available:req.body.available,
         
 
         }

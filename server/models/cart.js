@@ -33,7 +33,7 @@ const Cart_Items = sequelize.define('Cart_Items', {
     },
     add_count:{
         type: Sequelize.INTEGER,
-        allowNull: true  // Consider change
+        allowNull: false  
     }
 });
 
