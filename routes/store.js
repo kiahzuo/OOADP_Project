@@ -17,7 +17,7 @@ router.get('/', function(req, res, next) {
 //   var meetup = req.body.meetup;
 //   var genre = req.body.genre;
 //   var seller = req.user.name;
-//   var avaliable = req.body.avaliable;
+//   var available = req.body.available;
 
 
   
@@ -30,7 +30,7 @@ router.get('/', function(req, res, next) {
 //     genre1 : genre,
 //     meetup1 : meetup,
 //     seller:seller,
-//     avaliable:avaliable,
+//     available:available,
 
 
 //   });

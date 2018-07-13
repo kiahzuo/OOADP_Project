@@ -69,7 +69,7 @@ var Images = require('../server/models/images');
 //         description1 : req.body.description,
 //         genre1: req.body.genre,
 //         meetup1 : req.body.meetup,
-//         avaliable : req.body.avaliable,
+//         available : req.body.available,
 //         imageName: req.file.originalname,
 //     }
 //     Images.update(updateData, { where: { id: booknumber } }).then((updatedRecord) => {
@@ -96,7 +96,7 @@ var Images = require('../server/models/images');
 //         description1 : req.body.description,
 //         genre1: req.body.genre,
 //         meetup1 : req.body.meetup,
-//         avaliable : req.body.avaliable,
+//         available : req.body.available,
 //     }
 //     Images.update(updateData, { where: { id: booknumber } }).then((updatedRecord) => {
 //         if(!updatedRecord || updatedRecord == 0) {

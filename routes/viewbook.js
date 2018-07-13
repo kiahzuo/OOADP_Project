@@ -12,6 +12,14 @@ var sequelize = myDatabase.sequelize;
 // Retrieve update 1 by 1
 router.get('/:id', function(req, res, next) {
     var booknumber = req.params.id;
+<<<<<<< HEAD
+=======
+    Images.findById(booknumber).then(function (images) {
+        Comments.findAll().then(function(comments){
+            Images.findAll().then(function (images2) {
+                wishlist.findAll({where:{user_id :req.user.name, bookid :booknumber}}).then(function (wishlist)  {
+
+>>>>>>> 43792daecda806654391554952672499f5202f31
 
     Images.findById(booknumber).then(function (images) {
         if(!images){

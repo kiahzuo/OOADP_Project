@@ -48,7 +48,7 @@ const Images = sequelize.define('Images', {
     seller: {
         type: Sequelize.STRING
     },
-    avaliable: {
+    available: {
         type: Sequelize.STRING
     },
 });

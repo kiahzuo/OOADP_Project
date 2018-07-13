@@ -130,7 +130,7 @@ h2 span { background:#fff; padding:0 10px; }
 
 
 <% for (i =0; i < wishlist.length; i++) {%>
-  <% if ( wishlist[i].user_id == user.id) { %>
+  <% if ( wishlist[i].user_id == user.name) { %>
     <div class="col-lg-4 col-md-6 mb-4">
       <div class="card-deck" >
         <div class="card card-shadow text-center">
@@ -140,7 +140,7 @@ h2 span { background:#fff; padding:0 10px; }
             <h6 class="card-text">Price : $<%= wishlist[i].price %></h6>
             <div class="dropdown-divider"></div>
             <a href="/viewbook/<%= wishlist[i].bookid%>"><button type="button" class="btn btn-outline-primary">Info</button></a>
-            <input type="submit" class="deleteBtn"  value="Remove">
+            <input type="submit" class="deleteBtn"  value="Remove from wishlist">
           
           </div>
         </div>
@@ -150,12 +150,6 @@ h2 span { background:#fff; padding:0 10px; }
       <% } %>
 <% } %>
 </div>
-
-<style>
-  btn{
-    width:300px;
-  }
-</style>
 
 <script>
 

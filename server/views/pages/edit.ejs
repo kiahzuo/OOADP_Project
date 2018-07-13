@@ -53,37 +53,49 @@
             <input type="text" id="meetup" name="meetup" class="form-control" placeholder="Hobby" required="true" value="<%= images.meetup1 %>">
         </fieldset>
         <label for="inputHobby">Genre</label><br>
-        <select id="genre"name="genre" class="form-control" placeholder="genre" required=""><br>
+        <select id="genre"name="genre" class="form-control" placeholder="genre" required="" value="<%= images.genre1 %>"><br>
     
 
 
-       
-
             <option value="<%= images.genre1 %>" selected ><%= images.genre1 %></option>
-            <% for (i =0; i < genre.length; i++) {%>
-                <% if ( images.genre1 != genre[i].genre) { %>
-                <option value="<%= genre[i].genre %>"><%= genre[i].genre %></option>
+            <% if ( images.genre1 !="Horror") { %>
+            <option value="Horror" >Horror</option>
+            <% } %>
 
-                
+            <% if ( images.genre1 !="Action") { %>
+            <option value="Action">Action</option>
+            <% } %>
 
-                <% } %>
-                <% } %>
-       
+            <% if ( images.genre1 !="Science Fiction") { %>
+            <option value="Science Fiction">Science Fiction</option>
+            <% } %>
+
+            <% if ( images.genre1 !="Non-Fiction") { %>
+            <option value="Non-Fiction">Non-Fiction</option>
+            <% } %>
+
+            <% if ( images.genre1 !="Adventure") { %>
+            <option value="Adventure">Adventure</option>
+            <% } %>
+
+            <% if ( images.genre1 !="Comedy") { %>
+            <option value="Comedy">Comedy</option>
+            <% } %>
           </select>     <br>
         <fieldset class="form-group">
             <label for="inputHobby">Avaliability</label><br>
-            <select id="avaliable"name="avaliable" class="form-control" required="true" selected="<%= images.avaliable %>"><br>
-                <option value="<%= images.avaliable %>" selected ><%= images.avaliable %></option>
+            <select id="available"name="available" class="form-control" required="true" selected="<%= images.available %>"><br>
+                <option value="<%= images.available %>" selected ><%= images.available %></option>
 
-                <% if ( images.avaliable !="Avaliable") { %>
-                <option value="Avaliable">Avaliable</option>
+                <% if ( images.available !="available") { %>
+                <option value="available">available</option>
                 <% } %>
 
-                <% if ( images.avaliable !="Mark As Sold") { %>
+                <% if ( images.available !="Mark As Sold") { %>
                 <option value="Mark As Sold">Mark As Sold</option>
                 <% } %>
 
-                <% if ( images.avaliable !="Pending") { %>
+                <% if ( images.available !="Pending") { %>
                 <option value="Pending">Pending</option>
                 <% } %>
               </select><br>
@@ -116,7 +128,7 @@
               description: $("#description").val(),
               genre:$("#genre").val(),
               meetup: $("#meetup").val(),
-              avaliable:$("#avaliable").val()
+              available:$("#available").val()
           }
           $.ajax({
               url: url,

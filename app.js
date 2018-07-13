@@ -8,28 +8,9 @@ var bodyParser = require('body-parser');
 var logger = require('morgan');
 var router = express.Router();
 var firebase = require('firebase');
-
-
-// routes
-var indexRouter = require('./routes/index');
-var usersRouter = require('./routes/users');
-var productsRouter = require('./routes/products');
-var storeRouter = require('./routes/store');
-var loginRouter = require('./routes/login');
-var profileRouter = require('./routes/profile');
-var signupRouter = require('./routes/signup');
-var editRouter = require('./routes/edit');
-var viewbookRouter = require('./routes/viewbook');
-var viewprofileRouter = require('./routes/viewprofile');
-var paymentRouter = require('./routes/payment');
-var bankRouter = require('./routes/bank');
-
-
-
-// firebase
 var admin = require("firebase-admin");
 var app = express();
-// 
+// Including neccessary "modules"...
 app.use(logger('dev'));
 // app.use(bodyParser.json()); // Updated Express, can just use express.json()
 app.use(express.json());
@@ -71,8 +52,8 @@ var genre = require('./server/controller/genre');
 var wishlist = require('./server/controller/wishlist');
 //Import comments controller
 var comments = require('./server/controller/comments');
-//Import transaction controller
-// var transaction = require('./server/controller/transaction');
+//Import transaction controller (file)
+var transaction = require('./server/controller/transaction');
 
 // Modules to store session
 var myDatabase = require('./server/controller/database');
@@ -93,19 +74,49 @@ app.use(expressSession({
     store: sequelizeSessionStore,
     resave: false,
     saveUninitialized: false,
-  }));
-  // Init passport authentication
-  app.use(passport.initialize());
-  // persistent login sessions
-  app.use(passport.session());
-  // flash messages
-  app.use(flash());
+}));
+// Init passport authentication
+app.use(passport.initialize());
+// persistent login sessions
+app.use(passport.session());
+// flash messages
+app.use(flash());
 //User session
 app.use(function(req, res, next) {
     res.locals.user = req.user;
     next();
 });
 
+// Routers' routes
+var indexRouter = require('./routes/index');
+var usersRouter = require('./routes/users');
+var productsRouter = require('./routes/products');
+var storeRouter = require('./routes/store');
+var loginRouter = require('./routes/login');
+var profileRouter = require('./routes/profile');
+var signupRouter = require('./routes/signup');
+var editRouter = require('./routes/edit');
+var viewbookRouter = require('./routes/viewbook');
+var viewprofileRouter = require('./routes/viewprofile');
+var transactionRouter = require('./routes/transaction');
+var paymentRouter = require('./routes/payment');
+var bankRouter = require('./routes/bank');
+// Assigning routers
+app.use('/', indexRouter);
+app.use('/users', usersRouter);
+app.use('/products', auth.isLoggedIn,productsRouter, images.filterCategories );
+app.use('/store', auth.isLoggedIn, storeRouter,images.hasAuthorization, upload.single('image'), images.uploadImage);
+app.use('/login',loginRouter);
+app.use('/profile',profileRouter,images.filterCategories2);
+app.use('/signup',signupRouter);
+app.use('/viewbook',viewbookRouter,wishlist.create);
+app.use('/viewprofile',viewprofileRouter);
+app.use('/transaction', transactionRouter);
+app.use('/bank', bankRouter);
+app.use('/payment', paymentRouter);
+app.use('/edit', editRouter);
+
+/* RAW HTTP REQUEST HANDLERS (Entire section below) */
 // Login routes, get and post
 app.get('/login', auth.signin);
 app.post('/login', passport.authenticate('local-login', {
@@ -125,9 +136,7 @@ app.post('/signup', passport.authenticate('local-signup', {
 
 // Delete function rotes for items, get and delete
 app.get('/profile', auth.isLoggedIn, auth.profile);
-app.delete("/profile", auth.delete );
-
-
+app.delete("/profile", auth.delete);
 
 // Logout page routes, get
 app.get('/logout', function (req, res) {
@@ -135,10 +144,21 @@ app.get('/logout', function (req, res) {
     res.redirect('/');
 });
 
+// Book edit HTTP request handlers
+app.post("/edit/:id", upload.single('imageName'),images.updateImage)
+app.get("/edit/:id", images.show);
+// adding new genre
+app.post('/genre', genre.create)
+// wishlist HTTP request handlers
+app.get('/wishlist',wishlist.show)
+app.delete('/wishlist/:id',wishlist.delete)
+app.post('/viewbook1', wishlist.create)
+app.post('/store', images.hasAuthorization, upload.single('image'), images.uploadImage);
+
 // Payment routes, get and post
 app.get('/payment', function(req, res){
     res.render('payment.ejs',{
-        paying: '98',
+        paying: '99',
     });
 });
 
@@ -241,58 +261,7 @@ app.post('/bank',function(req, res){
     });
     res.redirect('/bank');
 })
-
-// Routers' routes
-var indexRouter = require('./routes/index');
-var usersRouter = require('./routes/users');
-
-
-// var aboutRouter = require('./routes/about');
-
-var productsRouter = require('./routes/products');
-var storeRouter = require('./routes/store');
-var loginRouter = require('./routes/login');
-var profileRouter = require('./routes/profile');
-var signupRouter = require('./routes/signup');
-var editRouter = require('./routes/edit');
-var viewbookRouter = require('./routes/viewbook');
-var viewprofileRouter = require('./routes/viewprofile');
-// var transactionRouter = require('./routes/transaction');
-var paymentRouter = require('./routes/payment');
-var bankRouter = require('./routes/bank');
-// Assigning routers
-app.use('/', indexRouter);
-app.use('/users', usersRouter);
-app.use('/products', productsRouter, images.filterCategories );
-app.use('/store', auth.isLoggedIn, storeRouter,images.hasAuthorization, upload.single('image'), images.uploadImage);
-app.use('/login',loginRouter);
-app.use('/profile',profileRouter,images.filterCategories2);
-app.use('/signup',signupRouter);
-app.use('/viewbook', auth.isLoggedIn,viewbookRouter,wishlist.create);
-app.use('/viewprofile',viewprofileRouter);
-// app.use('/transaction', transactionRouter);
-app.use('/bank', bankRouter);
-app.use('/payment', paymentRouter);
-// Book edit HTTP request handlers
-app.use('/edit', editRouter);
-app.post("/edit/:id", upload.single('imageName'),images.updateImage)
-app.get("/edit/:id", images.show);
-
-
-// adding new genre
-app.get('/genre',genre.show)
-app.post('/genre', genre.create)
-app.delete('/genre/:id',genre.delete)
-
-
-// wishlist HTTP request handlers
-app.get('/wishlist', auth.isLoggedIn,wishlist.show)
-app.delete('/wishlist/:id',wishlist.delete)
-
-// app.get('/about', comments.list);
-
-app.post('/viewbook1', wishlist.create)
-app.post('/store', images.hasAuthorization, upload.single('image'), images.uploadImage);
+/* END RAW ROUTES */
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
