@@ -40,26 +40,43 @@ router.post("/cart/add", (req, res) => {
         message: "",
         add_count: 0
     }
-    
-    sequelize.query('SELECT max(add_count) FROM Cart_Items WHERE user_id = ? ;', {replacements:[req.body.userID]}, {type: sequelize.QueryTypes.SELECT}).then(function(maxAddCount){
-        console.log("maxAddCount" + maxAddCount);
-        console.log("maxAddcount" + maxAddCount.add_count);
-        if (maxAddCount == "") {
-             reply.add_count = 1 ;
-        } else if (maxAddCount >= 5) {
-            // Error, handle and reply error
-        } else {
-            reply.add_count++
-        }
+    var add_count = 0;
+    // Unknwon return value.
+    // sequelize.query('SELECT max(add_count) FROM Cart_Items WHERE user_id = ? ;', {replacements:[req.body.userID]}, {type: sequelize.QueryTypes.SELECT}).then(function(maxAddCount){
+    //     console.log("maxAddCount" + maxAddCount);
+    //     console.log("maxAddcount" + maxAddCount.add_count);
+    //     if (maxAddCount == "") {
+    //          reply.add_count = 1 ;
+    //     } else if (maxAddCount >= 5) {
+    //         // Error, handle and reply error
+    //     } else {
+    //         reply.add_count++
+    //     }
          
+    // });
+
+    // Alternative
+    Cart_Items.max('add_count', {where: {user_id: req.body.userID}}).then(function(maxAddCount) {
+        console.log("maxAddCount: " + maxAddCount);
+        // Catch errors (first)
+        add_count = maxAddCount+1 ;
+        console.log("Add count: " + add_count);
+        // if (maxAddCount == "") {
+        //      reply.add_count = 1 ;
+        // //} else if (maxAddCount >= 5) {
+        //     // Error, handle and reply error
+        // } else {
+        //     reply.add_count = maxAddCount+1 ;
+        // }
     });
 
     var Cart_Data = {
         book_id: req.body.bookID,
         user_id: req.body.userID,
-        add_count: reply.add_count
+        add_count: add_count
     }
     Cart_Items.create(Cart_Data).then(function(newCartItem, failTest) {
+        console.log(newCartItem.add_count);
         if (!newCartItem) {
             return res.send(400, {
                 message: "error"
@@ -88,4 +105,4 @@ router.post("/cart/add", (req, res) => {
 //     });  
 //     }); 
 
-// module.exports = router;
+module.exports = router;

@@ -52,7 +52,7 @@ var genre = require('./server/controller/genre');
 var wishlist = require('./server/controller/wishlist');
 //Import comments controller
 var comments = require('./server/controller/comments');
-//Import transaction controller
+//Import transaction controller (file)
 var transaction = require('./server/controller/transaction');
 
 // Modules to store session
