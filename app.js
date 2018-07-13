@@ -87,35 +87,6 @@ app.use(function(req, res, next) {
     next();
 });
 
-// Routers' routes
-var indexRouter = require('./routes/index');
-var usersRouter = require('./routes/users');
-var productsRouter = require('./routes/products');
-var storeRouter = require('./routes/store');
-var loginRouter = require('./routes/login');
-var profileRouter = require('./routes/profile');
-var signupRouter = require('./routes/signup');
-var editRouter = require('./routes/edit');
-var viewbookRouter = require('./routes/viewbook');
-var viewprofileRouter = require('./routes/viewprofile');
-var transactionRouter = require('./routes/transaction');
-var paymentRouter = require('./routes/payment');
-var bankRouter = require('./routes/bank');
-// Assigning routers
-app.use('/', indexRouter);
-app.use('/users', usersRouter);
-app.use('/products', auth.isLoggedIn,productsRouter, images.filterCategories );
-app.use('/store', auth.isLoggedIn, storeRouter,images.hasAuthorization, upload.single('image'), images.uploadImage);
-app.use('/login',loginRouter);
-app.use('/profile',profileRouter,images.filterCategories2);
-app.use('/signup',signupRouter);
-app.use('/viewbook',viewbookRouter,wishlist.create);
-app.use('/viewprofile',viewprofileRouter);
-app.use('/transaction', transactionRouter);
-app.use('/bank', bankRouter);
-app.use('/payment', paymentRouter);
-app.use('/edit', editRouter);
-
 /* RAW HTTP REQUEST HANDLERS (Entire section below) */
 // Login routes, get and post
 app.get('/login', auth.signin);
@@ -262,6 +233,35 @@ app.post('/bank',function(req, res){
     res.redirect('/bank');
 })
 /* END RAW ROUTES */
+
+// Routers' routes
+var indexRouter = require('./routes/index');
+var usersRouter = require('./routes/users');
+var productsRouter = require('./routes/products');
+var storeRouter = require('./routes/store');
+var loginRouter = require('./routes/login');
+var profileRouter = require('./routes/profile');
+var signupRouter = require('./routes/signup');
+var editRouter = require('./routes/edit');
+var viewbookRouter = require('./routes/viewbook');
+var viewprofileRouter = require('./routes/viewprofile');
+var transactionRouter = require('./routes/transaction');
+var paymentRouter = require('./routes/payment');
+var bankRouter = require('./routes/bank');
+// Assigning routers
+app.use('/', indexRouter);
+app.use('/users', usersRouter);
+app.use('/products', auth.isLoggedIn,productsRouter, images.filterCategories );
+app.use('/store', auth.isLoggedIn, storeRouter,images.hasAuthorization, upload.single('image'), images.uploadImage);
+app.use('/login',loginRouter);
+app.use('/profile',profileRouter,images.filterCategories2);
+app.use('/signup',signupRouter);
+app.use('/viewbook',viewbookRouter,wishlist.create);
+app.use('/viewprofile',viewprofileRouter);
+app.use('/transaction', transactionRouter);
+app.use('/bank', bankRouter);
+app.use('/payment', paymentRouter);
+app.use('/edit', editRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

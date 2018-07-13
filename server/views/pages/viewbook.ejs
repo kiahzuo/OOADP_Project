@@ -4,7 +4,10 @@
   <head>
 
     <% include ../partials/head %>
- 
+
+        <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script> -->
+
     <% include ../partials/header %>
 
 
@@ -20,13 +23,12 @@
               </h1>
             
 <style>
-    span::first-letter {
-        text-transform:capitalize;
-    }
             body{   
                 background-color:grey ; 
             }
 
+
+       
             .mainimage{
                    width:125% !important;
                    height:350px;
@@ -150,11 +152,7 @@
                             $<%= images.price1 %>
                         </span><br><br>
 
-<<<<<<< HEAD
-                   <h3> <%= images.avaliable %> </h3><br>
-=======
-                        Avaliability</strong> <span class="tCaseWords"> : <%= images.available %> </span> </h4><br>
->>>>>>> 43792daecda806654391554952672499f5202f31
+                   <h3> <%= images.available %> </h3><br>
         
                   
         
@@ -487,7 +485,7 @@ document.getElementById("defaultOpen").click();
         // Submit cart data function
         $('#addToCartButton').click( function() {
            // Check availability in case
-        //    if (String(`<%= images.available %>`) == "In cart")  {
+        //    if (String(`<%= images.avaliable %>`) == "In cart")  {
         //       $.alert({
         //           title: '<span style="color: red; font-weight: bold;">Add to cart failed:</span> Book is not available, please try another book...',
         //           content: ''

@@ -198,26 +198,19 @@
           <br><br><br>
           
           <div class="tab">
-<<<<<<< HEAD
             <button class="tablinks" onclick="openCity(event, 'View')" id="defaultOpen">View All Books</button>
             <button class="tablinks" onclick="openCity(event, 'Tokyo')">Upload New Book</button>
             <button class="tablinks" onclick="openCity(event, 'User')">User Management</button>
             
             <br><br>
             <a href="/genre" class="btn btn-primary">Genre Management</a><br><br>
-=======
-            <button class="tablinks" onclick="openCity(event, 'London')" id="defaultOpen">View All Books</button>
-            <button class="tablinks" onclick="openCity(event, 'Paris')">Add Genres</button>
-            <button class="tablinks" onclick="openCity(event, 'Tokyo')">User Management</button><br><br>
-
->>>>>>> 43792daecda806654391554952672499f5202f31
             <a href="/logout" class="btn btn-danger">Logout</a><br><br>
 
   
             
           </div>
           
-          <div id="London" class="tabcontent">
+          <div id="View" class="tabcontent">
               <br>
          
                     
@@ -228,7 +221,6 @@
                               
                                 <div class="row">
                               
-<<<<<<< HEAD
                                          
 
                                             <input type="text" id="myInput" class="table1" onkeyup="myFunction()" placeholder="Search for names.." title="Type in a name">
@@ -246,7 +238,7 @@
   <tr class="rowRecord" data-id="<%= images[i].id %>">
     <td><%= images[i].title %></td>
     <td>$<%= images[i].price1 %></td>
-    <td><%= images[i].avaliable %></td>
+    <td><%= images[i].available %></td>
     <td><%= images[i].seller %></td>
     <td><a class = 'btn btn-primary' href="/edit/<%= images[i].id%>">Edit Book</a></td>
     <td><input type="button" class="deleteBtn"  value="Delete"></td>
@@ -305,52 +297,6 @@ function myFunction() {
     
     
     </script>
-=======
-                                          <% for (i =0; i < images.length; i++) {%>
-                      
-                                              <div class="col-lg-4 col-md-6 mb-4">
-                               
-                                                <div class="card h-100" data-id="<%= images[i].id %>"  >
-                                                    
-                                                  <a href="#"><img class="card-img-top" src="images/<%= images[i].imageName %>" alt=""></a>
-                                                  <div class="card-body">
-                                                    <h4 class="card-title">
-                                                        <h4><strong><%= images[i].title %></strong></h5>
-                                                    </h4>
-                                                    <h5>$<%= images[i].price1 %></h5>
-                                    
-                                     
-                                    
-                                                    <br>
-                                                  
-                                                    
-                                              
-                                                    <h5>Avaliability : <strong><%= images[i].available %></strong></h5>
-                                                        <br>
-                                                        <h5>Seller : <strong><%= images[i].seller %></strong></h5>
-                                                  </div>
-                                    
-                                                  
-                                                  <br>
-                                                  <a class = 'btn btn-primary' href="/edit/<%= images[i].id%>">Edit Book</a>
-                                                  <input type="submit" class="deleteBtn"  value="Delete" onclick="clicked(event)">
-                                        
-                                    
-                                              </div>
-                                            
-                                            </div>
-                              
-                              
-                                     
-                              
-                              
-                                        <% } %>
-                    
-          </div>
-        </div>
-      </div >
-    </div>
->>>>>>> 43792daecda806654391554952672499f5202f31
           
           <div id="Paris" class="tabcontent">
 
@@ -364,7 +310,6 @@ function myFunction() {
                   <h4 class="modal-title" id="myModalLabel">Add New Category</h4>
               </div>
 
-<<<<<<< HEAD
             </form>
             </div>
 
@@ -419,31 +364,6 @@ function myFunction() {
               }
               </script>
             </div>
-=======
-              <div class="modal-body">
-
-                  <fieldset class="form-group">
-                      <label for="inputitle">Genre</label>
-                  </fieldset>
-                  <fieldset class="form-group">
-    
-                      <input type="text" id="genre" name="genre" class="form-control" placeholder="Insert a Genre...."  required="" ><br> 
-                      
-                    
-                  
-                  </fieldset>
-
-              </div>
-              <div class="modal-footer">
-                  <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                  <button type="submit" class="btn btn-primary">Save changes</button>
-              </div>
-          </form>
-
-
-
-          </div>
->>>>>>> 43792daecda806654391554952672499f5202f31
           
           <div id="Tokyo" class="tabcontent">
               
@@ -494,7 +414,7 @@ function myFunction() {
               
                                   </select>     <br>
                                   <label  for="itle">Add a picture</label>
-                                      <input type="file" id="image" name="image" multiple>
+                                      <input type="file" id="image" name="image" required>
                                       <span class="file-custom"></span>
                               
                      
@@ -543,24 +463,7 @@ function myFunction() {
   
   
   
-  
-  $('.deleteBtn').click(function () {
-    var booknumber = $(this).closest("div").data('id');
-    $.ajax({
-      url: 'http://localhost:3000/admin/' + booknumber,
-      type: 'DELETE',
-      success: function (result) {
-        console.log(result.message);
-        var itemToRemove = '.card[data-id=' + booknumber + ']';
-        $(itemToRemove).remove();
-        alert("Record Deleted Successfully.");
-      },
-      error: function (result) {
-        alert("Unable to delete record.");
-        console.log(result.message);
-      }
-    });
-  });
+
   
   
   
@@ -824,7 +727,7 @@ background-color: #4CAF50;
                   
                                       </select>     <br>
                                       <label  for="itle">Add a picture</label>
-                                          <input type="file" id="image" name="image" multiple>
+                                          <input type="file" id="image" name="image" required>
                                           <span class="file-custom"></span>
                                   
                                   </div>

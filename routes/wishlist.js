@@ -1,39 +1,77 @@
-var express = require('express');
-var router = express.Router();
-
-var wishlist = require('../server/models/wishlist')
-var Bookitem = require('../server/models/models');
-var Comments = require ('../server/models/comments');
-var myDatabase = require('../server/controller/database');
+var myDatabase = require('./database');
+var Wishlist = require ('../models/wishlist');
 var sequelize = myDatabase.sequelize;
 
 
 
-router.get('/', function(req, res, next) {
+exports.show = function(req,res){
+    Wishlist.findAll()
+    .then(wishlist=>{
+   res.render('wishlist',
+    { wishlist: wishlist,
+     user : req.user,
+     urlPath: req.protocol + "://" + req.get("host") + req.url
+    });
+ });
+};
 
-  wishlist.findAll()
-     .then(wishlist=>{
-    res.render('wishlist',
-     { wishlist: wishlist,
-      user : req.user,
-      urlPath: req.protocol + "://" + req.get("host") + req.url
-     });
-  });
-});
+
+exports.delete = function(req,res){
 
 
-router.delete('/:id',function (req,res) {
-  var booknumber = req.params.id;
-  console.log("deleting" + booknumber);
-  wishlist.destroy({ where: { id: booknumber } }).then((deletedRecord) => {
-      if(!deletedRecord) {
-          return res.send(400, {
-              message: "error"
-          });
-      }
-      res.status(200).send({ message: "Deleted student record: " + booknumber });
-  });
+    var booknumber = req.params.id;
+    console.log("deleting" + booknumber);
+    Wishlist.destroy({ where: { id: booknumber } }).then((deletedRecord) => {
+        if(!deletedRecord) {
+            return res.send(400, {
+                message: "error"
+            });
+        }
+        res.status(200).send({ message: "Deleted student record: " + booknumber });
+    });
+  
 }
-)
 
-module.exports = router;
+
+exports.create = function (req, res){
+    console.log("Adding Wishlist")
+    
+
+
+    var wishlistData = {
+        title: req.body.title,
+        seller: req.body.seller,
+        bookid: req.body.bookid,
+        price:req.body.price,
+        bookimage:req.body.bookimage,
+        user_id: req.user.id,
+        
+        
+
+    }
+        Wishlist.findAll({where:{user_id :req.user.id, bookid :req.body.bookid}}).then(function (wishlist) {
+        if(wishlist ==""){
+            
+            Wishlist.create(wishlistData).then((newWishlist, created) => {
+                if (!newWishlist) {
+                    return res.send(400, {
+                        message: "error"
+                    });
+                }
+    
+               
+        
+                res.redirect('/wishlist');
+            })
+        }
+        else{
+        
+            res.redirect('/wishlist');
+
+        }
+        })
+  
+
+    
+
+};

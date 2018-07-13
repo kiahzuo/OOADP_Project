@@ -44,12 +44,12 @@ exports.create = function (req, res){
         bookid: req.body.bookid,
         price:req.body.price,
         bookimage:req.body.bookimage,
-        user_id: req.user.name,
+        user_id: req.user.id,
         
         
 
     }
-        Wishlist.findAll({where:{user_id :req.user.name, bookid :req.body.bookid}}).then(function (wishlist) {
+        Wishlist.findAll({where:{user_id :req.user.id, bookid :req.body.bookid}}).then(function (wishlist) {
         if(wishlist ==""){
             
             Wishlist.create(wishlistData).then((newWishlist, created) => {
