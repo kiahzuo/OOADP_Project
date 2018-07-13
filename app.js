@@ -119,7 +119,9 @@ app.get('/logout', function (req, res) {
 app.post("/edit/:id", upload.single('imageName'),images.updateImage)
 app.get("/edit/:id", images.show);
 // adding new genre
+app.get('/genre',genre.show)
 app.post('/genre', genre.create)
+app.delete('/genre/:id',genre.delete)
 // wishlist HTTP request handlers
 app.get('/wishlist',wishlist.show)
 app.delete('/wishlist/:id',wishlist.delete)
