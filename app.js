@@ -138,7 +138,7 @@ app.get('/logout', function (req, res) {
 // Payment routes, get and post
 app.get('/payment', function(req, res){
     res.render('payment.ejs',{
-        paying: '99',
+        paying: '98',
     });
 });
 

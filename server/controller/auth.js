@@ -4,7 +4,7 @@ var passport = require('passport');
 var Bookitem = require('../models/models');
 var Images = require('../models/images');
 var genre = require('../models/genre');
-
+var profileTable = require("../models/users");
 // Signin GET
 exports.signin = function(req, res) {
     // List all Users and sort by Date
@@ -21,12 +21,17 @@ exports.profile = function(req, res) {
     // List all Users and sort by Date
     Images.findAll()
   .then(images=>{ 
+
+    profileTable.findAll({
+        attributes: ['id', 'name', 'email']
+    }).then(function (users) {
     genre.findAll()
     .then(genre=>{ 
       res.render('profile', { 
       title: 'Profile Page', 
       images:images,
       genre:genre,
+      users: users,
       user : req.user, 
       avatar: gravatar.url(req.user.email ,  {s: '100', r: 'x', d: 'retro'}, true),
       urlPath: req.protocol + "://" + req.get("host") + req.url
@@ -34,7 +39,7 @@ exports.profile = function(req, res) {
       
     });})
 
-    
+})
    
 })
 };

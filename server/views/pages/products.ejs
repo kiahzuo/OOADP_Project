@@ -18,7 +18,17 @@
 
         .card{
           background-color: lightgray;
+       
 
+        }
+
+        .card-deck{
+          margin-left: 20px;
+          margin-top: 10px;
+        }
+        .card-body{
+          width:250px;
+          
         }
 
         .card-img-top{
@@ -151,17 +161,12 @@
               <!--  -->
           
               <br><br>
-              <div class="flex-sb-m flex-w p-b-35">
- 
     
-                
-              </div>
-
               <!-- Product -->
               <div class="row">
                   <% for (i =0; i < images.length; i++) {%>
                     <% if ( images[i].avaliable == "Avaliable") { %>
-                      <div class="col-lg-4 col-md-6 mb-4" >
+                     
                         <div class="card-deck">
                           <div class="card card-shadow text-center">
                             <div class="card-body">
@@ -172,8 +177,7 @@
                               <p class="card-text"><small class="text-muted">Genre : <%= images[i].genre1 %></small></p>
                               <a href="/viewbook/<%= images[i].id%>"><button type="button" class="btn btn-outline-primary">Info</button></a>
                               <a href="/viewprofile/<%= images[i].user_id%>"><button type="button" class="btn btn-outline-primary"><%= images[i].seller %></button></a>
-                            
-                            </div>
+                       
                           </div>
                           </div>
                         </div>
@@ -182,6 +186,15 @@
               <% } %>
     
               <script>
+
+                $('#search').keyup(function (){
+    $('.card').removeClass('d-none');
+    var filter = $(this).val(); // get the value of the input, which we filter on
+    $('.card-deck').find('.card .card-body h4:not(:contains("'+filter+'"))').parent().parent().addClass('d-none');
+  })
+
+  
+
                   function checkAndSubmit2()
                 {
                   if (document.getElementById('sort2').selectedIndex > 0)
@@ -244,17 +257,6 @@
   <!-- Custom (after load) scripts -->
   <% include ../partials/foot %> 
   <script>
-$('#search').keyup(function (){
-    $('.card').removeClass('d-none');
-    var filter = $(this).val(); // get the value of the input, which we filter on
-    $('.card-deck').find('.card .card-body h4:not(:contains("'+filter+'"))').parent().parent().addClass('d-none');
-  })
-    $('#searchprice').keyup(function (){
-    $('.card').removeClass('d-none');
-    var filter = $(this).val(); // get the value of the input, which we filter on
-    $('.card-deck').find('.card .card-body h6:not(:contains("'+filter+'"))').parent().parent().addClass('d-none');
-  })
-  
 
   
   </script>

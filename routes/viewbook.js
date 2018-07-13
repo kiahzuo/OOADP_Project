@@ -12,53 +12,58 @@ var sequelize = myDatabase.sequelize;
 // Retrieve update 1 by 1
 router.get('/:id', function(req, res, next) {
     var booknumber = req.params.id;
+
     Images.findById(booknumber).then(function (images) {
-        Comments.findAll().then(function(comments){
-            Images.findAll().then(function (images2) {
-                wishlist.findAll({where:{user_id :req.user.id, bookid :booknumber}}).then(function (wishlist)  {
+        if(!images){
+            res.redirect('/products')
+        }
+        else {
+            Comments.findAll().then(function(comments){
+                Images.findAll().then(function (images2) {
+                    wishlist.findAll({where:{user_id :req.user.id, bookid :booknumber}}).then(function (wishlist)  {
+    
+                    
+                        if(wishlist ==""){
+                
+                            res.render('viewbook', {
+                                title: "Practical 5 Database Node JS - Edit Student Records",
+                                images: images,
+                                status: "Add to Wishlist?",
+                                images2:images2,
+                                wishlist:wishlist,
+                                user : req.user,
+                                comments: comments,
+                                hostPath: req.protocol + "://" + req.get("host"),
+                                urlPath: req.protocol + '://' + req.get('host') + req.originalUrl,
+                        
+                            })
+                            
+                        }
+                        else{
+                        
+                            res.render('viewbook', {
+                                title: "Practical 5 Database Node JS - Edit Student Records",
+                                images: images,
+                                status:"Wishlisted",
+                                images2:images2,
+                                wishlist:wishlist,
+                                user : req.user,
+                                comments: comments,
+                                hostPath: req.protocol + "://" + req.get("host"),
+                                urlPath: req.protocol + '://' + req.get('host') + req.originalUrl,
+                        
+                            })
+                
+                        }
+            
+        })
+        })
+    })
+        }
 
 
-                    if(wishlist ==""){
-            
-                        res.render('viewbook', {
-                            title: "Practical 5 Database Node JS - Edit Student Records",
-                            images: images,
-                            status: "Add to Wishlist?",
-                            images2:images2,
-                            wishlist:wishlist,
-                            user : req.user,
-                            comments: comments,
-                            hostPath: req.protocol + "://" + req.get("host"),
-                            urlPath: req.protocol + '://' + req.get('host') + req.originalUrl,
-                    
-                        })
-                    }
-                    else{
-                    
-                        res.render('viewbook', {
-                            title: "Practical 5 Database Node JS - Edit Student Records",
-                            images: images,
-                            status:"Wishlisted",
-                            images2:images2,
-                            wishlist:wishlist,
-                            user : req.user,
-                            comments: comments,
-                            hostPath: req.protocol + "://" + req.get("host"),
-                            urlPath: req.protocol + '://' + req.get('host') + req.originalUrl,
-                    
-                        })
-            
-                    }
-        
-    })
-    })
-})
-    .catch((err) => {
-        return res.status(400).send({
-            message: err
-        });
-    });
 });
+
 });
 
 

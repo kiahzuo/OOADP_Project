@@ -144,6 +144,48 @@
       width:150px;
       height:150px;
   }
+
+
+
+* {
+  box-sizing: border-box;
+}
+
+#myInput {
+  background-image: url('/css/searchicon.png');
+  background-position: 10px 10px;
+  background-repeat: no-repeat;
+  width: 1200px;
+  font-size: 16px;
+  padding: 12px 20px 12px 40px;
+  border: 1px solid #ddd;
+  margin-bottom: 12px;
+}
+
+#myTable {
+  border-collapse: collapse;
+  width: 100%;
+  border: 1px solid #ddd;
+  font-size: 18px;
+}
+
+#myTable th, #myTable td {
+  text-align: left;
+  padding: 12px;
+}
+
+#myTable tr {
+  border-bottom: 1px solid #ddd;
+}
+
+#myTable tr.header, #myTable tr:hover {
+  background-color: #f1f1f1;
+}
+.table1{
+  margin-left: 60px;
+
+}
+
           </style>
           </head>
   
@@ -158,6 +200,7 @@
           <div class="tab">
             <button class="tablinks" onclick="openCity(event, 'View')" id="defaultOpen">View All Books</button>
             <button class="tablinks" onclick="openCity(event, 'Tokyo')">Upload New Book</button>
+            <button class="tablinks" onclick="openCity(event, 'User')">User Management</button>
             
             <br><br>
             <a href="/genre" class="btn btn-primary">Genre Management</a><br><br>
@@ -178,61 +221,49 @@
                               
                                 <div class="row">
                               
-                                          <% for (i =0; i < images.length; i++) {%>
-                      
-                                              <div class="col-lg-4 col-md-6 mb-4">
-                               
-                                                <div class="card h-100" data-id="<%= images[i].id %>"  >
-                                                    
-                                                  <a href="#"><img class="card-img-top" src="images/<%= images[i].imageName %>" alt=""></a>
-                                                  <div class="card-body">
-                                                    <h4 class="card-title">
-                                                        <h4><strong><%= images[i].title %></strong></h5>
-                                                    </h4>
-                                                    <h5>$<%= images[i].price1 %></h5>
-                                    
-                                     
-                                    
-                                                    <br>
-                                                  
-                                                    
-                                              
-                                                    <h5>Avaliability : <strong><%= images[i].avaliable %></strong></h5>
-                                                        <br>
-                                                        <h5>Seller : <strong><%= images[i].seller %></strong></h5>
-                                                  </div>
-                                    
-                                                  
-                                                  <br>
-                                                  <a class = 'btn btn-primary' href="/edit/<%= images[i].id%>">Edit Book</a>
-                                                  <input type="submit" class="deleteBtn"  value="Delete">
-                                        
-                                    
-                                              </div>
-                                            
-                                            </div>
-                              
-                              
-                                     
-                              
-                              
-                                        <% } %>
-                    
-          </div>
-        </div>
-      </div >
-    </div>
+                                         
 
+                                            <input type="text" id="myInput" class="table1" onkeyup="myFunction()" placeholder="Search for names.." title="Type in a name">
+
+<table id="myTable"class="table1">
+  <tr  >
+    <th style="width:20%;">Name</th>
+    <th style="width:20%;">Price</th>
+    <th style="width:20%;">Availability</th>
+    <th style="width:20%;">Seller</th>
+    <th style="width:10%;">Edit</th>
+     <th style="width:10%;">Delete</th>
+  </tr>
+  <% for (i =0; i < images.length; i++) {%>
+  <tr class="rowRecord" data-id="<%= images[i].id %>">
+    <td><%= images[i].title %></td>
+    <td>$<%= images[i].price1 %></td>
+    <td><%= images[i].avaliable %></td>
+    <td><%= images[i].seller %></td>
+    <td><a class = 'btn btn-primary' href="/edit/<%= images[i].id%>">Edit Book</a></td>
+    <td><input type="button" class="deleteBtn"  value="Delete"></td>
+  </tr>
+  <% } %>
+ 
+</table>                      
+</div>
+</div>
+</div>
+
+
+
+</div>        
+    
     <script>
 
           $('.deleteBtn').click(function () {
-    var booknumber = $(this).closest("div").data('id');
+            var booknumber = $(this).closest("tr").data('id');
     $.ajax({
       url: 'http://localhost:3000/profile/' + booknumber,
       type: 'DELETE',
       success: function (result) {
         console.log(result.message);
-        var itemToRemove = '.card[data-id=' + booknumber + ']';
+        var itemToRemove = '.rowRecord[data-id=' + booknumber + ']';
         $(itemToRemove).remove();
         alert("Record Deleted Successfully.");
       },
@@ -242,6 +273,26 @@
       }
     });
   });
+
+
+
+function myFunction() {
+  var input, filter, table, tr, td, i;
+  input = document.getElementById("myInput");
+  filter = input.value.toUpperCase();
+  table = document.getElementById("myTable");
+  tr = table.getElementsByTagName("tr");
+  for (i = 0; i < tr.length; i++) {
+    td = tr[i].getElementsByTagName("td")[0];
+    if (td) {
+      if (td.innerHTML.toUpperCase().indexOf(filter) > -1) {
+        tr[i].style.display = "";
+      } else {
+        tr[i].style.display = "none";
+      }
+    }       
+  }
+}
 
     
     
@@ -260,6 +311,58 @@
               </div>
 
             </form>
+            </div>
+
+
+              
+          <div id="User" class="tabcontent">
+<br><br><br><br>
+            <input type="text" id="myInput" onkeyup="myFunction()" placeholder="Search for names.." title="Type in a name">
+            <table class="table" id = "myTable">
+              <thread>
+                <tr>
+                  <th>ID</th>
+                  <th>Name</th>
+                  <th>Email</th> 
+                  <th>Action</th>
+                </tr>
+                <% for(var i=0; i < users.length; i++){ %>
+                  <tr class="rowRecord" data-id="<%= users[i].id %>">
+                    <td>
+                      <%= users[i].id %>
+                    </td>
+                    <td>
+                      <%= users[i].name %>
+                    </td>
+                    <td width = "50%">
+                      <%= users[i].email %>
+                    </td>
+                    <td width= "10%">
+                      <input type="button" class="deleteBtn"  value="Ban">
+                    </td>
+                  </tr>
+                  <% } %>
+              </thread>
+            </table>
+            <script>
+              function myFunction() {
+                var input, filter, table, tr, td, i;
+                input = document.getElementById("myInput");
+                filter = input.value.toUpperCase();
+                table = document.getElementById("myTable");
+                tr = table.getElementsByTagName("tr");
+                for (i = 0; i < tr.length; i++) {
+                  td = tr[i].getElementsByTagName("td")[1];
+                  if (td) {
+                    if (td.innerHTML.toUpperCase().indexOf(filter) > -1) {
+                      tr[i].style.display = "";
+                    } else {
+                      tr[i].style.display = "none";
+                    }
+                  }       
+                }
+              }
+              </script>
             </div>
           
           <div id="Tokyo" class="tabcontent">
@@ -332,8 +435,13 @@
                               </form>
            
 
+</div>
 
-     
+
+
+
+
+
           
           <script>
           function openCity(evt, cityName) {

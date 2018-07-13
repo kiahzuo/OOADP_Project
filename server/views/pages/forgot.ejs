@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+
+  <head>
+
+
+    <% include ../partials/head %>
+  </head>
+<body>
+
+        <h1 class="site-heading text-center text-white d-none d-lg-block">
+      
+                <span class="site-heading-lower">BookTrade</span>
+              </h1>
+            
+              <% include ../partials/header %>
+  
+  <div class = "container">
+	<div class="col-md-12">
+		<form action="/forgot" method="POST">
+			<h2>Forgot Password</h2>
+			<div class="form-group"><br>
+				<h4><label for="email">Email</label></h4>
+				<input type="email" name="email" autofocus class="form-control" placeholder="eg. ahmad123@gmail.com">
+			</div>
+			<div class="form-group">
+				<input style ="background-color: cornflowerblue; border-radius: 13px" type="submit" class="btn btn-primary" value="Reset Password">
+			</div>
+		</form>
+	</div>
+</div>
