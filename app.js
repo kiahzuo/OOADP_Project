@@ -259,6 +259,7 @@ var viewprofileRouter = require('./routes/viewprofile');
 var transactionRouter = require('./routes/transaction');
 var paymentRouter = require('./routes/payment');
 var bankRouter = require('./routes/bank');
+var notfoundRouter = require('./routes/notfound');
 // Assigning routers
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
@@ -273,6 +274,7 @@ app.use('/transaction', transactionRouter);
 app.use('/bank', bankRouter);
 app.use('/payment', paymentRouter);
 app.use('/edit', editRouter);
+app.use('/notfound', notfoundRouter);
 
 // Render 
 // catch 404 and forward to error handler

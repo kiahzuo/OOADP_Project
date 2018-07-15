@@ -28,23 +28,28 @@
             console.log(data);
             console.log(data[0].user_id);
             console.log(data[1].price1);
-            console.log(data[0].book_id);
+            console.log(data[0].id);
 
             /* Start generating the list of items */
             // Check in case, test if object?
             if ($.isEmptyObject(data)) {
                 return;
+            } else {
+                $("#cartEmpty").addClass("hidden");
+                $("#cartInfo").removeClass("hidden");
             }
 
-            var totalPrice = 0
-            for (var i = 1; i < data.length; i++) {
+            var totalPrice;
+            for (var i = 0; i < data.length; i++) {
                 var Item = $(document.createElement("li"));
                 var Num = (i + 1).toString() + "." ;
                 var Name = data[i].title;
-                var Price = "$" + (data[i].price1).toString() ;
-                var RemoveLink = "http://localhost:3000/transaction/cart/remove/" + data[i].book_id.toString() ;
+                var Price = "$" + (Number(Math.round(data[i].price1+'e2')+'e-2').toFixed(2)).toString() ;
+                var RemoveLink = "http://localhost:3000/transaction/cart/remove/" + data[i].id.toString() ;
                 
-                totalPrice += parseFloat(data[i].price1);
+                totalPrice += Number(Math.round(data[i].price1+'e2')+'e-2').toFixed(2);
+                console.log(Price);
+                console.log(totalPrice);
 
                 // Creating each item HTML code, need to check
                 $(Item).html("<span class='cd-qty'>" + Num + "</span><span>" + Name + "</span><div class='cd-price'>" + Price + "</div><span><a href='" + RemoveLink + "' class='cd-item-remove cd-img-replace'>Remove</a></span>");
@@ -52,7 +57,7 @@
                 $("#cd-cart-items").append(Item);
             }
 
-            $(#cartTotalPrice).html("$" + )
+            $("#cartTotalPrice").html("$" + totalPrice.toString());
 
 
             // $.alert({
@@ -104,5 +109,3 @@
             <p>NO ITEMS IN CART</p>
         </div>
      </div> <!-- cd-cart -->
-
-    

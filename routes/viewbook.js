@@ -15,7 +15,7 @@ router.get('/:id', function(req, res, next) {
 
     Images.findById(booknumber).then(function (images) {
         if(!images){
-            res.redirect('/products')
+            res.redirect('/notfound');
         }
         else {
             Comments.findAll().then(function(comments){
