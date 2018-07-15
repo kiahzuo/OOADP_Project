@@ -67,6 +67,7 @@ $(document).ready(function () {
         var cardCVC = $('#card-cvc').val();
         var isValidCVC = Stripe.card.validateCVC(cardCVC);
         var cardHolder = $('#card-holder').val();
+        var cardAmount = $('#amount').val();
         event.preventDefault();
         
         // alert the user if any fields are missing
@@ -81,30 +82,67 @@ $(document).ready(function () {
         } else {
             // alert the user if any fields are invalid
             if (!isValidNo || !isValidExpiry || !isValidCVC) {
-                $('#form-errors').css('display', 'block');
+                // $('#form-errors').css('display', 'block');
                 if (!isValidNo) {
                     $('#card-error').text('Invalid credit card number.');
                     $('#form-errors').addClass('hidden');
                     $('#card-success').addClass('hidden');
                     $('#form-errors').removeClass('hidden');
+                    //red boxes
+                    $('#card-number').addClass('invalid');
+                    $('#card-holder').removeClass('invalid');
+                    $('#card-month').removeClass('invalid');
+                    $('#card-year').removeClass('invalid');
+                    $('#card-cvc').removeClass('invalid');
                     //invalid class add to individual
                 } else if (!isValidExpiry) {
                     $('#card-error').text('Invalid expiration date.');
                     $('#form-errors').addClass('hidden');
                     $('#card-success').addClass('hidden');
                     $('#form-errors').removeClass('hidden');
+                    //red boxes
+                    $('#card-number').removeClass('invalid');
+                    $('#card-holder').removeClass('invalid');
+                    $('#card-month').addClass('invalid');
+                    $('#card-year').addClass('invalid');
+                    $('#card-cvc').removeClass('invalid');
+                    
                 } else if (!isValidCVC) {
                     $('#card-error').text('Invalid CVC code.');
                     $('#form-errors').addClass('hidden');
                     $('#card-success').addClass('hidden');
                     $('#form-errors').removeClass('hidden');
+                    //red boxes
+                    $('#card-number').removeClass('invalid');
+                    $('#card-holder').removeClass('invalid');
+                    $('#card-month').removeClass('invalid');
+                    $('#card-year').removeClass('invalid');
+                    $('#card-cvc').addClass('invalid');
                 };
-            } else {
+            } else if (cardHolder.match(/^([^A-Za-z ])\w+$/)){
+                $('#card-error').text('Invalid CardHolder');
+                $('#form-errors').addClass('hidden');
+                $('#card-success').addClass('hidden');
+                $('#form-errors').removeClass('hidden');
+                //red boxes
+                $('#card-number').removeClass('invalid');
+                $('#card-holder').addClass('invalid');
+                $('#card-month').removeClass('invalid');
+                $('#card-year').removeClass('invalid');
+                $('#card-cvc').removeClass('invalid');
+            }
+             else {
                 $('#card-error').addClass('hidden');
                 $('#form-errors').removeClass('hidden');
                 $('#form-errors').addClass('hidden');
                 $('#form-errors').css('display', 'none');
                 $('#card-success').removeClass('hidden');
+                //red boxes
+                $('#card-number').removeClass('invalid');
+                $('#card-holder').removeClass('invalid');
+                $('#card-month').removeClass('invalid');
+                $('#card-year').removeClass('invalid');
+                $('#card-cvc').removeClass('invalid');
                 $.ajax({
                     url:'/payment',
                     method:'POST',
@@ -114,6 +152,7 @@ $(document).ready(function () {
                         cardMonth:expMonth,
                         cardYear:expYear,
                         cardCVC:cardCVC,
+                        cardAmount:cardAmount,
                     },
                     success:function(data){
                         $("form").trigger("reset");

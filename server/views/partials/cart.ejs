@@ -47,7 +47,7 @@
                 var Price = "$" + (Number(Math.round(data[i].price1+'e2')+'e-2').toFixed(2)).toString() ;
                 var RemoveLink = "http://localhost:3000/transaction/cart/remove/" + data[i].id.toString() ;
                 
-                totalPrice += Number(Math.round(data[i].price1+'e2')+'e-2').toFixed(2);
+                totalPrice += (Number(Math.round(data[i].price1+'e2')+'e-2').toFixed(2));
                 console.log(Price);
                 console.log(totalPrice);
 
