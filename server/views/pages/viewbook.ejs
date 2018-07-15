@@ -26,9 +26,7 @@
             body{   
                 background-color:grey ; 
             }
-
-
-       
+            
             .mainimage{
                    width:125% !important;
                    height:350px;
@@ -152,7 +150,7 @@
                             $<%= images.price1 %>
                         </span><br><br>
 
-                   <h3> <%= images.available %> </h3><br>
+                   <h3><span> <%= images.available %> </span></h3><br>
         
                   
         
@@ -480,29 +478,33 @@ document.getElementById("defaultOpen").click();
         $(document).ready(function(){
           console.log(String(`<%= images.available %>`));
           console.log(`<%= urlPath %>`);
+
+          // Some design edits
+          $("span::first-letter").css("text-transform", "capitalize");
+
         });
         
         // Submit cart data function
         $('#addToCartButton').click( function() {
            // Check availability in case
-        //    if (String(`<%= images.avaliable %>`) == "In cart")  {
-        //       $.alert({
-        //           title: '<span style="color: red; font-weight: bold;">Add to cart failed:</span> Book is not available, please try another book...',
-        //           content: ''
-        //           });
-        //       return;
-        //    }
+           if (String(`<%= images.avaliable %>`) == "In cart")  {
+              $.alert({
+                  title: '<span style="color: red; font-weight: bold;">Add to cart failed:</span> Book is not available, please try another book...',
+                  content: ''
+                  });
+              return;
+           }
   
           var cartData = {
               message: "Adding item to cart",
               bookID : `<%= images.id %>`,  // ` ` quotes to indicate template literals, allowing embedded expressions 
-              userID : `<%= images.user_id %>`,
+              userID : `<%= user.id %>`,
               bookPrice : `<%= images.price1 %>`,
               bookName : `<%= images.title %>`  
           };
   
           $.ajax({
-              url: 'http://localhost:3000/transaction/cart/add',
+              url: 'http://localhost:3000/transaction/cart/add/',
               type: 'POST',
               dataType: 'json',
               data: JSON.stringify(cartData),

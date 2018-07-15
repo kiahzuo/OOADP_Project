@@ -4,16 +4,32 @@ var sequelize = myDatabase.sequelize;
 var Sequelize = myDatabase.Sequelize;
 //var sequelizeTransforms = require('sequelize-transforms');
 
-const Cart_Items = sequelize.define('Cart_Items', {
+const Transactions = sequelize.define('Transactions', {
     id: {
         type: Sequelize.INTEGER,
         autoIncrement: true,
         primaryKey: true
     },
-    add_Date: {
+    checkout_Date: {
         type: Sequelize.DATE,
         defaultValue: Sequelize.NOW,
         allowNull: false
+    },
+    buyer_id: {
+        type: Sequelize.INTEGER,
+        allowNull: false,
+        // references: {
+        //     model: 'Users',
+        //     key: 'id'
+        // }
+    },
+    seller_id: {
+        type: Sequelize.INTEGER,
+        allowNull: false,
+        // references: {
+        //     model: 'Users',
+        //     key: 'id'
+        // }
     },
     book_id: {
         type: Sequelize.INTEGER,
@@ -23,30 +39,22 @@ const Cart_Items = sequelize.define('Cart_Items', {
         //     key: 'id'
         // }
     },
-    user_id: {
-        type: Sequelize.INTEGER,
-        allowNull: false,
-        // references: {
-        //     model: 'Users',
-        //     key: 'id'
-        // }
-    },
-    add_count: {
-        type: Sequelize.INTEGER,
+    price: {
+        type: Sequelize.FLOAT,
         allowNull: false  
     }
 });
 
 // force: true will drop the table if it already exists
-Cart_Items.sync({ force: false, logging: console.log}).then(() => {
-    console.log("Cart_Items table synced");
+Transactions.sync({ force: false, logging: console.log}).then(() => {
+    console.log("Transactions table synced");
     // Test table creation with dummy data
-    // return Cart_Items.upsert({
+    // return Transactions.upsert({
     //     id: 1,
     //     book_id: '1',
     //     user_id: '1',
     // })
 });
 
-module.exports = sequelize.model('Cart_Items', Cart_Items);
+module.exports = sequelize.model('Transactions', Transactions);
 

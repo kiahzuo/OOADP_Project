@@ -5,9 +5,10 @@ var myDatabase = require('../server/controller/database');
 var Images = require('../server/models/images');
 var Users = require('../server/models/users');
 var Cart_Items = require('../server/models/cart');
+var Transactions = require('../server/models/transaction');
 var sequelize = myDatabase.sequelize;
 
-router.post("/cart/add", (req, res) => {
+router.post("/cart/add/", (req, res) => {
     // Test connection
     var message = req.body.message;
     console.log(message)
@@ -73,6 +74,25 @@ router.post("/cart/add", (req, res) => {
             //         reply.add_count++
             //     }
             // });
+    });
+});
+
+router.post("/cart/show/", (req, res) => {
+    Cart_Items.findAll({ where: { user_id: req.body.userID } }).then(userCartItems => {
+        //console.log("Current user id is: " + user.id);
+        // Test
+        // console.log(user.id);
+        // console.log(req.body.userID);
+        // console.log("cart items; ");
+        // console.log(userCartItems.length);
+        // console.log(userCartItems[0].book_id);
+        // console.log(userCartItems[1].user_id);
+
+        // var bookIDArray = [];
+        // f
+
+
+        res.send(userCartItems); // Later change to userCartItemsData
     });
 });
 

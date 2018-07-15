@@ -1,3 +1,54 @@
+ <!-- Shopping cart script first, trying to load cart items... -->
+ <script>
+    $(document).ready(function(){
+      //console.log(user.id); --> Error, user doesn't exist in current EJS
+      var cartRetrieve = {
+          message: "No logged in user",
+          userID : 0,
+      };
+      // Only retrieve user.id when user is logged in, when user.id (or user) is not undefined (NOT WORKING, THE JAVASCRIPT STILL PROCESSES...)
+      if(typeof `<%= user %>` !== "undefined") {     /* For some reason return keyword does not break $(document).ready() function */
+        console.log(String(`<%= user.id %>`));
+        cartRetrieve = {
+            message: "Requesting for cart items of current user",
+            userID : parseInt(`<%= user.id %>`),
+        };
+      }
+      
+      $.ajax({
+          url: 'http://localhost:3000/transaction/cart/show/',
+          type: 'POST',
+          dataType: 'json',
+          data: JSON.stringify(cartRetrieve),
+          contentType: "application/json",
+          encode: true,
+
+          success: function(data) {
+            // Log data to check
+            console.log(data);
+            console.log(data[0].user_id);
+            console.log(data[1].add_count);
+            console.log(data[0].book_id);
+            if (!data.success) {
+                // Error handling
+            } else {
+                // Successfully sent, need handle error on server and send response...
+                $.alert({
+                      title: 'Book added to cart',
+                      content: toString(data),
+                      buttons: {
+                          OK: function () {
+                              location.replace("http://localhost:3000/products");
+                          }
+                      }
+                });
+            }
+            }
+        });
+
+    });
+</script>
+
  <!-- Shopping cart (with sample data) -->       
  <div id="cd-shadow-layer"></div>
 
@@ -31,3 +82,5 @@
          
          <p class="cd-go-to-cart"><a href="#0">Go to cart page</a></p>
      </div> <!-- cd-cart -->
+
+    

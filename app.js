@@ -128,6 +128,15 @@ app.delete('/wishlist/:id',wishlist.delete)
 app.post('/viewbook1', wishlist.create)
 app.post('/store', images.hasAuthorization, upload.single('image'), images.uploadImage);
 
+
+//Render the cart on "every page?"  --> Doesn't work on index "/" route
+// app.get('/', function(req, res, next) {
+     
+//     res.render('../partials/cart', {
+//         user : req.user
+//     });
+// });  
+   
 // Payment routes, get and post
 app.get('/payment', function(req, res){
     res.render('payment.ejs',{
@@ -265,6 +274,7 @@ app.use('/bank', bankRouter);
 app.use('/payment', paymentRouter);
 app.use('/edit', editRouter);
 
+// Render 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
   next(createError(404));

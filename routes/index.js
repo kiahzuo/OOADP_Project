@@ -10,7 +10,7 @@ var myDatabase = require ('../server/controller/database');
 var Sequelize = myDatabase.Sequelize;
 const Op = Sequelize.Op
 
-/* GET about page. */
+/* GET "home" page. */
 router.get('/', function(req, res, next) {
   res.render('index', 
   { title: 'Express',
