@@ -39,7 +39,7 @@
                 $("#cartInfo").removeClass("hidden");
             }
 
-            var totalPrice;
+            var totalPrice = 0.00;
             for (var i = 0; i < data.length; i++) {
                 var Item = $(document.createElement("li"));
                 var Num = (i + 1).toString() + "." ;
@@ -47,7 +47,7 @@
                 var Price = "$" + (Number(Math.round(data[i].price1+'e2')+'e-2').toFixed(2)).toString() ;
                 var RemoveLink = "http://localhost:3000/transaction/cart/remove/" + data[i].id.toString() ;
                 
-                totalPrice += (Number(Math.round(data[i].price1+'e2')+'e-2').toFixed(2));
+                totalPrice += data[i].price1;
                 console.log(Price);
                 console.log(totalPrice);
 
@@ -57,7 +57,7 @@
                 $("#cd-cart-items").append(Item);
             }
 
-            $("#cartTotalPrice").html("$" + totalPrice.toString());
+            $("#cartTotalPrice").html("$" + (Number(Math.round(totalPrice+'e2')+'e-2').toFixed(2)).toString());
 
 
             // $.alert({
