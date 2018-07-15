@@ -511,16 +511,14 @@ document.getElementById("defaultOpen").click();
               contentType: "application/json",
               encode: true,
 
+              // Successfully sent, need handle error on server and send response...
               success: function(data) {
                 // Log data to check
                 console.log(data);
                 console.log(data.add_count);
                 console.log(data.message);
-                if (!data.success) {
-                    // Error handling
-                } else {
-                    // Successfully sent, need handle error on server and send response...
-                    $.alert({
+
+                $.alert({
                           title: 'Book added to cart',
                           content: toString(data),
                           buttons: {
@@ -529,10 +527,23 @@ document.getElementById("defaultOpen").click();
                               }
                           }
                     });
-                }
+                },
+                error: function(jqXHR, textStatus, errorThrown){
+                console.log(errorThrown);
                 }
             });
         });
+
+        //         // If using promise...
+        //         if (!data.success) {
+        //             // Error handling
+        //         } else {
+                    
+         
+        //         }
+        //         }
+        //     });
+        // });
             // fail promise callback, for testing - not needed
             //..
             // Error handling

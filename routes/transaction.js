@@ -7,6 +7,7 @@ var Users = require('../server/models/users');
 var Cart_Items = require('../server/models/cart');
 var Transactions = require('../server/models/transaction');
 var sequelize = myDatabase.sequelize;
+const Op = sequelize.Op
 
 router.post("/cart/add/", (req, res) => {
     // Test connection
@@ -79,20 +80,26 @@ router.post("/cart/add/", (req, res) => {
 
 router.post("/cart/show/", (req, res) => {
     Cart_Items.findAll({ where: { user_id: req.body.userID } }).then(userCartItems => {
-        //console.log("Current user id is: " + user.id);
+        //console.log("Current user id is: " + user.id); --> Error, server side does not have access to user session variable... (Should make it accessible?)
         // Test
-        // console.log(user.id);
-        // console.log(req.body.userID);
-        // console.log("cart items; ");
-        // console.log(userCartItems.length);
-        // console.log(userCartItems[0].book_id);
-        // console.log(userCartItems[1].user_id);
+        console.log(req.body.userID);
+        console.log("cart items; ");
+        console.log(userCartItems.length);
+        console.log(userCartItems[0].book_id);
+        console.log(userCartItems[1].user_id);
 
-        // var bookIDArray = [];
-        // f
+        var bookIDArray = [];
+        for (var i = 0; i < userCartItems.length; i++){
+            bookIDArray.push(userCartItems[i].book_id);
+        }
+        console.log(bookIDArray);
 
+        Images.findAll({ where: { id: { [Op.in]: bookIDArray } } }).then(userCartItemsData => {
+            // Test
+            console.log(userCartItemsData[2].price1);
 
-        res.send(userCartItems); // Later change to userCartItemsData
+            res.send(userCartItemsData); // Later change to userCartItemsData
+        });
     });
 });
 
