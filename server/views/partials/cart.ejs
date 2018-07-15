@@ -1,10 +1,10 @@
  <!-- Shopping cart script first, trying to load cart items... -->
- <script>
+ <script defer>
     $(document).ready(function(){
       //console.log(user.id); --> Error, user doesn't exist in current EJS
       var cartRetrieve = {
           message: "No logged in user",
-          userID : 0,
+          userID: 0,
       };
       // Only retrieve user.id when user is logged in, when user.id (or user) is not undefined (NOT WORKING, THE JAVASCRIPT STILL PROCESSES...)
       if(typeof `<%= user %>` !== "undefined") {     /* For some reason return keyword does not break $(document).ready() function */
@@ -14,7 +14,8 @@
             userID : parseInt(`<%= user.id %>`),
         };
       }
-      
+      // Total price
+      var totalPrice = 0.00;
       $.ajax({
           url: 'http://localhost:3000/transaction/cart/show/',
           type: 'POST',
@@ -39,20 +40,20 @@
                 $("#cartInfo").removeClass("hidden");
             }
 
-            var totalPrice = 0.00;
             for (var i = 0; i < data.length; i++) {
                 var Item = $(document.createElement("li"));
                 var Num = (i + 1).toString() + "." ;
                 var Name = data[i].title;
                 var Price = "$" + (Number(Math.round(data[i].price1+'e2')+'e-2').toFixed(2)).toString() ;
-                var RemoveLink = "http://localhost:3000/transaction/cart/remove/" + data[i].id.toString() ;
+                var RemoveURL = "http://localhost:3000/transaction/cart/remove/" + data[i].id.toString() ;
                 
                 totalPrice += data[i].price1;
                 console.log(Price);
                 console.log(totalPrice);
 
                 // Creating each item HTML code, need to check
-                $(Item).html("<span class='cd-qty'>" + Num + "</span><span>" + Name + "</span><div class='cd-price'>" + Price + "</div><span><a href='" + RemoveLink + "' class='cd-item-remove cd-img-replace'>Remove</a></span>");
+                // NEED EDIT THE REMOVE
+                $(Item).html("<span class='cd-qty'>" + Num + "</span><span>" + Name + "</span><div class='cd-price'>" + Price + "</div><span><a href='" + RemoveURL+ "' class='cd-item-remove cd-img-replace'>Remove</a></span>");
 
                 $("#cd-cart-items").append(Item);
             }
@@ -76,6 +77,30 @@
             }
         });
 
+        $('#checkoutCartBtn').click( function() {
+            
+            var cartCheckout = {
+              message : "Checking out cart",
+              userID : parseInt(`<%= user.id %>`),
+              cartTotalPrice : totalPrice
+            };
+
+            $.ajax({
+            url: 'http://localhost:3000/transaction/cart/checkout/',
+            type: 'POST',
+            dataType: 'json',
+            data: JSON.stringify(cartCheckout),
+            contentType: "application/json",
+            encode: true,
+            success: function(data) {
+                location.replace("http://localhost:3000/payment");
+            },
+            error: function(jqXHR, textStatus, errorThrown){
+                    console.log(errorThrown);
+            }
+            });
+        });    
+        
     });
 </script>
 
@@ -90,7 +115,7 @@
                  <span name="name0"></span> 
                  <div name="price0" class="cd-price"></div>
                  <span data-name="removeLink0">
-                    <a href="" class="cd-item-remove cd-img-replace">Remove</a>
+                    <button id="cartItemRemove" class="cd-item-remove cd-img-replace">Remove</button>
                  </span>
              </li>
          </ul> <!-- cd-cart-items -->
@@ -100,7 +125,7 @@
                 <p>Total <span name="cartTotalPrice" id="cartTotalPrice"></span></p>
             </div> <!-- cd-cart-total -->
     
-            <a href="#0" class="checkout-btn">Checkout</a>
+            <button id="checkoutCartBtn" class="checkout-btn">Checkout</a>
             
             <p class="cd-go-to-cart"><a href="#0">Go to cart page</a></p>
         </div>

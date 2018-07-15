@@ -473,13 +473,13 @@ document.getElementById("defaultOpen").click();
         </footer>
 
        <% include ../partials/foot %> 
-       <script>
+       <script defer> // Not sure if defer makes difference to CSS editing template literals
         // Ready functions, now used to display values
         $(document).ready(function(){
           console.log(String(`<%= images.available %>`));
           console.log(`<%= urlPath %>`);
 
-          // Some design edits
+          // Some design edits (Capitalizing not working)
           $("span::first-letter").css("text-transform", "capitalize");
 
         });

@@ -119,4 +119,12 @@ router.post("/cart/show/", (req, res) => {
 //     });  
 //     }); 
 
-module.exports = router;
+router.post("/cart/remove/:book_id", (req, res) => {
+    //
+});
+
+router.post("/cart/checkout/", (req, res) => {
+    res.send(200);
+});
+
+module.exports = router ;
