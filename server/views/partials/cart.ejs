@@ -1,13 +1,14 @@
  <!-- Shopping cart script first, trying to load cart items... -->
  <script defer>
     $(document).ready(function(){
+        var user = `<%  user  %>`
       //console.log(user.id); --> Error, user doesn't exist in current EJS
       var cartRetrieve = {
           message: "No logged in user",
           userID: 0,
       };
-      // Only retrieve user.id when user is logged in, when user.id (or user) is not undefined (NOT WORKING, THE JAVASCRIPT STILL PROCESSES...)
-      if(typeof `<%= user %>` !== "undefined") {     /* For some reason return keyword does not break $(document).ready() function */
+      // Only retrieve user.id when user is logged in, when user.id is not empty string (NOT WORKING, NEED TO CHANGE HOW LOGOUT WORKS.)
+      if (`<%= user.id %>` !== "") {     /* For some reason return keyword does not break $(document).ready() function ?? */
         console.log(String(`<%= user.id %>`));
         cartRetrieve = {
             message: "Requesting for cart items of current user",

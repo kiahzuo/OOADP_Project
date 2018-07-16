@@ -186,6 +186,26 @@
 
 }
 
+.dropdown-container {
+  display: none;
+  background-color: #262626;
+  padding-left: 8px;
+}
+
+.sidenav a, .dropdown-btn {
+  padding: 6px 8px 6px 16px;
+  text-decoration: none;
+  font-size: 20px;
+  color: #818181;
+  display: block;
+  border: none;
+  background: none;
+  width:100%;
+  text-align: left;
+  cursor: pointer;
+  outline: none;
+}
+
           </style>
           </head>
   
@@ -198,17 +218,26 @@
           <br><br><br>
           
           <div class="tab">
-            <button class="tablinks" onclick="openCity(event, 'View')" id="defaultOpen">View All Books</button>
-            <button class="tablinks" onclick="openCity(event, 'Tokyo')">Upload New Book</button>
-            <button class="tablinks" onclick="openCity(event, 'User')">User Management</button>
-            
-            <br><br>
-            <a href="/genre" class="btn btn-primary">Genre Management</a><br><br>
-            <a href="/logout" class="btn btn-danger">Logout</a><br><br>
-
+              <button class="tablinks" onclick="openCity(event, 'View')" id="defaultOpen">View All Books</button>
+              <button class="tablinks" onclick="openCity(event, 'Tokyo')">Upload New Book</button>
+              <button class="tablinks" onclick="openCity(event, 'User')">User Management</button>
+              <div class="sidenav">
+              
+                <button class="dropdown-btn">Dropdown
+                  <i class="fa fa-caret-down"></i>
+                </button>
+                <div class="dropdown-container">
+                  <a href="/genre">Genre Management</a>
+                  <a href="#">Reported Items</a>
+                </div>
+              </div> 
+              
+              <br><br>
+              <a href="/logout" class="btn btn-danger">Logout</a><br><br>
   
-            
-          </div>
+          
+              
+            </div>
           
           <div id="View" class="tabcontent">
               <br>
@@ -294,7 +323,20 @@ function myFunction() {
   }
 }
 
-    
+var dropdown = document.getElementsByClassName("dropdown-btn");
+var i;
+
+for (i = 0; i < dropdown.length; i++) {
+  dropdown[i].addEventListener("click", function() {
+    this.classList.toggle("active");
+    var dropdownContent = this.nextElementSibling;
+    if (dropdownContent.style.display === "block") {
+      dropdownContent.style.display = "none";
+    } else {
+      dropdownContent.style.display = "block";
+    }
+  });
+}
     
     </script>
           

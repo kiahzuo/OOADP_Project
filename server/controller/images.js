@@ -383,3 +383,23 @@ exports.filterCategories2 =function(req, res) {
         })
         });
     };
+
+exports.filterPrice = function(req,res,next)
+{
+   var min = req.body.min;
+   var max = req.body.max;
+
+   genre.findAll()
+   .then(genre=>{
+   Images.findAll({
+       
+    where: {price1 : {[Op.between]: [min, max],}} })
+        .then(images=>{
+            res.render('products', {
+                images:images,
+                genre:genre,
+            
+              }) 
+            }) 
+        }) 
+}

@@ -126,8 +126,8 @@ app.get('/wishlist',wishlist.show)
 app.delete('/wishlist/:id',wishlist.delete)
 app.post('/viewbook1', wishlist.create)
 app.post('/store', images.hasAuthorization, upload.single('image'), images.uploadImage);
-
-
+// Filter price "range" on products page 
+app.post('/filterprice', images.filterPrice)
 //Render the cart on "every page?"  --> Doesn't work on index "/" route
 // app.get('/', function(req, res, next) {
      
@@ -260,10 +260,10 @@ var notfoundRouter = require('./routes/notfound');
 // Assigning routers
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
-app.use('/products', auth.isLoggedIn,productsRouter, images.filterCategories );
+app.use('/products', auth.isLoggedIn, productsRouter, images.filterCategories );
 app.use('/store', auth.isLoggedIn, storeRouter,images.hasAuthorization, upload.single('image'), images.uploadImage);
 app.use('/login',loginRouter);
-app.use('/profile',profileRouter,images.filterCategories2);
+app.use('/profile', profileRouter, images.filterCategories2);
 app.use('/signup',signupRouter);
 app.use('/viewbook',viewbookRouter,wishlist.create);
 app.use('/viewprofile',viewprofileRouter);
