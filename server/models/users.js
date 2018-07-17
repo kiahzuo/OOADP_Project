@@ -20,6 +20,14 @@ const Users = sequelize.define('Users', {
     },
     password: {
         type: Sequelize.STRING
+    },
+    bankCardNo: {
+        type: Sequelize.INTEGER,
+        allowNull: true
+    },
+    bankCardName: {
+        type: Sequelize.STRING,
+        allowNull: true
     }
 });
 
