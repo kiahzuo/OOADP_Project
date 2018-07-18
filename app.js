@@ -266,7 +266,7 @@ app.use('/store', auth.isLoggedIn, storeRouter,images.hasAuthorization, upload.s
 app.use('/login',loginRouter);
 app.use('/profile', profileRouter, images.filterCategories2);
 app.use('/signup',signupRouter);
-app.use('/viewbook',viewbookRouter,wishlist.create);
+app.use('/viewbook', viewbookRouter, wishlist.create);
 app.use('/viewprofile',viewprofileRouter);
 app.use('/transaction', transactionRouter);
 app.use('/bank', bankRouter);

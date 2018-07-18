@@ -15,10 +15,11 @@ router.post("/cart/add/", (req, res) => {
     console.log(message)
     // Initialize "global" variables
     global.correct_add_count = 0;
-    // Testing reply, add count
+    // The reply has add count, available
     var reply = {
         message: "",
-        add_count: 0
+        add_count: 0,
+        available: "available"
     };
     /* NOTE, nesting the functions (to make use of scope) */
     /* Get and update/manipulate add_count (specific to user) */
@@ -35,7 +36,7 @@ router.post("/cart/add/", (req, res) => {
         }
         /* Updating the available attribute (just a single attribute) */
         Images.find({ where: { id: req.body.bookID } }).then(function(updateRecord) {
-            if (!updateRecord || updateRecord == 0) {
+            if (!updateRecord || updateRecord == 0 || updateRecord.available == "In cart") {
                 return res.send(400, {
                     message: "Error, book record does not exist or unable to update"
                 });
@@ -43,6 +44,7 @@ router.post("/cart/add/", (req, res) => {
                 updateRecord.updateAttributes({
                     available: "In cart"
                 });
+                reply.available = "In cart"
             }
             /* Add new record to Cart_Items table */
             var Cart_Data = {

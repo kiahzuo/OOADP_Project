@@ -9,7 +9,7 @@
     <link rel="stylesheet" type="text/css" href="../../stylesheets/util.css">
     <link rel="stylesheet" type="text/css" href="../../stylesheets/main.css">
 
-
+  
     <% if (user.name =="ADMIN") { %>
       <style>
         * {
@@ -227,6 +227,35 @@
           outline: none;
         }
       </style>
+
+      <style>
+    form {
+        margin: 20px auto;
+        width: 420px;
+    }
+    .form-row {
+        padding: 5px 10px;
+    }
+    label {
+        display: block;
+        margin: 3px 0;
+    }
+    .form-row input {
+        padding: 3px 1px;
+        width: 100%;
+    }
+    input.currency {
+        text-align: right;
+        padding-right: 15px;
+    }
+    .input-group .form-control {
+        float: none;
+    }
+    .input-group .input-buttons {
+        position: relative;
+        z-index: 3;
+    }
+        </style>
 </head>
 
 
@@ -356,189 +385,7 @@
               tr[i].style.display = "none";
             }
           }
-<<<<<<< HEAD
-  
-  #nextBtn,#prevBtn {
-      background-color: #4CAF50;
-      border: none;
-      color: white;
-      padding: 12px;
-      text-align: center;
-      text-decoration: none;
-      display: inline-block;
-      font-size: 16px;
-      margin: 4px 2px;
-      border-radius: 12px;
-  }
-  
-  .card-body{
-   height: 170px;
-  }
-  
-  
-  .profilepic {
-      border-radius: 70%;
-      width:150px;
-      height:150px;
-  }
-
-
-
-* {
-  box-sizing: border-box;
-}
-
-#myInput {
-  background-image: url('/css/searchicon.png');
-  background-position: 10px 10px;
-  background-repeat: no-repeat;
-  width: 1200px;
-  font-size: 16px;
-  padding: 12px 20px 12px 40px;
-  border: 1px solid #ddd;
-  margin-bottom: 12px;
-}
-
-#myTable {
-  border-collapse: collapse;
-  width: 100%;
-  border: 1px solid #ddd;
-  font-size: 18px;
-}
-
-#myTable th, #myTable td {
-  text-align: left;
-  padding: 12px;
-}
-
-#myTable tr {
-  border-bottom: 1px solid #ddd;
-}
-
-#myTable tr.header, #myTable tr:hover {
-  background-color: #f1f1f1;
-}
-.table1{
-  margin-left: 60px;
-
-}
-
-.dropdown-container {
-  display: none;
-  background-color: #262626;
-  padding-left: 8px;
-}
-
-.sidenav a, .dropdown-btn {
-  padding: 6px 8px 6px 16px;
-  text-decoration: none;
-  font-size: 20px;
-  color: #818181;
-  display: block;
-  border: none;
-  background: none;
-  width:100%;
-  text-align: left;
-  cursor: pointer;
-  outline: none;
-}
-
-          </style>
-          </head>
-  
-  
-          <body>
-  
-                  <% include ../partials/header %>
-          
-          <p>Click on the buttons inside the tabbed menu:</p>
-          <br><br><br>
-          
-          <div class="tab">
-              <button class="tablinks" onclick="openCity(event, 'View')" id="defaultOpen">View All Books</button>
-              <button class="tablinks" onclick="openCity(event, 'Tokyo')">Upload New Book</button>
-              <button class="tablinks" onclick="openCity(event, 'User')">User Management</button>
-              <div class="sidenav">
-              
-                <button class="dropdown-btn">Dropdown
-                  <i class="fa fa-caret-down"></i>
-                </button>
-                <div class="dropdown-container">
-                  <a href="/genre">Genre Management</a>
-                  <a href="/reportitem">Reported Items</a>
-                </div>
-              </div> 
-              
-              <br><br>
-              <a href="/logout" class="btn btn-danger">Logout</a><br><br>
-  
-          
-              
-            </div>
-          
-          <div id="View" class="tabcontent">
-              <br>
-         
-                    
-                              <div class="col-sm-6 col-md-8 col-lg-9 p-b-50">
-                                
-                                        
-                              <div class="container">
-                              
-                                <div class="row">
-                              
-                                         
-
-                                            <input type="text" id="myInput" class="table1" onkeyup="myFunction()" placeholder="Search for names.." title="Type in a name">
-
-<table id="myTable"class="table1">
-  <tr  >
-    <th style="width:20%;">Seller</th>
-    <th style="width:20%;">Title</th>
-    <th style="width:20%;">Availability</th>
-    <th style="width:20%;">Price</th>
-    <th style="width:10%;">Edit</th>
-     <th style="width:10%;">Delete</th>
-  </tr>
-  <% for (i =0; i < images.length; i++) {%>
-  <tr class="rowRecord" data-id="<%= images[i].id %>">
-    <td><%= images[i].seller %></td>
-    <td><%= images[i].title %></td>
-    <td><%= images[i].available %></td>
-    <td><%= images[i].price1 %></td>
-    <td><a class = 'btn btn-primary' href="/edit/<%= images[i].id%>">Edit Book</a></td>
-    <td><input type="button" class="deleteBtn"  value="Delete"></td>
-  </tr>
-  <% } %>
- 
-</table>                      
-</div>
-</div>
-</div>
-
-
-
-</div>        
-    
-    <script>
-
-          $('.deleteBtn').click(function () {
-            var booknumber = $(this).closest("tr").data('id');
-    $.ajax({
-      url: 'http://localhost:3000/profile/' + booknumber,
-      type: 'DELETE',
-      success: function (result) {
-        console.log(result.message);
-        var itemToRemove = '.rowRecord[data-id=' + booknumber + ']';
-        $(itemToRemove).remove();
-        alert("Record Deleted Successfully.");
-      },
-      error: function (result) {
-        alert("Unable to delete record.");
-        console.log(result.message);
-=======
         }
->>>>>>> bbabe8ea28ff0f9b07155b808dc3e2358875db16
       }
 
       var dropdown = document.getElementsByClassName("dropdown-btn");
@@ -649,8 +496,12 @@
 
           <input type="text" id="itle" name="title" class="form-control" placeholder="Image Title..." required="">
           <br>
-
-          <input type="number" id="price" name="price" class="form-control" placeholder="Price..." required="">
+          <div class="form-row">
+            <div class="input-group hide-inputbtns"> 
+                <span class="input-group-addon">$</span>
+                <input type="number" id="price" name="price" value="0" min="1" step="0.01" data-number-to-fixed="2" data-number-stepfactor="100" class="form-control currency" placeholder="Price..." required/>
+            </div>
+          </div>
           <br>
 
           <input type="text" id="condition" name="condition" class="form-control" placeholder="Condition..." required="">
@@ -696,87 +547,6 @@
             <div style="float:right;">
               <button type="submit" class="btn btn-primary">Confirm</button>
             </div>
-<<<<<<< HEAD
-          
-          <div id="Tokyo" class="tabcontent">
-              
-                          <form action="/store" method="post" enctype="multipart/form-data" id="regForm">
-                              <div class="modal-header">
-                                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                      <span aria-hidden="true">&times;</span>
-                                  </button>
-                                  <h4 class="modal-title" id="myModalLabel">Upload A Book</h4>
-                              </div>
-      
-                              <div class="modal-body">
-                                
-        
-
-                  
-                           
-                              
-                              <!-- One "tab" for each step in the form: -->
-                    
-                                  
-                                  <input type="text" id="itle" name="title" class="form-control" placeholder="Image Title..." required=""><br>
-                                  
-                                  <input type="number" id="price" step="any" name="price" class="form-control" placeholder="Price..." required=""><br>
-
-                                  <input type="text" id="condition" name="condition" class="form-control" placeholder="Condition..." required=""><br>
-                    
-                        
-
-
-                             
-                                  <select id="genre"name="genre" class="form-control" placeholder="genre" required=""><br>
-                                    <% for (i =0; i < genre.length; i++) {%>
-                                    <option value="<%= genre[i].genre %>"><%= genre[i].genre %></option>
-                                    
-
-                                    <% } %>
-                                  </select>     <br>
-                                  <textarea  id="description" name="description" class="form-control" placeholder="Description..." required=""></textarea><br>
-                                  <input type="text" id="meetup" name="meetup" class="form-control" placeholder="Meetup Details" required=""><br>
-                                
-                      
-                              
-  
-          
-                                  <select hidden id="available"name="available" class="form-control" readonly placeholder="available" required=""><br>
-                                    <option value="available">available</option>
-              
-                                  </select>     <br>
-                                  <label  for="itle">Add a picture</label>
-                                      <input type="file" id="image" name="image" required>
-                                      <span class="file-custom"></span>
-                              
-                     
-                              
-                              <div style="overflow:auto;">
-                                <div style="float:right;">
-                                    <button type="submit" class="btn btn-primary">Confirm</button>
-                                </div>
-                              </div>
-                              
-                              <!-- Circles which indicates the steps of the form: -->
-                              <div style="text-align:center;margin-top:40px;">
-                                <span class="step"></span>
-                                <span class="step"></span>
-                                <span class="step"></span>
-                              </div>
-                              
-                              </form>
-           
-
-</div>
-
-
-
-
-
-
-          
-=======
           </div>
 
           <!-- Circles which indicates the steps of the form: -->
@@ -797,7 +567,6 @@
 
       <% include ../partials/foot %>
 
->>>>>>> bbabe8ea28ff0f9b07155b808dc3e2358875db16
           <script>
             function openCity(evt, cityName) {
               var i, tabcontent, tablinks;
@@ -967,6 +736,35 @@
       height: 150px;
     }
   </style>
+
+    <style>
+    form {
+        margin: 20px auto;
+        width: 420px;
+    }
+    .form-row {
+        padding: 5px 10px;
+    }
+    label {
+        display: block;
+        margin: 3px 0;
+    }
+    .form-row input {
+        padding: 3px 1px;
+        width: 100%;
+    }
+    input.currency {
+        text-align: right;
+        padding-right: 15px;
+    }
+    .input-group .form-control {
+        float: none;
+    }
+    .input-group .input-buttons {
+        position: relative;
+        z-index: 3;
+    }
+        </style>
   </head>
 
   <body> 
@@ -1001,8 +799,12 @@
 
                 <input type="text" id="itle" name="title" class="form-control" placeholder="Image Title..." required="">
                 <br>
-
-                <input type="number" id="price" name="price" class="form-control" placeholder="Price..." required="">
+                <div class="form-row">
+                    <div class="input-group hide-inputbtns"> 
+                        <span class="input-group-addon">$</span>
+                        <input type="number" id="price" name="price" value="0" min="1" step="0.01" data-number-to-fixed="2" data-number-stepfactor="100" class="form-control currency" placeholder="Price..." required/>
+                    </div>
+                </div>
                 <br>
 
                 <input type="text" id="condition" name="condition" class="form-control" placeholder="Condition..." required="">
@@ -1013,98 +815,6 @@
 
 
 
-<<<<<<< HEAD
-              <div class="container">
-                  
-                  <!-- Modal -->
-                  <div class="modal fade" id="createImage" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-                      <div class="modal-dialog" role="document">
-                          <div class="modal-content">
-                              <form action="/store" method="post" enctype="multipart/form-data" id="regForm">
-                                  <div class="modal-header">
-                                      <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                          <span aria-hidden="true">&times;</span>
-                                      </button>
-                                      <h4 class="modal-title" id="myModalLabel">Upload A Book</h4>
-                                  </div>
-          
-                                  <div class="modal-body">
-                                    
-            
-
-                      
-                               
-                                  
-                                  <!-- One "tab" for each step in the form: -->
-                                  <div class="tab"><h3>Book Information</h3><br><br>
-                                      
-                                      <input type="text" id="itle" name="title" class="form-control" placeholder="Image Title..." required=""><br>
-                                      
-                                      <input type="number" id="price" name="price" step="any" class="form-control" placeholder="Price..." required=""><br>
-
-                                      <input type="text" id="condition" name="condition" class="form-control" placeholder="Condition..." required=""><br>
-                                  </div>
-                                  
-                              
-
-                                 
-                                  
-                                  <div class="tab"><h3>Miscellaneous</h3><br><br>
-
-
-                                 
-                                      <select id="genre"name="genre" class="form-control" placeholder="genre" required=""><br>
-                                        <% for (i =0; i < genre.length; i++) {%>
-                                          <option value="<%= genre[i].genre %>"><%= genre[i].genre %></option>
-                                          
-                  
-                                          <% } %>
-                                      </select>     <br>
-                                      <textarea  id="description" name="description" class="form-control" placeholder="Description..." required=""></textarea><br>
-                                      <input type="text" id="meetup" name="meetup" class="form-control" placeholder="Meetup Details" required=""><br>
-                                    
-                                  </div>
-                                  
-                                  <div class="tab"><h3>Add Picture</h3><br><br>
-                                      
-                                      <select hidden id="available"name="available" class="form-control" readonly placeholder="available" required=""><br>
-                                        <option value="available">available</option>
-                  
-                                      </select>     <br>
-                                      <label  for="itle">Add a picture</label>
-                                          <input type="file" id="image" name="image" required>
-                                          <span class="file-custom"></span>
-                                  
-                                  </div>
-                                  
-                                  <div style="overflow:auto;">
-                                    <div style="float:right;">
-                                      <button type="button" id="prevBtn" onclick="nextPrev(-1)">Previous</button>
-                                      <button type="button" id="nextBtn" onclick="nextPrev(1)">Next</button>
-                                    </div>
-                                  </div>
-                                  
-                                  <!-- Circles which indicates the steps of the form: -->
-                                  <div style="text-align:center;margin-top:40px;">
-                                    <span class="step"></span>
-                                    <span class="step"></span>
-                                    <span class="step"></span>
-                                  </div>
-                                  
-                                  </form>
-                          </div>
-                      </div>
-                  </div>
-                  <hr>
-                
-             
-                    </p>
-                  </div>
-                </div>
-                </div>
-                </div>
-                </div>
-=======
               <div class="tab">
                 <h3>Miscellaneous</h3>
                 <br>
@@ -1151,7 +861,6 @@
                 <div style="float:right;">
                   <button type="button" id="prevBtn" onclick="nextPrev(-1)">Previous</button>
                   <button type="button" id="nextBtn" onclick="nextPrev(1)">Next</button>
->>>>>>> bbabe8ea28ff0f9b07155b808dc3e2358875db16
                 </div>
               </div>
 

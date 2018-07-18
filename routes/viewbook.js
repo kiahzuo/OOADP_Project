@@ -1,11 +1,13 @@
 var express = require('express');
 var router = express.Router();
-var gravatar = require ('gravatar');
-var Bookitem = require('../server/models/models');
-var Comments = require ('../server/models/comments');
 var myDatabase = require('../server/controller/database');
+
+var Comments = require ('../server/models/comments');
 var Images = require('../server/models/images');
 var wishlist = require('../server/models/wishlist');
+var Cart_Items = require('../server/models/cart');
+var sequelize = myDatabase.sequelize;
+const Op = sequelize.Op
 
 var sequelize = myDatabase.sequelize;
 
@@ -21,47 +23,47 @@ router.get('/:id', function(req, res, next) {
             Comments.findAll().then(function(comments){
                 Images.findAll().then(function (images2) {
                     wishlist.findAll({where:{user_id :req.user.id, bookid :booknumber}}).then(function (wishlist)  {
+                        Cart_Items.max('add_count', { where: { user_id: req.user.id } }).then(function(maxAddCount) {
     
+                            console.log("Max add count:" + maxAddCount)
+
+                            if(wishlist ==""){
                     
-                        if(wishlist ==""){
-                
-                            res.render('viewbook', {
-                                title: "Practical 5 Database Node JS - Edit Student Records",
-                                images: images,
-                                status: "Add to Wishlist?",
-                                images2:images2,
-                                wishlist:wishlist,
-                                user : req.user,
-                                comments: comments,
-                                hostPath: req.protocol + "://" + req.get("host"),
-                                urlPath: req.protocol + '://' + req.get('host') + req.originalUrl,
-                        
-                            })
+                                res.render('viewbook', {
+                                    title: "Practical 5 Database Node JS - Edit Student Records",
+                                    images: images,
+                                    status: "Add to Wishlist?",
+                                    images2:images2,
+                                    wishlist:wishlist,
+                                    user : req.user,
+                                    comments: comments,
+                                    hostPath: req.protocol + "://" + req.get("host"),
+                                    urlPath: req.protocol + '://' + req.get('host') + req.originalUrl,
                             
-                        }
-                        else{
-                        
-                            res.render('viewbook', {
-                                title: "Practical 5 Database Node JS - Edit Student Records",
-                                images: images,
-                                status:"Wishlisted",
-                                images2:images2,
-                                wishlist:wishlist,
-                                user : req.user,
-                                comments: comments,
-                                hostPath: req.protocol + "://" + req.get("host"),
-                                urlPath: req.protocol + '://' + req.get('host') + req.originalUrl,
-                        
-                            })
-                
-                        }
-            
-        })
-        })
-    })
-        }
-
-
+                                })
+                                
+                            }
+                            else{
+                            
+                                res.render('viewbook', {
+                                    title: "Practical 5 Database Node JS - Edit Student Records",
+                                    images: images,
+                                    status:"Wishlisted",
+                                    images2:images2,
+                                    wishlist:wishlist,
+                                    user : req.user,
+                                    comments: comments,
+                                    hostPath: req.protocol + "://" + req.get("host"),
+                                    urlPath: req.protocol + '://' + req.get('host') + req.originalUrl,
+                            
+                                })
+                    
+                            }
+                        })
+                    })
+                })
+            })
+    }
 });
 
 });

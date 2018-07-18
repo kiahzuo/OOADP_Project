@@ -160,10 +160,16 @@
         
                         
                                 <button class="btn btn-lg btn-primary btn-block" type="submit">Chat</button>
-                                                <button id="addToCartButton" class="btn btn-lg btn-primary btn-block" type="button">Add to Cart</button>
-
+                                <!-- Tool tip example (Question mark) -->
+                                <!-- <span data-toggle="tooltip" data-placement="bottom" data-container="body" title="Click on the icons to navigate"><span class="fa fa-2x fa-question-circle-o text-primary sr-icons"></span></span> -->
+                                <% if (images.available == "available") { %>
+                                    <button id="addToCartButton" class="btn btn-lg btn-primary btn-block" type="button">Add to Cart</button>
+                                <% } else { %>
+                                <span id="addToCartButtonTooltip" data-toggle="tooltip" data-placement="bottom" data-container="body" title="Book not available">
+                                        <button id="" class="btn btn-lg btn-primary btn-block disabled" type="button" disabled>Add to Cart</button>
+                                </span>
+                                <% } %>
       
-                                    
                                                 <button class="btn btn-lg btn-primary btn-block" data-toggle="modal" data-target="#createWishlist" ><%=status %></button>
 
                                                 
@@ -466,14 +472,10 @@ document.getElementById("defaultOpen").click();
 
       <% include ../partials/cart %>
 
-      <footer class="footer text-faded text-center py-5">
-          <div class="container">
-            <p class="m-0 small">Copyright &copy; Your Website 2018</p>
-          </div>
-        </footer>
+      <% include ../partials/footer %>
 
        <% include ../partials/foot %> 
-       <script defer> // Not sure if defer makes difference to CSS editing template literals
+       <script> // Not sure if defer makes difference to CSS editing template literals
         // Ready functions, now used to display values
         $(document).ready(function(){
           console.log(String(`<%= images.available %>`));
@@ -515,8 +517,9 @@ document.getElementById("defaultOpen").click();
               success: function(data) {
                 // Log data to check
                 console.log(data);
-                console.log(data.add_count);
                 console.log(data.message);
+                console.log(data.add_count);
+                console.log(data.available);
 
                 $.alert({
                           title: 'Book added to cart',
