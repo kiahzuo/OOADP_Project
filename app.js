@@ -9,6 +9,7 @@ var logger = require('morgan');
 var router = express.Router();
 var firebase = require('firebase');
 var app = express();
+var expressValidator = require('express-validator');
 // Including neccessary "modules"...
 app.use(logger('dev'));
 // app.use(bodyParser.json()); // Updated Express, can just use express.json()
@@ -122,8 +123,8 @@ app.get('/genre',genre.show)
 app.post('/genre', genre.create)
 app.delete('/genre/:id',genre.delete)
 // wishlist HTTP request handlers
-app.get('/wishlist',wishlist.show)
-app.delete('/wishlist/:id',wishlist.delete)
+app.get('/wishlist', auth.isLoggedIn,wishlist.show)
+app.delete('/wishlist/:id',wishlist.delete, auth.isLoggedIn)
 app.post('/viewbook1', wishlist.create)
 app.post('/store', images.hasAuthorization, upload.single('image'), images.uploadImage);
 // Filter price "range" on products page 
@@ -258,6 +259,7 @@ var paymentRouter = require('./routes/payment');
 var bankRouter = require('./routes/bank');
 var notfoundRouter = require('./routes/notfound');
 var reportitemRouter = require('./routes/reportitem');
+var chatRouter = require('./routes/chat');
 // Assigning routers
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
@@ -267,13 +269,74 @@ app.use('/login',loginRouter);
 app.use('/profile', profileRouter, images.filterCategories2);
 app.use('/signup',signupRouter);
 app.use('/viewbook',viewbookRouter,wishlist.create);
-app.use('/viewprofile',viewprofileRouter);
+app.use('/viewprofile',viewprofileRouter );
 app.use('/transaction', transactionRouter);
 app.use('/bank', bankRouter);
 app.use('/payment', paymentRouter);
 app.use('/edit', editRouter);
 app.use('/notfound', notfoundRouter);
 app.use('/reportitem', reportitemRouter);
+
+
+
+//IFFAH
+app.get('/chat', function(req, res) {
+    res.sendFile(__dirname + '/public/view/chatPage.html');
+});
+
+var http = require('http');
+var server = http.createServer(app);
+server.listen(3001)
+
+const io = require('socket.io')(server);
+var onlineUsers = [];
+
+io.on('connection', function(socket) {
+
+    //   console.log('a user connected');
+
+    socket.on('user name', function(user, callback) {
+        var temp = 0;
+        onlineUsers.push({
+            profileName: user.userName,
+            profileId: socket.id,
+            profileImage: user.imageUrl,
+            profileAge: user.userAge,
+            profileSchool: user.userSchool,
+            profileCity: user.userCity,
+            counter: temp
+        })
+
+        // console.log(userName);
+        console.log(onlineUsers);
+
+        io.sockets.emit('connectedUsers', onlineUsers);
+
+    });
+
+    socket.on('disconnect', function() {
+        var i = 0;
+        while (i < onlineUsers.length) {
+            if (onlineUsers[i].profileId == socket.id) {
+                break;
+            }
+            i++;
+        }
+        console.log(socket.id + 'disconnect');
+
+        onlineUsers.splice(i, 1);
+        io.sockets.emit('connectedUsers', onlineUsers);
+        //console.log('user disconnected');
+    });
+
+    socket.on('chatting', function(message, sender, receiver) {
+
+        socket.to(receiver).emit('reciverPeer', message, socket.id, receiver);
+        socket.emit('senderPeer', message, socket.id, receiver);
+
+    })
+
+});
 
 // Render special "page" for when logged out (user session variable undefined)?
 
