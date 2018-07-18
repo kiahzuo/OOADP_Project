@@ -54,6 +54,8 @@ var wishlist = require('./server/controller/wishlist');
 var comments = require('./server/controller/comments');
 //Import transaction controller (file)
 var transaction = require('./server/controller/transaction');
+//Import report controller
+var report = require('./server/controller/report');
 
 // Modules to store session
 var myDatabase = require('./server/controller/database');
@@ -115,6 +117,10 @@ app.get('/logout', function (req, res) {
     res.redirect('/');
 });
 
+//adding report
+
+app.post('/report',report.create)
+app.get('/reportitem',report.show)
 // Book edit HTTP request handlers
 app.post("/edit/:id", upload.single('imageName'),images.updateImage)
 app.get("/edit/:id", images.show);

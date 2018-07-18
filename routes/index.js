@@ -1,22 +1,20 @@
 var express = require('express');
 var router = express.Router();
-
-
 var User = require("../server/models/users");
 var nodemailer = require('nodemailer');
 var crypto = require("crypto");
 
 var myDatabase = require ('../server/controller/database');
 var Sequelize = myDatabase.Sequelize;
-const Op = Sequelize.Op
+var bcrypt = require('bcrypt');
+var salt = bcrypt.genSaltSync(10);
+const Op = Sequelize.Op;
 
-/* GET "home" page. */
+/* GET about page. */
 router.get('/', function(req, res, next) {
   res.render('index', 
   { title: 'Express',
   user : req.user,
-
-
 });
 });
 
@@ -43,13 +41,13 @@ router.post('/forgot', function(req, res, next) {
       var smtpTransport = nodemailer.createTransport({ 
         service: 'Gmail',
         auth: {
-          user: 'jonsnow3050@gmail.com',
-          pass: 'jonsnowisdead'
+          user: 'booktrade123@gmail.com',
+          pass: 'ahmadishere'
         }
       })
       var mailOptions = {
         to: user.email,
-        from: 'jonsnow3050@gmail.com',
+        from: 'booktrade123@gmail.com',
         subject: 'Node.js Password Reset',
         text: 'You are receiving this because you (or someone else) have requested the reset of the password for your account.\n\n' +
           'Please click on the following link, or paste this into your browser to complete the process:\n\n' +
@@ -82,7 +80,7 @@ router.post('/reset/:token', function(req, res, next) {
   .then((user)=>{
     if (!user) {
       req.flash('error', 'Password reset token is invalid or has expired.');
-      return res.redirect('/forgot');
+      return res.redirect('/forgot'); 
     }
     user.password = bcrypt.hashSync(req.body.password, salt);
     user.resetPasswordToken = null;
@@ -92,13 +90,13 @@ router.post('/reset/:token', function(req, res, next) {
       var smtpTransport = nodemailer.createTransport({ 
        service: 'Gmail',
        auth: {
-        user: 'jonsnow3050@gmail.com',
-        pass: 'jonsnowisdead'
+        user: 'booktrade123@gmail.com',
+        pass: 'ahmadishere'
        }
       })
       var mailOptions = {
         to: user.email,
-        from: 'jonsnow3050@gmail.com',
+        from: 'booktrade123@gmail.com',
         subject: 'Your password has been changed',
         text: 'Hello,\n\n' +
           'This is a confirmation that the password for your account ' + user.email + ' has just been changed.\n'
@@ -114,4 +112,4 @@ router.post('/reset/:token', function(req, res, next) {
   })
 })
 
-module.exports = router;  
+module.exports = router;
