@@ -1,5 +1,36 @@
- <!-- Shopping cart script first, trying to load cart items... -->
- <script defer>
+ <!-- Shopping cart (with sample data) --> 
+ <% if (user != null) { %>    
+ <div id="cd-shadow-layer"></div>
+
+ <div id="cd-cart">
+         <h2>Cart</h2>
+         <ul id="cd-cart-items" class="cd-cart-items">
+             <li id="addr0" data-id="0" class="hidden">
+                 <span name="num0"class="cd-qty"></span> 
+                 <span name="name0"></span> 
+                 <div name="price0" class="cd-price"></div>
+                 <span data-name="removeLink0">
+                    <button id="cartItemRemove" class="cd-item-remove cd-img-replace">Remove</button>
+                 </span>
+             </li>
+         </ul> <!-- cd-cart-items -->
+         
+         <div id="cartInfo" class="hidden">
+            <div class="cd-cart-total">
+                <p>Total <span name="cartTotalPrice" id="cartTotalPrice"></span></p>
+            </div> <!-- cd-cart-total -->
+    
+            <button id="checkoutCartBtn" class="checkout-btn">Checkout</a>
+            
+            <p class="cd-go-to-cart"><a href="#0">Go to cart page</a></p>
+        </div>
+
+        <div id="cartEmpty">
+            <p>NO ITEMS IN CART</p>
+        </div>
+     </div> <!-- cd-cart -->
+
+<script defer>
     $(document).ready(function(){
         var user = `<%  user  %>`
       //console.log(user.id); --> Error, user doesn't exist in current EJS
@@ -9,7 +40,6 @@
       };
       // Only retrieve user.id when user is logged in, when user.id is not empty string (NOT WORKING, NEED TO CHANGE HOW LOGOUT WORKS.)
       if (`<%= user.id %>` !== "") {     /* For some reason return keyword does not break $(document).ready() function ?? */
-        console.log(String(`<%= user.id %>`));
         cartRetrieve = {
             message: "Requesting for cart items of current user",
             userID : parseInt(`<%= user.id %>`),
@@ -26,11 +56,6 @@
           encode: true,
 
           success: function(data) {
-            // Log data to check
-            console.log(data);
-            console.log(data[0].user_id);
-            console.log(data[1].price1);
-            console.log(data[0].id);
 
             /* Start generating the list of items */
             // Check in case, test if object?
@@ -104,34 +129,6 @@
         
     });
 </script>
-
- <!-- Shopping cart (with sample data) -->       
- <div id="cd-shadow-layer"></div>
-
- <div id="cd-cart">
-         <h2>Cart</h2>
-         <ul id="cd-cart-items" class="cd-cart-items">
-             <li id="addr0" data-id="0" class="hidden">
-                 <span name="num0"class="cd-qty"></span> 
-                 <span name="name0"></span> 
-                 <div name="price0" class="cd-price"></div>
-                 <span data-name="removeLink0">
-                    <button id="cartItemRemove" class="cd-item-remove cd-img-replace">Remove</button>
-                 </span>
-             </li>
-         </ul> <!-- cd-cart-items -->
-         
-         <div id="cartInfo" class="hidden">
-            <div class="cd-cart-total">
-                <p>Total <span name="cartTotalPrice" id="cartTotalPrice"></span></p>
-            </div> <!-- cd-cart-total -->
-    
-            <button id="checkoutCartBtn" class="checkout-btn">Checkout</a>
-            
-            <p class="cd-go-to-cart"><a href="#0">Go to cart page</a></p>
-        </div>
-
-        <div id="cartEmpty">
-            <p>NO ITEMS IN CART</p>
-        </div>
-     </div> <!-- cd-cart -->
+<% } else { %>
+<!-- Display popup on the main EJS that cart is unaccessible when user is not logged in -->
+<% } %>  
