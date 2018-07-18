@@ -257,6 +257,7 @@ var transactionRouter = require('./routes/transaction');
 var paymentRouter = require('./routes/payment');
 var bankRouter = require('./routes/bank');
 var notfoundRouter = require('./routes/notfound');
+var reportitemRouter = require('./routes/reportitem');
 // Assigning routers
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
@@ -272,6 +273,7 @@ app.use('/bank', bankRouter);
 app.use('/payment', paymentRouter);
 app.use('/edit', editRouter);
 app.use('/notfound', notfoundRouter);
+app.use('/reportitem', reportitemRouter);
 
 // Render special "page" for when logged out (user session variable undefined)?
 

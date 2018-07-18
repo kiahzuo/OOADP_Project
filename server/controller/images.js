@@ -10,6 +10,7 @@ var Images = require('../models/images');
 var genre = require('../models/genre');
 var myDatabase = require('./database');
 var sequelize = myDatabase.sequelize;
+const Op = sequelize.Op;
 
 
 //show edit
