@@ -151,18 +151,20 @@ $(document).ready(function () {
                 console.log("ALL CHECKS VALID");
                 // Send AJAX based on the "EJS type"
                 if (jsSendType == "Default") {
+                    var sendData = {
+                        cardNumber:cardNumber,
+                        cardHolder:cardHolder,
+                        cardMonth:expMonth,
+                        cardYear:expYear,
+                        cardCVC:cardCVC,
+                        cardAmount:cardAmount,
+                    }; 
+
                     $.ajax({
                         url:'/payment',
                         method:'POST',
                         dataType: 'json',
-                        data: JSON.stringify({
-                            cardNumber:cardNumber,
-                            cardHolder:cardHolder,
-                            cardMonth:expMonth,
-                            cardYear:expYear,
-                            cardCVC:cardCVC,
-                            cardAmount:cardAmount,
-                        }),
+                        data: JSON.stringify(sendData),
                         contentType: "application/json",
                         encode: true,
                         success: function(data){
@@ -174,15 +176,17 @@ $(document).ready(function () {
                         // }
                     });
                 } else if (jsSendType == "Register") {
+                    var sendData = {
+                        cardNumber: cardNumber,
+                        cardHolder: cardHolder,
+                        userID : user_ID
+                    }; 
+
                     $.ajax({
                         url: ('http://localhost:3000/payment/new/' + parseInt(user_ID) + '/'),
                         method:'POST',
                         dataType: 'json',
-                        data: JSON.stringify({
-                            cardNumber:cardNumber,
-                            cardHolder:cardHolder,
-                            userID : user_ID
-                        }),
+                        data: JSON.stringify(sendData),
                         contentType: "application/json",
                         encode: true,
                         success: function(data){

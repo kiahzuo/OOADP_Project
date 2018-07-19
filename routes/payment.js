@@ -34,10 +34,12 @@ router.get('/new/', function(req, res, next) {
 
 /* Register the bank account for new users (For now is "required" upon signup) */
 router.post("/new/:uid/", (req, res) => {
-  console.log("new payment method route");
-  if (req.userID == req.params.uid) {
+  if (req.body.userID == req.params.uid) {
     console.log("ID check successful")
   }
+  var reply = {
+    message: "",
+  };
 
   Users.find({ where: { id: req.body.userID } }).then(function(updateRecord) {
         if (!updateRecord || updateRecord == 0) {
@@ -46,11 +48,11 @@ router.post("/new/:uid/", (req, res) => {
             });
         } else {
             updateRecord.updateAttributes({
-                bankCardNo: req.cardNumber,
-                bankCardName: req.cardHolder
+                bankCardNo: req.body.cardNumber,
+                bankCardName: req.body.cardHolder
             });
             // reply.available = "In cart" --> Reference
-            return res.send(200); // Need return?
+            res.send(reply); // Need return?
         }
     });
 });

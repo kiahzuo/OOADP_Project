@@ -22,7 +22,7 @@ const Users = sequelize.define('Users', {
         type: Sequelize.STRING
     },
     bankCardNo: {
-        type: Sequelize.INTEGER,
+        type: Sequelize.DECIMAL,
         allowNull: true
     },
     bankCardName: {
