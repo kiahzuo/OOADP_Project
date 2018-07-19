@@ -37,6 +37,7 @@ router.get('/:id', function(req, res, next) {
                                     wishlist:wishlist,
                                     user : req.user,
                                     comments: comments,
+                                    userMaxAddCount : maxAddCount,
                                     hostPath: req.protocol + "://" + req.get("host"),
                                     urlPath: req.protocol + '://' + req.get('host') + req.originalUrl,
                             
@@ -53,6 +54,7 @@ router.get('/:id', function(req, res, next) {
                                     wishlist:wishlist,
                                     user : req.user,
                                     comments: comments,
+                                    userMaxAddCount : maxAddCount,
                                     hostPath: req.protocol + "://" + req.get("host"),
                                     urlPath: req.protocol + '://' + req.get('host') + req.originalUrl,
                             

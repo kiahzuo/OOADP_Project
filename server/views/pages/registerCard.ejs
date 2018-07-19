@@ -26,23 +26,28 @@
   <body>
     <% include ../partials/header %>
 
-
     <section class="page-section" id="card-size">
+      <label for="" style="font-size: 150%; position: absolute; left: 34%;">Enter your payment details below.</label>
+      <br />
+      <br />
+      <br />
+
       <div class="container">
         <div id="card-success" class="hidden">
           <i class="fa fa-check"></i>
-          <p>Payment Loading...</p>
+          <p>Card has been registered...</p>
         </div>
         <div id="form-errors" class="hidden">
           <i class="fa fa-exclamation-triangle"></i>
-          <p id="card-error">Card error</p>
+          <p id="card-error">Card error, please try again</p>
         </div>
-        <form id="card" action="/payment" method="POST">
+        <form id="card" action="" method="">
           <div id="form-container">
             <div id="card-front">
               <div id="shadow"></div>
               <div id="image-container">
-                <span>Paying: <b>$</b><input id="amount" type="number" value="<%= paying %>" name="amount" readonly></span>
+              <!-- INPUTS AND ETC. BOOKMARK -->
+                <!-- <span>Paying: <b>$</b><input id="amount" type="number" value="" name="amount" readonly></span> -->
                 <input style="display:none;" id="test" value="100" name="test">
                 <span id="card-image"></span>
               </div>
@@ -92,13 +97,13 @@
     <script type="text/javascript" src="https://js.stripe.com/v2/"></script>
     <!-- Custom JavaScripts -->
     <script>
-        // No function because the variables need to be global
-          /* Create the GLOBAL variables to store the data rendered from server side 
-          to be exported to other script tag JS, payment.js */ 
-          var jsSendType = `<%= jsSendType %>` ;
-          var user_ID = `<%= user.id %>` ;
-          var hostPath = `<%= hostPath %>` ;
-          var urlPath = `<%= urlPath %>` ;
+      // No function because the variables need to be global
+        /* Create the GLOBAL variables to store the data rendered from server side 
+        to be exported to other script tag JS, payment.js */ 
+        var jsSendType = `<%= jsSendType %>` ;
+        var user_ID = `<%= user.id %>` ;
+        var hostPath = `<%= hostPath %>` ;
+        var urlPath = `<%= urlPath %>` ;
     </script>
     <script src="../../javascripts/payment.js"></script>
 

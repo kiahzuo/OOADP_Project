@@ -87,8 +87,6 @@ router.post("/cart/show/", (req, res) => {
         console.log(req.body.userID);
         console.log("cart items; ");
         console.log(userCartItems.length);
-        console.log(userCartItems[0].book_id);
-        console.log(userCartItems[1].user_id);
 
         var bookIDArray = [];
         for (var i = 0; i < userCartItems.length; i++){
@@ -97,10 +95,7 @@ router.post("/cart/show/", (req, res) => {
         console.log(bookIDArray);
 
         Images.findAll({ where: { id: { [Op.in]: bookIDArray } } }).then(userCartItemsData => {
-            // Test
-            console.log(userCartItemsData[2].price1);
-
-            res.send(userCartItemsData); // Later change to userCartItemsData
+            res.send(userCartItemsData); // Subject to change
         });
     });
 });
