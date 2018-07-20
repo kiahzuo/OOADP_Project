@@ -22,8 +22,8 @@ router.post("/cart/add/", (req, res) => {
         available: "available"
     };
     /* NOTE, nesting the functions (to make use of scope) */
-    /* Get and update/manipulate add_count (specific to user) */
-    Cart_Items.max('add_count', { where: { user_id: req.body.userID } }).then(function(maxAddCount) {
+    /* Get and update/manipulate add_count (to keep track and return to browser) */
+    Cart_Items.count( { where: { user_id: req.body.userID } }).then(function(maxAddCount) {
         console.log("maxAddCount: " + maxAddCount);
         //console.log("Add count: " + correct_add_count);
         // Catch errors (first)
@@ -36,7 +36,7 @@ router.post("/cart/add/", (req, res) => {
         }
         /* Updating the available attribute (just a single attribute) */
         Images.find({ where: { id: req.body.bookID } }).then(function(updateRecord) {
-            if (!updateRecord || updateRecord == 0 || updateRecord.available == "In cart") {
+            if (!updateRecord || updateRecord == 0 || updateRecord.available == "In cart" || updateRecord.available == "sold") {
                 return res.send(400, {
                     message: "Error, book record does not exist or unable to update"
                 });
@@ -50,33 +50,18 @@ router.post("/cart/add/", (req, res) => {
             var Cart_Data = {
                 book_id: req.body.bookID,
                 user_id: req.body.userID,
-                add_count: reply.add_count
             }
             Cart_Items.create(Cart_Data).then(function(newCartItem, failTest) {
-                console.log(newCartItem.add_count);
                 if (!newCartItem) {
                     return res.send(400, {
                         message: "error"
                     });
                 }
-                res.send(reply);
+                res.status(200).send(reply);
                 // res.status(200).send({ message: "Updated cart for " + req.body.userID }); --> Example success reply
                 // res.redirect("backURL")  --> Will change the URL in browser, should not be used here...
             });
         });
-    
-            // Failed code first try to get and manipulate add_count due to unknown return value from sequelize.query()
-            // sequelize.query('SELECT max(add_count) FROM Cart_Items WHERE user_id = ? ;', {replacements:[req.body.userID]}, {type: sequelize.QueryTypes.SELECT}).then(function(maxAddCount){
-            //     console.log("maxAddCount" + maxAddCount);
-            //     console.log("maxAddcount" + maxAddCount.add_count);
-            //     if (maxAddCount == "") {
-            //          reply.add_count = 1 ;
-            //     } else if (maxAddCount >= 5) {
-            //         // Error, handle and reply error
-            //     } else {
-            //         reply.add_count++
-            //     }
-            // });
     });
 });
 
@@ -95,7 +80,7 @@ router.post("/cart/show/", (req, res) => {
         console.log(bookIDArray);
 
         Images.findAll({ where: { id: { [Op.in]: bookIDArray } } }).then(userCartItemsData => {
-            res.send(userCartItemsData); // Subject to change
+            res.status(200).send(userCartItemsData); // Subject to change
         });
     });
 });
@@ -116,12 +101,35 @@ router.post("/cart/show/", (req, res) => {
 //     });  
 //     }); 
 
-router.post("/cart/remove/:book_id", (req, res) => {
-    //
+router.post("/cart/remove/:bid", (req, res) => {
+    var reply = {
+        message: "",
+    }
+
+    Cart_Items.destroy( {where: {book_id: req.body.bookID} } ).then((deletedItem) => {
+        if(!deletedItem){
+            return res.send(400, {
+                message: "error"
+            });
+        }
+        Images.find({ where: { id: req.body.bookID } }).then(function(updateRecord) {
+            if (!updateRecord || updateRecord == 0 || updateRecord.available == "available" || updateRecord.available == "sold") {
+                return res.send(400, {
+                    message: "Error, book record does not exist or unable to update"
+                });
+            } else {
+                updateRecord.updateAttributes({
+                    available: "available"
+                });
+                reply.message = "Success!"
+                res.status(200).send(reply);
+            }
+        });
+    });
 });
 
 router.post("/cart/checkout/", (req, res) => {
-    res.send(200);
+    res.status(200).send(reply);
 });
 
 module.exports = router ;

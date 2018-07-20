@@ -148,7 +148,7 @@ $(document).ready(function () {
                 $('#card-month').removeClass('invalid');
                 $('#card-year').removeClass('invalid');
                 $('#card-cvc').removeClass('invalid');
-                console.log("ALL CHECKS VALID");
+                console.log("ALL BROWSER CHECKS VALID");
                 // Send AJAX based on the "EJS type"
                 if (jsSendType == "Default") {
                     var sendData = {
@@ -192,6 +192,7 @@ $(document).ready(function () {
                         success: function(data){
                             $("form").trigger("reset");
                             console.log('Card successfully registered');
+                            location.replace("http://localhost:3000/products");
                         }//,
                         // error: function(jqXHR, textStatus, errorThrown){
                         //     console.log(errorThrown);

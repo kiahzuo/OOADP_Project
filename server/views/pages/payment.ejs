@@ -21,28 +21,108 @@
     <link href="/stylesheets/business-casual.min.css" rel="stylesheet">
     <link href="/stylesheets/payment.css" rel="stylesheet">
     <% include ../partials/head %>
+
+    <style>
+.reveal-if-active {
+  opacity: 0;
+  max-height: 0;
+  overflow: hidden;
+  font-size: 16px;
+  -webkit-transform: scale(0.8);
+          transform: scale(0.8);
+  transition: 0.5s;
+}
+.reveal-if-active label {
+  display: block;
+  margin: 0 0 3px 0;
+}
+.reveal-if-active input[type="text"] {
+  width: 100%;
+}
+input[type="radio"]:checked ~ .reveal-if-active, input[type="checkbox"]:checked ~ .reveal-if-active {
+  opacity: 1;
+  max-height: 100px;
+  padding: 10px 20px;
+  -webkit-transform: scale(1);
+          transform: scale(1);
+  overflow: visible;
+}
+
+form {
+  max-width: 500px;
+  margin: 20px auto;
+}
+form > div {
+  margin: 0 0 20px 0;
+}
+form > div label {
+  font-weight: bold;
+}
+form > div > div {
+  padding: 5px;
+}
+form > h4 {
+  color: green;
+  font-size: 24px;
+  margin: 0 0 10px 0;
+  border-bottom: 2px solid green;
+}
+
+body {
+  font-size: 20px;
+}
+
+* {
+  box-sizing: border-box;
+}
+    </style>
   </head>
 
   <body>
     <% include ../partials/header %>
 
-
     <section class="page-section" id="card-size">
-      <div class="container">
+      <label for="" style="font-size: 150%; position: absolute; left: 34%;">Choose your payment method</label>
+      <!-- <br /> -->
+      <div>
+      <input type="radio" name="choice-payment-type" id="choice-registered-card" style="left: 34%;" required>
+      <label for="choice-registered-card" style="left: 34%;">Use registered card</label>
+
+      <div class="reveal-if-active">
+          <p> Enter credentials for card ending in: <%= userCardNo.toString().substring(-1, 4); %> </p>
+          <div id="cvc-container-0" class="require-if-active" data-require-pair="#choice-registered-card">
+              <label for="card-cvc"> CVC/CVV (Last 3 or 4 digits) </label>
+              <input id="card-cvc-0" placeholder="XXX-X" type="text" min-length="3" max-length="4" name="card-cvc-0">
+          </div>
+          <div id="exp-container-0" class="require-if-active" data-require-pair="#choice-registered-card">
+              <label for="card-exp">Expiration</label>
+              <input id="card-month-0" type="text" placeholder="MM" length="2" name="card-month-0">
+              <input id="card-year-0" type="text" placeholder="YY" length="2" name="card-year-0">
+          </div>
+          
+          <button type="button" id="card-btn-0">Submit</button>
+      </div>
+      </div>
+
+      <div>
+      <input type="radio" name="choice-payment-type" id="choice-new-card" style="left: 34%;">
+      <label for="choice-new-card" style="left: 34%;">Use another card</label>
+      <div class="container reveal-if-active require-if-active" data-require-pair="#choice-new-card">
         <div id="card-success" class="hidden">
           <i class="fa fa-check"></i>
-          <p>Payment Loading...</p>
+          <p>Card has been registered...</p>
         </div>
         <div id="form-errors" class="hidden">
           <i class="fa fa-exclamation-triangle"></i>
-          <p id="card-error">Card error</p>
+          <p id="card-error">Card error, please try again</p>
         </div>
-        <form id="card" action="/payment" method="POST">
+        <form id="card" action="" method="">
           <div id="form-container">
             <div id="card-front">
               <div id="shadow"></div>
               <div id="image-container">
-                <span>Paying: <b>$</b><input id="amount" type="number" value="<%= paying %>" name="amount" readonly></span>
+              <!-- INPUTS AND ETC. BOOKMARK -->
+                <!-- <span>Paying: <b>$</b><input id="amount" type="number" value="" name="amount" readonly></span> -->
                 <input style="display:none;" id="test" value="100" name="test">
                 <span id="card-image"></span>
               </div>
@@ -80,6 +160,7 @@
           </div>
         </form>
       </div>
+      </div>
     </section>
 
     <footer class="footer text-faded text-center py-5" style="position: fixed;left: 0;bottom: 0;width: 100%;">
@@ -92,15 +173,45 @@
     <script type="text/javascript" src="https://js.stripe.com/v2/"></script>
     <!-- Custom JavaScripts -->
     <script>
-        // No function because the variables need to be global
-          /* Create the GLOBAL variables to store the data rendered from server side 
-          to be exported to other script tag JS, payment.js */ 
-          var jsSendType = `<%= jsSendType %>` ;
-          var user_ID = `<%= user.id %>` ;
-          var hostPath = `<%= hostPath %>` ;
-          var urlPath = `<%= urlPath %>` ;
+      // No function because the variables need to be global
+        /* Create the GLOBAL variables to store the data rendered from server side 
+        to be exported to other script tag JS, payment.js */ 
+        var jsSendType = `<%= jsSendType %>` ;
+        var user_ID = `<%= user.id %>` ;
+        var hostPath = `<%= hostPath %>` ;
+        var urlPath = `<%= urlPath %>` ;
     </script>
     <script src="../../javascripts/payment.js"></script>
+    <script>
+    // EXTRA STUFF --> Used with HTML form to set the elements required depending on the radio display
+    var FormStuff = {
+  
+      init: function() {
+        this.applyConditionalRequired();
+        this.bindUIActions();
+      },
+      
+      bindUIActions: function() {
+        $("input[type='radio'], input[type='checkbox']").on("change", this.applyConditionalRequired);
+      },
+      
+      applyConditionalRequired: function() {
+        
+        $(".require-if-active").each(function() {
+          var el = $(this);
+          if ($(el.data("require-pair")).is(":checked")) {
+            el.prop("required", true);
+          } else {
+            el.prop("required", false);
+          }
+        });
+        
+      }
+      
+    };
+
+    FormStuff.init();
+    </script>
 
   </body>
 

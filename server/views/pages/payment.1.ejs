@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+
+  <head>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>Payment</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Custom fonts for this template -->
+    <link href="https://fonts.googleapis.com/css?family=Raleway:100,100i,200,200i,300,300i,400,400i,500,500i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Lora:400,400i,700,700i" rel="stylesheet">
+
+    <!-- Custom styles for this template -->
+    <link href="/stylesheets/business-casual.min.css" rel="stylesheet">
+    <link href="/stylesheets/payment.css" rel="stylesheet">
+    <% include ../partials/head %>
+  </head>
+
+  <body>
+    <% include ../partials/header %>
+
+
+    <section class="page-section" id="card-size">
+      <div class="container">
+        <div id="card-success" class="hidden">
+          <i class="fa fa-check"></i>
+          <p>Payment Loading...</p>
+        </div>
+        <div id="form-errors" class="hidden">
+          <i class="fa fa-exclamation-triangle"></i>
+          <p id="card-error">Card error</p>
+        </div>
+        <form id="card" action="/payment" method="POST">
+          <div id="form-container">
+            <div id="card-front">
+              <div id="shadow"></div>
+              <div id="image-container">
+                <span>Paying: <b>$</b><input id="amount" type="number" value="<%= paying %>" name="amount" readonly></span>
+                <input style="display:none;" id="test" value="100" name="test">
+                <span id="card-image"></span>
+              </div>
+              <!-- end card image container -->
+              <label for="card-number">Card Number</label>
+              <input type="text" id="card-number" placeholder="xxxx xxxx xxxx xxxx" length="16" name="card-number">
+              <br>
+              <br>
+              <div id="cardholder-container">
+                <label for="card-holder">Card Holder</label>
+                <input type="text" id="card-holder" name="card-holder" placeholder="e.g. John Doe" />
+              </div>
+              <!-- end card holder container -->
+              <div id="exp-container">
+                <label for="card-exp">Expiration</label>
+                <input id="card-month" type="text" placeholder="MM" length="2" name="card-month">
+                <input id="card-year" type="text" placeholder="YY" length="2" name="card-year">
+              </div>
+              <div id="cvc-container">
+                <label for="card-cvc"> CVC/CVV</label>
+                <input id="card-cvc" placeholder="XXX-X" type="text" min-length="3" max-length="4" name="card-cvc">
+                <p>Last 3 or 4 digits</p>
+              </div>
+              <!-- end CVC container -->
+              <!-- end exp container -->
+            </div>
+            <!-- end card front -->
+            <div id="card-back">
+              <div id="card-stripe"></div>
+            </div>
+            <!-- end card back -->
+            <input type="text" id="card-token" />
+            <button type="button" id="card-btn">Submit</button>
+            <!-- <input type="submit" id="card-btn" placeholder="Submit"> -->
+          </div>
+        </form>
+      </div>
+    </section>
+
+    <footer class="footer text-faded text-center py-5" style="position: fixed;left: 0;bottom: 0;width: 100%;">
+      <div class="container">
+        <p class="m-0 small">Copyright &copy; Your Website 2018</p>
+      </div>
+    </footer>
+
+    <!-- end form container -->
+    <script type="text/javascript" src="https://js.stripe.com/v2/"></script>
+    <!-- Custom JavaScripts -->
+    <script>
+        // No function because the variables need to be global
+          /* Create the GLOBAL variables to store the data rendered from server side 
+          to be exported to other script tag JS, payment.js */ 
+          var jsSendType = `<%= jsSendType %>` ;
+          var user_ID = `<%= user.id %>` ;
+          var hostPath = `<%= hostPath %>` ;
+          var urlPath = `<%= urlPath %>` ;
+    </script>
+    <script src="../../javascripts/payment.js"></script>
+
+  </body>
+
+</html>
