@@ -21,93 +21,18 @@
     <link href="/stylesheets/business-casual.min.css" rel="stylesheet">
     <link href="/stylesheets/payment.css" rel="stylesheet">
     <% include ../partials/head %>
-
-    <style>
-.reveal-if-active {
-  opacity: 0;
-  max-height: 0;
-  overflow: hidden;
-  font-size: 16px;
-  -webkit-transform: scale(0.8);
-          transform: scale(0.8);
-  transition: 0.5s;
-}
-.reveal-if-active label {
-  display: block;
-  margin: 0 0 3px 0;
-}
-.reveal-if-active input[type="text"] {
-  width: 100%;
-}
-input[type="radio"]:checked ~ .reveal-if-active, input[type="checkbox"]:checked ~ .reveal-if-active {
-  opacity: 1;
-  max-height: 100px;
-  padding: 10px 20px;
-  -webkit-transform: scale(1);
-          transform: scale(1);
-  overflow: visible;
-}
-
-form {
-  max-width: 500px;
-  margin: 20px auto;
-}
-form > div {
-  margin: 0 0 20px 0;
-}
-form > div label {
-  font-weight: bold;
-}
-form > div > div {
-  padding: 5px;
-}
-form > h4 {
-  color: green;
-  font-size: 24px;
-  margin: 0 0 10px 0;
-  border-bottom: 2px solid green;
-}
-
-body {
-  font-size: 20px;
-}
-
-* {
-  box-sizing: border-box;
-}
-    </style>
   </head>
 
   <body>
     <% include ../partials/header %>
 
     <section class="page-section" id="card-size">
-      <label for="" style="font-size: 150%; position: absolute; left: 34%;">Choose your payment method</label>
-      <!-- <br /> -->
-      <div>
-      <input type="radio" name="choice-payment-type" id="choice-registered-card" style="left: 34%;" required>
-      <label for="choice-registered-card" style="left: 34%;">Use registered card</label>
+      <label for="" style="font-size: 150%; position: absolute; left: 34%;">Enter your payment details below.</label>
+      <br />
+      <br />
+      <br />
 
-      <div class="reveal-if-active">
-          <p> Enter credentials for card ending in: <%= userCardNo.toString().substring(-1, 4); %> </p>
-          <div id="cvc-container-0" class="require-if-active" data-require-pair="#choice-registered-card">
-              <label for="card-cvc"> CVC/CVV (Last 3 or 4 digits) </label>
-              <input id="card-cvc-0" placeholder="XXX-X" type="text" min-length="3" max-length="4" name="card-cvc-0">
-          </div>
-          <div id="exp-container-0" class="require-if-active" data-require-pair="#choice-registered-card">
-              <label for="card-exp">Expiration</label>
-              <input id="card-month-0" type="text" placeholder="MM" length="2" name="card-month-0">
-              <input id="card-year-0" type="text" placeholder="YY" length="2" name="card-year-0">
-          </div>
-          
-          <button type="button" id="card-btn-0">Submit</button>
-      </div>
-      </div>
-
-      <div>
-      <input type="radio" name="choice-payment-type" id="choice-new-card" style="left: 34%;">
-      <label for="choice-new-card" style="left: 34%;">Use another card</label>
-      <div class="container reveal-if-active require-if-active" data-require-pair="#choice-new-card">
+      <div class="container">
         <div id="card-success" class="hidden">
           <i class="fa fa-check"></i>
           <p>Card has been registered...</p>
@@ -160,7 +85,6 @@ body {
           </div>
         </form>
       </div>
-      </div>
     </section>
 
     <footer class="footer text-faded text-center py-5" style="position: fixed;left: 0;bottom: 0;width: 100%;">
@@ -182,36 +106,6 @@ body {
         var urlPath = `<%= urlPath %>` ;
     </script>
     <script src="../../javascripts/payment.js"></script>
-    <script>
-    // EXTRA STUFF --> Used with HTML form to set the elements required depending on the radio display
-    var FormStuff = {
-  
-      init: function() {
-        this.applyConditionalRequired();
-        this.bindUIActions();
-      },
-      
-      bindUIActions: function() {
-        $("input[type='radio'], input[type='checkbox']").on("change", this.applyConditionalRequired);
-      },
-      
-      applyConditionalRequired: function() {
-        
-        $(".require-if-active").each(function() {
-          var el = $(this);
-          if ($(el.data("require-pair")).is(":checked")) {
-            el.prop("required", true);
-          } else {
-            el.prop("required", false);
-          }
-        });
-        
-      }
-      
-    };
-
-    FormStuff.init();
-    </script>
 
   </body>
 

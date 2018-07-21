@@ -5,6 +5,7 @@
  <div id="cd-cart">
          <h2>Cart</h2>
          <ul id="cd-cart-items" class="cd-cart-items">
+             <!-- Example list item to be "cloned" -->
              <li id="addr0" data-id="0" class="hidden">
                  <span name="num0"class="cd-qty"></span> 
                  <span name="name0"></span> 
@@ -30,7 +31,7 @@
         </div>
      </div> <!-- cd-cart -->
 
-<script defer>
+<script>
     $(document).ready(function(){
         var user = `<%  user  %>`
       //console.log(user.id); --> Error, user doesn't exist in current EJS
@@ -42,7 +43,7 @@
       if (`<%= user.id %>` !== "") {     /* For some reason return keyword does not break $(document).ready() function ?? */
         cartRetrieve = {
             message: "Requesting for cart items of current user",
-            userID : parseInt(`<%= user.id %>`),
+            userID : `<%= user.id %>`,
         };
       }
       // Total price
@@ -58,7 +59,7 @@
           success: function(data) {
 
             /* Start generating the list of items */
-            // Check in case, test if object?
+            // Check in case, test if object...?
             if ($.isEmptyObject(data)) {
                 return;
             } else {
@@ -71,7 +72,7 @@
                 var Num = (i + 1).toString() + "." ;
                 var Name = data[i].title;
                 var Price = "$" + (Number(Math.round(data[i].price1+'e2')+'e-2').toFixed(2)).toString() ;
-                var RemoveURL = "http://localhost:3000/transaction/cart/remove/" + data[i].id.toString() ;
+                var RemoveID = data[i].id.toString() ;
                 
                 totalPrice += data[i].price1;
                 console.log(Price);
@@ -79,7 +80,7 @@
 
                 // Creating each item HTML code, need to check
                 // NEED EDIT THE REMOVE
-                $(Item).html("<span class='cd-qty'>" + Num + "</span><span>" + Name + "</span><div class='cd-price'>" + Price + "</div><span><a href='" + RemoveURL+ "' class='cd-item-remove cd-img-replace'>Remove</a></span>");
+                $(Item).html("<span class='cd-qty'>" + Num + "</span><span>" + Name + "</span><div class='cd-price'>" + Price + "</div><span><button id='" + RemoveID + "' class='cd-item-remove cd-img-replace'>Remove</button></span>");
 
                 $("#cd-cart-items").append(Item);
             }
@@ -101,6 +102,67 @@
             error: function(jqXHR, textStatus, errorThrown){
                 console.log(errorThrown);
             }
+        });
+
+        $("#cd-cart-items").on("click", ".cd-item-remove", function() {
+                /* Get book ID of cart item that the remove button belongs to (closest list item) */  
+                var book_id = $(this).attr("id").toString(); // NOTE must invoke $(this) under the click function...
+                var $this = $(this) ; // For deleting the HTML element
+                console.log(book_id);
+                $.confirm({
+                title: 'Remove item from cart',
+                content: 'Confirm removing item from cart? <b>(The book may be sold out later, try wishlisting it to keep it in your memory!)</b>',
+                buttons: {
+                    confirm: function () {
+                        // Delete the HTML element
+                        $this.closest("li").remove();
+                        // UPDATE THE OTHER CART DISPLAY ITEM VALUES...
+
+
+                        // AJAX to edit database tables
+                        var removeData = {
+                            bookID : book_id,
+                            userID : `<%= user.id %>`
+                        }
+                        
+                        $.ajax({
+                            url: 'http://localhost:3000/transaction/cart/remove/' + book_id.toString(),
+                            type: 'POST',
+                            dataType: 'json',
+                            data: JSON.stringify(removeData),
+                            contentType: "application/json",
+                            encode: true,
+                            success: function(data) { 
+                                console.log(data.message);
+                                $.alert({
+                                    title: 'Cart item removed',
+                                    content: '',
+                                    buttons: {
+                                    OK: function () {
+                                        // location.reload(); --> Might use
+                                        }
+                                    }
+                                });
+                            },
+                            error: function(jqXHR, textStatus, errorThrown){
+                            console.log(errorThrown);
+                            }
+                        });
+                    },
+                    cancel: function () {
+                        $.alert('Canceled');
+                    } 
+                    /*,
+                    somethingElse: {
+                        text: 'Something else',
+                        btnClass: 'btn-blue',
+                        keys: ['enter', 'shift'],
+                        action: function(){
+                            $.alert('Something else?');
+                        }
+                    } */
+                    }
+             });
         });
 
         $('#checkoutCartBtn').click( function() {

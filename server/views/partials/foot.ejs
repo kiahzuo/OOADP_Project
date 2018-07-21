@@ -7,16 +7,11 @@
 <script src="../../javascripts/jquery.magnific-popup.min.js"></script>
 <script src="https://unpkg.com/popper.js/dist/umd/popper.min.js"></script> 
 <script src="https://unpkg.com/tooltip.js/dist/umd/tooltip.min.js"></script>
+
 <script>
 $(document).ready(function(){
     // For tooltips and popovers
     $('[data-toggle="tooltip"]').tooltip();
     $('[data-toggle="popover"]').popover(); 
-
-    webshims.setOptions('forms-ext', {
-    replaceUI: 'auto',
-    types: 'number'
-    });
-    webshims.polyfill('forms forms-ext');
 });
 </script>

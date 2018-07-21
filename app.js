@@ -104,7 +104,7 @@ app.post('/login', passport.authenticate('local-login', {
 app.get('/signup', auth.signup);
 app.post('/signup', passport.authenticate('local-signup', {
     //Success go to Profile Page / Fail go to Signup page
-    successRedirect: '/profile',
+    successRedirect: '/payment/new/',
     failureRedirect: '/signup',
     failureFlash: true
 }));
@@ -148,13 +148,7 @@ app.post('/filterprice', images.filterPrice)
 //     });
 // });  
    
-// Payment routes, get and post
-app.get('/payment', function(req, res){
-    res.render('payment.ejs',{
-        paying: '99',
-    });
-});
-
+// Payment and bank routes, get and post
 app.post('/payment', function(req, res){
     console.log("=== Start ===");
     console.log(req.body);

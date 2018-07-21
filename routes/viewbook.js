@@ -23,7 +23,7 @@ router.get('/:id', function(req, res, next) {
             Comments.findAll().then(function(comments){
                 Images.findAll().then(function (images2) {
                     wishlist.findAll({where:{user_id :req.user.id, bookid :booknumber}}).then(function (wishlist)  {
-                        Cart_Items.max('add_count', { where: { user_id: req.user.id } }).then(function(maxAddCount) {
+                        Cart_Items.count( { where: { user_id: req.user.id } }).then(function(maxAddCount) {
     
                             console.log("Max add count:" + maxAddCount)
 
@@ -37,6 +37,7 @@ router.get('/:id', function(req, res, next) {
                                     wishlist:wishlist,
                                     user : req.user,
                                     comments: comments,
+                                    userMaxAddCount : maxAddCount,
                                     hostPath: req.protocol + "://" + req.get("host"),
                                     urlPath: req.protocol + '://' + req.get('host') + req.originalUrl,
                             
@@ -53,6 +54,7 @@ router.get('/:id', function(req, res, next) {
                                     wishlist:wishlist,
                                     user : req.user,
                                     comments: comments,
+                                    userMaxAddCount : maxAddCount,
                                     hostPath: req.protocol + "://" + req.get("host"),
                                     urlPath: req.protocol + '://' + req.get('host') + req.originalUrl,
                             

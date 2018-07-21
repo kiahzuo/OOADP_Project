@@ -30,10 +30,6 @@ const Cart_Items = sequelize.define('Cart_Items', {
         //     model: 'Users',
         //     key: 'id'
         // }
-    },
-    add_count: {
-        type: Sequelize.INTEGER,
-        allowNull: false  
     }
 });
 

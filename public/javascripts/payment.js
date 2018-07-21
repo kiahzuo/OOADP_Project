@@ -1,4 +1,9 @@
 $(document).ready(function () {
+    // Test server connection (Special)
+    console.log(jsSendType);
+    console.log(user_ID);
+    console.log(urlPath);
+
     Stripe.setPublishableKey('pk_test_9D43kM3d2vEHZYzPzwAblYXl');
     
     var cardNumber, cardMonth, cardYear, cardCVC, cardHolder;
@@ -143,23 +148,57 @@ $(document).ready(function () {
                 $('#card-month').removeClass('invalid');
                 $('#card-year').removeClass('invalid');
                 $('#card-cvc').removeClass('invalid');
-                
-                $.ajax({
-                    url:'/payment',
-                    method:'POST',
-                    data:{
+                console.log("ALL BROWSER CHECKS VALID");
+                // Send AJAX based on the "EJS type"
+                if (jsSendType == "Default") {
+                    var sendData = {
                         cardNumber:cardNumber,
                         cardHolder:cardHolder,
                         cardMonth:expMonth,
                         cardYear:expYear,
                         cardCVC:cardCVC,
                         cardAmount:cardAmount,
-                    },
-                    success:function(data){
-                        $("form").trigger("reset");
-                        console.log('success!!!');
-                    }
-                });
+                    }; 
+
+                    $.ajax({
+                        url:'/payment',
+                        method:'POST',
+                        dataType: 'json',
+                        data: JSON.stringify(sendData),
+                        contentType: "application/json",
+                        encode: true,
+                        success: function(data){
+                            $("form").trigger("reset");
+                            console.log('success!!!');
+                        }//,
+                        // error: function(jqXHR, textStatus, errorThrown){
+                        //     console.log(errorThrown);
+                        // }
+                    });
+                } else if (jsSendType == "Register") {
+                    var sendData = {
+                        cardNumber: cardNumber,
+                        cardHolder: cardHolder,
+                        userID : user_ID
+                    }; 
+
+                    $.ajax({
+                        url: ('http://localhost:3000/payment/new/' + parseInt(user_ID) + '/'),
+                        method:'POST',
+                        dataType: 'json',
+                        data: JSON.stringify(sendData),
+                        contentType: "application/json",
+                        encode: true,
+                        success: function(data){
+                            $("form").trigger("reset");
+                            console.log('Card successfully registered');
+                            location.replace("http://localhost:3000/products");
+                        }//,
+                        // error: function(jqXHR, textStatus, errorThrown){
+                        //     console.log(errorThrown);
+                        // }
+                    });
+                }
             };
         };
     });
