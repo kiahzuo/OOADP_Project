@@ -30,19 +30,19 @@ const Images = sequelize.define('Images', {
             key: 'id'
         }
     },
-    price1: {
+    price: {
         type: Sequelize.DOUBLE
     },
-    condition1: {
+    condition: {
         type: Sequelize.STRING
     },
-    description1: {
+    description: {
         type: Sequelize.STRING
     },
-    meetup1: {
+    meetup: {
         type: Sequelize.STRING
     },
-    genre1: {
+    genre: {
         type: Sequelize.STRING
     },
     seller: {

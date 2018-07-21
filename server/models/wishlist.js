@@ -33,13 +33,13 @@ const wishlist = sequelize.define('wishlist', {
       
     },
 
-    bookimage:{
+    imageName:{
         type: Sequelize.STRING,
       
     },
 
     price:{
-        type: Sequelize.INTEGER,
+        type: Sequelize.FLOAT,
       
     },
 });

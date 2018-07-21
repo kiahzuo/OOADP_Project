@@ -9,7 +9,7 @@
     <style>
 
         body{
-            background-color: burlywood;
+            background-color: lightgoldenrodyellow;
         }
     </style>
 
@@ -38,19 +38,19 @@
         </fieldset>
         <fieldset class="form-group">
             <label for="inputName">Price</label><br>
-            <input type="text" id="price" name="price" class="form-control" placeholder="Student Name" required="true" value="<%= images.price1 %>">
+            <input type="text" id="price" name="price" class="form-control" placeholder="Student Name" required="true" value="<%= images.price %>">
         </fieldset>
         <fieldset class="form-group">
             <label for="inputGroup">Condition</label><br>
-            <input type="text" id="condition" name="condition" class="form-control" placeholder="Group" required="true" value="<%= images.condition1 %>">
+            <input type="text" id="condition" name="condition" class="form-control" placeholder="Group" required="true" value="<%= images.condition %>">
         </fieldset>
         <fieldset class="form-group">
             <label for="inputHobby">Description</label><br>
-            <textarea id="description" name="description" class="form-control" placeholder="Hobby" required="true" value="<%= images.description1 %>"><%= images.description1 %></textarea>
+            <textarea id="description" name="description" class="form-control" placeholder="Hobby" required="true" value="<%= images.description %>"><%= images.description %></textarea>
         </fieldset>
         <fieldset class="form-group">
             <label for="inputHobby">MeetUp</label><br>
-            <input type="text" id="meetup" name="meetup" class="form-control" placeholder="Hobby" required="true" value="<%= images.meetup1 %>">
+            <input type="text" id="meetup" name="meetup" class="form-control" placeholder="Hobby" required="true" value="<%= images.meetup %>">
         </fieldset>
         <label for="inputHobby">Genre</label><br>
         <select id="genre"name="genre" class="form-control" placeholder="genre" required=""><br>
@@ -59,9 +59,9 @@
 
        
 
-            <option value="<%= images.genre1 %>" selected ><%= images.genre1 %></option>
+            <option value="<%= images.genre %>" selected ><%= images.genre %></option>
             <% for (i =0; i < genre.length; i++) {%>
-                <% if ( images.genre1 != genre[i].genre) { %>
+                <% if ( images.genre != genre[i].genre) { %>
                 <option value="<%= genre[i].genre %>"><%= genre[i].genre %></option>
 
                 
