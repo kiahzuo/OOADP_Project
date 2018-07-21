@@ -59,7 +59,7 @@
               <tr>
                 <th style="width:20%;">Seller</th>
                 <th style="width:20%;">Title</th>
-                <th style="width:20%;">Availability</th>
+                <th style="width:20%;">Reason</th>
                 <th style="width:20%;">Price</th>
                 <th style="width:10%;">Edit</th>
                 <th style="width:10%;">Delete</th>
@@ -73,7 +73,7 @@
                     <%= report[i].title %>
                   </td>
                   <td>
-                    <%= report[i].book_id %>
+                    <%= report[i].content %>
                   </td>
                   <td>
                     <%= report[i].reason %>
@@ -82,7 +82,7 @@
                     <a class='btn btn-primary' href="/edit/<%= report[i].book_id%>">Edit Book</a>
                   </td>
                   <td>
-                    <input type="button" class="deleteBtn" value="Delete">
+                    <input type="button" class="deleteBtn" value="Delete">  
                   </td>
                 </tr>
                 <% } %>
@@ -91,6 +91,28 @@
           </div>
         </div>
 
+
+        <script>
+        
+        
+
+            $('.deleteBtn').click(function () {
+      var record_num = $(this).closest("tr").data('id');
+      $.ajax({
+        url: 'http://localhost:3000/reportitem/' + record_num,
+        type: 'DELETE',
+        success: function (result) {
+          console.log(result.message);
+          var itemToRemove = '.rowRecord[data-id=' + record_num + ']';
+          $(itemToRemove).remove();
+        },
+        error: function (result) {
+          alert("Unable to delete student record.");
+          console.log(result.message);
+        }
+      });
+    });
+        </script>
 
     <!-- Custom scripts -->
     <script src="vendor/jquery/jquery.min.js"></script>
