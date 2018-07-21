@@ -89,6 +89,15 @@
                 <% if ( images.available !="Pending") { %>
                 <option value="Pending">Pending</option>
                 <% } %>
+
+
+                <% if ( images.available !="Suspended") { %>
+                <% if ( user.role =="ADMIN") { %>
+                    <option value="Suspended">Suspended</option>
+                <% } %>
+                <% } %>
+
+
               </select><br>
 
               <img src="http://localhost:3000/images/<%= images.imageName %>" class="figure-img img-fluid img-rounded" width="100px" >
