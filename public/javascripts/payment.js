@@ -105,7 +105,6 @@ $(document).ready(function () {
             $('#form-errors').css('display', 'block');
             $('#card-error').text('Please complete all fields.');
             findEmpty();
-            /
         } else {
             // alert the user if any fields are invalid
             if (!isValidNo || !isValidExpiry || !isValidCVC) {
