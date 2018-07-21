@@ -62,8 +62,29 @@ $(document).ready(function () {
         checkCardType();
     });
 
+    // on button click:
+    $('#card-btn-0').on('click', function (event) {  // For processing CVC and expiration date only --> Using a previously registered card
+        var cardCVC = $('#card-cvc-0').val();
+        var isValidCVC = Stripe.card.validateCVC(cardCVC);
+        var isValidExpiry = Stripe.card.validateExpiry(expMonth, expYear);
+
+        var expMonth = $('#card-month-0').val();
+        var expYear = $('#card-year-0').val();
+
+        event.preventDefault();
+        // alert the user if any fields are missing
+        if (!cardNumber || !cardCVC || !cardHolder || !expMonth || !expYear) {
+            $('#form-errors').addClass('hidden');
+            $('#card-success').addClass('hidden');
+            $('#form-errors').removeClass('hidden');
+            $('#form-errors').css('display', 'block');
+            $('#card-error').text('Please complete all fields.');
+            findEmpty();
+        }
+    });
+
     // on button click: 
-    $('#card-btn').on('click', function (event) {
+    $('#card-btn').on('click', function (event) {  // For processing whole/all card data
         var cardNumber = $('#card-number').val();
         var isValidNo = Stripe.card.validateCardNumber(cardNumber);
         var expMonth = $('#card-month').val();
@@ -84,6 +105,7 @@ $(document).ready(function () {
             $('#form-errors').css('display', 'block');
             $('#card-error').text('Please complete all fields.');
             findEmpty();
+            /
         } else {
             // alert the user if any fields are invalid
             if (!isValidNo || !isValidExpiry || !isValidCVC) {

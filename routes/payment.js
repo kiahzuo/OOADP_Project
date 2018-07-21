@@ -11,7 +11,7 @@ const Op = sequelize.Op
 
 /* Render checkout payment page page. */
 router.get('/', function(req, res, next) {
-    Cart_Items.findAll({ where: { user_id: req.body.userID } }).then(userCartItems => {
+    Cart_Items.findAll({ where: { user_id: req.user.id } }).then(userCartItems => {
         var bookIDArray = [];
         for (var i = 0; i < userCartItems.length; i++){
             bookIDArray.push(userCartItems[i].book_id);
@@ -23,6 +23,8 @@ router.get('/', function(req, res, next) {
             }
             Users.find({ where: { id: req.user.id } }).then(function(userRecord) {
                 var userCardNumber = userRecord.bankCardNo ;
+                console.log(bookIDArray);
+                console.log(totalBookPrice);
                 res.render('payment', { 
                     title: 'Rendering payment details for checkout',
                     jsSendType: "Default",
@@ -33,7 +35,7 @@ router.get('/', function(req, res, next) {
                     hostPath: req.protocol + "://" + req.get("host"),
                     urlPath: req.protocol + '://' + req.get('host') + req.originalUrl, 
                     // Extra
- 
+                    paying: 99
                 });
             });
         });
