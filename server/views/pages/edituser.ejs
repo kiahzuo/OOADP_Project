@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+
+  <head>
+
+        <% include ../partials/head %>
+
+        
+    <style>
+
+        body{
+            background-color: lightgoldenrodyellow;
+        }
+    </style>
+
+  </head>
+<body>
+    <% include ../partials/header %>
+        <h1 class="site-heading text-center text-white d-none d-lg-block">
+      <br>
+                <span class="site-heading-lower">Edit</span>
+              </h1>
+            
+
+
+<body>
+    <div class="container">
+    <div class="modal-header">
+        <h4 class="modal-title" id="myModalLabel">Edit Book Details</h4>
+    </div>
+
+    <form method="post">
+    
+    <div class="modal-body">
+        <fieldset class="form-group">
+            <label for="inputStudentID">User Name </label><br>
+            <input type="text" readonly id="username" name="username" class="form-control" required="true" value="<%= users.name %>">
+        </fieldset>
+  
+    
+
+
+       
+<select id="roles"name="roles" class="form-control" required="true">
+            <option value="<%= users.role %>" selected ><%= users.role %></option>
+
+                <% if ( users.role != 'ADMIN') { %>
+                <option value="ADMIN">ADMIN</option>
+                <% } %>
+                <% if ( users.role != 'USER') { %>
+                    <option value="USER">USER</option>
+                <% } %>
+       
+          </select>     <br>
+    
+
+
+    </div>
+    <div class="modal-footer">
+        <button type="submit" class="btn btn-primary" >Save Changes</button>
+        <button type="button" class="btn btn-secondary" onclick=discardChanges()>Cancel</button>
+
+     
+    </div>
+</form>
+</div>
+<% include ../partials/cart %>
+
+<% include ../partials/footer %>
+
+<% include ../partials/foot %> 
+    <script>
+      function saveChanges() {
+          var url = "<%=hostPath%>/edituser/<%=users.id%>";
+          var newValues = {
+              title: $("#username").val(),
+              price: $("#role").val(),
+ 
+          }
+          $.ajax({
+              url: url,
+              type: "POST",
+              data: JSON.stringify(newValues),
+              dataType: "json",
+              contentType: "application/json",
+              success: function(result){
+                  alert("Student record updated successfully");
+                  location.href = "<%=hostPath%>/profile"
+                  discardChanges();
+              },
+              error: function(result){
+                  alert("Error updating student record");
+                  discardChanges();
+              }
+          })
+      }
+
+      function discardChanges() {
+          location.href = "<%=hostPath%>/profile"
+      }
+  </script>
+    </body>

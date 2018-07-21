@@ -7,6 +7,7 @@ var gravatar = require('gravatar');
 var IMAGE_TYPES = ['image/jpeg','image/jpg','image/png'];
 
 var Images = require('../models/images');
+var Wishlist = require ('../models/wishlist');
 var genre = require('../models/genre');
 var myDatabase = require('./database');
 var sequelize = myDatabase.sequelize;
@@ -66,11 +67,11 @@ exports.updateImage = function(req,res){
         var booknumber = req.params.id;
         var updateData = {
             title : req.body.title,
-            price1 : req.body.price,
-            condition1 : req.body.condition,
-            description1 : req.body.description,
-            genre1: req.body.genre,
-            meetup1 : req.body.meetup,
+            price : req.body.price,
+            condition : req.body.condition,
+            description : req.body.description,
+            genre: req.body.genre,
+            meetup : req.body.meetup,
             available : req.body.available,
             imageName:req.file.originalname,
           
@@ -81,6 +82,15 @@ exports.updateImage = function(req,res){
                     message: "error"
                 });
             }
+            else{
+                Wishlist.update(updateData, { where: { bookid: booknumber } }).then((updatedRecord) => {
+                    if(!updatedRecord || updatedRecord == 0) {
+                        return res.send(400, {
+                            message: "error"
+                        });
+                    }
+                })
+            }
             res.redirect("http://localhost:3000/profile")
         })
     }
@@ -89,11 +99,11 @@ exports.updateImage = function(req,res){
         var booknumber = req.params.id;
         var updateData = {
         title : req.body.title,
-        price1 : req.body.price,
-        condition1 : req.body.condition,
-        description1 : req.body.description,
-        genre1: req.body.genre,
-        meetup1 : req.body.meetup,
+        price : req.body.price,
+        condition : req.body.condition,
+        description : req.body.description,
+        genre: req.body.genre,
+        meetup : req.body.meetup,
         available : req.body.available,
     }
     Images.update(updateData, { where: { id: booknumber } }).then((updatedRecord) => {
@@ -102,6 +112,16 @@ exports.updateImage = function(req,res){
                 message: "error"
             });
         }
+        else{
+            Wishlist.update(updateData, { where: { bookid: booknumber } }).then((updatedRecord) => {
+                if(!updatedRecord || updatedRecord == 0) {
+                    return res.send(400, {
+                        message: "error"
+                    });
+                }
+            })
+        }
+        
 
         res.redirect("http://localhost:3000/profile")
     })
@@ -161,11 +181,11 @@ exports.uploadImage = function(req,res){
             title: req.body.title,
             imageName: req.file.originalname,
             user_id: req.user.id,
-            price1:req.body.price,
-            condition1:req.body.condition,
-            description1 : req.body.description,
-            genre1 : req.body.genre,
-            meetup1 : req.body.meetup,
+            price:req.body.price,
+            condition:req.body.condition,
+            description : req.body.description,
+            genre : req.body.genre,
+            meetup : req.body.meetup,
             seller: req.user.name,
             available:req.body.available,
         
@@ -231,7 +251,7 @@ exports.filterCategories =function(req, res) {
         genre.findAll()
         .then(genre=>{
             
-        Images.findAll({order: [['price1', 'asc']]})
+        Images.findAll({order: [['price', 'asc']]})
         .then(images=>{
             res.render('products', {
                 images:images,
@@ -248,7 +268,7 @@ exports.filterCategories =function(req, res) {
         genre.findAll()
         .then(genre=>{
             
-        Images.findAll({order: [['price1', 'DESC']]})
+        Images.findAll({order: [['price', 'DESC']]})
         .then(images=>{
             res.render('products', {
                 images:images,
@@ -268,7 +288,7 @@ exports.filterCategories =function(req, res) {
         genre.findAll()
     .then(genre=>{
         
-      Images.findAll({where:{genre1:category}})
+      Images.findAll({where:{genre:category}})
       .then(images=>{
           
         res.render('products',{
@@ -311,7 +331,7 @@ exports.filterCategories2 =function(req, res) {
         genre.findAll()
         .then(genre=>{
             
-        Images.findAll({order: [['price1', 'asc']]})
+        Images.findAll({order: [['price', 'asc']]})
         .then(images=>{
             res.render('profile', {
                 images:images,
@@ -328,7 +348,7 @@ exports.filterCategories2 =function(req, res) {
         genre.findAll()
         .then(genre=>{
             
-        Images.findAll({order: [['price1', 'DESC']]})
+        Images.findAll({order: [['price', 'DESC']]})
         .then(images=>{
             res.render('profile', {
                 images:images,
@@ -348,7 +368,7 @@ exports.filterCategories2 =function(req, res) {
         genre.findAll()
     .then(genre=>{
         
-      Images.findAll({where:{genre1:category}})
+      Images.findAll({where:{genre:category}})
       .then(images=>{
           
         res.render('profile',{
@@ -394,7 +414,7 @@ exports.filterPrice = function(req,res,next)
    .then(genre=>{
    Images.findAll({
        
-    where: {price1 : {[Op.between]: [min, max],}} })
+    where: {price : {[Op.between]: [min, max],}} })
         .then(images=>{
             res.render('products', {
                 images:images,

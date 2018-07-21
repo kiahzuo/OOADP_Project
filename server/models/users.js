@@ -28,7 +28,10 @@ const Users = sequelize.define('Users', {
     bankCardName: {
         type: Sequelize.STRING,
         allowNull: true
-    }
+    },
+    role: {
+        type: Sequelize.STRING,
+    },
 });
 
 // force: true will drop the table if it already exists

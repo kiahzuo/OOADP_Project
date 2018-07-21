@@ -56,6 +56,8 @@ var comments = require('./server/controller/comments');
 var transaction = require('./server/controller/transaction');
 //Import report controller
 var report = require('./server/controller/report');
+//Import users controller
+var users = require('./server/controller/users');
 
 // Modules to store session
 var myDatabase = require('./server/controller/database');
@@ -114,11 +116,14 @@ app.delete("/profile", auth.delete);
 // Logout page routes, get
 app.get('/logout', function (req, res) {
     req.logout();
-    res.redirect('/');
+    res.redirect('/products');
 });
+//editing user
+app.get("/usermanagement",users.show)
+app.get("/edituser/:id",users.editRecord)
+app.post("/edituser/:id", users.update);
 
 //adding report
-
 app.post('/report',report.create)
 app.get('/reportitem',report.show)
 // Book edit HTTP request handlers
@@ -269,12 +274,12 @@ var chatRouter = require('./routes/chat');
 // Assigning routers
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
-app.use('/products', auth.isLoggedIn, productsRouter, images.filterCategories );
+app.use('/products', productsRouter, images.filterCategories );
 app.use('/store', auth.isLoggedIn, storeRouter,images.hasAuthorization, upload.single('image'), images.uploadImage);
 app.use('/login',loginRouter);
 app.use('/profile', profileRouter, images.filterCategories2);
 app.use('/signup',signupRouter);
-app.use('/viewbook',viewbookRouter,wishlist.create);
+app.use('/viewbook', auth.isLoggedIn,viewbookRouter,wishlist.create);
 app.use('/viewprofile',viewprofileRouter );
 app.use('/transaction', transactionRouter);
 app.use('/bank', bankRouter);
