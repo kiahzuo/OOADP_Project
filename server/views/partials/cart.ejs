@@ -71,10 +71,10 @@
                 var Item = $(document.createElement("li"));
                 var Num = (i + 1).toString() + "." ;
                 var Name = data[i].title;
-                var Price = "$" + (Number(Math.round(data[i].price1+'e2')+'e-2').toFixed(2)).toString() ;
+                var Price = "$" + (Number(Math.round(data[i].price+'e2')+'e-2').toFixed(2)).toString() ;
                 var RemoveID = data[i].id.toString() ;
                 
-                totalPrice += data[i].price1;
+                totalPrice += data[i].price;
                 console.log(Price);
                 console.log(totalPrice);
 

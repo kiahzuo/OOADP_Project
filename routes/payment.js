@@ -19,7 +19,7 @@ router.get('/', function(req, res, next) {
         Images.findAll({ where: { id: { [Op.in]: bookIDArray } } }).then(userCartItemsData => {
             var totalBookPrice = 0.00;
             for (var i = 0; i < userCartItemsData.length; i++){
-                totalBookPrice += userCartItemsData[i].price1 ;
+                totalBookPrice += userCartItemsData[i].price ;
             }
             Users.find({ where: { id: req.user.id } }).then(function(userRecord) {
                 var userCardNumber = userRecord.bankCardNo ;

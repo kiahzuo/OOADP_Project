@@ -15,7 +15,7 @@ const Bookitem = sequelize.define('Bookitem', {
     bookname1: {
         type: Sequelize.STRING
     },
-    price1: {
+    price: {
         type: Sequelize.STRING
     },
     condition1: {

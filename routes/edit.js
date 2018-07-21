@@ -64,7 +64,7 @@ var Images = require('../server/models/images');
 
 //     var updateData = {
 //         title : req.body.title,
-//         price1 : req.body.price,
+//         price : req.body.price,
 //         condition1 : req.body.condition,
 //         description1 : req.body.description,
 //         genre1: req.body.genre,
@@ -91,7 +91,7 @@ var Images = require('../server/models/images');
 //     var booknumber = req.params.id;
 //     var updateData = {
 //         title : req.body.title,
-//         price1 : req.body.price,
+//         price : req.body.price,
 //         condition1 : req.body.condition,
 //         description1 : req.body.description,
 //         genre1: req.body.genre,
