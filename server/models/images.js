@@ -3,7 +3,7 @@ var myDatabase = require('../controller/database');
 var sequelize = myDatabase.sequelize;
 var Sequelize = myDatabase.Sequelize;
 
-const Images = sequelize.define('Images', {
+const Images = sequelize.define('Products', {
     id: {
         type: Sequelize.INTEGER,
         autoIncrement: true,
@@ -59,4 +59,4 @@ Images.sync({ force: false, logging: console.log}).then(() => {
     console.log("images table synced");
 });
 
-module.exports = sequelize.model('Images', Images);
+module.exports = sequelize.model('Products', Images);
