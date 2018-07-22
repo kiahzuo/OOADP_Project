@@ -281,7 +281,7 @@
           <a href="/genre">Genre Management</a>
           <a href="/reportitem">Reported Items</a>
           <a href="http://localhost:3000/bank">Bank</a>
-          <a href="http://localhost:3000/usermanagement">Users Management</a>
+          <a href="http://localhost:3000/usermanagement">Users Roles</a>
         </div>
       </div>
 
@@ -1122,8 +1122,16 @@
 
 
                           <br>
+                          <% if (images[i].available != "Suspended") { %>
                           <a class='btn btn-primary' href="/edit/<%= images[i].id%>">Edit Book</a>
                           <input type="button" class="deleteBtn" value="Delete" onclick="clicked(event)">
+                          <%} else{%>
+                            <button type="button" disabled>Suspended For Investigation</button>
+
+                          <% } %>
+
+
+                     
 
 
                         </div>

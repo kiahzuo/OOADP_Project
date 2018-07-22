@@ -8,6 +8,7 @@ var IMAGE_TYPES = ['image/jpeg','image/jpg','image/png'];
 
 var Images = require('../models/images');
 var Wishlist = require ('../models/wishlist');
+var Reports = require('../models/report');
 var genre = require('../models/genre');
 var myDatabase = require('./database');
 var sequelize = myDatabase.sequelize;
@@ -90,6 +91,14 @@ exports.updateImage = function(req,res){
                         });
                     }
                 })
+
+                Reports.update(updateData, { where: { book_id: booknumber } }).then((updatedRecord) => {
+                    if(!updatedRecord || updatedRecord == 0) {
+                        return res.send(400, {
+                            message: "error"
+                        });
+                    }
+                })
             }
             res.redirect("http://localhost:3000/profile")
         })
@@ -114,6 +123,14 @@ exports.updateImage = function(req,res){
         }
         else{
             Wishlist.update(updateData, { where: { bookid: booknumber } }).then((updatedRecord) => {
+                if(!updatedRecord || updatedRecord == 0) {
+                    return res.send(400, {
+                        message: "error"
+                    });
+                }
+            })
+
+            Reports.update(updateData, { where: { book_id: booknumber } }).then((updatedRecord) => {
                 if(!updatedRecord || updatedRecord == 0) {
                     return res.send(400, {
                         message: "error"
