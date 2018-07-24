@@ -22,7 +22,11 @@ router.get('/', function(req, res, next) {
                 totalBookPrice += userCartItemsData[i].price ;
             }
             Users.find({ where: { id: req.user.id } }).then(function(userRecord) {
-                var userCardNumber = userRecord.bankCardNo ;
+                // NEED TO FIX
+                var userCardNumber = 0;
+                if (userRecord.bankCardNo != undefined) {
+                    userCardNumber = userRecord.bankCardNo ;
+                }
                 console.log(bookIDArray);
                 console.log(totalBookPrice);
                 res.render('payment', { 
@@ -31,12 +35,13 @@ router.get('/', function(req, res, next) {
                     user : req.user,
                     cartBookIDArray : bookIDArray,
                     cartTotalPrice : totalBookPrice,
-                    userCardNo : userCardNumber,
+                    userCardNo_L4 : userCardNumber.toString().substring(-1, 4),
                     hostPath: req.protocol + "://" + req.get("host"),
                     urlPath: req.protocol + '://' + req.get('host') + req.originalUrl, 
                     // Extra
                     paying: 99
                 });
+                // OTHER STUFF
             });
         });
     });

@@ -81,85 +81,114 @@ body {
   <body>
     <% include ../partials/header %>
 
-    <section class="page-section" id="card-size">
-      <label for="" style="font-size: 150%; position: absolute; left: 34%;">Choose your payment method</label>
+    <label for="" style="font-size: 150%; position: absolute; left: 34%;">Choose your payment method</label>
+
+    <section class="page-section" id="card-size-0">
       <!-- <br /> -->
       <div>
-      <input type="radio" name="choice-payment-type" id="choice-registered-card" style="left: 34%;" required>
-      <label for="choice-registered-card" style="left: 34%;">Use registered card</label>
+        <input type="radio" name="choice-payment-type" id="choice-registered-card" style="left: 34%;" required>
+        <label for="choice-registered-card" style="left: 34%;">Use registered card</label>
 
-      <div class="reveal-if-active">
-          <p> Enter credentials for card ending in: <%= userCardNo.toString().substring(-1, 4); %> </p>
-          <div id="cvc-container-0" class="require-if-active" data-require-pair="#choice-registered-card">
-              <label for="card-cvc"> CVC/CVV (Last 3 or 4 digits) </label>
-              <input id="card-cvc-0" placeholder="XXX-X" type="text" min-length="3" max-length="4" name="card-cvc-0">
+        <div class="reveal-if-active">
+            <div id="card-success-0" class="hidden">
+                <i class="fa fa-check"></i>
+                <p>Card has been registered...</p>
+            </div>
+            <div id="form-errors-0" class="hidden">
+                <i class="fa fa-exclamation-triangle"></i>
+                <p id="card-error-0">Card error, please try again</p>
+            </div>
+            <form id="card-0" action="" method="">
+              <div id="form-container-0">
+                <div id="card-front-0">
+                  <div id="shadow-0"></div>
+                  <div id="image-container-0">
+                    <span id="card-image-0"></span>
+                  </div>
+                  <!-- end card image container -->
+                  <% if (userCardNo_L4 != 0) { %>
+                    <p> Enter credentials for card ending in: <%= userCardNo_L4 %> </p>
+                  <% } %>
+                  <div id="cvc-container-0" class="require-if-active" data-require-pair="#choice-registered-card">
+                      <label for="card-cvc-0"> CVC/CVV (Last 3 or 4 digits) </label>
+                      <input id="card-cvc-0" placeholder="XXX-X" type="text" min-length="3" max-length="4" name="card-cvc-0">
+                  </div>
+                  <div id="exp-container-0" class="require-if-active" data-require-pair="#choice-registered-card">
+                      <label for="card-exp-0">Expiration</label>
+                      <input id="card-month-0" type="text" placeholder="MM" length="2" name="card-month-0">
+                      <input id="card-year-0" type="text" placeholder="YY" length="2" name="card-year-0">
+                  </div>
+                </div>
+                <!-- end card front -->
+                <!-- <div id="card-back-0">
+                  <div id="card-stripe-0"></div>
+                </div> -->
+                <!-- end card back -->
+                <!-- input type="text" id="card-token-0" /> -->
+                <button type="button" id="card-btn-0">Submit</button>
+              </div>
+            </form>
           </div>
-          <div id="exp-container-0" class="require-if-active" data-require-pair="#choice-registered-card">
-              <label for="card-exp">Expiration</label>
-              <input id="card-month-0" type="text" placeholder="MM" length="2" name="card-month-0">
-              <input id="card-year-0" type="text" placeholder="YY" length="2" name="card-year-0">
-          </div>
-          
-          <button type="button" id="card-btn-0">Submit</button>
       </div>
-      </div>
+    </section>  
 
+    <section class="page-section" id="card-size" style="margin-bottom: 50%;">
       <div>
-      <input type="radio" name="choice-payment-type" id="choice-new-card" style="left: 34%;">
-      <label for="choice-new-card" style="left: 34%;">Use another card</label>
-      <div class="container reveal-if-active require-if-active" data-require-pair="#choice-new-card">
-        <div id="card-success" class="hidden">
-          <i class="fa fa-check"></i>
-          <p>Card has been registered...</p>
-        </div>
-        <div id="form-errors" class="hidden">
-          <i class="fa fa-exclamation-triangle"></i>
-          <p id="card-error">Card error, please try again</p>
-        </div>
-        <form id="card" action="" method="">
-          <div id="form-container">
-            <div id="card-front">
-              <div id="shadow"></div>
-              <div id="image-container">
-              <!-- INPUTS AND ETC. BOOKMARK -->
-                <!-- <span>Paying: <b>$</b><input id="amount" type="number" value="" name="amount" readonly></span> -->
-                <input style="display:none;" id="test" value="100" name="test">
-                <span id="card-image"></span>
-              </div>
-              <!-- end card image container -->
-              <label for="card-number">Card Number</label>
-              <input type="text" id="card-number" placeholder="xxxx xxxx xxxx xxxx" length="16" name="card-number">
-              <br>
-              <br>
-              <div id="cardholder-container">
-                <label for="card-holder">Card Holder</label>
-                <input type="text" id="card-holder" name="card-holder" placeholder="e.g. John Doe" />
-              </div>
-              <!-- end card holder container -->
-              <div id="exp-container">
-                <label for="card-exp">Expiration</label>
-                <input id="card-month" type="text" placeholder="MM" length="2" name="card-month">
-                <input id="card-year" type="text" placeholder="YY" length="2" name="card-year">
-              </div>
-              <div id="cvc-container">
-                <label for="card-cvc"> CVC/CVV</label>
-                <input id="card-cvc" placeholder="XXX-X" type="text" min-length="3" max-length="4" name="card-cvc">
-                <p>Last 3 or 4 digits</p>
-              </div>
-              <!-- end CVC container -->
-              <!-- end exp container -->
-            </div>
-            <!-- end card front -->
-            <div id="card-back">
-              <div id="card-stripe"></div>
-            </div>
-            <!-- end card back -->
-            <input type="text" id="card-token" />
-            <button type="button" id="card-btn">Submit</button>
-            <!-- <input type="submit" id="card-btn" placeholder="Submit"> -->
+        <input type="radio" name="choice-payment-type" id="choice-new-card" style="left: 34%;">
+        <label for="choice-new-card" style="left: 34%;">Use another card</label>
+        <div class="container reveal-if-active require-if-active" data-require-pair="#choice-new-card">
+          <div id="card-success" class="hidden">
+            <i class="fa fa-check"></i>
+            <p>Card has been registered...</p>
           </div>
-        </form>
-      </div>
+          <div id="form-errors" class="hidden">
+            <i class="fa fa-exclamation-triangle"></i>
+            <p id="card-error">Card error, please try again</p>
+          </div>
+          <form id="card" action="" method="">
+            <div id="form-container">
+              <div id="card-front">
+                <div id="shadow"></div>
+                <div id="image-container">
+                <!-- INPUTS AND ETC. BOOKMARK -->
+                  <!-- <span>Paying: <b>$</b><input id="amount" type="number" value="" name="amount" readonly></span> -->
+                  <input style="display:none;" id="test" value="100" name="test">
+                  <span id="card-image"></span>
+                </div>
+                <!-- end card image container -->
+                <label for="card-number">Card Number</label>
+                <input type="text" id="card-number" placeholder="xxxx xxxx xxxx xxxx" length="16" name="card-number">
+                <br>
+                <br>
+                <div id="cardholder-container">
+                  <label for="card-holder">Card Holder</label>
+                  <input type="text" id="card-holder" name="card-holder" placeholder="e.g. John Doe" />
+                </div>
+                <!-- end card holder container -->
+                <div id="exp-container">
+                  <label for="card-exp">Expiration</label>
+                  <input id="card-month" type="text" placeholder="MM" length="2" name="card-month">
+                  <input id="card-year" type="text" placeholder="YY" length="2" name="card-year">
+                </div>
+                <div id="cvc-container">
+                  <label for="card-cvc"> CVC/CVV</label>
+                  <input id="card-cvc" placeholder="XXX-X" type="text" min-length="3" max-length="4" name="card-cvc">
+                  <p>Last 3 or 4 digits</p>
+                </div>
+                <!-- end CVC container -->
+                <!-- end exp container -->
+              </div>
+              <!-- end card front -->
+              <div id="card-back">
+                <div id="card-stripe"></div>
+              </div>
+              <!-- end card back -->
+              <input type="text" id="card-token" />
+              <button type="button" id="card-btn">Submit</button>
+              <!-- <input type="submit" id="card-btn" placeholder="Submit"> -->
+            </div>
+          </form>
+        </div>
       </div>
     </section>
 
