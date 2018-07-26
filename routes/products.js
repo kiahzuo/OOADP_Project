@@ -6,6 +6,7 @@ var Comments = require ('../server/models/comments');
 var Images = require('../server/models/images');
 var Users = require('../server/models/users');
 var genre = require('../server/models/genre');
+var Reports = require ('../server/models/report');
 
 /* GET products page. */
    router.get('/', function(req, res, next) {

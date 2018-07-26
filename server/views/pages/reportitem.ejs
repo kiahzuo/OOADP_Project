@@ -4,7 +4,51 @@
   <head>
 
       <% include ../partials/head %>
+
       <style>
+  
+        /* Style the tab */
+      .tab {
+          overflow: hidden;
+          border: 1px solid #ccc;
+          background-color: #f1f1f1;
+      
+      }
+      
+      
+      
+      /* Style the buttons that are used to open the tab content */
+      .tab button {
+          background-color: inherit;
+          float: left;
+          border: none;
+          outline: none;
+          cursor: pointer;
+          padding: 14px 16px;
+          transition: 0.3s;
+   
+          width:765px;
+      }
+      
+      /* Change background color of buttons on hover */
+      .tab button:hover {
+          background-color: #ddd;
+      }
+      
+      /* Create an active/current tablink class */
+      .tab button.active {
+          background-color: #ccc;
+      }
+      
+      /* Style the tab content */
+      .tabcontent {
+          display: none;
+          padding: 6px 12px;
+          border: 1px solid #ccc;
+          border-top: none;
+      }
+
+
       body{background-color: lightgoldenrodyellow;}
       #myInput {
     background-image: url('/css/searchicon.png'); /* Add a search icon to input */
@@ -38,58 +82,152 @@
     /* Add a grey background color to the table header and on hover */
     background-color: #f1f1f1;
 }
+
+tr{
+  height: 60px;
+
+}
+
+
       </style>
   </head>
 
   <body>
-    <br><br><br>  <br><br><br>
+    <br><br><br>  <br><br>
 
         <% include ../partials/header %>
 
 
-        <div class="container">
 
-          <div class="row">
+        <div class="tab">
+          <button class="tablinks" onclick="openCity(event, 'London')"id="defaultOpen">Reported Items</button>
+          <button class="tablinks" onclick="openCity(event, 'Paris')">Above 3 Reports</button>
 
+        </div>
+        <br><br>
+  
+        
+        <!-- Tab content -->
+        <div id="London" class="tabcontent">
 
+          <div class="container">
 
-            <input type="text" id="myInput" class="table1" onkeyup="myFunction()" placeholder="Search for names.." title="Type in a name">
+            <div class="row">
+  
 
-            <table id="myTable" class="table1">
-              <tr>
-                <th style="width:20%;">Seller</th>
-                <th style="width:20%;">Title</th>
-                <th style="width:20%;">Content</th>
-                <th style="width:20%;">Reason</th>
-                <th style="width:10%;">Edit</th>
-                <th style="width:10%;">Delete</th>
-              </tr>
-              <% for (i =0; i < report.length; i++) {%>
-                <tr class="rowRecord" data-id="<%= report[i].id %>">
-                  <td>
-                    <%= report[i].seller %>
-                  </td>
-                  <td>
-                    <%= report[i].title %>
-                  </td>
-                  <td>
-                    <%= report[i].content %>
-                  </td>
-                  <td>
-                    <%= report[i].reason %>
-                  </td>
-                  <td>
-                    <a class='btn btn-primary' href="/edit/<%= report[i].book_id%>">Edit Book</a>
-                  </td>
-                  <td>
-                    <input type="button" class="deleteBtn" value="Delete">  
-                  </td>
+  
+              <table id="myTable" class="table1">
+                <tr bgcolor="#ddd">
+                  <th style="width:20%;">Seller</th>
+                  <th style="width:20%;">Title</th>
+                  <th style="width:20%;">Content</th>
+                  <th style="width:10%;">Count</th>
+                  <th style="width:10%;">Reason</th>
+                  <th style="width:10%;"></th>
+                  <th style="width:10%;"></th>
                 </tr>
-                <% } %>
-
-            </table>
+         
+                <% for (i = 0; i < add_counts.length; i++) {%>
+                  <% if ( add_counts[i] < 3) { %>
+                  <tr  class="rowRecord" data-id="<%= report[i].id %>">
+                    <td>
+                      <%= report[i].seller %>
+                    </td>
+                    <td>
+                      <%= report[i].title %>
+                    </td>
+                    <td>
+                      <%= report[i].content %>
+                    </td>
+                    <td>
+                      <%= add_counts[i] %>
+                    </td>
+                    <td>
+                      <%= report[i].reason %>
+                    </td>
+                    <td>
+                      <a class='btn btn-primary' href="/edit/<%= report[i].book_id%>">Edit Book</a>
+                    </td>
+                    <td>
+                      <input type="button" class="deleteBtn" value="Delete">  
+                    </td>
+                  </tr>
+              
+     
+                  <% } %>
+  
+                    
+                  <% } %>
+  
+              </table>
+            </div>
           </div>
         </div>
+        
+
+
+
+        
+        <div id="Paris" class="tabcontent">
+
+          <div class="container">
+
+            <div class="row">
+  
+  
+  
+  
+              <table id="myTable" class="table1">
+                <tr>
+                  <th style="width:20%;">Seller</th>
+                  <th style="width:20%;">Title</th>
+                  <th style="width:20%;">Content</th>
+                  <th style="width:10%;">Count</th>
+                  <th style="width:10%;">Reason</th>
+                  <th style="width:10%;"></th>
+                  <th style="width:10%;"></th>
+                </tr>
+         
+                <% for (i = 0; i < add_counts.length; i++) {%>
+                  <% if ( add_counts[i] >= 3) { %>
+                  <tr bgcolor="#FF9952" class="rowRecord" data-id="<%= report[i].id %>">
+                    <td>
+                      <%= report[i].seller %>
+                    </td>
+                    <td>
+                      <%= report[i].title %>
+                    </td>
+                    <td>
+                      <%= report[i].content %>
+                    </td>
+                    <td>
+                      <%= add_counts[i] %>
+                    </td>
+                    <td>
+                      <%= report[i].reason %>
+                    </td>
+                    <td>
+                      <a class='btn btn-primary' href="/edit/<%= report[i].book_id%>">Edit Book</a>
+                    </td>
+                    <td>
+                      <input type="button" class="deleteBtn" value="Delete">  
+                    </td>
+                  </tr>
+              
+                  <% } %>
+             
+  
+                    
+                  <% } %>
+  
+              </table>
+            </div>
+          </div>
+        </div>
+        
+
+        </div>
+
 
 
         <script>
@@ -112,6 +250,33 @@
         }
       });
     });
+
+
+
+    // Get the element with id="defaultOpen" and click on it
+    document.getElementById("defaultOpen").click();
+      
+
+    function openCity(evt, cityName) {
+    // Declare all variables
+    var i, tabcontent, tablinks;
+
+    // Get all elements with class="tabcontent" and hide them
+    tabcontent = document.getElementsByClassName("tabcontent");
+    for (i = 0; i < tabcontent.length; i++) {
+        tabcontent[i].style.display = "none";
+    }
+
+    // Get all elements with class="tablinks" and remove the class "active"
+    tablinks = document.getElementsByClassName("tablinks");
+    for (i = 0; i < tablinks.length; i++) {
+        tablinks[i].className = tablinks[i].className.replace(" active", "");
+    }
+
+    // Show the current tab, and add an "active" class to the button that opened the tab
+    document.getElementById(cityName).style.display = "block";
+    evt.currentTarget.className += " active";
+}
         </script>
 
     <!-- Custom scripts -->
