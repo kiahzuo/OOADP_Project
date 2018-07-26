@@ -164,6 +164,10 @@
 
 
 
+        * {
+          box-sizing: border-box;
+        }
+
         #myInput {
           background-image: url('/css/searchicon.png');
           background-position: 10px 10px;
@@ -603,7 +607,7 @@
       width: 100%;
       font-size: 17px;
       font-family: Raleway;
-      border:2px solid #060606;
+      border: 1px solid #aaaaaa;
     }
 
     /* Mark input boxes that gets an error on validation: */
@@ -762,7 +766,6 @@
         position: relative;
         z-index: 3;
     }
-
         </style>
   </head>
 
@@ -799,12 +802,6 @@
 
                 <input type="text" id="itle" name="title" class="form-control" placeholder="Image Title..." required="">
                 <br>
-            
-           
-
-                <input type="text" id="condition" name="condition" class="form-control" placeholder="Condition..." required="">
-                <br>
-
                 <div class="form-row">
                     <div class="input-group hide-inputbtns"> 
                         <span class="input-group-addon">$</span>
@@ -812,14 +809,11 @@
                     </div>
                 </div>
                 <br>
+           
 
-
-
-                <h3>You will recieve</h3>
-                <div class="input-group hide-inputbtns"> 
-                    <span class="input-group-addon">$</span>
-                    <input type="number" id="price" name="price" value="0" min="1" step="0.01" data-number-to-fixed="2" data-number-stepfactor="100" class="form-control currency" placeholder="You will recieve..." readonly/>
-                </div>
+                <input type="text" id="condition" name="condition" class="form-control" placeholder="Condition..." required="">
+                <br>
+                
               </div>
 
 
