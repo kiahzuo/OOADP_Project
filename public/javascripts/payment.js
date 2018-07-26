@@ -63,25 +63,89 @@ $(document).ready(function () {
     });
 
     // on button click:
-    $('#card-btn-0').on('click', function (event) {  // For processing CVC and expiration date only --> Using a previously registered card
-        var cardCVC = $('#card-cvc-0').val();
-        var isValidCVC = Stripe.card.validateCVC(cardCVC);
-        var isValidExpiry = Stripe.card.validateExpiry(expMonth, expYear);
+    // $('#card-btn-0').on('click', function (event) {  // For processing CVC and expiration date only --> Using a previously registered card
+    //     var cardCVC = $('#card-cvc-0').val();
+    //     var isValidCVC = Stripe.card.validateCVC(cardCVC);
 
-        var expMonth = $('#card-month-0').val();
-        var expYear = $('#card-year-0').val();
+    //     var expMonth = $('#card-month-0').val();
+    //     var expYear = $('#card-year-0').val();
+    //     var isValidExpiry = Stripe.card.validateExpiry(expMonth, expYear);
 
-        event.preventDefault();
-        // alert the user if any fields are missing
-        if (!cardNumber || !cardCVC || !cardHolder || !expMonth || !expYear) {
-            $('#form-errors').addClass('hidden');
-            $('#card-success').addClass('hidden');
-            $('#form-errors').removeClass('hidden');
-            $('#form-errors').css('display', 'block');
-            $('#card-error').text('Please complete all fields.');
-            findEmpty();
-        }
-    });
+    //     event.preventDefault();
+    //     // alert the user if any fields are missing
+    //     if (!cardCVC || !expMonth || !expYear) {
+    //         $('#form-errors').addClass('hidden');
+    //         $('#card-success').addClass('hidden');
+    //         $('#form-errors').removeClass('hidden');
+    //         $('#form-errors').css('display', 'block');
+    //         $('#card-error').text('Please complete all fields.');
+    //         findEmpty();
+    //     } else {
+    //         // alert the user if any fields are invalid
+    //         if (!isValidNo || !isValidExpiry || !isValidCVC) {
+    //             // $('#form-errors').css('display', 'block');
+    //             if (!isValidNo) {
+    //                 $('#card-error').text('Invalid credit card number.');
+    //                 $('#form-errors').addClass('hidden');
+    //                 $('#card-success').addClass('hidden');
+    //                 $('#form-errors').removeClass('hidden');
+    //                 //red boxes
+    //                 $('#card-number').addClass('invalid');
+    //                 $('#card-holder').removeClass('invalid');
+    //                 $('#card-month').removeClass('invalid');
+    //                 $('#card-year').removeClass('invalid');
+    //                 $('#card-cvc').removeClass('invalid');
+    //                 //invalid class add to individual
+    //             } else if (!isValidExpiry) {
+    //                 $('#card-error').text('Invalid expiration date.');
+    //                 $('#form-errors').addClass('hidden');
+    //                 $('#card-success').addClass('hidden');
+    //                 $('#form-errors').removeClass('hidden');
+    //                 //red boxes
+    //                 $('#card-number').removeClass('invalid');
+    //                 $('#card-holder').removeClass('invalid');
+    //                 $('#card-month').addClass('invalid');
+    //                 $('#card-year').addClass('invalid');
+    //                 $('#card-cvc').removeClass('invalid');
+                    
+    //             } else if (!isValidCVC) {
+    //                 $('#card-error').text('Invalid CVC code.');
+    //                 $('#form-errors').addClass('hidden');
+    //                 $('#card-success').addClass('hidden');
+    //                 $('#form-errors').removeClass('hidden');
+    //                 //red boxes
+    //                 $('#card-number').removeClass('invalid');
+    //                 $('#card-holder').removeClass('invalid');
+    //                 $('#card-month').removeClass('invalid');
+    //                 $('#card-year').removeClass('invalid');
+    //                 $('#card-cvc').addClass('invalid');
+    //             }
+    //         } else if (cardHolder.match(/^([^A-Za-z ])\w+$/)){
+    //             $('#card-error').text('Invalid CardHolder');
+    //             $('#form-errors').addClass('hidden');
+    //             $('#card-success').addClass('hidden');
+    //             $('#form-errors').removeClass('hidden');
+    //             //red boxes
+    //             $('#card-number').removeClass('invalid');
+    //             $('#card-holder').addClass('invalid');
+    //             $('#card-month').removeClass('invalid');
+    //             $('#card-year').removeClass('invalid');
+    //             $('#card-cvc').removeClass('invalid');
+    //         } else {
+    //             $('#card-error').addClass('hidden');
+    //             $('#form-errors').removeClass('hidden');
+    //             $('#form-errors').addClass('hidden');
+    //             $('#form-errors').css('display', 'none');
+    //             $('#card-success').removeClass('hidden');
+    //             //red boxes
+    //             $('#card-number').removeClass('invalid');
+    //             $('#card-holder').removeClass('invalid');
+    //             $('#card-month').removeClass('invalid');
+    //             $('#card-year').removeClass('invalid');
+    //             $('#card-cvc').removeClass('invalid');
+    //         }
+    //     }
+    // });
 
     // on button click: 
     $('#card-btn').on('click', function (event) {  // For processing whole/all card data
@@ -105,7 +169,6 @@ $(document).ready(function () {
             $('#form-errors').css('display', 'block');
             $('#card-error').text('Please complete all fields.');
             findEmpty();
-            /
         } else {
             // alert the user if any fields are invalid
             if (!isValidNo || !isValidExpiry || !isValidCVC) {

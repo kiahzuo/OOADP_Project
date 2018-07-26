@@ -24,7 +24,7 @@ router.get('/', function(req, res, next) {
 
 //   Bookitem.create({
 //     bookname1 : bookname,
-//     price1 : price,
+//     price : price,
 //     condition1 : condition,
 //     description1 : description,
 //     genre1 : genre,
