@@ -3,7 +3,8 @@ var router = express.Router();
 var User = require("../server/models/users");
 var nodemailer = require('nodemailer');
 var crypto = require("crypto");
-
+var genre = require('../server/models/genre');
+var Images = require('../server/models/images');
 var myDatabase = require ('../server/controller/database');
 var Sequelize = myDatabase.Sequelize;
 var bcrypt = require('bcrypt');
@@ -12,11 +13,28 @@ const Op = Sequelize.Op;
 
 /* GET about page. */
 router.get('/', function(req, res, next) {
-  res.render('index', 
-  { title: 'Express',
-  user : req.user,
+  Images.findAll({limit: 6})
+  .then(images=>{ 
+
+
+    genre.findAll()
+    .then(genre=>{ 
+      res.render('index', { 
+      title: 'Profile Page', 
+      images:images,
+      genre:genre,
+      user : req.user, 
+      urlPath: req.protocol + "://" + req.get("host") + req.url
+      
+      
+    })
+
+})
+   
+})
 });
-});
+
+
 
 
 //forgot password
