@@ -167,10 +167,6 @@ app.post('/payment', function(req, res){
     console.log("=== End ===");
   });
 
-// bank
-app.post('/bank',function(req, res){
-    console.log(req.body);
-})
 
 // view engine setup
 app.set('views', path.join(__dirname, './server/views/pages'));
