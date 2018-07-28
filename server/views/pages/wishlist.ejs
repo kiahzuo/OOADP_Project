@@ -87,6 +87,9 @@ input.invalid {
           background-color: lightgray;
 
         }
+        .card-deck{
+          width: 320px;
+        }
 
         .card-img-top{
           width:100%;
@@ -140,7 +143,7 @@ h2 span { background:lightgoldenrodyellow; padding:0 10px; }
             <h6 class="card-text">Price : $<%= wishlist[i].price %></h6>
             <div class="dropdown-divider"></div>
             <a href="/viewbook/<%= wishlist[i].bookid%>"><button type="button" class="btn btn-outline-primary">Info</button></a>
-            <input type="submit" class="deleteBtn"  value="Remove">
+            <button class="deleteBtn btn btn-danger"  value="Remove">Remove</button>
           
           </div>
         </div>

@@ -27,7 +27,7 @@
           padding: 14px 16px;
           transition: 0.3s;
    
-          width:765px;
+          width:766px;
       }
       
       /* Change background color of buttons on hover */
@@ -117,7 +117,7 @@ tr{
 
   
               <table id="myTable" class="table1">
-                <tr bgcolor="#ddd">
+                <tr bgcolor='lightgray'>
                   <th style="width:20%;">Seller</th>
                   <th style="width:20%;">Title</th>
                   <th style="width:20%;">Content</th>
@@ -178,7 +178,7 @@ tr{
   
   
               <table id="myTable" class="table1">
-                <tr>
+                <tr  bgcolor='lightgray'>
                   <th style="width:20%;">Seller</th>
                   <th style="width:20%;">Title</th>
                   <th style="width:20%;">Content</th>
@@ -190,7 +190,7 @@ tr{
          
                 <% for (i = 0; i < add_counts.length; i++) {%>
                   <% if ( add_counts[i] >= 3) { %>
-                  <tr bgcolor="#FF9952" class="rowRecord" data-id="<%= report[i].id %>">
+                  <tr bgcolor='' class="rowRecord" data-id="<%= report[i].id %>">
                     <td>
                       <%= report[i].seller %>
                     </td>

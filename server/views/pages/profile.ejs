@@ -766,6 +766,9 @@
         position: relative;
         z-index: 3;
     }
+    .aligning{
+      margin-bottom: 50px;
+    }
         </style>
   </head>
 
@@ -1128,7 +1131,7 @@
                           <a class='btn btn-primary' href="/edit/<%= images[i].id%>">Edit Book</a>
                           <input type="button" class="deleteBtn" value="Delete" onclick="clicked(event)">
                           <%} else{%>
-                            <button type="button" disabled>Suspended For Investigation</button>
+                            <button type="button" class='aligning'disabled>Suspended For Investigation</button>
 
                           <% } %>
 
