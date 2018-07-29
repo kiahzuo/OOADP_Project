@@ -2,6 +2,7 @@
 var fs = require('fs');
 var mime = require('mime');
 var gravatar = require('gravatar');
+var uniqid = require('uniqid');
 
 //set image file types
 var IMAGE_TYPES = ['image/jpeg','image/jpg','image/png'];
@@ -158,7 +159,7 @@ exports.uploadImage = function(req,res){
     var targetPath;
     var targetName;
     var tempPath = req.file.path;
-    console.log(req.file);
+
 
     //get the mime type of the file
     var type = mime.lookup(req.file.mimetype);
@@ -173,7 +174,9 @@ exports.uploadImage = function(req,res){
     }
 
     // set new path to images
-    targetPath = './public/images/' + req.file.originalname;
+    imagename =   uniqid()+req.file.originalname 
+    targetPath = './public/images/' + imagename;
+
 
     // using read stream API to read file
     src = fs.createReadStream(tempPath);    //where you want to read it from
@@ -196,7 +199,7 @@ exports.uploadImage = function(req,res){
         //create new instance of the images model with request body
         var imageData = {
             title: req.body.title,
-            imageName: req.file.originalname,
+            imageName: imagename,
             user_id: req.user.id,
             price:req.body.price,
             condition:req.body.condition,
@@ -220,7 +223,7 @@ exports.uploadImage = function(req,res){
             res.redirect('profile');
         })
 
-        //remove from temp folder
+        // remove from temp folder
         fs.unlink(tempPath,function(err){
             if(err){
                 return res.status(500).send('Something bad happened here');
