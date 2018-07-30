@@ -38,6 +38,7 @@ exports.updateImage = function(req,res){
     var dest;
     var targetPath;
     var targetName;
+    var oldpath;
 
     try{
         var tempPath = req.file.path;
@@ -51,7 +52,8 @@ exports.updateImage = function(req,res){
     
         }
         // Set new path to images
-        targetPath = './public/images/' + req.file.originalname;
+        imagename =   uniqid()+req.file.originalname 
+        targetPath = './public/images/' + imagename;
         // using read stream API to read file
         src = fs.createReadStream(tempPath);
         // using a write stream API to write file
@@ -67,6 +69,12 @@ exports.updateImage = function(req,res){
         });
     
         var booknumber = req.params.id;
+
+        Images.findById(booknumber).then((book)=>{
+            oldpath ='./public/images/' + book.imageName;
+            console.log(oldpath+'-------')
+            fs.unlink(oldpath)
+        })
         var updateData = {
             title : req.body.title,
             price : req.body.price,
@@ -75,9 +83,12 @@ exports.updateImage = function(req,res){
             genre: req.body.genre,
             meetup : req.body.meetup,
             available : req.body.available,
-            imageName:req.file.originalname,
+            imageName:imagename,
           
         }
+        
+
+        
         Images.update(updateData, { where: { id: booknumber } }).then((updatedRecord) => {
             if(!updatedRecord || updatedRecord == 0) {
                 return res.send(400, {
@@ -101,6 +112,10 @@ exports.updateImage = function(req,res){
                     }
                 })
             }
+
+           
+
+
             res.redirect("http://localhost:3000/profile")
         })
     }
