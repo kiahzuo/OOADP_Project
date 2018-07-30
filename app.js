@@ -125,6 +125,7 @@ app.post("/edituser/:id", users.update);
 
 
 //adding report
+app.get('/indepth/:id',report.indepthshow)
 app.post('/report',report.create)
 app.get('/reportitem',report.show)
 app.delete('/reportitem/:id',report.delete)

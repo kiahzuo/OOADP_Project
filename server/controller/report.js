@@ -17,6 +17,7 @@ exports.create = function (req, res){
         title: req.body.title,
         content: req.body.reportcontent,
         user_id: req.user.id,
+        user_name: req.user.name    ,
         reason: req.body.reason,
         seller:req.body.seller,
         book_id:req.body.book_id,
@@ -77,6 +78,23 @@ exports.create = function (req, res){
 //         res.redirect('/products');
 //     })
 // };
+
+exports.indepthshow = function(req, res) {
+    var reportnumber = req.params.id;
+
+    Reports.findAll({where:{book_id :reportnumber}})
+    .then(report=>{ 
+      res.render('indepth', { 
+      report:report,
+      user : req.user, 
+      
+      
+    });})
+
+    
+   
+
+};
 
 
 exports.show = function(req,res){

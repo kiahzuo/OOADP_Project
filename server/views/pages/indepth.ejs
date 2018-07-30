@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+
+  <head>
+
+      <% include ../partials/head %>
+      <link rel="stylesheet" type="text/css" href="../../stylesheets/util.css">
+	  <link rel="stylesheet" type="text/css" href="/public/stylesheets/main.css">
+	  <link href="//netdna.bootstrapcdn.com/bootstrap/3.0.3/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+		<script src="//netdna.bootstrapcdn.com/bootstrap/3.0.3/js/bootstrap.min.js"></script>
+		<script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+
+      <style>
+ 
+		body{
+					background-color: lightgoldenrodyellow;
+				}
+
+      </style>
+  </head>
+
+  <body>
+
+
+
+
+
+ 
+    <!-- Navigation -->
+    <% include ../partials/header %>
+<!-- Slide1 -->
+<Br><br><br><Br>
+
+
+<br><Br>
+    <a href="http://localhost:3000/reportitem" class="btn btn-success">Back To Reports</a><br><br><br>
+    <div class="container">         
+        <table class="table table-striped">
+          <thead>
+            <tr>
+              <th>Name</th>
+              <th>Reason</th>
+              <th>Content</th>
+              <th>Time</th>
+            </tr>
+          </thead>
+          <tbody>
+                <% for (i = 0; i < report.length; i++) {%>
+            <tr>
+              <td><%= report[i].user_name %></td>
+              <td><%= report[i].reason %></td>
+              <td><%= report[i].content %></td>
+              <td><%= report[i].created %></td>
+            </tr>
+            <% } %>
+          </tbody>
+        </table>
+      </div>
+      
+
+      <Br><br><br><Br><Br><br><br><Br><Br><br><br><Br><Br><br><br><Br><Br><br><br><Br>
+
+      <!-- Footer -->
+      <footer class="py-5 bg-dark">
+        <div class="container">
+          <p class="m-0 text-center text-white">Copyright &copy; Your Website 2017</p>
+        </div>
+        <!-- /.container -->
+      </footer>
+  </body>
+
+</html>

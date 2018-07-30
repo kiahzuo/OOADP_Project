@@ -106,6 +106,8 @@ tr{
         </div>
         <br><br>
   
+
+
         
         <!-- Tab content -->
         <div id="London" class="tabcontent">
@@ -120,9 +122,8 @@ tr{
                 <tr bgcolor='lightgray'>
                   <th style="width:20%;">Seller</th>
                   <th style="width:20%;">Title</th>
-                  <th style="width:20%;">Content</th>
                   <th style="width:10%;">Count</th>
-                  <th style="width:10%;">Reason</th>
+                  <th style="width:10%;">View Indepth Report</th>
                   <th style="width:10%;"></th>
                   <th style="width:10%;"></th>
                 </tr>
@@ -137,13 +138,10 @@ tr{
                       <%= report[i].title %>
                     </td>
                     <td>
-                      <%= report[i].content %>
-                    </td>
-                    <td>
                       <%= add_counts[i] %>
                     </td>
                     <td>
-                      <%= report[i].reason %>
+                      <a class='btn btn-primary' href="/indepth/<%= report[i].book_id%>">Indepth Report</a>
                     </td>
                     <td>
                       <a class='btn btn-primary' href="/edit/<%= report[i].book_id%>">Edit Book</a>
@@ -181,9 +179,9 @@ tr{
                 <tr  bgcolor='lightgray'>
                   <th style="width:20%;">Seller</th>
                   <th style="width:20%;">Title</th>
-                  <th style="width:20%;">Content</th>
-                  <th style="width:10%;">Count</th>
-                  <th style="width:10%;">Reason</th>
+                  
+                  <th style="width:20%;">Count</th>
+                  <th style="width:10%;">View Indepth Report</th>
                   <th style="width:10%;"></th>
                   <th style="width:10%;"></th>
                 </tr>
@@ -198,14 +196,13 @@ tr{
                       <%= report[i].title %>
                     </td>
                     <td>
-                      <%= report[i].content %>
-                    </td>
-                    <td>
                       <%= add_counts[i] %>
                     </td>
+                 
+
                     <td>
-                      <%= report[i].reason %>
-                    </td>
+                        <a class='btn btn-primary' href="/indepth/<%= report[i].book_id%>">Indepth Report</a>
+                      </td>
                     <td>
                       <a class='btn btn-primary' href="/edit/<%= report[i].book_id%>">Edit Book</a>
                     </td>

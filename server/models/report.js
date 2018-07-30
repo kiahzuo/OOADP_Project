@@ -40,6 +40,10 @@ const Reports = sequelize.define('Reports', {
         type: Sequelize.STRING,
       
     },
+    user_name:{
+        type: Sequelize.STRING,
+      
+    },
 
     reason:{
         type: Sequelize.STRING,
