@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <% include ../partials/head %>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <style>
+    .btn-change{
+      background-color: green; 
+      border-color: rgb(0, 63, 10);
+      width: 100%; 
+      height: 50px;  
+      color: white;
+      font-size: 25px;
+      cursor: pointer;
+    }
+    .btn-change:hover{
+          background-color: rgb(22, 182, 22);
+          border-radius: 10px;
+          border: "4px solid";
+          border-color: rgb(7, 197, 0);
+          transition: all 0.4s;
+        }
+        .btn-change:active{
+          background-color: #3e8e41;
+          box-shadow: 0 2px #666;
+          transform: translateY(2px);
+        }
+    </style>
+  </head>
+  <br><br><br><br><br><br><br><br>  
+    <body>
+      <% include ../partials/header %>
+      
+      <form class="form-signin" action="/change" method="post">
+      <div class="container" style="background-color: #f8653888; border-radius: 20px; height: 270px">
+        <br>
+          <h2 class="form-signin-heading">Update Password</h2>
+          <br>
+            <label for="inputPassword" class="sr-only">Old Password</label>
+            <input type="password" id="currentpw" name="currentpw" class="form-control" placeholder="Old Password" required="">
+            <br>
+            <label for="inputPassword" class="sr-only">New Password</label>
+            <input type="password" id="password" name="password" class="form-control" placeholder="New Password" required="">
+            <br><br>
+
+            <button class = "btn-change" type="submit" >Update</button>
+          </div>
+        </form>
+      
+      </body>  

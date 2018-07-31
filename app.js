@@ -128,7 +128,8 @@ app.post("/edituser/:id", users.update);
 app.get('/indepth/:id',report.indepthshow)
 app.post('/report',report.create)
 app.get('/reportitem',report.show)
-app.delete('/reportitem/:id',report.delete)
+app.delete('/indepth/:id',report.delete)
+// app.delete('/reportitem/:id',report.delete)
 // Book edit HTTP request handlers
 app.post("/edit/:id", upload.single('imageName'),images.updateImage)
 app.get("/edit/:id", images.show);
@@ -268,6 +269,7 @@ var bankRouter = require('./routes/bank');
 var notfoundRouter = require('./routes/notfound');
 var reportitemRouter = require('./routes/reportitem');
 var chatRouter = require('./routes/chat');
+var changeRouter = require('./routes/updatepw')
 // Assigning routers
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
@@ -284,6 +286,7 @@ app.use('/payment', paymentRouter);
 app.use('/edit', editRouter);
 app.use('/notfound', notfoundRouter);
 app.use('/reportitem', reportitemRouter);
+app.use('/change', changeRouter);
 
 
 
