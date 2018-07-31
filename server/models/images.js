@@ -31,7 +31,7 @@ const Images = sequelize.define('Products', {
         }
     },
     price: {
-        type: Sequelize.DOUBLE
+        type: Sequelize.DECIMAL
     },
     condition: {
         type: Sequelize.STRING

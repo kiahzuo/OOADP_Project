@@ -10,33 +10,41 @@ const Payments = sequelize.define('Payments', {
         autoIncrement: true,
         primaryKey: true
     },
-    payment_Date: {
+    payment_date: {
         type: Sequelize.DATE,
         defaultValue: Sequelize.NOW,
         allowNull: false
     },
     // Since all payments will be between BookTrade bank account and a certain user (whether buyer or seller), only need to explictly store user details
-    user_id: { 
+    user_id: { // Maybe will remove user  and book ID...
         type: Sequelize.INTEGER,
         allowNull: false,
     },
-    user_bank_account_number: {
+    book_id: {  // Extra, should remove 
+        type: Sequelize.INTEGER,
+        allowNull: true 
+    },
+    user_bank_account_no: {
         type: Sequelize.INTEGER,
         allowNull: false
     },
     // This will decide/show which part of the transaction the payment is for
     /* E.g. "checkout"/"1" means the 100% of book(s) cost going to from buyer to BookTrade account, "2" means the first 47.5% going to each seller, "3" means the final paymen to the seller(s) */
     payment_type: {     
-        type: Sequelize.STRING, 
+        type: Sequelize.CHAR, // 'A' means buyer to BookTrade. 'B' means BookTrade to seller, first part. 'C' means BookTrade to seller again. 'D' means...
         allowNull: false
     },
     transaction_id: {
         type: Sequelize.INTEGER,
         allowNull: false
     },
-    money_amount: {
-        type: Sequelize.FLOAT,
+    amount: {
+        type: Sequelize.DECIMAL,
         allowNull: false  
+    },
+    payment_status: {
+        type: Sequelize.STRING,
+        allowNull: false
     }
 });
 

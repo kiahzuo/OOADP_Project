@@ -10,38 +10,30 @@ const Transactions = sequelize.define('Transactions', {
         autoIncrement: true,
         primaryKey: true
     },
-    checkout_Date: {
+    checkout_date: {
         type: Sequelize.DATE,
         defaultValue: Sequelize.NOW,
         allowNull: false
     },
     buyer_id: {
         type: Sequelize.INTEGER,
-        allowNull: false,
-        // references: {
-        //     model: 'Users',
-        //     key: 'id'
-        // }
+        allowNull: false
     },
-    seller_id: {
-        type: Sequelize.INTEGER,
-        allowNull: false,
-        // references: {
-        //     model: 'Users',
-        //     key: 'id'
-        // }
+    seller_id_array: {  // Should/Will be removed
+        type: Sequelize.ARRAY,
+        allowNull: true
     },
-    book_id: {
-        type: Sequelize.INTEGER,
-        allowNull: false,
-        // references: {
-        //     model: 'Images',
-        //     key: 'id'
-        // }
+    book_id_array: {
+        type: Sequelize.ARRAY,
+        allowNull: false
     },
-    price: {
-        type: Sequelize.FLOAT,
+    total_amount: {
+        type: Sequelize.DECIMAL,
         allowNull: false  
+    },
+    transaction_status: {
+        type: Sequelize.STRING,
+        allowNull: false
     }
 });
 

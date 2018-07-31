@@ -28,9 +28,7 @@ const Reports = sequelize.define('Reports', {
     seller:{
         type: Sequelize.STRING,
       
-    },
-
-    
+    },  
     content: {
         type: Sequelize.STRING,
         defaultValue: '',

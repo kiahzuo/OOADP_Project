@@ -39,7 +39,7 @@ const wishlist = sequelize.define('wishlist', {
     },
 
     price:{
-        type: Sequelize.FLOAT,
+        type: Sequelize.DECIMAL,
       
     },
 });
