@@ -1,6 +1,6 @@
 //render function for Name start here //
-
-var socket = io.connect('http://localhost:3001');
+var socket = io();
+//var socket = io.connect('http://localhost:3001');
 var ownId;
 var receiverId;
 var recieverName;
@@ -41,12 +41,12 @@ function update(req) {
     localUser = req;
 }
 
-
 var loginScreen1 = new function() {
     this.show = function() {
         render('.screens', 'screen1', user, function() {
             bind('.mainContainer .loginSection .userInfo .name .screen .enterButton .nextScreen', function() {
                 var localUser = JSON.parse(JSON.stringify(user));
+                localUser.userName = $('.loginSection').data('name');
                 localUser.userName = $('.name .screen .textBox .inputBox').val();
                 if (localUser.userName == '') {
                     alert("Please enter your name");
@@ -55,7 +55,11 @@ var loginScreen1 = new function() {
                     alert("Please select profile image");
                 } else {
                     var temp = {};
+                    temp.user = localUser;
+                    update(temp);
                     temp.next = 'finishScreen';
+                    temp.user = localUser;
+                    update(temp);
                     temp.user = localUser;
                     update(temp);
                 }
@@ -401,7 +405,7 @@ function showchatPanel(data) {
 bind('.chatPanel .messageBox .sendButton', function() {
     var messageText = $('.chatContainer .chatPanel .messageBox .textBox .textArea').val();
 
-    socket.emit('chatting', messageText, user, receiverId);
+    socket.emit('chatting', messageText, user, receiverId,recieverName);
     $('.chatContainer .chatPanel .messageBox .textBox .textArea').val('');
 });
 
@@ -409,7 +413,7 @@ bind('.chatPanel .messageBox .sendButton', function() {
 $('.chatPanel .messageBox .textBox .textArea').keyup(function(e) {
     if (e.keyCode == 13) {
         var messageText = $('.chatContainer .chatPanel .messageBox .textBox .textArea').val();
-        socket.emit('chatting', messageText, userName, receiverId);
+        socket.emit('chatting', messageText, userName, receiverId,recieverName);
         $('.chatContainer .chatPanel .messageBox .textBox .textArea').val('');
     }
 });

@@ -10,6 +10,10 @@ var router = express.Router();
 var firebase = require('firebase');
 var app = express();
 var expressValidator = require('express-validator');
+var msg = require('./server/models/chatmsg');
+var http = require('http').Server(app);
+var io = require('socket.io')(http);
+var onlineUsers = [];
 // Including neccessary "modules"...
 app.use(logger('dev'));
 // app.use(bodyParser.json()); // Updated Express, can just use express.json()
@@ -287,22 +291,21 @@ app.use('/edit', editRouter);
 app.use('/notfound', notfoundRouter);
 app.use('/reportitem', reportitemRouter);
 app.use('/change', changeRouter);
+app.use('/chat',chatRouter);
 
 
 
 //IFFAH
-app.get('/chat', function(req, res) {
-    res.sendFile(__dirname + '/public/view/chatPage.html');
-});
+// app.get('/chat', function(req, res) {
+//     res.render( './chatPage');
+// });
 
-var http = require('http');
-var server = http.createServer(app);
-server.listen(3001)
 
-const io = require('socket.io')(server);
-var onlineUsers = [];
+//var server = http.createServer(app);
+ //server.listen(3001)
 
-io.on('connection', function(socket) {
+
+ io.on('connection', function(socket) {
 
     //   console.log('a user connected');
 
@@ -311,10 +314,6 @@ io.on('connection', function(socket) {
         onlineUsers.push({
             profileName: user.userName,
             profileId: socket.id,
-            profileImage: user.imageUrl,
-            profileAge: user.userAge,
-            profileSchool: user.userSchool,
-            profileCity: user.userCity,
             counter: temp
         })
 
@@ -340,12 +339,31 @@ io.on('connection', function(socket) {
         //console.log('user disconnected');
     });
 
-    socket.on('chatting', function(message, sender, receiver) {
-
-        socket.to(receiver).emit('reciverPeer', message, socket.id, receiver);
-        socket.emit('senderPeer', message, socket.id, receiver);
-
-    })
+    socket.on('chatting', function(message, sender,receiver,receivername) {
+    
+        //save msg to database
+        var msgDataJSON = {
+         from: sender.userName,
+         receivername: receivername,
+         messages: message
+       }
+       console.log("received msg: "+ JSON.stringify(receivername));
+       msg.create(msgDataJSON).then((newMessage) =>{
+           if(newMessage){
+               //successfully saved to database
+               socket.to(receiver).emit('reciverPeer', message, socket.id, receiver); // send to other person           
+           }
+           
+           socket.emit('senderPeer', message, socket.id, receiver); //send to yourself?
+       });
+ 
+       //send msgs by socket io to the person
+       //socket.to(receiver).emit('reciverPeer', message, socket.id, receiver);
+      // socket.emit('senderPeer', message, socket.id, receiver);
+ 
+        
+       
+   })
 
 });
 
@@ -366,5 +384,6 @@ app.use(function(err, req, res, next) {
   res.render('error');
 });
 
-app.listen(3000);
-module.exports = app;
+//  app.listen(3000);
+http.listen(3000);
+//  module.exports = app;

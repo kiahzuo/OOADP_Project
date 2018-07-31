@@ -1,4 +1,4 @@
-var myDatabase = require("../controllers/database");
+var myDatabase = require("../../server/controller/database");
 var sequelizeInstance = myDatabase.sequelize;
 var Sequelize = myDatabase.Sequelize;
 
@@ -6,7 +6,7 @@ const MsgModel = sequelizeInstance.define('message', {
     from: {
         type: Sequelize.STRING
     },
-    to:{
+    receivername:{
         type: Sequelize.STRING
     },
     messages: {
