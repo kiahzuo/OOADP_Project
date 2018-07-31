@@ -1,6 +1,9 @@
 // models/users.js
 
+var bcrypt = require('bcrypt');
+var salt = bcrypt.genSaltSync(10);
 
+var passwordadmin = bcrypt.hashSync('1234', salt);
 
 var myDatabase = require('../controller/database');
 var sequelize = myDatabase.sequelize;
@@ -20,6 +23,12 @@ const Users = sequelize.define('Users', {
     },
     password: {
         type: Sequelize.STRING
+    },
+    resetPasswordToken:{
+        type: Sequelize.STRING,
+    },
+    resetPasswordExpires: {
+        type: Sequelize.DATE,
     },
     bankCardNo: {
         type: Sequelize.INTEGER, // Will change
@@ -42,9 +51,11 @@ Users.sync({force: false, logging:console.log}).then(()=>{
         id: 1,
         name: 'ADMIN',
         email: 'a@b.com',
-        password: '1234',
+        password: passwordadmin,
         role: 'ADMIN',
     })
 });
 
 module.exports = sequelize.model('Users', Users);
+module.exports.bcrypt = bcrypt;
+module.exports.salt = salt;

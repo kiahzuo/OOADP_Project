@@ -24,7 +24,7 @@
             
 <style>
             body{   
-                background-color:grey ; 
+                background-color:lightgoldenrodyellow ; 
             }
             
             .mainimage{
@@ -112,7 +112,7 @@
         h2 { width:100%; text-align:center; border-bottom: 1px solid #000; line-height:0.1em; margin:10px 0 20px; } 
 
 
-        h2 span { background:#fff; padding:0 10px; }
+        h2 span { background:lightgoldenrodyellow;padding:0 10px; }
 
 </style>
 
@@ -159,7 +159,7 @@
                            
         
                         
-                                <button class="btn btn-lg btn-primary btn-block" type="submit">Chat</button>
+                                <a href ="http://localhost:3000/chat" ><button class="btn btn-lg btn-primary btn-block" type="submit">Chat</button></a><br>
                                 <!-- Tool tip example (Question mark) -->
                                 <!-- <span data-toggle="tooltip" data-placement="bottom" data-container="body" title="Click on the icons to navigate"><span class="fa fa-2x fa-question-circle-o text-primary sr-icons"></span></span> -->
                                 <!-- NEED TO CHECK THE ADD COUNT, refresh after adding... -->
@@ -170,8 +170,11 @@
                                         <button id="" class="btn btn-lg btn-primary btn-block disabled" type="button" disabled>Add to Cart</button>
                                 </span>
                                 <% } %>
-      
+                                <% if (status != "Wishlisted") { %>
                                                 <button class="btn btn-lg btn-primary btn-block" data-toggle="modal" data-target="#createWishlist" ><%=status %></button>
+                                                <% } else { %>
+                                                    <button class="btn btn-lg btn-primary btn-block" data-toggle="modal" disabled data-target="#createWishlist" ><%=status %></button>
+                                                    <% } %>
 
                                                 
 

@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+
+  <head>
+
+      <% include ../partials/head %>
+      <link rel="stylesheet" type="text/css" href="../../stylesheets/util.css">
+	  <link rel="stylesheet" type="text/css" href="/public/stylesheets/main.css">
+	  <link href="//netdna.bootstrapcdn.com/bootstrap/3.0.3/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+		<script src="//netdna.bootstrapcdn.com/bootstrap/3.0.3/js/bootstrap.min.js"></script>
+		<script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+
+      <style>
+ 
+		body{
+					background-color: lightgoldenrodyellow;
+				}
+
+
+  /* Style the tab */
+.tab {
+    overflow: hidden;
+    border: 1px solid #ccc;
+    background-color: #f1f1f1;
+
+}
+
+
+
+/* Style the buttons that are used to open the tab content */
+.tab button {
+    background-color: inherit;
+    float: left;
+    border: none;
+    outline: none;
+    cursor: pointer;
+    padding: 14px 16px;
+    transition: 0.3s;
+
+    width:766px;
+}
+
+/* Change background color of buttons on hover */
+.tab button:hover {
+    background-color: #ddd;
+}
+
+/* Create an active/current tablink class */
+.tab button.active {
+    background-color: #ccc;
+}
+
+/* Style the tab content */
+.tabcontent {
+    display: none;
+    padding: 6px 12px;
+    border: 1px solid #ccc;
+    border-top: none;
+}
+
+
+body{background-color: lightgoldenrodyellow;}
+#myInput {
+background-image: url('/css/searchicon.png'); /* Add a search icon to input */
+background-position: 10px 12px; /* Position the search icon */
+background-repeat: no-repeat; /* Do not repeat the icon image */
+width: 100%; /* Full-width */
+font-size: 16px; /* Increase font-size */
+padding: 12px 20px 12px 40px; /* Add some padding */
+border: 1px solid #ddd; /* Add a grey border */
+margin-bottom: 12px; /* Add some space below the input */
+}
+
+#myTable {
+border-collapse: collapse; /* Collapse borders */
+width: 100%; /* Full-width */
+border: 1px solid #ddd; /* Add a grey border */
+font-size: 18px; /* Increase font-size */
+}
+
+#myTable th, #myTable td {
+text-align: left; /* Left-align text */
+padding: 12px; /* Add padding */
+}
+
+#myTable tr {
+/* Add a bottom border to all table rows */
+border-bottom: 1px solid #ddd; 
+}
+
+#myTable tr.header, #myTable tr:hover {
+/* Add a grey background color to the table header and on hover */
+background-color: #f1f1f1;
+}
+
+tr{
+height: 60px;
+
+}
+
+
+
+      </style>
+  </head>
+
+  <body>
+
+
+
+
+
+ 
+    <!-- Navigation -->
+    <% include ../partials/header %>
+<!-- Slide1 -->
+<Br><br>
+
+
+<br><Br>
+    <a href="http://localhost:3000/reportitem" class="btn btn-success">Back To Reports</a><br><br><br>
+
+
+    <div class="container">
+
+      <div class="row">
+
+
+
+        <table id="myTable" class="table1">
+          <tr bgcolor='lightgray'>
+            <th>Name</th>
+            <th>Reason</th>
+            <th>Content</th>
+            <th>Time</th>
+            <th></th>
+          </tr>
+   
+          <% for (i = 0; i < report.length; i++) {%>
+            <tr class="rowRecord" data-id="<%= report[i].id %>">
+              <td><%= report[i].user_name %></td>
+              <td><%= report[i].reason %></td>
+              <td><%= report[i].content %></td>
+              <td><%= report[i].created %></td>
+              <td>
+                <input type="button" class="deleteBtn" value="Delete">  
+              </td>
+            </tr>
+            <% } %>
+
+        </table>
+      </div>
+    </div>
+
+
+<script>
+
+  
+  $('.deleteBtn').click(function () {
+      var record_num = $(this).closest("tr").data('id');
+      $.ajax({
+        url: 'http://localhost:3000/indepth/' + record_num,
+        type: 'DELETE',
+        success: function (result) {
+          console.log(result.message);
+          var itemToRemove = '.rowRecord[data-id=' + record_num + ']';
+          $(itemToRemove).remove();
+        },
+        error: function (result) {
+          alert("Unable to delete student record.");
+          console.log(result.message);
+        }
+      });
+    });
+
+</script>
+
+      
+
+      <Br><br><br><Br><Br><br><br><Br><Br><br><br><Br><Br><br><br><Br><Br><br><br><Br>
+
+      <!-- Footer -->
+      <footer class="py-5 bg-dark">
+        <div class="container">
+          <p class="m-0 text-center text-white">Copyright &copy; Your Website 2017</p>
+        </div>
+        <!-- /.container -->
+      </footer>
+  </body>
+
+</html>

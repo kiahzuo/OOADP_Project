@@ -3,6 +3,14 @@ var LocalStrategy = require('passport-local').Strategy;
 // load up the user model
 var User = require('../models/users');
 
+//load bcrypt from user.js
+var bcrypt = User.bcrypt;
+var salt = User.salt;
+
+// var bcrypt = require('bcrypt');
+// var salt = bcrypt.genSaltSync(10);
+
+
 module.exports = function (passport) {
     // passport init setup
     // serialize the user for the session
@@ -32,16 +40,18 @@ module.exports = function (passport) {
                 email = email.toLowerCase();
 
             var isValidPassword = function (userpass, password) {
-                return userpass === password;
+                return userpass === password
             }
             // process asynchronous
             process.nextTick(function () {
                 User.findOne({ where: { email: email } }).then((user) => {
-                    // check errors and bring the mess  ages
+                    // check errors and bring the messages
                     if (!user)
                         return done(null, false, req.flash('loginMessage', 'No such user found.'));
-                    if (!isValidPassword(user.password, password))
+                    if (!bcrypt.compareSync(password, user.password)){
                         return done(null, false, req.flash('loginMessage', 'Wrong password!'));
+                    }
+                    
                     // everything ok, get user
                     else {
                         return done(null, user.get());
@@ -73,10 +83,14 @@ module.exports = function (passport) {
                             return done(null, false, req.flash('signupMessage', 'Wohh! the email is already taken.'));
                         } else {
                             // create the user
+                            console.log("the sign up salt is: "+salt);
                             var userData = {
                                 name: req.body.name,
                                 email: email,
-                                password: password
+                                // password: password,
+                                password: bcrypt.hashSync(req.body.password, salt),
+                                profileDesc: "I'm "+ req.body.name + ". Nice to meet you!"
+
                             }
 
                             // save data

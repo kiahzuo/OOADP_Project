@@ -27,7 +27,7 @@
           padding: 14px 16px;
           transition: 0.3s;
    
-          width:765px;
+          width:766px;
       }
       
       /* Change background color of buttons on hover */
@@ -106,6 +106,8 @@ tr{
         </div>
         <br><br>
   
+
+
         
         <!-- Tab content -->
         <div id="London" class="tabcontent">
@@ -117,13 +119,11 @@ tr{
 
   
               <table id="myTable" class="table1">
-                <tr bgcolor="#ddd">
+                <tr bgcolor='lightgray'>
                   <th style="width:20%;">Seller</th>
                   <th style="width:20%;">Title</th>
-                  <th style="width:20%;">Content</th>
                   <th style="width:10%;">Count</th>
-                  <th style="width:10%;">Reason</th>
-                  <th style="width:10%;"></th>
+                  <th style="width:10%;">View Indepth Report</th>
                   <th style="width:10%;"></th>
                 </tr>
          
@@ -137,19 +137,13 @@ tr{
                       <%= report[i].title %>
                     </td>
                     <td>
-                      <%= report[i].content %>
-                    </td>
-                    <td>
                       <%= add_counts[i] %>
                     </td>
                     <td>
-                      <%= report[i].reason %>
+                      <a class='btn btn-primary' href="/indepth/<%= report[i].book_id%>">Indepth Report</a>
                     </td>
                     <td>
                       <a class='btn btn-primary' href="/edit/<%= report[i].book_id%>">Edit Book</a>
-                    </td>
-                    <td>
-                      <input type="button" class="deleteBtn" value="Delete">  
                     </td>
                   </tr>
               
@@ -178,19 +172,18 @@ tr{
   
   
               <table id="myTable" class="table1">
-                <tr>
+                <tr  bgcolor='lightgray'>
                   <th style="width:20%;">Seller</th>
                   <th style="width:20%;">Title</th>
-                  <th style="width:20%;">Content</th>
-                  <th style="width:10%;">Count</th>
-                  <th style="width:10%;">Reason</th>
-                  <th style="width:10%;"></th>
+                  
+                  <th style="width:20%;">Count</th>
+                  <th style="width:10%;">View Indepth Report</th>
                   <th style="width:10%;"></th>
                 </tr>
          
                 <% for (i = 0; i < add_counts.length; i++) {%>
                   <% if ( add_counts[i] >= 3) { %>
-                  <tr bgcolor="#FF9952" class="rowRecord" data-id="<%= report[i].id %>">
+                  <tr bgcolor='' class="rowRecord" data-id="<%= report[i].id %>">
                     <td>
                       <%= report[i].seller %>
                     </td>
@@ -198,19 +191,15 @@ tr{
                       <%= report[i].title %>
                     </td>
                     <td>
-                      <%= report[i].content %>
-                    </td>
-                    <td>
                       <%= add_counts[i] %>
                     </td>
+                 
+
                     <td>
-                      <%= report[i].reason %>
-                    </td>
+                        <a class='btn btn-primary' href="/indepth/<%= report[i].book_id%>">Indepth Report</a>
+                      </td>
                     <td>
                       <a class='btn btn-primary' href="/edit/<%= report[i].book_id%>">Edit Book</a>
-                    </td>
-                    <td>
-                      <input type="button" class="deleteBtn" value="Delete">  
                     </td>
                   </tr>
               

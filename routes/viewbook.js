@@ -6,6 +6,7 @@ var Comments = require ('../server/models/comments');
 var Images = require('../server/models/images');
 var wishlist = require('../server/models/wishlist');
 var Cart_Items = require('../server/models/cart');
+var Reports = require ('../server/models/report');
 var sequelize = myDatabase.sequelize;
 const Op = sequelize.Op
 
@@ -21,19 +22,23 @@ router.get('/:id', function(req, res, next) {
         }
         else {
             Comments.findAll().then(function(comments){
+                Reports.findAll({where:{user_id :req.user.id, book_id :booknumber}}).then(function (report) {
                 Images.findAll().then(function (images2) {
                     wishlist.findAll({where:{user_id :req.user.id, bookid :booknumber}}).then(function (wishlist)  {
                         Cart_Items.count( { where: { user_id: req.user.id } }).then(function(maxAddCount) {
-    
+    ``
                             console.log("Max add count:" + maxAddCount)
 
                             if(wishlist ==""){
-                    
+                                
+
+                                
                                 res.render('viewbook', {
                                     title: "Practical 5 Database Node JS - Edit Student Records",
                                     images: images,
                                     status: "Add to Wishlist?",
                                     images2:images2,
+                                    report:report,
                                     wishlist:wishlist,
                                     user : req.user,
                                     comments: comments,
@@ -52,6 +57,7 @@ router.get('/:id', function(req, res, next) {
                                     status:"Wishlisted",
                                     images2:images2,
                                     wishlist:wishlist,
+                                    report:report,
                                     user : req.user,
                                     comments: comments,
                                     userMaxAddCount : maxAddCount,
@@ -64,8 +70,10 @@ router.get('/:id', function(req, res, next) {
                         })
                     })
                 })
+                })
             })
     }
+
 });
 
 });
