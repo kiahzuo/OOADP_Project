@@ -315,7 +315,8 @@
                 <th style="width:20%;">Seller</th>
                 <th style="width:20%;">Title</th>
                 <th style="width:20%;">Availability</th>
-                <th style="width:20%;">Price</th>
+                <th style="width:10%;">Price</th>
+                <th style="width:10%;">View Book</th>
                 <th style="width:10%;">Edit</th>
                 <th style="width:10%;">Delete</th>
               </tr>
@@ -332,6 +333,9 @@
                   </td>
                   <td>
                     <%= images[i].price %>
+                  </td>
+                  <td>
+                    <a class='btn btn-primary' href="/viewbook/<%= images[i].id%>">View Book</a>
                   </td>
                   <td>
                     <a class='btn btn-primary' href="/edit/<%= images[i].id%>">Edit Book</a>

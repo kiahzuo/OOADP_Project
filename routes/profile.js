@@ -5,6 +5,7 @@ var Reports = require ('../server/models/report');
 var Images = require('../server/models/images');
 var Comments = require ('../server/models/comments');
 var Wishlist = require ('../server/models/wishlist');
+var cartItems = require('../server/models/cart');
 var fs = require('fs');
 /* GET about page. */
 
@@ -61,6 +62,15 @@ router.delete('/:id',function (req,res) {
                 });
 
                 Wishlist.destroy({ where: { bookid: booknumber } }).then((deletedRecord) => {
+                    if(!deletedRecord) {
+                        return res.send(400, {
+                            message: "error"
+                        });
+                    }
+                    res.status(200).send({ message: "Deleted student record: " + booknumber });
+                });
+
+                cartItems.destroy({ where: { book_id: booknumber } }).then((deletedRecord) => {
                     if(!deletedRecord) {
                         return res.send(400, {
                             message: "error"
