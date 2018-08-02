@@ -19,12 +19,12 @@ const Transactions = sequelize.define('Transactions', {
         type: Sequelize.INTEGER,
         allowNull: false
     },
-    seller_id_array: {  // Should/Will be removed
-        type: Sequelize.ARRAY,
+    seller_ids: {  // Should/Will be removed
+        type: Sequelize.STRING,
         allowNull: true
     },
-    book_id_array: {
-        type: Sequelize.ARRAY,
+    book_ids: { // Remember using comma as delimiter
+        type: Sequelize.STRING,
         allowNull: false
     },
     total_amount: {

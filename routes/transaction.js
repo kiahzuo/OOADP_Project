@@ -1,6 +1,7 @@
 var express = require('express');
 var router = express.Router();
 var myDatabase = require('../server/controller/database');
+var http = require('http');
 
 var Images = require('../server/models/images');
 var Users = require('../server/models/users');
@@ -132,15 +133,17 @@ router.post("/cart/remove/:bid", (req, res) => {
 });
 
 router.post("/cart/checkout/", (req, res) => {
-    res.status(200).send(reply);
+    res.status(200).send(reply); // REFER TO cart.ejs
 });
 
-router.post('/transaction/checkout/all/', function(req, res, next) {
+router.post('/checkout/all/', function(req, res, next) {
+    // Need to change this later, when receiving from bank server...
     if (req.body.userID != req.user.id) {
         return res.send(400, {
             message: "Error, invalid user log"
         });
     }
+    var currentTransactionID = 0;
     Cart_Items.findAll({ where: { user_id: req.user.id } }).then(userCartItems => {
         var bookIDArray = [];
         for (var i = 0; i < userCartItems.length; i++){
@@ -153,7 +156,10 @@ router.post('/transaction/checkout/all/', function(req, res, next) {
             }
             Users.find({ where: { id: req.user.id } }).then(function(userRecord) {
                 // NEED TO FIX (See database and EJS)
+                /* Special data */
                 var userCardNumber = 0;
+                var uniquePID = "";
+
                 if (userRecord.bankCardNo != undefined) {
                     userCardNumber = userRecord.bankCardNo ;
                 }
@@ -162,14 +168,18 @@ router.post('/transaction/checkout/all/', function(req, res, next) {
                 }
                 // Note that *checkCard* should execute before this
                 console.log(bookIDArray);
-                console.log(totalBookPrice);
+                var bookIDArrayString = "";
+                for (var i = 0; i < bookIDArray.length; i++){
+                    bookIDArrayString += (bookIDArray[i].toString() + ',');
+                }
+                console.log("Payment A amount is:" + totalBookPrice);
                 switch (req.body.paymentType) {
                     case 'A' :
                         /* Create new transaction record */
                         var Transaction_Data = {
-                            buyer_id : req.user.id,
-                            book_id_array : bookIDArray,
-                            totalAmount : totalBookPrice,
+                            buyer_id : req.body.userID,
+                            book_ids : bookIDArrayString,
+                            total_amount : totalBookPrice,
                             transaction_status: "Pending"
                         }
                         Transactions.create(Transaction_Data).then(function(newTransaction, failTest) {
@@ -178,7 +188,8 @@ router.post('/transaction/checkout/all/', function(req, res, next) {
                                     message: "error"
                                 });
                             }
-                            var currentTransactionID = newTransaction.id ;
+
+                            currentTransactionID = newTransaction.id ;
                             console.log("Transaction ID: " + currentTransactionID);
                             /* Create new payment record based on transaction */ 
                             var Payment_A_Data = {
@@ -192,9 +203,38 @@ router.post('/transaction/checkout/all/', function(req, res, next) {
                             Payments.create(Payment_A_Data).then(function(newPayment, failTest) {
                                 if (!newPayment) {
                                     return res.send(400, {
-                                        message: "error" // Should change this error for "user experience"
+                                        message: "error" // Should change this error to be "displayed" for better "user experience"
                                     });
                                 }
+                                // Will slice for identification upon reply/return
+                                uniquePID = ('A' + currentTransactionID + ',' + newPayment.id).toString()
+                                console.log("PID of payment type A:" + uniquePID);
+                                // Send data to bank server
+                                var paymentData = JSON.stringify({
+                                    PID : uniquePID,
+                                    To : BT_bankAccountNo,
+                                    From: userCardNumber,
+                                    Amount: totalBookPrice
+                                })
+
+                                var options = {
+                                    url: "http://localhost:4000",
+                                    port: 4000,
+                                    path: "/processingPayment/",
+                                    method: "POST",
+                                    headers: {
+                                        "contentType" : "application/json"
+                                    }
+                                }
+                                var sendTo4000 = http.request(options, function(res){
+                                    console.log("Sending payment type A data to 4000 (Test on same server first)");
+                                    res.setEncoding("UTF8");
+                                    res.on("data", function(chunk) {
+                                        console.log("body: " + chunk);
+                                    })
+                                });
+                                sendTo4000.write(paymentData);
+                                sendTo4000.end();
                             });
                         });
 
@@ -204,17 +244,6 @@ router.post('/transaction/checkout/all/', function(req, res, next) {
 
                         break;
                 }
-                res.render('payment', { 
-                    title: 'Rendering payment details for checkout',
-                    jsSendType: "Default",
-                    user : req.user,
-                    userCardNo_L4 : userCardNumber.toString().substring(-1, 4),
-                    hostPath: req.protocol + "://" + req.get("host"),
-                    urlPath: req.protocol + '://' + req.get('host') + req.originalUrl, 
-                    // Extra
-                    paying: 99
-                });
-                // OTHER STUFF
             });
         });
     });
