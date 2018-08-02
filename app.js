@@ -73,7 +73,8 @@ var sequelizeSessionStore = new SessionStore({
 
 // Import Passport and Warning flash modules
 var passport = require('passport');
-var flash = require('connect-flash');
+// var flash = require('connect-flash');
+var flash = require('express-flash');
 // Passport configuration
 require('./server/config/passport')(passport);
 // secret for session

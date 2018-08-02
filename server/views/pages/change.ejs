@@ -8,6 +8,9 @@
     <meta name="author" content="">
 
     <style>
+      body{
+        background-color: rgb(209, 122, 72);
+      }
     .btn-change{
       background-color: green; 
       border-color: rgb(0, 63, 10);
@@ -36,16 +39,23 @@
       <% include ../partials/header %>
       
       <form class="form-signin" action="/change" method="post">
-      <div class="container" style="background-color: #f8653888; border-radius: 20px; height: 270px">
+      <div class="container" style=" border-radius: 20px; height: 300px">
         <br>
           <h2 class="form-signin-heading">Update Password</h2>
           <br>
+
+			<% if (messages.error) {%>
+				<div class = "alert alert-warning"> <%= messages.error %>
+					<a href = "#" class= "close" data-dismiss = "alert" aria-label = "close">&times;</a>
+				</div>
+        <% } %>
+        
             <label for="inputPassword" class="sr-only">Old Password</label>
             <input type="password" id="currentpw" name="currentpw" class="form-control" placeholder="Old Password" required="">
             <br>
             <label for="inputPassword" class="sr-only">New Password</label>
             <input type="password" id="password" name="password" class="form-control" placeholder="New Password" required="">
-            <br><br>
+            <br>
 
             <button class = "btn-change" type="submit" >Update</button>
           </div>

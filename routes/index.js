@@ -100,9 +100,11 @@ router.post('/reset/:token', function(req, res, next) {
       req.flash('error', 'Password reset token is invalid or has expired.');
       return res.redirect('/forgot'); 
     }
-    user.password = bcrypt.hashSync(req.body.password, salt);
-    user.resetPasswordToken = null;
-    user.resetPasswordExpires = null;
+    if (req.body.password == req.body.confirm){
+      user.password = bcrypt.hashSync(req.body.password, salt);
+      user.resetPasswordToken = null;
+      user.resetPasswordExpires = null;
+    }
 
     user.save().then((user)=>{
       var smtpTransport = nodemailer.createTransport({ 
@@ -129,5 +131,6 @@ router.post('/reset/:token', function(req, res, next) {
     })
   })
 })
+
 
 module.exports = router;

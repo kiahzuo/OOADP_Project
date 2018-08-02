@@ -26,6 +26,7 @@ router.post('/', function(req, res){
         }
 
         else{
+            req.flash('error', 'Please enter your previous password.');
             res.redirect('/change')
         }
     })
