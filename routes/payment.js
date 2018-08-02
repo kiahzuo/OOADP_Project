@@ -9,7 +9,9 @@ var Transactions = require('../server/models/transaction');
 var sequelize = myDatabase.sequelize;
 const Op = sequelize.Op
 
-/* Render checkout payment page page. */
+const BT_bankAccountNo = 3213165
+
+/* Render checkout payment page. */
 router.get('/', function(req, res, next) {
     Cart_Items.findAll({ where: { user_id: req.user.id } }).then(userCartItems => {
         var bookIDArray = [];
@@ -22,10 +24,13 @@ router.get('/', function(req, res, next) {
                 totalBookPrice += userCartItemsData[i].price ;
             }
             Users.find({ where: { id: req.user.id } }).then(function(userRecord) {
-                // NEED TO FIX
+                // NEED TO FIX (See database and EJS)
                 var userCardNumber = 0;
                 if (userRecord.bankCardNo != undefined) {
                     userCardNumber = userRecord.bankCardNo ;
+                }
+                else {
+                    // Force user to enter the full credit card details on checkout.
                 }
                 console.log(bookIDArray);
                 console.log(totalBookPrice);
@@ -33,8 +38,6 @@ router.get('/', function(req, res, next) {
                     title: 'Rendering payment details for checkout',
                     jsSendType: "Default",
                     user : req.user,
-                    cartBookIDArray : bookIDArray,
-                    cartTotalPrice : totalBookPrice,
                     userCardNo_L4 : userCardNumber.toString().substring(-1, 4),
                     hostPath: req.protocol + "://" + req.get("host"),
                     urlPath: req.protocol + '://' + req.get('host') + req.originalUrl, 

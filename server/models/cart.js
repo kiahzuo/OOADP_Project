@@ -10,7 +10,7 @@ const Cart_Items = sequelize.define('Cart_Items', {
         autoIncrement: true,
         primaryKey: true
     },
-    add_Date: {
+    add_date: {
         type: Sequelize.DATE,
         defaultValue: Sequelize.NOW,
         allowNull: false

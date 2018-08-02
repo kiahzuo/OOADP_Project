@@ -6,8 +6,11 @@ var Images = require('../server/models/images');
 var Users = require('../server/models/users');
 var Cart_Items = require('../server/models/cart');
 var Transactions = require('../server/models/transaction');
+var Payments = require('../server/models/payments');
 var sequelize = myDatabase.sequelize;
 const Op = sequelize.Op
+
+const BT_bankAccountNo = 3213165
 
 router.post("/cart/add/", (req, res) => {
     // Test connection
@@ -122,7 +125,7 @@ router.post("/cart/remove/:bid", (req, res) => {
                     available: "available"
                 });
                 reply.message = "Success!"
-                res.status(200).send(reply);
+                res.status(200).send(reply); // No need return as this is last code block
             }
         });
     });
@@ -130,6 +133,91 @@ router.post("/cart/remove/:bid", (req, res) => {
 
 router.post("/cart/checkout/", (req, res) => {
     res.status(200).send(reply);
+});
+
+router.post('/transaction/checkout/all/', function(req, res, next) {
+    if (req.body.userID != req.user.id) {
+        return res.send(400, {
+            message: "Error, invalid user log"
+        });
+    }
+    Cart_Items.findAll({ where: { user_id: req.user.id } }).then(userCartItems => {
+        var bookIDArray = [];
+        for (var i = 0; i < userCartItems.length; i++){
+            bookIDArray.push(userCartItems[i].book_id);
+        }
+        Images.findAll({ where: { id: { [Op.in]: bookIDArray } } }).then(userCartItemsData => {
+            var totalBookPrice = 0.00;
+            for (var i = 0; i < userCartItemsData.length; i++){
+                totalBookPrice += userCartItemsData[i].price ;
+            }
+            Users.find({ where: { id: req.user.id } }).then(function(userRecord) {
+                // NEED TO FIX (See database and EJS)
+                var userCardNumber = 0;
+                if (userRecord.bankCardNo != undefined) {
+                    userCardNumber = userRecord.bankCardNo ;
+                }
+                else {
+                    // ...
+                }
+                // Note that *checkCard* should execute before this
+                console.log(bookIDArray);
+                console.log(totalBookPrice);
+                switch (req.body.paymentType) {
+                    case 'A' :
+                        /* Create new transaction record */
+                        var Transaction_Data = {
+                            buyer_id : req.user.id,
+                            book_id_array : bookIDArray,
+                            totalAmount : totalBookPrice,
+                            transaction_status: "Pending"
+                        }
+                        Transactions.create(Transaction_Data).then(function(newTransaction, failTest) {
+                            if (!newTransaction) {
+                                return res.send(400, {
+                                    message: "error"
+                                });
+                            }
+                            var currentTransactionID = newTransaction.id ;
+                            console.log("Transaction ID: " + currentTransactionID);
+                            /* Create new payment record based on transaction */ 
+                            var Payment_A_Data = {
+                                user_id : req.user.id,
+                                user_bank_account_no : userCardNumber,
+                                payment_type: 'A',
+                                transaction_id: currentTransactionID,
+                                amount: totalBookPrice,
+                                payment_status: "Pending"
+                            }
+                            Payments.create(Payment_A_Data).then(function(newPayment, failTest) {
+                                if (!newPayment) {
+                                    return res.send(400, {
+                                        message: "error" // Should change this error for "user experience"
+                                    });
+                                }
+                            });
+                        });
+
+                        break;
+
+                    case 'B' :
+
+                        break;
+                }
+                res.render('payment', { 
+                    title: 'Rendering payment details for checkout',
+                    jsSendType: "Default",
+                    user : req.user,
+                    userCardNo_L4 : userCardNumber.toString().substring(-1, 4),
+                    hostPath: req.protocol + "://" + req.get("host"),
+                    urlPath: req.protocol + '://' + req.get('host') + req.originalUrl, 
+                    // Extra
+                    paying: 99
+                });
+                // OTHER STUFF
+            });
+        });
+    });
 });
 
 module.exports = router ;

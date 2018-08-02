@@ -31,7 +31,7 @@ const Users = sequelize.define('Users', {
         type: Sequelize.DATE,
     },
     bankCardNo: {
-        type: Sequelize.DECIMAL,
+        type: Sequelize.INTEGER, // Will change
         allowNull: true
     },
     bankCardName: {
