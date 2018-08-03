@@ -22,7 +22,7 @@
       }
 
       .card-deck {
-        margin-left: 20px;
+        margin-left: 10px;
         margin-top: 10px;
       }
 
@@ -115,7 +115,7 @@
                 <br>
 
                 <div class="m-text15 p-b-17">
-                  <h3>Filter By Name</h3>
+                  <h3>Filters</h3>
                   <br>
                 </div>
 
@@ -130,10 +130,6 @@
                   <input class="form-control mr-sm-2" type="search" placeholder="Type a bookname..." aria-label="Search" id="search">
                   <br>
                   <br>
-                  <div class="m-text15 p-b-17">
-                    <h3>Filter By Price</h3>
-                    <br>
-                  </div>
                   <form action="/products" method="POST" onchange="checkAndSubmit()" id="formID">
                     <select class="sort" name="sort" id="sort">
                       <option value="All">Price</option>
@@ -145,10 +141,6 @@
 
                   <br>
                   <br>
-                  <div class="m-text15 p-b-17">
-                    <h3>Filter By Genre</h3>
-                    <br>
-                  </div>
                   <form action="/products" method="post" onchange="checkAndSubmit2()" id="formID2">
                     <select class="sort" name="sort" id="sort2">
                       <option value="All">Genre</option>
@@ -166,17 +158,13 @@
                   <br>
                   <br>
 
-                  <div class="m-text15 p-b-17">
-                    <h3>Filter By Price Range</h3>
-                    <br>
-                  </div>
                   <form action="/filterprice" method="post">
 
-                    Min:
-                    <br>
+                    Min Price:
+                    <br><br>
                     <input type="text" name="min" class="min">
-                    <br> Max:
-                    <br>
+                    <br> Max Price:
+                    <br><br>
                     <input type="text" name="max" class="max">
 
 

@@ -114,7 +114,7 @@
 
         h2 span { background:lightgoldenrodyellow;padding:0 10px; }
         #spacing{
-            margin-bottom: 8px;
+            margin-bottom: 15px;
         }
 
 </style>
@@ -158,7 +158,7 @@
                   
         
                         <!--  -->
-       <br><br>
+       <br>
                            
         
                         
@@ -166,21 +166,21 @@
                                 <!-- Tool tip example (Question mark) -->
                                 <!-- <span data-toggle="tooltip" data-placement="bottom" data-container="body" title="Click on the icons to navigate"><span class="fa fa-2x fa-question-circle-o text-primary sr-icons"></span></span> -->
                                 <!-- NEED TO CHECK THE ADD COUNT, refresh after adding... -->
-                                <% if (images.available == "available" && userMaxAddCount < 5 || isNaN(userMaxAddCount)) { %>
-                                    <button id="addToCartButton" class="btn btn-lg btn-primary btn-block" type="button">Add to Cart</button><br>    
-                                <% } else { %>
-                                <span id="addToCartButtonTooltip" data-toggle="tooltip" data-placement="bottom" data-container="body" title="Book not available">
-                                        <button id="" class="btn btn-lg btn-primary btn-block disabled" type="button" disabled>Add to Cart</button>
-                                        <br>
-                                </span>
-                                <% } %>
+
                                 <% if (status != "Wishlisted") { %>
                                                 <button id='spacing'class="btn btn-lg btn-primary btn-block" data-toggle="modal" data-target="#createWishlist" ><%=status %></button>
                                                 <% } else { %>
                                                     <button id='spacing'class="btn btn-lg btn-primary btn-block" data-toggle="modal" disabled data-target="#createWishlist" ><%=status %></button>
                                                     <% } %>
 
-    
+                                                    <% if (images.available == "available" && userMaxAddCount < 5 || isNaN(userMaxAddCount)) { %>
+                                                        <button id="addToCartButton" class="btn btn-lg btn-primary btn-block" type="button">Add to Cart</button><br>    
+                                                    <% } else { %>
+                                                    <span id="addToCartButtonTooltip" data-toggle="tooltip" data-placement="bottom" data-container="body" title="Book not available">
+                                                            <button id="" class="btn btn-lg btn-primary btn-block disabled" type="button" disabled>Add to Cart</button>
+                                                   
+                                                    </span>
+                                                    <% } %>
                                                     <a href ="http://localhost:3000/chat" ><button class="btn btn-lg btn-primary btn-block" type="submit">Chat</button></a><br>
                             </div>
                         </div>
@@ -241,7 +241,7 @@
                                                         <form action="/comments" method="delete">
                                                                 <h4 class="list-group-item-heading">
                                                                         <%= comments[i].content %>
-                                                                    <% if ( user.id ==  comments[i].user_id ) { %>
+                                                                    <% if ( user.id ==  comments[i].user_id || user.role == "ADMIN") { %>
                                                                     <button class="btn btn-secondary pull-right deleteBtn" type="button" data-id="<%= comments[i].id%>">Delete</button>
                                                                     <% } %>
                                                                 </h4>
@@ -471,9 +471,6 @@ document.getElementById("defaultOpen").click();
                     <div class="modal-content">
                         <form action="/report" method="post">
                             <div class="modal-header">
-                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                    <span aria-hidden="true">&times;</span>
-                                </button>
                                 <h4 class="modal-title" id="myModalLabel">Report Item</h4>
                             </div>
         
