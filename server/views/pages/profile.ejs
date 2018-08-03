@@ -10,7 +10,7 @@
     <link rel="stylesheet" type="text/css" href="../../stylesheets/main.css">
 
   
-    <% if (user.role =="ADMIN") { %>
+    <% if (user.role =="ADMIN" || user.role =="SUPERADMIN") { %>
       <style>
         * {
           box-sizing: border-box

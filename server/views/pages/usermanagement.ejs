@@ -94,14 +94,21 @@
       </tr>
 
       <% for (i =0; i < users.length; i++) {%>
-        <% if ( users[i].role == "ADMIN") { %>
+        <% if ( users[i].role == "ADMIN" || users[i].role =="SUPERADMIN") { %>
       <tr class="rowRecord" data-id="<%= users[i].id %>">
         <td><%= users[i].name %></td>
         <td><%= users[i].role %></td>
-        <td> <a class='btn btn-primary' href="/edituser/<%= users[i].id%>">Roles</a></td>
+
+
+        <% if (users[i].role == "SUPERADMIN" ){%>
+          <td> <a class='btn btn-primary' >Role</a></td>
+        <%} else{%>
+          <td> <a class='btn btn-primary' href="/edituser/<%= users[i].id%>">Role</a></td>
+          <% } %>
+          <% } %>
+          <% } %>
       </tr>
-      <% } %>
-      <% } %>
+   
     
     </table>
   </div>  
