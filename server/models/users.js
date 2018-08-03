@@ -52,7 +52,7 @@ Users.sync({force: false, logging:console.log}).then(()=>{
         name: 'ADMIN',
         email: 'a@b.com',
         password: passwordadmin,
-        role: 'ADMIN',
+        role: 'SUPERADMIN',
     })
 });
 

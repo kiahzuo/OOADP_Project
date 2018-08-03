@@ -1,5 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
+    <link rel="stylesheet" type="text/css" href="../../stylesheets/util.css">
+    <link rel="stylesheet" type="text/css" href="../../stylesheets/main.css">
 
   <head>
     <meta charset="utf-8">
@@ -8,6 +10,9 @@
     <meta name="author" content="">
     <% include ../partials/header %>
     <style>
+      body{
+        background-color: lightgoldenrodyellow;
+      }
       .btn-up{
         background-color: rgb(66, 145, 197); 
         border:"2px solid" ;
@@ -66,13 +71,17 @@
           <div class="container">
             <div class="row">
               <div class="col-xl-9 mx-auto">
-                
-
 
                     <h2 class="section-heading mb-5">
                       <div class= "container" style= "text-align: center">
                         <form class="form-signin" action="/login" method="post">
                           <h2 class="form-signin-heading">Login</h2></h2>
+
+                          <% if (messages.loginMessage) {%>
+                            <div class = "alert alert-warning"> <%= messages.loginMessage %>
+                              <a href = "#" class= "close" data-dismiss = "alert" aria-label = "close">&times;</a>
+                            </div>
+                            <% } %>
 
                             <input type="email" id="email" name="email" class="form-control" placeholder="Email address" required="">
                             

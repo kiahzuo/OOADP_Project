@@ -19,7 +19,17 @@
 	<div class="col-md-12">
 		<form action="/forgot" method="POST">
 			<h2>Forgot Password</h2>
-			<div class="form-group"><br>
+			<div class="form-group">
+				<% if (messages.info) {%>
+					<div class = "alert alert-warning"> <%= messages.info %>
+						<a href = "#" class= "close" data-dismiss = "alert" aria-label = "close">&times;</a>
+					</div>
+					<% } %>
+					<% if (messages.error) {%>
+						<div class = "alert alert-warning"> <%= messages.error %>
+							<a href = "#" class= "close" data-dismiss = "alert" aria-label = "close">&times;</a>
+						</div>
+						<% } %>
 				<h4><label for="email">Email</label></h4>
 				<input type="email" name="email" autofocus class="form-control" placeholder="eg. ahmad123@gmail.com">
 			</div>

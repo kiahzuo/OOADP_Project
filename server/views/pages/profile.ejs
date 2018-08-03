@@ -10,7 +10,7 @@
     <link rel="stylesheet" type="text/css" href="../../stylesheets/main.css">
 
   
-    <% if (user.role =="ADMIN") { %>
+    <% if (user.role =="ADMIN" || user.role =="SUPERADMIN") { %>
       <style>
         * {
           box-sizing: border-box
@@ -217,7 +217,7 @@
           padding: 6px 8px 6px 16px;
           text-decoration: none;
           font-size: 20px;
-          color: #818181;
+          color: white;
           display: block;
           border: none;
           background: none;
@@ -315,7 +315,8 @@
                 <th style="width:20%;">Seller</th>
                 <th style="width:20%;">Title</th>
                 <th style="width:20%;">Availability</th>
-                <th style="width:20%;">Price</th>
+                <th style="width:10%;">Price</th>
+                <th style="width:10%;">View Book</th>
                 <th style="width:10%;">Edit</th>
                 <th style="width:10%;">Delete</th>
               </tr>
@@ -332,6 +333,9 @@
                   </td>
                   <td>
                     <%= images[i].price %>
+                  </td>
+                  <td>
+                    <a class='btn btn-primary' href="/viewbook/<%= images[i].id%>">View Book</a>
                   </td>
                   <td>
                     <a class='btn btn-primary' href="/edit/<%= images[i].id%>">Edit Book</a>
@@ -500,8 +504,8 @@
           <br>
           <div class="form-row">
             <div class="input-group hide-inputbtns"> 
-                <span class="input-group-addon">$</span>
-                <input type="number" id="price" name="price" value="0" min="1" step="0.01" data-number-to-fixed="2" data-number-stepfactor="100" class="form-control currency" placeholder="Price..." required=""/>
+                
+              <input type="number" id="price" name="price" placeholder="Price...." min="1" step="0.01" data-number-to-fixed="2" data-number-stepfactor="100" class="form-control currency" placeholder="Price..." required=""/>
             </div>
           </div>
           <br>
@@ -784,10 +788,7 @@
         <div class="modal-content">
           <form action="/store" method="post" enctype="multipart/form-data" id="regForm">
             <div class="modal-header">
-              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-              </button>
-              <h4 class="modal-title" id="myModalLabel">Upload A Book</h4>
+              <h4 class="modal-title" id="myModalLabel">Upload A Book</h4><br>  <br>  <br>  <br>  
             </div>
 
             <div class="modal-body">
@@ -805,13 +806,11 @@
 
                 <input type="text" id="itle" name="title" class="form-control" placeholder="Image Title..." required="">
                 <br>
-                <div class="form-row">
-                    <div class="input-group hide-inputbtns"> 
-                        <span class="input-group-addon">$</span>
-                        <input type="number" id="price" name="price" value="0" min="1" step="0.01" data-number-to-fixed="2" data-number-stepfactor="100" class="form-control currency" placeholder="Price..." required=""/>
-                    </div>
-                </div>
-                <br>
+  
+      
+                        <input type="number" id="price" name="price" placeholder="Price...." min="1" step="0.01" data-number-to-fixed="2" data-number-stepfactor="100" class="form-control currency" placeholder="Price..." required=""/>
+                    
+                <br><br>
            
 
                 <input type="text" id="condition" name="condition" class="form-control" placeholder="Condition..." required="">
@@ -1012,10 +1011,11 @@
                         <br>
 
                         <a href="/change"><button type="button" class="btn btn-primary">Update Password</button></a>
+                        <a href="/logout" class="btn btn-danger">Logout</a>
+
                 </h6>
               </ul>
-              <a href="/logout" class="btn btn-danger">Logout</a>
-
+              
 
               <!--  -->
 
