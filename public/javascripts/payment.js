@@ -254,6 +254,7 @@ $(document).ready(function () {
                         // }
                     });
                 } else if (jsSendType == "Register") {
+                    console.log(cardNumber + cardHolder);
                     var sendData = {
                         cardNumber: cardNumber,
                         cardHolder: cardHolder,
@@ -270,7 +271,7 @@ $(document).ready(function () {
                         success: function(data){
                             $("form").trigger("reset");
                             console.log('Card successfully registered');
-                            location.replace("http://localhost:3000/products");
+                            //location.replace("http://localhost:3000/products");
                         }//,
                         // error: function(jqXHR, textStatus, errorThrown){
                         //     console.log(errorThrown);
