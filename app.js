@@ -1,87 +1,19 @@
+// Variables for modules
+var express = require('express');
 var createError = require('http-errors');
 var express = require('express');
 var path = require('path');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var logger = require('morgan');
-var firebase = require('firebase');
-
-// routes
-var indexRouter = require('./routes/index');
-var usersRouter = require('./routes/users');
-var aboutRouter = require('./routes/about');
-var productsRouter = require('./routes/products');
-var storeRouter = require('./routes/store');
-var loginRouter = require('./routes/login');
-var profileRouter = require('./routes/profile');
-var signupRouter = require('./routes/signup');
-var editRouter = require('./routes/edit');
-var actionRouter = require('./routes/action');
-var horrorRouter = require('./routes/horror');
-var nonfictionRouter = require('./routes/nonfiction');
-var comedyRouter = require('./routes/comedy');
-var adventureRouter = require('./routes/adventure');
-var sciencefictionRouter = require('./routes/sciencefiction')
-var viewbookRouter = require('./routes/viewbook');
-var viewprofileRouter = require('./routes/viewprofile');
-var bankRouter = require('./routes/bank');
-var paymentRouter = require('./routes/payment');
-
-
-// firebase
-var config = {
-    apiKey: "AIzaSyBcI54P-yTiaNAXEDASZGH3eJNkcbXY7wE",
-    authDomain: "ooadp-2018-sem1-e409b.firebaseapp.com",
-    databaseURL: "https://ooadp-2018-sem1-e409b.firebaseio.com",
-  };
-firebase.initializeApp(config);
-var firebaseRef = firebase.database().ref();
-
-//import multer
-var multer = require('multer');
-var upload = multer({dest:'./public/uploads/',limits:{fileSize: 1500000, files:1} });
-
-// Import login controller
-var auth = require('./server/controller/auth');
-
-//Import images controller
-var images = require('./server/controller/images');
-
-
-//Import comments controller
-var comments = require('./server/controller/comments');
-
-
-
-// Modules to store session
-var myDatabase = require('./server/controller/database');
-var expressSession = require('express-session');
-var SessionStore = require('express-session-sequelize')(expressSession.Store);
-var sequelizeSessionStore = new SessionStore({
-    db: myDatabase.sequelize,
-});
-
-
-// Import Passport and Warning flash modules
-var passport = require('passport');
-var flash = require('connect-flash');
-
-
-
-
-var express = require('express');
-var app = express();
 var router = express.Router();
-
-
-
-
-
-// Passport configuration
-require('./server/config/passport')(passport);
-
+var firebase = require('firebase');
+var admin = require("firebase-admin");
+var app = express();
+// Including neccessary "modules"...
 app.use(logger('dev'));
-app.use(bodyParser.json());
+// app.use(bodyParser.json()); // Updated Express, can just use express.json()
+app.use(express.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(require('node-sass-middleware')({
@@ -90,128 +22,88 @@ app.use(require('node-sass-middleware')({
     indentedSyntax: true,
     sourceMap: true
 }));
-
-// required for passport
-// secret for session
-app.use(expressSession({
-  secret: 'sometextgohere',
-  store: sequelizeSessionStore,
-  resave: false,
-  saveUninitialized: false,
-}));
-
-// Init passport authentication
-app.use(passport.initialize());
-// persistent login sessions
-app.use(passport.session());
-// flash messages
-app.use(flash());
-
-// Index Route
-
-app.get('/login', auth.signin);
-app.post('/login', passport.authenticate('local-login', {
-    //Success go to Profile Page / Fail go to login page
-    successRedirect: '/profile',
-    failureRedirect: '/login',
-    failureFlash: true
-}));
-app.get('/signup', auth.signup);
-app.post('/signup', passport.authenticate('local-signup', {
-    //Success go to Profile Page / Fail go to Signup page
-    successRedirect: '/profile',
-    failureRedirect: '/signup',
-    failureFlash: true
-}));
-
-// Delete function For Items
-app.get('/profile', auth.isLoggedIn, auth.profile);
-
-
-
-
-// Logout Page
-app.get('/logout', function (req, res) {
-    req.logout();
-    res.redirect('/');
-});
-
-//user session
-app.use(function(req, res, next) {
-    res.locals.user = req.user;
-    next();
-  });
-
-// payment
-app.get('/payment', function(req, res){
-    res.render('payment',{
-        title: 'test',
-    });
-});
-app.post('/payment', function(req, res){
-    console.log("=== Start ===");
-    console.log(req.body);
-    var cardNumber = req.body.cardNumber;
-    var cardHolder = req.body.cardHolder;
-    var cardMonth = req.body.cardMonth;
-    var cardYear = req.body.cardYear;
-    var cardCVC = req.body.cardCVC;
-
-    var users =  firebase.database().ref().child("users");
-    console.log("=== Check Var ===");
-    console.log("Card Number : " + cardNumber);
-    console.log("Card Holder : " + cardHolder);
-    console.log("Card expiry Month : " + cardMonth);
-    console.log("Card expiry Year : " + cardYear);
-    console.log("Card CVC : " +cardCVC);
-    console.log("=== End ===");
-  });
-
-
-// view engine setup
+// View engine setup
 app.set('views', path.join(__dirname, './server/views/pages'));
 app.set('view engine', 'ejs');
-
-app.use(logger('dev'));
-app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
-app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
+// firebase (for payment)
+var config = {
+    apiKey: "AIzaSyBcI54P-yTiaNAXEDASZGH3eJNkcbXY7wE",
+    authDomain: "ooadp-2018-sem1-e409b.firebaseapp.com",
+    databaseURL: "https://ooadp-2018-sem1-e409b.firebaseio.com",
+    projectId: "ooadp-2018-sem1-e409b",
+    storageBucket: "ooadp-2018-sem1-e409b.appspot.com",
+    messagingSenderId: "1025088843498"
+  };
+firebase.initializeApp(config);
+var database = firebase.database().ref();
 
 
-app.use('/', indexRouter);
-app.use('/about', aboutRouter);
-app.use('/users', usersRouter);
-app.use('/products', auth.isLoggedIn,productsRouter,);
-app.use('/store', auth.isLoggedIn, storeRouter,images.hasAuthorization, upload.single('image'), images.uploadImage);
-app.use('/login',loginRouter);
-app.use('/profile',profileRouter);
-app.use('/signup',signupRouter);
-app.use('/viewbook',viewbookRouter);
-app.use('/viewprofile',viewprofileRouter);
-app.use('/action',actionRouter);
-app.use('/horror',horrorRouter);
-app.use('/comedy',comedyRouter);
-app.use('/nonfiction',nonfictionRouter);
-app.use('/adventure',adventureRouter);
-app.use('/sciencefiction',sciencefictionRouter);
-app.get('/about', comments.list);
-app.delete('/about/:comments_id',comments.delete);
-app.use('/edit',editRouter);
-app.use('/bank',bankRouter);
-app.use('/payment',paymentRouter);
-
-//set up routes for images
-app.get('/images-gallery', images.hasAuthorization, images.show);
-app.post('/store', images.hasAuthorization, upload.single('image'), images.uploadImage);
 
 
+// Bank routes, get and post
+app.get('/bank',function(req, res){
+    var users =  firebase.database().ref().child("users");
+    var confirm =  firebase.database().ref().child("confirm");
+    var x,y;
+    users.on("value", function(snapshot) {
+        x = snapshot.val();});
+    confirm.on("value", function(snapshot) {
+        y = snapshot.val();});
+    res.render('bank',{
+        test:x,
+        confirm:y,});
+});
+app.post('/bank',function(req, res){
+    console.log(req.body);
+    var InputFirstName = req.body.InputFirstName;
+    var InputLastName = req.body.InputLastName;
+    var AccountNumber = req.body.AccountNumber;
+    var AvailableBalance = req.body.AvailableBalance;
+    var CreditcardNumber = req.body.CreditcardNumber;
+    var ExpireMonth = req.body.ExpireMonth;
+    var ExpireYear= req.body.ExpireYear;
+    var CreditCardSC = req.body.CreditCardSC;
+    var CreditDebit = req.body.CreditDebit;
+
+    var users = firebase.database().ref().child("users");
+
+    users.push({
+        FirstName:InputFirstName,
+        LastName:InputLastName,
+        AccountNumber:AccountNumber,
+        AvailableBalance:AvailableBalance,
+        CreditcardNumber:CreditcardNumber,
+        ExpireMonth:ExpireMonth,
+        ExpireYear:ExpireYear,
+        CreditCardSC:CreditCardSC,
+        CreditDebit:CreditDebit
+    });
+    res.redirect('back');
+});
+
+app.post('/processingPayment/',function(req,res){
+    console.log("Payment type A's PID: " + req.body.PID);
+    console.log(req.body);
+});
+
+app.post('/bank/confirm',function(err,req,res){
+    console.log(req.body);
+    console.log(err.message);
+    console.log(err.status);
+});
+/* END RAW ROUTES */
+
+// Routers' routes
+var bankRouter = require('./routes/bank');
+// Assigning routers
+app.use('/bank', bankRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
   next(createError(404));
 });
-
 // error handler
 app.use(function(err, req, res, next) {
   // set locals, only providing error in development
@@ -223,12 +115,7 @@ app.use(function(err, req, res, next) {
   res.render('error');
 });
 
-
-app.listen(3000, function(){
-    console.log('Server Started on Port 3000...');
+app.listen(4000,function(){
+    console.log('Server Started on Port 4000...');
 });
-
-
 module.exports = app;
-
-
