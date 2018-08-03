@@ -218,23 +218,29 @@ router.post('/checkout/all/', function(req, res, next) {
                                 })
 
                                 var options = {
-                                    url: "http://localhost:4000",
+                                    url: "http://localhost",
                                     port: 4000,
                                     path: "/processingPayment/",
                                     method: "POST",
                                     headers: {
-                                        "contentType" : "application/json"
+                                        "Content-Type" : "application/json"
                                     }
                                 }
                                 var sendTo4000 = http.request(options, function(res){
-                                    console.log("Sending payment type A data to 4000 (Test on same server first)");
+                                    console.log("Sending payment type A data to 4000");
+                                    var responseString = "";
+                                    
                                     res.setEncoding("UTF8");
-                                    res.on("data", function(chunk) {
-                                        console.log("body: " + chunk);
-                                    })
+                                    res.on("data", function(data) {
+                                        responseString += data; // Save all data from response
+                                    });
+                                    res.on("end", function() {
+                                        console.log(responseString); // Print response to console when it ends
+                                    });
                                 });
                                 sendTo4000.write(paymentData);
                                 sendTo4000.end();
+
                             });
                         });
 
