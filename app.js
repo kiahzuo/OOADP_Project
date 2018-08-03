@@ -84,8 +84,12 @@ app.post('/bank',function(req, res){
 });
 
 app.post('/processingPayment/',function(req,res){
-    console.log("Payment type A's PID: " + req.body.PID);
-    console.log(req.body);
+    // var paymentData = JSON.parse(req);
+    console.log(req.body)
+    var paymentData = req.body
+    console.log(paymentData.PID);
+    console.log(paymentData.Amount);
+    res.status(200).send("Success");
 });
 
 app.post('/bank/confirm',function(err,req,res){
@@ -115,7 +119,7 @@ app.use(function(err, req, res, next) {
   res.render('error');
 });
 
-app.listen(4000,function(){
-    console.log('Server Started on Port 4000...');
+app.listen(4000, function(){
+    console.log('Server started on port 4000...(Bank)');
 });
 module.exports = app;

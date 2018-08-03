@@ -1,0 +1,445 @@
+<!DOCTYPE html>
+<html lang="en">
+
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>Definitely not a Bank</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Custom fonts for this template -->
+    <link href="https://fonts.googleapis.com/css?family=Raleway:100,100i,200,200i,300,300i,400,400i,500,500i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Lora:400,400i,700,700i" rel="stylesheet">
+
+    <!-- Custom styles for this template -->
+    <link href="/stylesheets/business-casual.min.css" rel="stylesheet">
+    
+    <!-- My own css (kheehing) -->
+    <link href="../stylesheets/bank.css" rel="stylesheet">
+ 
+  </head>
+
+  <body>
+    <div class="container">
+        <h3>Welcome to KHEE-BANK</h3>
+        <p id="test"></p>
+            <!-- login toggle-modal-->
+            <button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#login_modal">Add User</button>
+            <button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#add_confirm">Add Confirm</button>
+            <button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#view_modal">View User</button>
+            <button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#confirm_modal">confirm payment</button>
+    
+        <!-- login Modal -->
+        <div class="modal fade" id="login_modal" role="dialog">
+          <div class="modal-dialog">
+            <!-- login Modal content-->
+            <div class="modal-content">
+              <div class="modal-header">
+                  <h4 id="gai" class="modal-title">Add User</h4>
+                  <button type="button" class="close" data-dismiss="modal">&times;</button>
+              </div>
+              <form action="/bank" method="POST">
+                <div class="modal-body">
+                  <div class="form-row">
+                    <div class="form-group col-md-6">
+                      <label for="InputFirstName"> First Name</label>
+                      <input id="InputFirstName" name="InputFirstName" class="form-control" type="text" placeholder="First Name" pattern="^([A-Za-z ])\w+$" title="No special characters or numbers" required>
+                    </div>
+                    <div class="form-group col-md-6">
+                      <label for="InputLastName">LastName</label>
+                      <input id="InputLastName" name="InputLastName" class="form-control" type="text" placeholder="Last Name" pattern="^([A-Za-z ])\w+$" title="No special characters or numbers" required>
+                    </div>
+                  </div>
+                  <div class="form-row">
+                    <div class="form-group col">
+                      <label for="AccountNumber"> Account Number</label>
+                      <input id="AccountNumber" name="AccountNumber" class="form-control" type="text" placeholder="Account Number" pattern="^\d+$" title="Numbers Only" required>
+                    </div>
+                  </div>
+                  <div class="form-row">
+                    <div class="form-group col">
+                      <label for="AvailableBalance">available Balance</label>
+                      <input id="AvailableBalance" name="AvailableBalance" class="form-control" type="text" placeholder="available Balance" pattern="^\d+$" title="Numbers Only" required>
+                    </div>
+                  </div>
+                  <div class="form-row">
+                    <div class="form-group col">
+                      <label for="CreditcardNumber">Creditcard Number</label>
+                      <input id="CreditcardNumber" name="CreditcardNumber" class="form-control" type="text" placeholder="Creditcard Number" pattern="^3[47][0-9]{13}$|^5[1-5][0-9]{14}$|^4[0-9]{12}(?:[0-9]{3})?$|^65[4-9][0-9]{13}|64[4-9][0-9]{13}|6011[0-9]{12}|(622(?:12[6-9]|1[3-9][0-9]|[2-8][0-9][0-9]|9[01][0-9]|92[0-5])[0-9]{10})$" title="Invalid CreditCard Number, Make sure there are no spaces inbetween numbers" required>
+                    </div>
+                  </div>
+                  <div class="form-row">
+                      <div class="form-group col">
+                        <label for="CreditcardNumber">Credit / Debit</label>
+                        <select id="CreditDebit" name="CreditDebit" class="form-control" required>
+                          <option>Credit</option>
+                          <option>Debit</option>
+                        </select>
+                      </div>
+                    </div>
+                  <div class="form-row">
+                    <div class="form-group col">
+                      <label for="ExpireMonth">Month</label>
+                      <input id="ExpireMonth" name="ExpireMonth" class="form-control" type="number" pattern="^[1-9]$|^[1][0-2]$" title="Number Range from 1-12" required>
+                    </div>
+                    <div class="form-group col">
+                        <label for="ExpireYear">Year</label>
+                        <input id="ExpireYear" name="ExpireYear" class="form-control" type="number" pattern="^[2][0][0-9][0-9]$" title="Invalid year" required>
+                      </div>
+                  </div>
+                  <label for="CreditCardSC">Security Code</label>
+                  <input id="CreditCardSC" name="CreditCardSC" class="form-control" type="text" placeholder="Security Code"  pattern="^[0-9]{4}|[0-9]{3}$" title="3 or 4 digit" required>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <input type="submit" class="btn btn-primary" placeholder="Submit">
+                </div>
+              </form>
+            </div>
+          </div>
+        </div><!-- end login Modal -->
+
+        <!-- View login -->
+        <div class="modal fade" id="view_modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-lg" role="document">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h5 class="modal-title" id="exampleModalLabel">Users</h5>
+                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                  </button>
+                </div>
+                <div class="modal-body">
+                  <div class="modal-body">
+                    <% for (var key in test) { %>
+                      <% if (test.hasOwnProperty(key)) { %>
+                        <div class="card w-100">
+                          <div class="card-body">
+                            <div class="row">
+                              <h5 class="card-title col-md-3"><%= test[key].FirstName; %>&nbsp;<%= test[key].LastName; %></h5>
+                              <p class="card-text col-md-3">Account:&nbsp;<%= test[key].AccountNumber; %></p>
+                              <p class="card-text col-md-3">Balance:&nbsp;<%= test[key].AvailableBalance; %></p>
+                              <% if (test[key].CreditDebit != "") { %>
+                                <p class="card-text col-md-3">Type:&nbsp;<%= test[key].CreditDebit; %>Card</p>
+                                <% } if (test[key].CreditDebit == "") { %>
+                                  <p class="card-text col"></p>
+                            <% } %>
+                            </div>
+                            <div class="row">
+                              <% if (test[key].CreditcardNumber != "") { %>
+                                <p class="card-text col-md-6">Creditcard Number:&nbsp;<%= test[key].CreditcardNumber; %></p>
+                              <% } if (test[key].ExpireMonth != "" && test[key].ExpireYear != "") { %>
+                                <P class="card-text col-md-3">ExpiryDate:&nbsp;<%= test[key].ExpireMonth; %>/<%= test[key].ExpireYear; %></P>
+                              <% } if (test[key].CreditCardSC != "") { %>  
+                                <P class="card-text col-md-3">CVC:&nbsp;<%= test[key].CreditCardSC; %></P>
+                              <% } %>
+                            </div>
+                            <p>
+                                <button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#th<%= key %>" aria-expanded="false" aria-controls="collapseExample">Transaction History</button>
+                              </p>
+                              <div class="collapse" id="th<%= key %>">
+                                <% for(var tkey in test[key].transaction){ %>
+                                  <div class="card card-body">
+                                        <div class="row">
+                                          <p class="card-text col-md-6">From:&nbsp;<%= test[key].transaction[tkey].from %></p>
+                                          <p class="card-text col-md-6">To:&nbsp;<%= test[key].transaction[tkey].to %></p>
+                                        </div>
+                                        <div class="row">
+                                          <p class="card-text col-md-6">Amount:&nbsp;<%= test[key].transaction[tkey].amount %></p>
+                                          <p class="card-text col-md-3">Time:&nbsp;<%= test[key].transaction[tkey].time %></p>
+                                          <p class="card-text col-md-3">Date:&nbsp;<%= test[key].transaction[tkey].date %></p>
+                                        </div>
+                                        <% if (test[key].transaction[tkey].amount == "") { %>
+                                          <div class="row">
+                                            <p>No transaction made.</p>
+                                          </div>
+                                          <% } %>
+                                    <br>
+                                  </div><br>
+                                  <% } %>
+                              </div>
+                          </div>
+                        </div><br>
+                      <% } %>
+                    <% } %>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div><!-- end view login -->
+
+          <!-- Confirm Payment -->
+          <div class="modal fade" id="confirm_modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+              <div class="modal-dialog modal-lg" role="document">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Confirm</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                      <span aria-hidden="true">&times;</span>
+                    </button>
+                  </div>
+                  <div class="modal-body">
+                      <% for (var key in confirm) { %>
+                        <% if (confirm.hasOwnProperty(key)) { %>
+                          <div class="card w-100">
+                            <div class="card-body">
+                              <div style="display:none;">
+                                <p id="<%= key; %>"><%= key %></p>
+                              </div>
+                              <div class="row">
+                                  <p class="card-text col-md-6" id="date<%= key; %>">Date:&nbsp;<%= confirm[key].Date; %></p>
+                                  <p class="card-text col-md-6" id="time<%= key; %>">Time:&nbsp;<%= confirm[key].Time; %></p>
+                              </div> 
+                              <div class="row">
+                                <p class="card-text col-md-6" id="from<%= key; %>">From:&nbsp;<%= confirm[key].From; %></p>
+                                <p class="card-text col-md-6" id="to<%= key; %>">To:&nbsp;<%= confirm[key].To; %></p>
+                              </div> 
+                              <div class="row">
+                                <p class="card-text col-md-4" id="amount<%= key; %>">Amount:&nbsp;$<%= confirm[key].Amount; %></p>
+                                <button type="button" class="form-control spacing col btn-secondary" id="error<%= key; %>"onclick="error(this.id)">Error</button>
+                                <button type="button" class="form-control spacing col btn-secondary" id="delete<%= key; %>"onclick="deleted(this.id)">Delete</button>
+                                <button type="button" class="form-control spacing col btn-primary" id="button<%= key; %>"onclick="confirm(this.id)">Confirm</button>
+                              </div> 
+                            </div>
+                          </div>
+                          <br>
+                        <% } %>
+                      <% } %>
+                      <% if(confirm == null) { %>
+                        <h1>There the no transcation</h1>
+                      <% } %>
+                  </div>
+                  <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+            
+        <!-- Add confirm -->
+        <div class="modal fade" id="add_confirm" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+          <div class="modal-dialog" role="document">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title" id="addConfirmLabel">Modal title</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+              <div class="modal-body">
+                <button type="button" class="btn btn-primary" id="send">Button</button>
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary">Save</button>
+              </div>
+            </div>
+          </div>
+        </div><!-- Add confirm  -->
+
+    </div><!-- end container -->
+    <!-- ajax -->
+    <script
+    src="https://code.jquery.com/jquery-3.3.1.js"
+    integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60="
+    crossorigin="anonymous"></script>
+    <!-- firebase -->
+    <script src="https://www.gstatic.com/firebasejs/5.2.0/firebase.js"></script>
+    <!-- my own js -->
+    <script>
+    // firebase
+    var config = {
+        apiKey: "AIzaSyBcI54P-yTiaNAXEDASZGH3eJNkcbXY7wE",
+        authDomain: "ooadp-2018-sem1-e409b.firebaseapp.com",
+        databaseURL: "https://ooadp-2018-sem1-e409b.firebaseio.com",
+        projectId: "ooadp-2018-sem1-e409b",
+        storageBucket: "ooadp-2018-sem1-e409b.appspot.com",
+        messagingSenderId: "1025088843498"
+      };
+    firebase.initializeApp(config);
+    //======================
+
+    var users =  firebase.database().ref().child("users");
+    var x;
+    var keylist=[];
+    users.on("value", function(snapshot) {
+        x = snapshot.val();
+        for (var key in x){
+            keylist.push(key);
+            // console.log(keylist);
+        }
+    });
+        
+
+
+    // function confirm(button_id){
+    //   var $key = button_id.slice(6);
+    //   var date = $('#date'+$key).html().slice(11);
+    //   var time = $('#time'+$key).html().slice(11);
+    //   var from = $('#from'+$key).html().slice(11);
+    //   var to = $('#to'+$key).html().slice(9);
+    //   var amount = $('#amount'+$key).html().slice(14);
+    //   $.ajax({
+    //     url:'/bank',
+    //     method:'POST',
+    //     data:{
+    //     key:$key,
+    //     date:date,
+    //     time:time,
+    //     from:from,
+    //     to:to,
+    //     amount:amount,
+    //   },
+    //     success:function(data){
+    //       console.log('success!!!');
+    //     },
+    //     error:function(error){
+    //       console.log('fail');
+    //       console.log('error: \n' + eval(error));
+    //     }
+    //   });
+
+
+
+    function confirm(button_id){
+      var $key = button_id.slice(6);
+      var date = $('#date'+$key).html().slice(11);
+      var time = $('#time'+$key).html().slice(11);
+      var from = $('#from'+$key).html().slice(11);
+      var to = $('#to'+$key).html().slice(9);
+      var amount = $('#amount'+$key).html().slice(14);
+
+      var users =  firebase.database().ref().child("users");
+      var x;
+
+      users.on("value", function(snapshot) {
+          x = snapshot.val();
+      });
+
+        var buyerdata = {},sellerdata = {}
+        var tHistory = {
+                      date:date,
+                      time:time,
+                      from:from,
+                      to:to,
+                      amount:amount};
+        for (var key in x){
+            console.log(key);
+            if (x.hasOwnProperty(key)){
+                var buyer_an,buyer_ab,buyer_cvc,buyer_cd,buyer_cn,buyer_em,buyer_ey,buyer_fn,buyer_ln;
+                var sell_an,sell_ab,sell_cvc,sell_cd,sell_cn,sell_em,sell_ey,sell_fn,sell_ln;
+                
+                if (key == from){
+                    console.log("key:  "+key);
+                    console.log("from: "+from);
+                    console.log("to:   "+to);
+                    buyer_an = x[key].AccountNumber;
+                    buyer_ab = x[key].AvailableBalance;
+                    buyer_cvc = x[key].CreditCardSC;
+                    buyer_cd = x[key].CreditDebit;
+                    buyer_cn = x[key].CreditcardNumber;
+                    buyer_em = x[key].ExpireMonth;
+                    buyer_ey = x[key].ExpireYear;
+                    buyer_fn = x[key].FirstName;
+                    buyer_ln = x[key].LastName;
+                    buyerdata = {
+                        FirstName:buyer_fn,
+                        LastName:buyer_ln,
+                        AccountNumber:buyer_an,
+                        AvailableBalance:buyer_ab-amount,
+                        CreditcardNumber:buyer_cn,
+                        ExpireMonth:buyer_em,
+                        ExpireYear:buyer_ey,
+                        CreditCardSC:buyer_cvc,
+                        CreditDebit:buyer_cd};
+                }else if(key == to){
+                    sell_an = x[key].AccountNumber;
+                    sell_ab = x[key].AvailableBalance;
+                    sell_cvc = x[key].CreditCardSC;
+                    sell_cd = x[key].CreditDebit;
+                    sell_cn = x[key].CreditcardNumber;
+                    sell_em = x[key].ExpireMonth;
+                    sell_ey = x[key].ExpireYear;
+                    sell_fn = x[key].FirstName;
+                    sell_ln = x[key].LastName;
+                    sellerdata = {
+                        FirstName:sell_fn,
+                        LastName:sell_ln,
+                        AccountNumber:sell_an,
+                        AvailableBalance:parseInt(sell_ab)+parseInt(amount),
+                        CreditcardNumber:sell_cn,
+                        ExpireMonth:sell_em,
+                        ExpireYear:sell_ey,
+                        CreditCardSC:sell_cvc,
+                        CreditDebit:sell_cd};
+                };
+            }
+        }
+        if (buyer_cd == "Debit"){
+          if (buyer_ab < amount){
+            console.log('buyer_ab < amount');
+            console.log('buyer_ab: '+buyer_ab);
+            console.log('amount: '+amount);
+            alert('reject');
+            }else{
+                console.log('fb1');
+                firebase.database().ref().child('/users/'+to+'/transaction').push(tHistory);
+                firebase.database().ref().child('/users/'+from+'/transaction').push(tHistory);
+                firebase.database().ref().child('/users/'+from).update(buyerdata);
+                firebase.database().ref().child('/users/'+to).update(sellerdata);
+                firebase.database().ref().child('/confirm/'+$key).remove();
+            };
+        }else{
+            console.log('fb2');
+            firebase.database().ref().child('/users/'+to+'/transaction').push(tHistory);
+            firebase.database().ref().child('/users/'+from+'/transaction').push(tHistory);
+            firebase.database().ref().child('/users/'+to).update(sellerdata);
+            firebase.database().ref().child('/users/'+from).update(buyerdata);
+            firebase.database().ref().child('/confirm/'+$key).remove();
+        };
+        location.reload();
+    };
+    
+
+    $('#send').click(function(){
+      var data = {
+        data1:1,
+        data2:2,
+        data3:3,
+        data4:4,
+        data5:5,
+        data6:6,
+      }
+      var options = {
+        url:"http://localhost",
+        port: 4000,
+        path:"/bank",
+        method:"POST",
+        headers:{
+          'Testing':'application/json'
+        }
+      };
+      var sentto4000
+    });
+    
+
+    function deleted(button_id){
+      var key = button_id.slice(6);
+      firebase.database().ref().child('/confirm/'+key).remove();
+      location.reload();
+    }
+
+    </script>
+    <!-- BootStrap -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/js/tether.min.js" integrity="sha384-DztdAPBWPRXSA/3eYEEUWrWCy7G5KFbe8fFjk5JAIxUYHKkDx6Qin1DkWx51bBrb" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js" integrity="sha384-smHYKdLADwkXOn1EmN1qk/HfnUcbVRZyYmZ4qpPea6sjB/pTJ0euyQp0Mk8ck+5T" crossorigin="anonymous"></script>
+  </body>
+
+  <footer></footer>
+    
+</html>
