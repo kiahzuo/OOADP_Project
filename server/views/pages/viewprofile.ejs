@@ -132,39 +132,6 @@ body{
                   
                         <div class="col-sm-6 col-md-8 col-lg-9 p-b-50">
                           <!--  -->
-                          <div class="flex-sb-m flex-w p-b-35">
-                            <div class="flex-w">
-                              <div class="rs2-select2 bo4 of-hidden w-size12 m-t-5 m-b-5 m-r-10">
-                                  <form action="/viewprofile" method="POST" onchange="checkAndSubmit()" id="formID">
-                                    <select class="sort" name="sort" id="sort">
-                                        <option value="All">Price</option>
-                                      <option value="low" >Low to High</option>
-                                      <option value="high">High to Low</option>
-                                    </select>
-                          
-                                  </form>
-                              </div>
-                  
-                              <div class="rs2-select2 bo4 of-hidden w-size12 m-t-5 m-b-5 m-r-10">
-                                  <form action="/viewprofile" method="post" onchange="checkAndSubmit2()" id="formID2">
-                                    <select class="sort" name="sort" id="sort2">
-                                        <option value="Nil" selected>Genre</option>
-                                      <option value="All" >View All</option>
-                                      <option value="Action">Action</option>
-                                      <option value="Horror">Horror</option>
-                                      <option value="Science Fiction">Science Fiction</option>
-                                      <option value="Non-Fiction">Non-Fiction</option>
-                                      <option value="Adventure">Adventure</option>
-                                      <option value="Comedy">Comedy</option>
-                                    </select>
-                        
-                        
-                                  </form>
-                              </div>
-                            </div>
-                  
-                   
-                          </div>
                   
                           <!-- Product -->
                           <div class="row">
@@ -172,46 +139,61 @@ body{
                   <div class="container">
                   
                       <div class="row">
-            
+
                           <% for (i =0; i < images.length; i++) {%>
                             <% if (users.id == images[i].user_id) { %>
-                       
-                        <div class="col-lg-4 col-md-6 mb-4">
-               
-                          <div class="card h-100" data-id="<%= images[i].id %>"  >
-                              
-                            <a href="/viewbook/<%= images[i].id%>"><img class="card-img-top" src="http://localhost:3000/images/<%=images[i].imageName%>" alt=""></a>
-                            <div class="card-body">
-                              <h4 class="card-title">
-                                  <h5><strong><%= images[i].title %></strong></h5>
-                              </h4>
-                              <br>
-
-                              <p class="s-text8 p-t-10">
-                                 Price : $<%= images[i].price %>
-                              </p>
-                              <br>
-                              <p class="s-text8 p-t-10">
-                                 Seller : <%= images[i].seller %>
-                              </p>
+        
+                              <div class="col-lg-4 col-md-6 mb-4">
+        
+                                <div class="card h-100" data-id="<%= images[i].id %>">
+        
+                                  <a href="/viewbook/<%= images[i].id%>">
+                                    <img class="card-img-top" src="http://localhost:3000/images/<%= images[i].imageName %>" alt="">
+                                  </a>
+                                  <div class="card-body">
+                                    <h4 class="card-title">
+                                      <h4>
+                                        <strong>
+                                          <%= images[i].title %>
+                                        </strong>
+                                        </h5>
+                                      </h4>
+                                      <h5>$
+                                        <%= images[i].price %>
+                                      </h5>
+        
+        
+        
+                                      <br>
+        
+        
+        
+                                      <h5>Avaliability :
+                                        <strong>
+                                          <%= images[i].available %>
+                                        </strong>
+                                      </h5>
+                                      <br>
+        
+                                  </div>
+        
+        
                                   <br>
-                              
-                            </div>
+ 
+                                  <a class='btn btn-primary' href="http://localhost:3000  /viewbook/<%= images[i].id%>">View Book</a>
+                             
+        
+        
+                                </div>
+        
+                              </div>
+        
+        
+                              <% } %>
+        
+        
+                                <% } %>
             
-                            
-                            <br>
-                           
-                  
-            
-                        </div>
-                      
-                      </div>
-            
-                        <% } %>
-           
-                      
-                        <% } %>
-               
            
 
         

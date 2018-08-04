@@ -145,11 +145,12 @@
                     <select class="sort" name="sort" id="sort2">
                       <option value="All">Genre</option>
                       <% for (i =0; i < genre.length; i++) {%>
+                        <% if ( genre[i].genre != 'All') { %>
                         <option value="<%= genre[i].genre %>">
                           <%= genre[i].genre %>
                         </option>
 
-
+                        <% } %>
                         <% } %>
                     </select>
 

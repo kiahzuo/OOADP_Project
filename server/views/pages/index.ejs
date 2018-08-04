@@ -137,12 +137,12 @@
 						  <div class="card card-shadow text-center">
 							<div class="card-body">
 								<a href="/viewbook/<%= images[i].id%>"><img class="card-img-top" src="http://localhost:3000/images/<%= images[i].imageName %>" alt=""></a>
-							  <h4 class="card-title"><%= images[i].title %></h4>
+							  <h3 class="card-text"><%= images[i].title %></h4>
 							  <h6 class="card-text">Price : $<%= images[i].price %></h6>
 							  <div class="dropdown-divider"></div>
 							  <p class="card-text"><small class="text-muted">Genre : <%= images[i].genre %></small></p>
-							  <a href="/viewbook/<%= images[i].id%>"><button type="button" class="btn btn-outline-primary">Info</button></a>
-							  <a href="/viewprofile/<%= images[i].user_id%>"><button type="button" class="btn btn-outline-primary"><%= images[i].seller %></button></a>
+							  <a href="/viewbook/<%= images[i].id%>"><button type="button" class="btn btn-primary">Info</button></a>
+							  <a href="/viewprofile/<%= images[i].user_id%>"><button type="button" class="btn btn-primary"><%= images[i].seller %></button></a>
 							
 							</div>
 						  </div>

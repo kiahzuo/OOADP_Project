@@ -4,7 +4,8 @@
   <head>
 
         <% include ../partials/head %>
-
+        <link rel="stylesheet" type="text/css" href="../../stylesheets/util.css">
+        <link rel="stylesheet" type="text/css" href="../../stylesheets/main.css">
         
     <style>
 
@@ -37,26 +38,26 @@
     
     <div class="modal-body">
         <fieldset class="form-group">
-            <label for="inputStudentID">BookName</label><br>
+            <label for="inputStudentID">BookName</label><br><br>
             <input type="text" id="title" name="title" class="form-control" placeholder="Student Id" required="true" value="<%= images.title %>">
         </fieldset>
         <fieldset class="form-group">
-            <label for="inputName">Price</label><br>
+            <label for="inputName">Price</label><br><br>
             <input type="text" id="price" name="price" class="form-control" placeholder="Student Name" required="true" value="<%= images.price %>">
         </fieldset>
         <fieldset class="form-group">
-            <label for="inputGroup">Condition</label><br>
+            <label for="inputGroup">Condition</label><br><br>
             <input type="text" id="condition" name="condition" class="form-control" placeholder="Group" required="true" value="<%= images.condition %>">
         </fieldset>
         <fieldset class="form-group">
-            <label for="inputHobby">Description</label><br>
+            <label for="inputHobby">Description</label><br><br>
             <textarea id="description" name="description" class="form-control" placeholder="Hobby" required="true" value="<%= images.description %>"><%= images.description %></textarea>
         </fieldset>
         <fieldset class="form-group">
-            <label for="inputHobby">MeetUp</label><br>
+            <label for="inputHobby">MeetUp</label><br><br>
             <input type="text" id="meetup" name="meetup" class="form-control" placeholder="Hobby" required="true" value="<%= images.meetup %>">
         </fieldset>
-        <label for="inputHobby">Genre</label><br>
+        <label for="inputHobby">Genre</label><br><br>
         <select id="genre"name="genre" class="form-control" placeholder="genre" required=""><br>
     
 
@@ -66,9 +67,10 @@
             <option value="<%= images.genre %>" selected ><%= images.genre %></option>
             <% for (i =0; i < genre.length; i++) {%>
                 <% if ( images.genre != genre[i].genre) { %>
+                    <% if ( genre[i].genre != 'All') { %>
                 <option value="<%= genre[i].genre %>"><%= genre[i].genre %></option>
 
-                
+                <% } %>
 
                 <% } %>
                 <% } %>
@@ -78,7 +80,7 @@
 
           </select>     <br>
         <fieldset class="form-group">
-            <label for="inputHobby">Avaliability</label><br>
+            <label for="inputHobby">Avaliability</label><br><br>
             <select id="available"name="available" class="form-control" required="true" selected="<%= images.available %>"><br>
                 <option value="<%= images.available %>" selected ><%= images.available %></option>
 
