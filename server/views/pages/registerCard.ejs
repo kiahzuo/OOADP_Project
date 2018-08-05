@@ -35,11 +35,12 @@
       <div class="container">
         <div id="card-success" class="hidden">
           <i class="fa fa-check"></i>
-          <p>Card has been registered...</p>
+          <p>Card has been registered!</p>
         </div>
         <div id="form-errors" class="hidden">
           <i class="fa fa-exclamation-triangle"></i>
           <p id="card-error">Card error, please try again</p>
+          <!-- <p id="card-error">Confirming card, please wait... </p> -->
         </div>
         <form id="card" action="" method="">
           <div id="form-container">
@@ -80,6 +81,8 @@
             </div>
             <!-- end card back -->
             <input type="text" id="card-token" />
+            <span id="cardDesignationBox"><input type="checkbox" id="cardDesignation" />Receive payments on this bank account</span>
+            <!--Tooltip here?-->
             <button type="button" id="card-btn">Submit</button>
             <!-- <input type="submit" id="card-btn" placeholder="Submit"> -->
           </div>
