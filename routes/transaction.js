@@ -151,9 +151,12 @@ router.post('/checkout/all/', function(req, res, next) {
         }
         Images.findAll({ where: { id: { [Op.in]: bookIDArray } } }).then(userCartItemsData => {
             var totalBookPrice = 0.00;
+            var sellerIDArray = [];
             for (var i = 0; i < userCartItemsData.length; i++){
                 totalBookPrice += userCartItemsData[i].price ;
+                sellerIDArray.push(userCartItemsData[i].user_id);
             }
+
             Users.find({ where: { id: req.user.id } }).then(function(userRecord) {
                 // NEED TO FIX (See database and EJS)
                 /* Special data */
@@ -210,7 +213,7 @@ router.post('/checkout/all/', function(req, res, next) {
                                 uniquePID = ('A' + currentTransactionID + ',' + newPayment.id).toString()
                                 console.log("PID of payment type A:" + uniquePID);
                                 // Send data to bank server
-                                var paymentData = JSON.stringify({
+                                var paymentAData = JSON.stringify({
                                     PID : uniquePID,
                                     To : BT_bankAccountNo,
                                     From: userCardNumber,
@@ -226,20 +229,87 @@ router.post('/checkout/all/', function(req, res, next) {
                                         "Content-Type" : "application/json"
                                     }
                                 }
-                                var sendTo4000 = http.request(options, function(res){
+                                var sendTo4000A = http.request(options, function(res) {
                                     console.log("Sending payment type A data to 4000");
                                     var responseString = "";
                                     
                                     res.setEncoding("UTF8");
                                     res.on("data", function(data) {
                                         responseString += data; // Save all data from response
+                                        resAJSON = JSON.parse(data)
+                                        resAPID = resAJSON.PID
+                                        resAStatus = resAJSON.Status
                                     });
                                     res.on("end", function() {
                                         console.log(responseString); // Print response to console when it ends
-                                    });
-                                });
-                                sendTo4000.write(paymentData);
-                                sendTo4000.end();
+                                        console.log(resAPID);
+                                        console.log(resAStatus);
+
+                                        if (resAStatus == "Success") {
+                                            // Update the status of payment record...
+
+                                            // ...
+
+                                            // Check payment type
+                                            PIDPType = resAPID[0]
+                                            console.log(PIDPType);
+                                            if (resAPID[0] != 'A') {
+                                                // Error
+                                            }
+                                            // Check transaction ID
+                                            PIDNumbersArray = (resAPID.slice(1)).split(',');
+                                            console.log(PIDNumbersArray[0]);
+                                            if (PIDNumbersArray[0] != currentTransactionID) {
+                                                // Error
+                                            }
+                                            // Reply user...
+                                            // res.status(200).send("Time to wait"); // Triger smth on browser side to make user wait
+                                            Users.findAll({ where: { id: { [Op.in]: sellerIDArray } } }).then(function(sellers) {
+                                                if (sellers.length == userCartItemsData.length && sellers.legnth == userCartItems.length) {
+                                                    console.log("NUMERIC LOOP NUMBER CHECK SUCCESSFUL");
+                                                }
+                                                /* "Declare" payment B record based on transaction */ 
+                                                var Payment_B_Data = {
+                                                    user_id : 0,
+                                                    user_bank_account_no : "...",
+                                                    payment_type: 'B',
+                                                    transaction_id: currentTransactionID,
+                                                    amount: 0,
+                                                    payment_status: "Pending"
+                                                }
+
+                                                for (var i = 0; i < userCartItemsData.length; i++){
+                                                    for (var j = 0; j < sellers.length; j++){
+                                                        if (userCartItemsData[i].user_id == sellers[i].id) {
+                                                            
+                                                        }
+                                                    }
+                                                }
+
+                                                var sendTo4000AB = http.request(options, function(res) {
+                                                    console.log("Sending payment type B data to 4000");
+                                                    var responseString = "";
+                                                    
+                                                    res.setEncoding("UTF8");
+                                                    res.on("data", function(data) {
+                                                        responseString += data; // Save all data from response
+                                                        resAJSON = JSON.parse(data)
+                                                        resAPID = resAJSON.PID
+                                                        resAStatus = resAJSON.Status
+                                                    });
+                                                    res.on("end", function() {
+
+                                                    })
+                                                }) 
+                                            })
+                                        }
+                                        else if (resAStatus != "Success") {
+                                            // Payment A error
+                                        }
+                                    })
+                                })
+                                sendTo4000A.write(paymentAData);
+                                sendTo4000A.end();
 
                             });
                         });

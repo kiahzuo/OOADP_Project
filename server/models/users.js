@@ -30,12 +30,8 @@ const Users = sequelize.define('Users', {
     resetPasswordExpires: {
         type: Sequelize.DATE,
     },
-    bankCardNo: {
-        type: Sequelize.STRING, // Will change...
-        allowNull: true
-    },
-    bankCardName: {
-        type: Sequelize.STRING,
+    designatedBankAccount: {
+        type: Sequelize.STRING, // Testing...
         allowNull: true
     },
     role: {

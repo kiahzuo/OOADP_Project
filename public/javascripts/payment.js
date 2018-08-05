@@ -257,7 +257,10 @@ $(document).ready(function () {
                     console.log(cardNumber + cardHolder);
                     var sendData = {
                         cardNumber: cardNumber,
+                        cardCVC: cardCVC,
                         cardHolder: cardHolder,
+                        expMonth: expMonth,
+                        expYear: expYear,
                         userID : user_ID
                     }; 
 
