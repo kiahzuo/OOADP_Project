@@ -121,7 +121,7 @@ app.delete("/profile", auth.delete);
 // Logout page routes, get
 app.get('/logout', function (req, res) {
     req.logout();
-    res.redirect('/products');
+    res.redirect('/login');
 });
 //editing user
 app.get("/usermanagement",users.show)

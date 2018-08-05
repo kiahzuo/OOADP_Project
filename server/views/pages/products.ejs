@@ -27,7 +27,7 @@
       }
 
       .card-body {
-        width: 250px;
+        width: 270px;
 
       }
 
@@ -144,6 +144,7 @@
                   <form action="/products" method="post" onchange="checkAndSubmit2()" id="formID2">
                     <select class="sort" name="sort" id="sort2">
                       <option value="All">Genre</option>
+                      <option value="All">All</option>
                       <% for (i =0; i < genre.length; i++) {%>
                         <% if ( genre[i].genre != 'All') { %>
                         <option value="<%= genre[i].genre %>">

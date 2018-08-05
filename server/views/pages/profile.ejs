@@ -271,7 +271,6 @@
     <div class="tab">
       <button class="tablinks" onclick="openCity(event, 'View')" id="defaultOpen">View All Books</button>
       <button class="tablinks" onclick="openCity(event, 'Tokyo')">Upload New Book</button>
-      <button class="tablinks" onclick="openCity(event, 'User')">User Management</button>
       <div class="sidenav">
 
         <button class="dropdown-btn">Features
@@ -427,58 +426,6 @@
 
 
 
-    <div id="User" class="tabcontent">
-      <br>
-      <br>
-      <br>
-      <br>
-      <input type="text" id="myInput" onkeyup="myFunction()" placeholder="Search for names.." title="Type in a name">
-      <table class="table" id="myTable">
-        <thread>
-          <tr>
-            <th>ID</th>
-            <th>Name</th>
-            <th>Email</th>
-            <th>Action</th>
-          </tr>
-          <% for(var i=0; i < users.length; i++){ %>
-            <tr class="rowRecord" data-id="<%= users[i].id %>">
-              <td>
-                <%= users[i].id %>
-              </td>
-              <td>
-                <%= users[i].name %>
-              </td>
-              <td width="50%">
-                <%= users[i].email %>
-              </td>
-              <td width="10%">
-                <input type="button" class="deleteBtn" value="Ban">
-              </td>
-            </tr>
-            <% } %>
-        </thread>
-      </table>
-      <script>
-        function myFunction() {
-          var input, filter, table, tr, td, i;
-          input = document.getElementById("myInput");
-          filter = input.value.toUpperCase();
-          table = document.getElementById("myTable");
-          tr = table.getElementsByTagName("tr");
-          for (i = 0; i < tr.length; i++) {
-            td = tr[i].getElementsByTagName("td")[1];
-            if (td) {
-              if (td.innerHTML.toUpperCase().indexOf(filter) > -1) {
-                tr[i].style.display = "";
-              } else {
-                tr[i].style.display = "none";
-              }
-            }
-          }
-        }
-      </script>
-    </div>
 
     <div id="Tokyo" class="tabcontent">
 
@@ -994,7 +941,7 @@
               <ul class="p-b-54">
                 <h4 class="card-title">Profile</h4>
                 <h6 class="card-text">
-                  <img class='profilepic' src="https://img.kpopmap.com/2018/04/twice-momo-earphone-cover.jpg" alt="Avatar">
+                  <img class='profilepic' src="http://localhost:3000/images/defaultuser.png">
                   <br>
                   <br>
                   <strong>Name</strong>:

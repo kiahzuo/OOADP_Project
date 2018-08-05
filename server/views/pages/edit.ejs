@@ -98,7 +98,7 @@
 
 
                 <% if ( images.available !="Suspended") { %>
-                <% if ( user.role =="ADMIN") { %>
+                <% if ( user.role =="ADMIN" || user.role=="SUPERADMIN") { %>
                     <option value="Suspended">Suspended</option>
                 <% } %>
                 <% } %>
