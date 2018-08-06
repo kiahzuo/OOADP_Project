@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta charset="utf-8">
     <title>chat window</title>
+    <script src="bower_components/socket.io-client/socket.io.js"></script>
     <link rel="stylesheet" type="text/css" href="../css/screen.css">
     <link rel="stylesheet" href="../css/style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
@@ -14,7 +15,7 @@
 <body>
 
     <div class="mainContainer">
-        <div class="loginSection">
+        <div class="loginSection" data-name="<%=chatUsername%>">
 
             <!--userInfo start here-->
 
@@ -46,14 +47,19 @@
                     <div class="searchButton" id="search">
                         <i class="fa fa-search"></i>
                     </div>
+
                     <!--<input type="button" id="search" value="search">-->
                 </div>
-
-                <div class="usersContainer">
-                    <!--<div id="userList"></div>-->
-                </div>
+                
+                <table id="chat">
+                        <div class="usersContainer">                   
+                                <!--<div id="userList"></div>-->
+                            </div>
+                      
+                      </table>
+                
             </div>
-
+            
 
 
             <div class="profileInfoFull">
@@ -63,7 +69,7 @@
         </div>
         <div class="chatPanel">
             <div class="userInfo2">
-                <img src="images/user1.jpg" class="userImage">
+                <img src="images/user.png" class="userImage">
                 <div class="userName"></div>
             </div>
 
@@ -74,13 +80,8 @@
             <div class="userFullInfoContainer">
                 <div class="userInfoBlock">
                     <div class="imageContainer">
-                        <img src="images/user1.jpg" class="image">
-                    </div>
-                    <div class="infoContainer">
-                        <div class="name"></div>
-                        <div class="status"></div>
-                        <div class="mute"></div>
-                    </div>
+                        <img src="images/user.png" class="image">
+                    </div>             
                 </div>
                 <div class="closeButton">
                     <i class="fa fa-close"></i>
@@ -100,52 +101,27 @@
 </body>
 
 
+
 <script id="screen1Template" type="text/x-jsrender">
     <div class="name">
-        <div class="screen ">
-            <div class="textBox">
-                <input type="text" placeholder="Enter Your Name" class="inputBox" required>
-            </div>
+        <div class="screen ">            
             <div class="enterButton">
-                <div class="nextScreen">
-                    <i class="fa fa-arrow-circle-o-right">Start Chat Now</i>
-                    <!-- <div class="enterText">Start Chat Now</div> -->
-                </div>
-                
-               
+                    <div class="enterText">Start Chat Now</div>
+                    <!-- <i class="fa fa-arrow-circle-o-right">Start Chat Now</i> -->
             </div>
         </div>
     </div>
 </script>
-
-<script id="finishContainerTemplate" type="text/x-jsrender">
-    <div class="finish">
-        <div class="screen">
-            <div class="successfullMessage">
-                <div class="icon">
-                    <i class="fa fa-check-circle"></i>
-                </div>
-            </div>
-            <div class="enterButton">
-                <div class="enterText">Start Chat Now</div>
-            </div>
-        </div>
-    </div>
-</script>
-
-
-
-
 
 <script id="profileDataTemplate" type="text/x-jsrender">
-    <img src="{{>imageUrl}}" class="profileImage">
+     <img src="images/user.png" class="profileImage">
     <div class="profileName">{{>userName}}</div>
 </script>
 
 
 <script id="userTemplate" type="text/x-jsrender">
     <div class="user">
-        <img src="{{>profileImage}}" data-image="{{>profileImage}}" class="Image">
+        <img src="images/user.png" data-image="images/user.png" class="Image">
         <div class="Name" data-id="{{>profileId}}" name="{{>profileName}}" onclick="showchatPanel(this)">{{>profileName}}</div>
         <div class="userStatusColor">
             <i class="fa fa-circle"></i>

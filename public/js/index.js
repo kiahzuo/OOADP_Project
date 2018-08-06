@@ -44,26 +44,17 @@ function update(req) {
 var loginScreen1 = new function() {
     this.show = function() {
         render('.screens', 'screen1', user, function() {
-            bind('.mainContainer .loginSection .userInfo .name .screen .enterButton .nextScreen', function() {
+            bind('.mainContainer .loginSection .userInfo .name .screen .enterButton', function() {
                 var localUser = JSON.parse(JSON.stringify(user));
                 localUser.userName = $('.loginSection').data('name');
-                localUser.userName = $('.name .screen .textBox .inputBox').val();
-                if (localUser.userName == '') {
-                    alert("Please enter your name");
-                }
-                if (user.imageUrl == '') {
-                    alert("Please select profile image");
-                } else {
+                console.log("client side username: "+JSON.stringify(localUser));                     
                     var temp = {};
                     temp.user = localUser;
-                    update(temp);
-                    temp.next = 'finishScreen';
-                    temp.user = localUser;
-                    update(temp);
-                    temp.user = localUser;
-                    update(temp);
-                }
-                console.log("loginScreen1");
+                    update(temp);                                
+                    socket.emit('user name', user);           
+                    $('.mainContainer').hide();
+                    $('.chatContainer').show();
+                    render('.profileInfo', 'profileData', user);
             })
         })
     }
@@ -71,175 +62,6 @@ var loginScreen1 = new function() {
 
 loginScreen1.show(user);
 
-// var loginScreen2 = new function() {
-//     this.show = function(req) {
-//         render('.screens', 'screen2', req, function() {
-//             bind('.mainContainer .loginSection .userInfo .age .screen .enterButton .nextScreen', function() {
-//                 var localUser = JSON.parse(JSON.stringify(req));
-//                 localUser.userAge = $('.age .screen .textBox .inputBox').val();
-//                 if (localUser.userAge == '') {
-//                     alert("Please enter your Age");
-//                 } else {
-//                     var temp = {};
-//                     temp.next = 'loginScreen3';
-//                     temp.user = localUser;
-//                     update(temp);
-//                 }
-//                 console.log(localUser.userAge);
-//             })
-//             bind('.mainContainer .loginSection .userInfo .screen .enterButton .previousScreen', function() {
-//                 req.next = 'loginScreen1';
-//                 loginScreen1.show(user);
-//             })
-
-//         })
-//     }
-// }
-
-// var loginScreen3 = new function() {
-//     this.show = function(req) {
-//         render('.screens', 'screen3', req, function() {
-//             console.log("hello render function", req);
-//             bind('.mainContainer .loginSection .userInfo .school .screen .enterButton .nextScreen', function() {
-//                 var localUser = JSON.parse(JSON.stringify(req));
-//                 localUser.userSchool = $('.school .screen .textBox .inputBox').val();
-//                 if (localUser.userSchool == '') {
-//                     alert("Please enter your school name");
-//                 } else {
-//                     var temp = {};
-//                     temp.next = 'loginScreen4';
-//                     temp.user = localUser;
-//                     update(temp);
-
-//                 }
-//                 console.log(localUser.userSchool);
-//             })
-//             bind('.mainContainer .loginSection .userInfo .screen .enterButton .previousScreen', function() {
-//                 req.next = 'loginScreen2';
-//                 loginScreen2.show(user);
-//             })
-
-//         })
-//     }
-// }
-
-// var loginScreen4 = new function() {
-//     this.show = function(req) {
-//         render('.screens', 'screen4', req, function() {
-//             bind('.mainContainer .loginSection .userInfo .city .screen .enterButton .nextScreen', function() {
-//                 var localUser = JSON.parse(JSON.stringify(req));
-//                 localUser.userCity = $('.city .screen .textBox .inputBox').val();
-//                 if (localUser.userCity == '') {
-//                     alert("Please enter your city");
-//                 } else {
-//                     var temp = {};
-//                     temp.next = 'finishScreen';
-//                     temp.user = localUser;
-//                     update(temp);
-
-//                 }
-//                 console.log(localUser.userCity);
-//                 render('.detailsContainer', 'details', user, function() {
-//                     bind('.info .infoEditInner.name .infoEditButton.name', function() {
-//                         $('.infoEditInner.name').hide();
-//                         $('.infoUpdateInner.name').show();
-//                     })
-//                     bind('.info .infoUpdateInner.name .infoUpdateButton.name', function() {
-//                         $('.infoUpdateInner.name').hide();
-//                         $('.infoEditInner.name').show();
-//                         userNameUpdate = $('.mainContainer .detailsContainer .details .info .infoUpdateInner .infoUpdateData .inputUpdate.name').val();
-//                         if (userNameUpdate == '') {
-
-//                         } else {
-//                             user.userName = userNameUpdate;
-//                             $('.mainContainer .detailsContainer .details .info .infoEditInner .infoData.name').empty();
-//                             $('.mainContainer .detailsContainer .details .info .infoEditInner .infoData.name').append(user.userName);
-//                         }
-
-//                     })
-
-
-//                     bind('.info .infoEditInner.age .infoEditButton.age', function() {
-//                         $('.infoEditInner.age').hide();
-//                         $('.infoUpdateInner.age').show();
-//                     })
-//                     bind('.info .infoUpdateInner.age .infoUpdateButton.age', function() {
-//                         $('.infoUpdateInner.age').hide();
-//                         $('.infoEditInner.age').show();
-//                         userAgeUpdate = $('.mainContainer .detailsContainer .details .info .infoUpdateInner .infoUpdateData .inputUpdate.age').val();
-//                         if (userAgeUpdate == '') {
-
-//                         } else {
-//                             user.userAge = userAgeUpdate;
-//                             $('.mainContainer .detailsContainer .details .info .infoEditInner .infoData.age').empty();
-//                             $('.mainContainer .detailsContainer .details .info .infoEditInner .infoData.age').append(user.userAge);
-//                         }
-//                     })
-
-
-//                     bind('.info .infoEditInner.school .infoEditButton.school', function() {
-//                         $('.infoEditInner.school').hide();
-//                         $('.infoUpdateInner.school').show();
-//                     })
-//                     bind('.info .infoUpdateInner.school .infoUpdateButton.school', function() {
-//                         $('.infoUpdateInner.school').hide();
-//                         $('.infoEditInner.school').show();
-//                         userSchoolUpdate = $('.mainContainer .detailsContainer .details .info .infoUpdateInner .infoUpdateData .inputUpdate.school').val();
-//                         if (userSchoolUpdate == '') {
-
-//                         } else {
-//                             user.userSchool = userSchoolUpdate;
-//                             $('.mainContainer .detailsContainer .details .info .infoEditInner .infoData.school').empty();
-//                             $('.mainContainer .detailsContainer .details .info .infoEditInner .infoData.school').append(user.userSchool);
-//                         }
-//                     })
-
-
-//                     bind('.info .infoEditInner.city .infoEditButton.city', function() {
-//                         $('.infoEditInner.city').hide();
-//                         $('.infoUpdateInner.city').show();
-//                     })
-//                     bind('.info .infoUpdateInner.city .infoUpdateButton.city', function() {
-//                         $('.infoUpdateInner.city').hide();
-//                         $('.infoEditInner.city').show();
-//                         userCityUpdate = $('.mainContainer .detailsContainer .details .info .infoUpdateInner .infoUpdateData .inputUpdate.city').val();
-//                         if (userCityUpdate == '') {
-
-//                         } else {
-//                             user.userCity = userCityUpdate
-//                             $('.mainContainer .detailsContainer .details .info .infoEditInner .infoData.city').empty();
-//                             $('.mainContainer .detailsContainer .details .info .infoEditInner .infoData.city').append(user.userCity);
-//                         }
-//                     })
-//                 });
-//             })
-//             bind('.mainContainer .loginSection .userInfo .screen .enterButton .previousScreen', function() {
-//                 req.next = 'loginScreen3';
-//                 loginScreen3.show(user);
-//             })
-
-//         })
-//     }
-// }
-
-var finishScreen = new function() {
-    this.show = function(req) {
-        render('.screens', 'finishContainer', req, function() {
-            bind('.mainContainer .loginSection .userInfo .finish .screen .enterButton', function() {
-                var localUser = JSON.parse(JSON.stringify(req));
-                console.log("finish screen");
-                var temp = {};
-                temp.next = 'loginScreen1';
-                temp.user = localUser;
-                update(temp);
-                socket.emit('user name', user);
-                $('.mainContainer').hide();
-                $('.chatContainer').show();
-                render('.profileInfo', 'profileData', user);
-            })
-        })
-    }
-}
 
 function update(req) {
     user = req.user;
@@ -247,9 +69,6 @@ function update(req) {
     switch (req.next) {
         case 'loginScreen1':
             loginScreen1.show(user);
-            break;
-        case 'finishScreen':
-            finishScreen.show(user);
             break;
     }
 }
@@ -276,36 +95,6 @@ $(document).ready(function() {
 })
 
 //profileInfo details show&hide function closed here
-
-
-
-//searchBox function start here
-
-$(document).ready(function() {
-
-    var search = $("#searchString");
-    var items = $(".user");
-
-    $("#search").on("click", function() {
-
-        var value = search.val().toLowerCase();
-        if (value == "") {
-            items.show();
-            return;
-        }
-        $.each(items, function() {
-            var it = $(this);
-            var string = it.find(".Name").text().toLowerCase();
-            console.log(string + " --- " + value);
-            if (string.indexOf(value) == 0)
-                it.hide();
-        });
-    });
-});
-
-
-//searchBox function end here
-
 
 
 // hide and show profilefullInfo start here
@@ -404,20 +193,9 @@ function showchatPanel(data) {
 
 bind('.chatPanel .messageBox .sendButton', function() {
     var messageText = $('.chatContainer .chatPanel .messageBox .textBox .textArea').val();
-
     socket.emit('chatting', messageText, user, receiverId,recieverName);
     $('.chatContainer .chatPanel .messageBox .textBox .textArea').val('');
 });
-
-
-$('.chatPanel .messageBox .textBox .textArea').keyup(function(e) {
-    if (e.keyCode == 13) {
-        var messageText = $('.chatContainer .chatPanel .messageBox .textBox .textArea').val();
-        socket.emit('chatting', messageText, userName, receiverId,recieverName);
-        $('.chatContainer .chatPanel .messageBox .textBox .textArea').val('');
-    }
-});
-
 
 //message send closed here
 

@@ -297,16 +297,8 @@ app.use('/chat',chatRouter);
 
 
 //IFFAH
-// app.get('/chat', function(req, res) {
-//     res.render( './chatPage');
-// });
 
-
-//var server = http.createServer(app);
- //server.listen(3001)
-
-
- io.on('connection', function(socket) {
+io.on('connection', function(socket) {
 
     //   console.log('a user connected');
 
@@ -344,7 +336,7 @@ app.use('/chat',chatRouter);
     
         //save msg to database
         var msgDataJSON = {
-         from: sender.userName,
+         sender: sender.userName,
          receivername: receivername,
          messages: message
        }
@@ -360,14 +352,9 @@ app.use('/chat',chatRouter);
  
        //send msgs by socket io to the person
        //socket.to(receiver).emit('reciverPeer', message, socket.id, receiver);
-      // socket.emit('senderPeer', message, socket.id, receiver);
- 
-        
-       
+      // socket.emit('senderPeer', message, socket.id, receiver);      
    })
-
 });
-
 // Render special "page" for when logged out (user session variable undefined)?
 
 // catch 404 and forward to error handler
