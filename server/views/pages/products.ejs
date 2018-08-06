@@ -22,12 +22,13 @@
       }
 
       .card-deck {
-        margin-left: 10px;
+        margin-left: 0px;
         margin-top: 10px;
+        margin-right: 5px;
       }
 
       .card-body {
-        width: 250px;
+        width: 270px;
 
       }
 
@@ -130,34 +131,8 @@
                   <input class="form-control mr-sm-2" type="search" placeholder="Type a bookname..." aria-label="Search" id="search">
                   <br>
                   <br>
-                  <form action="/products" method="POST" onchange="checkAndSubmit()" id="formID">
-                    <select class="sort" name="sort" id="sort">
-                      <option value="All">Price</option>
-                      <option value="low">Low to High</option>
-                      <option value="high">High to Low</option>
-                    </select>
+       
 
-                  </form>
-
-                  <br>
-                  <br>
-                  <form action="/products" method="post" onchange="checkAndSubmit2()" id="formID2">
-                    <select class="sort" name="sort" id="sort2">
-                      <option value="All">Genre</option>
-                      <% for (i =0; i < genre.length; i++) {%>
-                        <% if ( genre[i].genre != 'All') { %>
-                        <option value="<%= genre[i].genre %>">
-                          <%= genre[i].genre %>
-                        </option>
-
-                        <% } %>
-                        <% } %>
-                    </select>
-
-
-                  </form>
-                  <br>
-                  <br>
 
                   <form action="/filterprice" method="post">
 
@@ -184,9 +159,44 @@
             <div class="col-sm-6 col-md-8 col-lg-9 p-b-50">
               <!--  -->
 
+              
+
               <br>
               <br>
 
+              <div class="flex-w">
+                  <div class="rs2-select2 bo4 of-hidden w-size12 m-t-5 m-b-5 m-r-10">
+                      <form action="/products" method="POST" onchange="checkAndSubmit()" id="formID">
+                        <select class="sort" name="sort" id="sort">
+                          <option value="All">Price</option>
+                          <option value="low">Low to High</option>
+                          <option value="high">High to Low</option>
+                        </select>
+    
+                      </form>
+                  </div>
+    
+                  <div class="rs2-select2 bo4 of-hidden w-size12 m-t-5 m-b-5 m-r-10">
+                      <form action="/products" method="post" onchange="checkAndSubmit2()" id="formID2">
+                        <select class="sort" name="sort" id="sort2">
+                          <option value="All">Genre</option>
+                          <option value="All">All</option>
+                          <% for (i =0; i < genre.length; i++) {%>
+                            <% if ( genre[i].genre != 'All') { %>
+                            <option value="<%= genre[i].genre %>">
+                              <%= genre[i].genre %>
+                            </option>
+    
+                            <% } %>
+                            <% } %>
+                        </select>
+    
+    
+                      </form>
+
+                  </div>
+                </div>
+<br><br>
               <!-- Product -->
               <div class="row">
                 <% for (i =0; i < images.length; i++) {%>
