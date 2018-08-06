@@ -9,6 +9,7 @@ var logger = require('morgan');
 var router = express.Router();
 var firebase = require('firebase');
 var admin = require("firebase-admin");
+var request = require('request');
 var app = express();
 // Including neccessary "modules"...
 app.use(logger('dev'));
@@ -44,8 +45,8 @@ var database = firebase.database().ref();
 
 // Bank routes, get and post
 app.get('/bank',function(req, res){
-    var users =  firebase.database().ref().child("users");
-    var confirm =  firebase.database().ref().child("confirm");
+    var users =  database.child("users");
+    var confirm =  database.child("confirm");
     var x,y;
     users.on("value", function(snapshot) {
         x = snapshot.val();});
@@ -67,7 +68,7 @@ app.post('/bank',function(req, res){
     var CreditCardSC = req.body.CreditCardSC;
     var CreditDebit = req.body.CreditDebit;
 
-    var users = firebase.database().ref().child("users");
+    var users = database.child("users");
 
     users.push({
         FirstName:InputFirstName,
@@ -83,13 +84,187 @@ app.post('/bank',function(req, res){
     res.redirect('back');
 });
 
-app.post('/processingPayment/',function(req,res){
-    // var paymentData = JSON.parse(req);
-    console.log(req.body)
-    var paymentData = req.body
-    console.log(paymentData.PID);
-    console.log(paymentData.Amount);
-    res.status(200).send("Success");
+app.post('/processingPayment',function(req,res){
+    console.log('/processingpayment...........');
+    console.log(req.body);
+    var to = req.body.To;
+    var from = req.body.From;
+    var amount = req.body.Amount;
+    var pid = req.body.PID;
+    var y,x,errorMessage,toc = false,acc = false,PPstatus;
+    var users = database.child('users');
+    var confirm = database.child("confirm");
+    users.on('value',function(snapshot){
+        x = snapshot.val();});
+    confirm.on('value',function(snapshot){
+        y = snapshot.val();});
+    for (var key in x){
+        if (test.hasOwnProperty(key)) {
+            if (to == x[key].AccountNumber || to == x[key].CreditcardNumber) {
+                if (from == x[key].AccountNumber || from == x[key].CreditcardNumber) {  
+                    if (amount >= x[key].AvailableBalance){
+                        PPstatus = "Success";
+                        var date =   currentdate.getDate() + "/" + (currentdate.getMonth()+1)  + "/" + currentdate.getFullYear();
+                        var time = currentdate.getHours() + ":" + currentdate.getMinutes() + ":" + currentdate.getSeconds();
+                        //send to fire base the request
+                        confirm.push({
+                            Amount:amount,
+                            Data:date,
+                            From:from,
+                            Time:time,
+                            To:to,})
+                    }else{
+                        PPstatus = "Insufficient Amount";
+                    };
+
+                    var PPdata = JSON.stringify({
+                        PID: req.body.PID,
+                        Status: PPstatus,
+                    });
+
+                    // Min choose 1 'A' or 'B' idk if either works if both dont work use 'C'
+                    // test in this order 'B' -> 'A' -> 'C'
+                    // delete the other codes
+                    // A
+                    // if (res.status() == 200){
+                    //     res.status(200).send(PPdata);
+                    //     res.status(200).end();
+                    // }else if (res.status() == 400){
+                    //     res.status(400).send("Error")
+                    //     res.status(400).end();
+                    // };
+                    // // end A
+
+                    // // B
+                    // res.status(num,function(){
+                    //     if (num == 200){
+                    //         res.status(200).send(PPdata);
+                    //         res.status(200).end();
+                    //     }else if (num == 400){
+                    //         res.status(400).send("Error");
+                    //         res.status(400).end();
+                    //     }
+                    // });
+                    // end B
+
+                    // C
+                    console.log("Sending");
+                    res.status(200).send(PPdata);
+                    // end C
+
+                }else{
+                    console.log("To is not in database");
+                    res.status(404).send("Invalid User");
+                    res.status(404).end();
+                }
+            }else{
+                console.log("From is not in database");
+                    res.status(404).send("Invalid User");
+                    res.status(404).end();
+            };
+        };
+    };
+});
+
+app.post('/checkCard',function(req,res){
+    console.log('/checkcard...........');
+    console.log(req.body);
+    var reqccholder = req.body.cardHolder;
+    var reqccnum = req.body.cardNumber;
+    var reqmonth = req.body.expMonth;
+    var reqyear = req.body.expYear;
+    var reqcccvc = req.body.cardCVC;
+    var userid = req.body.userID;
+    var reqamount = req.body.amount;
+    var x,CCct,CCdata,CCStatus$ = "Insufficient Amount";
+    users.on('value',function(snapshot){
+        x = snapshot.val();});
+    for (var key in x){
+        if (test.hasOwnProperty(key)) {
+            var dbccholder = x[key].FirstName+x[key].LastName;
+            var dbccnum = x[key].CreditcardNumber;
+            var dbmonth = x[key].ExpireMonth;
+            var dbyear = x[key].ExpireYear;
+            var dbcccvc = x[key].CreditCardSC;
+            var dbAC = x[key].AccountNumber;
+            if (reqccholder == dbccholder){
+                if (reqccnum == dbccnum){
+                    if (reqmonth == dbmonth){
+                        if (reqyear == dbyear){
+                            if (reqcccvc == dbcccvc){
+                                console.log('match');
+                                if (x[key].CreditDebit == "Credit"){
+                                    CCStatus$ = "Success"
+                                }else if (amount >= x[key.AvailableBalance]){
+                                    CCStatus$ = "Success"
+                                };
+                                Stripe.setPublishableKey('pk_test_9D43kM3d2vEHZYzPzwAblYXl');
+                                var cardType = Stripe.card.cardType(dbccnum);
+                                switch (cardType) {
+                                    case 'VISA': CCct = "Visa";
+                                    case 'MasterCard': CCct = "MasterCard";
+                                    case 'Discover': CCct = "Discover"
+                                    case 'American Express': CCct = "AMEX";
+                                }
+                                CCdata = JSON.stringify({
+                                    userID: req.body.userID,
+                                    StatusExist: "Success", 
+                                    StatusMoney: CCStatus$,
+                                    BankAccNo: dbAC,
+                                    CardType: CCct,
+                                })
+                                
+                                // Min choose 1 'A' or 'B' idk if either works if both dont work use 'C'
+                                // test in this order 'B' -> 'A' -> 'C'
+                                // A
+                                // if (res.status() == 200){
+                                //     res.status(200).send(CCdata);
+                                //     res.status(200).end();
+                                // }else if (res.status() == 400){
+                                //     res.status(400).send("Error")
+                                //     res.status(400).end();
+                                // };
+                                // // end A
+
+                                // // B
+                                // res.status(num,function(){
+                                //     if (num == 200){
+                                //         res.status(200).send(CCdata);
+                                //         res.status(200).end();
+                                //     }else if (num == 400){
+                                //         res.status(400).send("Error");
+                                //         res.status(400).end();
+                                //     }
+                                // });
+                                // end B
+
+                                // C
+                                console.log("Sending")
+                                res.status(200).send(CCdata);
+                                res.status(200).end();
+                                // end C
+
+                            }else{
+                                console.log('cvc does not match');
+                            }
+                        }else{
+                            console.log('year does not match');
+                        }
+                    }else{
+                        console.log('month does not match');
+                    }
+                }else{
+                    console.log('ccnum does not match');
+                }
+            }else{
+                console.log('name does not match');
+                // reply invalid creditcard information dont specify
+                res.status(404).send("Invalid User");
+                res.status(404).end();
+            }
+
+        };
+    };
 });
 
 app.post('/bank/confirm',function(err,req,res){
