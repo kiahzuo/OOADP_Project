@@ -80,7 +80,8 @@ router.post("/new/:uid/", (req, res) => {
         cardHolder: req.body.cardHolder,
         expMonth: req.body.expMonth,
         expYear: req.body.expYear,
-        userID : req.body.user_ID
+        userID : req.body.user_ID,
+        amount: 10
     })
 
     var options = {
@@ -100,7 +101,8 @@ router.post("/new/:uid/", (req, res) => {
         res.on("data", function(data) {
             responseStringCC += data; // Save all data from response
             resCCJSON = JSON.parse(data) ;
-            resCCStatus = resCCJSON.Status ;
+            resCCStatus = resCCJSON.StatusExist ;
+            resCCStatusMoney = resCCJSON.Status
             resCCType = resCCJSON.CCType ;
             resBankAccNo = resCCJSON.BankAccNo ;
         });
@@ -117,6 +119,11 @@ router.post("/new/:uid/", (req, res) => {
                     user_id: req.user.id
                 }
                 paymentCards.create(paymentCardData).then(function(newPaymentCard) {
+                    if (!newPaymentCard || newPaymentCard == 0) {
+                        return res.send(400, {
+                            message: "Error, unable to add new payment card."
+                        });
+                    }
                     if (req.body.CCDesignated) {
                         Users.find({ where: { id: req.body.userID } }).then(function(updateRecord) {
                             if (!updateRecord || updateRecord == 0) {
@@ -125,8 +132,7 @@ router.post("/new/:uid/", (req, res) => {
                                 });
                             } else {
                                 updateRecord.updateAttributes({
-                                    bankCardNo: req.body.cardNumber,
-                                    bankCardName: req.body.cardHolder
+                                    designatedBankAccount: resBankAccNo,
                                 });
                                 // reply.available = "In cart" --> Reference
                                 res.status(200).send(reply); // Need return?
