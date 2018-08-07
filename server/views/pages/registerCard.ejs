@@ -22,6 +22,15 @@
     <link href="/stylesheets/business-casual.min.css" rel="stylesheet">
     <link href="/stylesheets/payment.css" rel="stylesheet">
     <% include ../partials/head %>
+    <style>
+      input[type="checkbox"] {
+        vertical-align:middle;
+        transform: scale(1.7);
+      }
+      #cardDesignationBox {
+        margin-left: 21%;
+      }
+    </style>
   </head>
 
   <body>
@@ -82,11 +91,14 @@
             </div>
             <!-- end card back -->
             <input type="text" id="card-token" />
-            <span id="cardDesignationBox"><input type="checkbox" id="cardDesignation" />Receive payments on this bank account</span>
             <!--Tooltip here?-->
             <button type="button" id="card-btn">Submit</button>
             <!-- <input type="submit" id="card-btn" placeholder="Submit"> -->
           </div>
+          <br />
+          <span id="cardDesignationBox">
+            <label for="cardDesignation" style="word-wrap:break-word"><input id="cardDesignation" type="checkbox"/>   <b>Receive payments on this bank account.</b></label>
+          </span>
         </form>
       </div>
     </section>
