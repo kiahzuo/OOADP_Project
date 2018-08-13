@@ -1,7 +1,6 @@
 var express = require('express');
 var router = express.Router();
 var myDatabase = require('../server/controller/database');
-var http = require('http');
 
 var Images = require('../server/models/images');
 var Users = require('../server/models/users');
@@ -12,71 +11,6 @@ var sequelize = myDatabase.sequelize;
 const Op = sequelize.Op
 
 const BT_bankAccountNo = 3213165
-
-var options = {
-    url: "http://localhost",
-    port: 4000,
-    path: "/checkCard/",
-    method: "POST",
-    headers: {
-        "Content-Type" : "application/json"
-    }
-}
-var sendTo4000CC = http.request(options, function(res) {
-    console.log("Sending card data to be checked");
-    var responseStringCC = "";
-    
-    res.setEncoding("UTF8");
-    res.on("data", function(data) {
-        responseStringCC += data; // Save all data from response
-        resCCJSON = JSON.parse(data) ;
-        resCCStatus = resCCJSON.StatusExist ;
-        resCCStatusMoney = resCCJSON.Status
-        resCCType = resCCJSON.CCType ;
-        resBankAccNo = resCCJSON.BankAccNo ;
-    });
-    res.on("end", function() {
-        console.log(responseStringCC); // Print response to console when it ends
-        console.log(resCCStatus);
-        console.log("TEST");
-        if (resCCStatus == "Success") {
-            /* Check if payment card record already exists, then create new record if not */
-            
-            var paymentCardData = {
-                cardNo: cardNumber,
-                cardType: resCCType,
-                bankAccountNo: resBankAccNo,
-                user_id: userID
-            }
-            // paymentCard.find....
-            paymentCards.create(paymentCardData).then(function(newPaymentCard) {
-                if (!newPaymentCard || newPaymentCard == 0) {
-                    return res.send(400, {
-                        message: "Error, unable to add new payment card."
-                    });
-                }
-                else {
-                    if (true) { //CCDesignated) {
-                        Users.find({ where: { id: userID } }).then(function(updateRecord) {
-                            if (!updateRecord || updateRecord == 0) {
-                                return res.send(400, {
-                                    message: "Error, user does not exist or unable to update"
-                                });
-                            } else {
-                                updateRecord.updateAttributes({
-                                    designatedBankAccount: resBankAccNo,
-                                });
-                                reply = {
-                                    message: "New " + resCCType + " card successfully registered."
-                                }   
-                            }
-                        });
-                    }
-                }
-            });
-        }
-    });
-});
 
 /* Render checkout payment page. */
 router.get('/', function(req, res, next) {
@@ -132,30 +66,83 @@ router.get('/new/', function(req, res, next) {
 
 /* Register the bank account for new users (For now is "required" upon signup) */
 router.post("/new/:uid/", (req, res) => {
-    console.log("YES");
     if (req.body.userID == req.params.uid && req.user.id == req.body.userID) {
         console.log("ID check successful")
-        cardNumber = req.body.cardNumber;
-        userID = req.body.userID;
-
-        var reply = {
-            message: "",
-        };
-        // Send data to bank server to check card
-        var checkCardData = JSON.stringify({
-            cardNumber: req.body.cardNumber,
-            cardCVC: req.body.cardCVC,
-            cardHolder: req.body.cardHolder,
-            expMonth: req.body.expMonth,
-            expYear: req.body.expYear,
-            userID : req.body.userID,
-            amount: 0
-        })
-        console.log(checkCardData);
-        sendTo4000CC.write(checkCardData);
-        sendTo4000CC.end();
-        res.status(200).send(reply); 
     }
+    var reply = {
+        message: "",
+    };
+  
+    // Send data to bank server to check card
+    var checkCardData = JSON.stringify({
+        cardNumber: req.body.cardNumber,
+        cardCVC: req.body.cardCVC,
+        cardHolder: req.body.cardHolder,
+        expMonth: req.body.expMonth,
+        expYear: req.body.expYear,
+        userID : req.body.user_ID,
+        amount: 10
+    })
+
+    var options = {
+        url: "http://localhost",
+        port: 4000,
+        path: "/checkCard/",
+        method: "POST",
+        headers: {
+            "Content-Type" : "application/json"
+        }
+    }
+    var sendTo400CC = http.request(options, function(res) {
+        console.log("Sending card data to be checked");
+        var responseStringCC = "";
+        
+        res.setEncoding("UTF8");
+        res.on("data", function(data) {
+            responseStringCC += data; // Save all data from response
+            resCCJSON = JSON.parse(data) ;
+            resCCStatus = resCCJSON.StatusExist ;
+            resCCStatusMoney = resCCJSON.Status
+            resCCType = resCCJSON.CCType ;
+            resBankAccNo = resCCJSON.BankAccNo ;
+        });
+        res.on("end", function() {
+            console.log(responseStringCC); // Print response to console when it ends
+            console.log(resCCStatus);
+
+            if (resCCStatus == "Exists") {
+                /* Create new payment card record */
+                var paymentCardData = {
+                    cardNo: req.body.cardNumber,
+                    cardType: resCCType,
+                    bankAccountNo: resBankAccNo,
+                    user_id: req.user.id
+                }
+                paymentCards.create(paymentCardData).then(function(newPaymentCard) {
+                    if (!newPaymentCard || newPaymentCard == 0) {
+                        return res.send(400, {
+                            message: "Error, unable to add new payment card."
+                        });
+                    }
+                    if (req.body.CCDesignated) {
+                        Users.find({ where: { id: req.body.userID } }).then(function(updateRecord) {
+                            if (!updateRecord || updateRecord == 0) {
+                                return res.send(400, {
+                                    message: "Error, user does not exist or unable to update"
+                                });
+                            } else {
+                                updateRecord.updateAttributes({
+                                    designatedBankAccount: resBankAccNo,
+                                });
+                                // reply.available = "In cart" --> Reference
+                                res.status(200).send(reply); // Need return?
+                            }
+                        });
+                    }
+                });
+            }
+        });
+    });
 });
 
 module.exports = router;

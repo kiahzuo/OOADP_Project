@@ -164,7 +164,7 @@ router.post('/checkout/all/', function(req, res, next) {
                 var uniquePID = "";
 
                 if (userRecord.bankCardNo != undefined) {
-                    // userCardNumber = userRecord.bankCardNo ;
+                    userCardNumber = userRecord.bankCardNo ;
                 }
                 else {
                     // ...
@@ -216,7 +216,7 @@ router.post('/checkout/all/', function(req, res, next) {
                                 var paymentAData = JSON.stringify({
                                     PID : uniquePID,
                                     To : BT_bankAccountNo,
-                                    From: 325643021,
+                                    From: userCardNumber,
                                     Amount: totalBookPrice
                                 })
 
@@ -262,7 +262,6 @@ router.post('/checkout/all/', function(req, res, next) {
                                             if (PIDNumbersArray[0] != currentTransactionID) {
                                                 // Error
                                             }
-                                            console.log(sellerIDArray);
                                             // Reply user...
                                             // res.status(200).send("Time to wait"); // Triger smth on browser side to make user wait
                                             Users.findAll({ where: { id: { [Op.in]: sellerIDArray } } }).then(function(sellers) {
