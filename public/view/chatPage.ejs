@@ -6,7 +6,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta charset="utf-8">
     <title>chat window</title>
-    <script src="bower_components/socket.io-client/socket.io.js"></script>
     <link rel="stylesheet" type="text/css" href="../css/screen.css">
     <link rel="stylesheet" href="../css/style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
@@ -42,14 +41,7 @@
                 <div class="profileInfo">
                     <!--script template-->
                 </div>
-                <div class="searchBox">
-                    <input type="text" class="inputBox" id="searchString" placeholder="Search or Start New Chat">
-                    <div class="searchButton" id="search">
-                        <i class="fa fa-search"></i>
-                    </div>
-
-                    <!--<input type="button" id="search" value="search">-->
-                </div>
+            
                 
                 <table id="chat">
                         <div class="usersContainer">                   
@@ -59,12 +51,7 @@
                       </table>
                 
             </div>
-            
-
-
-            <div class="profileInfoFull">
-                <!--script template profileInfoFull-->
-            </div>
+        
 
         </div>
         <div class="chatPanel">
@@ -107,17 +94,18 @@
         <div class="screen ">            
             <div class="enterButton">
                     <div class="enterText">Start Chat Now</div>
-                    <!-- <i class="fa fa-arrow-circle-o-right">Start Chat Now</i> -->
             </div>
         </div>
     </div>
 </script>
 
 <script id="profileDataTemplate" type="text/x-jsrender">
-     <img src="images/user.png" class="profileImage">
+    <div class="backbutton" style="font-size:40px;color:grey;" onclick="window.history.back();">
+    <i class="fa fa-chevron-circle-left"></i>
+    </div>
+    <img src="images/user.png" class="profileImage">
     <div class="profileName">{{>userName}}</div>
 </script>
-
 
 <script id="userTemplate" type="text/x-jsrender">
     <div class="user">
