@@ -115,22 +115,7 @@ body {
   background: #ffffff;
   cursor: pointer;
 }
-.mainContainer .loginSection .userInfo .screen .enterButton .nextScreen {
-  position: relative;
-  float: left;
-  left: 18rem;
-  font-size: 6rem;
-  line-height: 5rem;
-  color: rgba(52, 73, 94, 0.8);
-}
-.mainContainer .loginSection .userInfo .screen .enterButton .previousScreen {
-  position: relative;
-  float: left;
-  margin-left: 6rem;
-  font-size: 6rem;
-  line-height: 5rem;
-  color: rgba(52, 73, 94, 0.8);
-}
+
 .mainContainer .loginSection .userInfo .screen .enterButton .enterText {
   position: relative;
   float: left;
