@@ -157,104 +157,7 @@ app.post('/filterprice', images.filterPrice)
 //     });
 // });  
    
-// Payment and bank routes, get and post
-app.post('/payment', function(req, res){
-    console.log("=== Start ===");
-    console.log(req.body);
-    console.log("=== End ===");
-    var cardNumber = req.body.cardNumber;
-    var cardHolder = req.body.cardHolder;
-    var cardHolder_verify = cardHolder.replace(/\s/g, '').toUpperCase();
-    var cardMonth = req.body.cardMonth;
-    var cardYear = req.body.cardYear;
-    var cardCVC = req.body.cardCVC;
-    var cardamount = req.body.cardAmount;
-
-    var users =  firebase.database().ref().child("users");
-    users.on("value", function(snapshot) {
-        var confirm =  firebase.database().ref().child("confirm");
-        var x = snapshot.val();
-        for (var key in x){
-            if (x.hasOwnProperty(key)){
-                var db_cn = x[key].CreditcardNumber;
-                var db_ch = x[key].FirstName + x[key].LastName;
-                var db_ch_verify = db_ch.replace(/\s/g, '').toUpperCase();
-                var db_em = x[key].ExpireMonth;
-                var db_ey = x[key].ExpireYear;
-                var db_cvc = x[key].CreditCardSC;
-                if (cardNumber == db_cn){
-                    if (cardHolder_verify == db_ch_verify){
-                        if (cardMonth == db_em){
-                            if (cardYear == db_ey){
-                                if (cardCVC == db_cvc){
-                                    console.log("PASS!");
-                                    console.log("User key : " + key);
-                                    var currentdate = new Date(); 
-                                    var date =   currentdate.getDate() + "/" + (currentdate.getMonth()+1)  + "/" + currentdate.getFullYear();
-                                    var time = currentdate.getHours() + ":" + currentdate.getMinutes() + ":" + currentdate.getSeconds();
-                                    confirm.push({
-                                        Key:key,
-                                        Date:date,
-                                        Time:time,
-                                        Amount:cardamount,
-                                    });
-                                }else{
-                                    console.log("FAIL!")
-                                }
-                            }
-                        }
-                    }
-                }
-                // end nested if
-            }
-            // end if
-        }
-        // end for
-    });
-});
-
-// Bank routes, get and post
-app.get('/bank',function(req, res){
-    var users =  firebase.database().ref().child("users");
-    var confirm =  firebase.database().ref().child("confirm");
-    users.on("value", function(snapshot) {
-        var x = snapshot.val();
-        confirm.on("value", function(snapshot) {
-            var y = snapshot.val();
-            res.render('bank',{
-                test:x,
-                confirm:y,
-            });
-        });
-    });
-    
-});
-app.post('/bank',function(req, res){
-    var InputFirstName = req.body.InputFirstName;
-    var InputLastName = req.body.InputLastName;
-    var AccountNumber = req.body.AccountNumber;
-    var AvailableBalance = req.body.AvailableBalance;
-    var CreditcardNumber = req.body.CreditcardNumber;
-    var ExpireMonth = req.body.ExpireMonth;
-    var ExpireYear= req.body.ExpireYear;
-    var CreditCardSC = req.body.CreditCardSC;
-    var CreditDebit = req.body.CreditDebit;
-
-    var users =  firebase.database().ref().child("users");
-
-    users.push({
-        FirstName:InputFirstName,
-        LastName:InputLastName,
-        AccountNumber:AccountNumber,
-        AvailableBalance:AvailableBalance,
-        CreditcardNumber:CreditcardNumber,
-        ExpireMonth:ExpireMonth,
-        ExpireYear:ExpireYear,
-        CreditCardSC:CreditCardSC,
-        CreditDebit:CreditDebit
-    });
-    res.redirect('/bank');
-})
+ 
 /* END RAW ROUTES */
 
 // Routers' routes
@@ -373,5 +276,5 @@ app.use(function(err, req, res, next) {
 });
 
 //  app.listen(3000);
-http.listen(3000);
+app.listen(3000);
 //  module.exports = app;
