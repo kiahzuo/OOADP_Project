@@ -77,6 +77,42 @@ function update(req) {
 
 
 
+//profileInfo details show&hide function start here
+
+$(document).ready(function() {
+    $('.profileInfo').click(function() {
+        $('.usersOnline').hide(500);
+    });
+    $('.profileHeader').click(function() {
+        $('.profileInfoFull').show(500);
+    });
+    $('.profileHeader .backButton').click(function() {
+        $('.usersOnline').show(500);
+
+        $('.profileInfoFull').hide(500);
+    });
+
+})
+
+//profileInfo details show&hide function closed here
+
+
+// hide and show profilefullInfo start here
+
+bind('.chatContainer .leftPanel .usersOnline .profileInfo', function() {
+    $('.usersOnline').hide(500);
+    $('.profileInfoFull').show(500);
+    render('.profileInfoFull', 'profileInfoFull', user, function() {
+        bind('.leftPanel .profileInfoFull .profileHeader .backButton', function() {
+            $('.profileInfoFull').hide(500);
+            $('.usersOnline').show(500);
+        })
+    })
+})
+
+// hide and show profilefullInfo start here
+
+
 
 
 //connected onlineUsers start here
