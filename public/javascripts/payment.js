@@ -265,7 +265,7 @@ $(document).ready(function () {
                     }; 
 
                     $.ajax({
-                        url: ('http://localhost:3000/payment/new/' + parseInt(user_ID) + '/'),
+                        url: ('/payment/new/' + parseInt(user_ID) + '/'),
                         method:'POST',
                         dataType: 'json',
                         data: JSON.stringify(sendData),
